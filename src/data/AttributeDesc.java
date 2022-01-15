@@ -7,5 +7,7 @@ public interface AttributeDesc {
 
     public short getAttributeNameIndex();
 
+    public int getDataLength();
+
     public void write(OutputStream out) throws IOException;
 }
