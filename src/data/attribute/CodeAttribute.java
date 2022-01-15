@@ -84,7 +84,7 @@ public class CodeAttribute implements AttributeDesc {
     public int getDataLength() {
         int attributeLength = 0;
         for (AttributeDesc ad : this.attributes) {
-            attributeLength += ad.getDataLength();
+            attributeLength += ad.getDataLength() + 6;
         }
         return 12 + this.code.length + 8 * this.exceptionTable.length + attributeLength;
     }
