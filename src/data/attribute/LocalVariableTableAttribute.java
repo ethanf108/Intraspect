@@ -22,7 +22,8 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         readInt(in);    // Discard attribute length
 
         final LocalVariableTableEntry[] arr = new LocalVariableTableEntry[readShort(in)];
-        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTableEntry(readShort(in), readShort(in), readShort(in), readShort(in), readShort(in))) ;
+        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTableEntry(readShort(in), readShort(in), readShort(in), readShort(in), readShort(in)))
+            ;
 
         return new LocalVariableTableAttribute(ani, arr);
     }
@@ -37,6 +38,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
     }
 
     @Override
+
     public int getDataLength() {
         return getLineNumberTableLength() * 10 + 2;
     }
@@ -51,7 +53,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         writeInt(out, this.getDataLength());
         writeShort(out, getLineNumberTableLength());
 
-        for (LocalVariableTableEntry entry : localVariableTable) {
+        for (final LocalVariableTableEntry entry : localVariableTable) {
             writeShort(out, entry.startPc);
             writeShort(out, entry.length);
             writeShort(out, entry.nameIndex);
