@@ -43,10 +43,15 @@ public class ExceptionsAttribute implements AttributeDesc {
     @Override
     public void write(OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.exceptionIndexTable.length * 2 + 2);
+        writeInt(out, this.getDataLength());
         writeShort(out, (short) this.exceptionIndexTable.length);
         for (short s : this.exceptionIndexTable) {
             writeShort(out, s);
         }
+    }
+
+    @Override
+    public int getDataLength() {
+        return this.exceptionIndexTable.length * 2 + 2;
     }
 }

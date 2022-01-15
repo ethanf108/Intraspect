@@ -43,10 +43,15 @@ public class ModulePackagesAttribute implements AttributeDesc {
     @Override
     public void write(OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.packageIndex.length * 2 + 2);
+        writeInt(out, this.getDataLength());
         writeShort(out, (short) this.packageIndex.length);
         for (short s : this.packageIndex) {
             writeShort(out, s);
         }
+    }
+
+    @Override
+    public int getDataLength() {
+        return this.packageIndex.length * 2 + 2;
     }
 }

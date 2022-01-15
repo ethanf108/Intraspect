@@ -34,6 +34,11 @@ public class DeprecatedAttribute implements AttributeDesc {
     @Override
     public void write(OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
-        writeInt(out, 0);
+        writeInt(out, this.getDataLength());
+    }
+
+    @Override
+    public int getDataLength() {
+        return 0;
     }
 }

@@ -40,8 +40,13 @@ public class ConstantValueAttribute implements AttributeDesc {
     @Override
     public void write(OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
-        writeInt(out, 2);
+        writeInt(out, this.getDataLength());
         writeShort(out, this.constantValueIndex);
+    }
+
+    @Override
+    public int getDataLength() {
+        return 2;
     }
 
 }

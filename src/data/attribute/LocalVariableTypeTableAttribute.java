@@ -2,14 +2,10 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import static util.Util.*;
-import static util.Util.readShort;
-
 
 @AttributeName("LocalVariableTypeTable")
 public class LocalVariableTypeTableAttribute implements AttributeDesc {
@@ -41,7 +37,8 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
         return (short) this.localVariableTypeTable.length;
     }
 
-    public int getAttributeLength() {
+    @Override
+    public int getDataLength() {
         return getLocalVariableTypeTableLength() * 10 + 2;
     }
 
@@ -52,7 +49,7 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
     @Override
     public void write(final OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
-        writeInt(out, getAttributeLength());
+        writeInt(out, this.getDataLength());
         writeShort(out, getLocalVariableTypeTableLength());
 
         for (final LocalVariableTypeTableEntry entry : localVariableTypeTable) {
@@ -65,6 +62,7 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
     }
 
     private static record LocalVariableTypeTableEntry(short startPc, short length, short nameIndex,
-                                                      short signatureIndex, short index) {
+            short signatureIndex, short index) {
+
     }
 }

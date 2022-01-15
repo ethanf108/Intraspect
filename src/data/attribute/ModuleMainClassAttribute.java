@@ -2,11 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 @AttributeName("ModuleMainClass")
@@ -43,5 +41,10 @@ public class ModuleMainClassAttribute implements AttributeDesc {
         writeShort(out, this.attributeNameIndex);
         writeInt(out, ATTRIBUTE_LENGTH);
         writeShort(out, this.mainClassIndex);
+    }
+
+    @Override
+    public int getDataLength() {
+        return ATTRIBUTE_LENGTH;
     }
 }

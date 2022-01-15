@@ -2,11 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 @AttributeName("EnclosingMethod")
@@ -47,8 +45,13 @@ public class EnclosingMethodAttribute implements AttributeDesc {
     @Override
     public void write(final OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
-        writeInt(out, ATTRIBUTE_LENGTH);
+        writeInt(out, this.getDataLength());
         writeShort(out, this.classIndex);
         writeShort(out, this.methodIndex);
+    }
+
+    @Override
+    public int getDataLength() {
+        return ATTRIBUTE_LENGTH;
     }
 }

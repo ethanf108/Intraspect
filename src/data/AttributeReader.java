@@ -43,6 +43,19 @@ public class AttributeReader {
             final AttributeDesc ret = (AttributeDesc) readMethod.invoke(null, attributeNameIndex, in);
             return ret;
         } catch (NoSuchMethodException ex) {
+        } catch (SecurityException ex) {
+            throw new IllegalStateException("Security Exception????", ex);
+        } catch (IllegalAccessException ex) {
+            throw new Error("How?? I set it to accessible???");
+        } catch (InvocationTargetException ex) {
+            throw new IllegalStateException(ex);
+        }
+        try {
+            final Method readMethod = clazz.getDeclaredMethod("read", new Class<?>[]{short.class, InputStream.class, ClassFile.class});
+            readMethod.setAccessible(true);
+            final AttributeDesc ret = (AttributeDesc) readMethod.invoke(null, attributeNameIndex, in, ref);
+            return ret;
+        } catch (NoSuchMethodException ex) {
             throw new IllegalStateException("Attribute Class with invalid read method");
         } catch (SecurityException ex) {
             throw new IllegalStateException("Security Exception????", ex);
