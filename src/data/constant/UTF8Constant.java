@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import static util.Util.readShort;
+import static util.Util.writeShort;
 
 public class UTF8Constant implements ConstantDesc {
 
@@ -38,6 +39,7 @@ public class UTF8Constant implements ConstantDesc {
     @Override
     public void write(OutputStream out) throws IOException {
         out.write(this.getTag());
+        writeShort(out, (short) this.value.getBytes().length);
         out.write(this.value.getBytes());
     }
 }
