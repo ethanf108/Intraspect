@@ -26,6 +26,11 @@ public class SignatureAttribute implements AttributeDesc {
         return attributeNameIndex;
     }
 
+    @Override
+    public int getDataLength() {
+        return 2;
+    }
+
     public short getSignatureIndex() {
         return signatureIndex;
     }

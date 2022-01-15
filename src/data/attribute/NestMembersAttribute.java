@@ -34,7 +34,8 @@ public class NestMembersAttribute implements AttributeDesc {
         return this.attributeNameIndex;
     }
 
-    public int getAttributeLength() {
+    @Override
+    public int getDataLength() {
         return getNumberOfClasses() * 2 + 2;
     }
 
@@ -49,7 +50,7 @@ public class NestMembersAttribute implements AttributeDesc {
     @Override
     public void write(final OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
-        writeInt(out, getAttributeLength());
+        writeInt(out, getDataLength());
         writeShort(out, getNumberOfClasses());
 
         for (short aClass : this.classes) {

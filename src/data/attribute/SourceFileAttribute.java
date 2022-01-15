@@ -38,6 +38,11 @@ public class SourceFileAttribute implements AttributeDesc {
     }
 
     @Override
+    public int getDataLength() {
+        return ATTRIBUTE_LENGTH;
+    }
+
+    @Override
     public void write(final OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
         writeInt(out, ATTRIBUTE_LENGTH);

@@ -23,6 +23,11 @@ public class SyntheticAttribute implements AttributeDesc {
         return attributeNameIndex;
     }
 
+    @Override
+    public int getDataLength() {
+        return 0;
+    }
+
     public static SyntheticAttribute read(short ani, InputStream in) throws IOException {
         if (readInt(in) != 0) {
             throw new IllegalArgumentException("Synthetic Attribute Length must be 0");

@@ -25,6 +25,11 @@ public class SourceDebugExtensionAttribute implements AttributeDesc {
         return attributeNameIndex;
     }
 
+    @Override
+    public int getDataLength() {
+        return this.debugExtension.length;
+    }
+
     public byte[] getDebugExtension() {
         return debugExtension;
     }

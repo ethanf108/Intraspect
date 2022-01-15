@@ -23,6 +23,11 @@ public class UnknownAttribute implements AttributeDesc {
         return attributeNameIndex;
     }
 
+    @Override
+    public int getDataLength() {
+        return this.data.length;
+    }
+
     public byte[] getData() {
         byte[] ret = new byte[this.data.length];
         System.arraycopy(this.data, 0, ret, 0, this.data.length);
