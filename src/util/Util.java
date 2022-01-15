@@ -41,7 +41,7 @@ public class Util {
         out.write(bb.array());
     }
 
-    private static Class getClass(String className, String packageName) {
+    private static Class<?> getClass(String className, String packageName) {
         try {
             return Class.forName(packageName + "."
                     + className.substring(0, className.lastIndexOf('.')));
@@ -50,7 +50,7 @@ public class Util {
         }
     }
 
-    public static Set<Class> findClassesInPackage(String packageName) {
+    public static Set<Class<?>> findClassesInPackage(String packageName) {
         InputStream stream = ClassLoader.getSystemClassLoader()
                 .getResourceAsStream(packageName.replaceAll("[.]", "/"));
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
