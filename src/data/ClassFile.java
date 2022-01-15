@@ -44,6 +44,18 @@ public class ClassFile {
         return ret;
     }
 
+    public AttributeDesc[] getAttributes() {
+        return this.attributes;
+    }
+
+    public FieldDesc[] getFields() {
+        return fields;
+    }
+
+    public MethodDesc[] getMethods() {
+        return methods;
+    }
+
     public void write(OutputStream out) throws IOException {
         out.write(MAGIC);
         writeShort(out, this.minorVersion);
@@ -164,6 +176,9 @@ public class ClassFile {
             ret.attributes[i] = AttributeReader.read(r, ret);
         }
 
+        if (r.read() != -1) {
+            throw new RuntimeException("End of file not reached");
+        }
         return ret;
     }
 }
