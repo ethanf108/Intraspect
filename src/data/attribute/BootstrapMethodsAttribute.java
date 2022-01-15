@@ -2,13 +2,10 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import static util.Util.*;
-import static util.Util.writeShort;
 
 @AttributeName("BootstrapMethods")
 public class BootstrapMethodsAttribute implements AttributeDesc {
@@ -41,7 +38,7 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     @Override
     public void write(OutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
-        writeInt(out, getAttributeLength());
+        writeInt(out, this.getDataLength());
         writeShort(out, getBootstrapMethodsTableLength());
 
         for (final BootstrapMethodsTableEntry entry : bootstrapMethodsTable) {
@@ -62,7 +59,8 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
         return (short) this.bootstrapMethodsTable.length;
     }
 
-    public int getAttributeLength() {
+    @Override
+    public int getDataLength() {
         int entryLengthSum = 2;
         for (final BootstrapMethodsTableEntry entry : bootstrapMethodsTable) {
             entryLengthSum += 4 + 2 * entry.numBootstrapArguments;
@@ -75,6 +73,7 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     }
 
     private static record BootstrapMethodsTableEntry(short bootstrapMethodRef, short numBootstrapArguments,
-                                                     short[] bootstrapArguments) {
+            short[] bootstrapArguments) {
+
     }
 }
