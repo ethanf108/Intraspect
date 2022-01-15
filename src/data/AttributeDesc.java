@@ -5,5 +5,7 @@ import java.io.OutputStream;
 
 public interface AttributeDesc {
 
+    public short getAttributeNameIndex();
+
     public void write(OutputStream out) throws IOException;
 }

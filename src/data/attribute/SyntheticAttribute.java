@@ -18,6 +18,7 @@ public class SyntheticAttribute implements AttributeDesc {
         this.attributeNameIndex = ani;
     }
 
+    @Override
     public short getAttributeNameIndex() {
         return attributeNameIndex;
     }

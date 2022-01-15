@@ -21,6 +21,7 @@ public class ConstantValueAttribute implements AttributeDesc {
         this.constantValueIndex = constantValueIndex;
     }
 
+    @Override
     public short getAttributeNameIndex() {
         return attributeNameIndex;
     }
