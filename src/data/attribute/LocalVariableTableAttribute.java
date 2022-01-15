@@ -24,7 +24,8 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         readInt(in);    // Discard attribute length
 
         final LocalVariableTableEntry[] arr = new LocalVariableTableEntry[readShort(in)];
-        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTableEntry(readShort(in), readShort(in), readShort(in), readShort(in), readShort(in))) ;
+        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTableEntry(readShort(in), readShort(in), readShort(in), readShort(in), readShort(in)))
+            ;
 
         return new LocalVariableTableAttribute(ani, arr);
     }
@@ -39,7 +40,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
     }
 
     public int getAttributeLength() {
-        return getLineNumberTableLength() * 10 + 2;
+        return getLineNumberTableLength() * 4 + 2;
     }
 
     public LocalVariableTableEntry[] getLocalVariableTable() {
@@ -52,7 +53,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         writeInt(out, getAttributeLength());
         writeShort(out, getLineNumberTableLength());
 
-        for (LocalVariableTableEntry entry : localVariableTable) {
+        for (final LocalVariableTableEntry entry : localVariableTable) {
             writeShort(out, entry.startPc);
             writeShort(out, entry.length);
             writeShort(out, entry.nameIndex);
@@ -61,5 +62,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         }
     }
 
-    private static record LocalVariableTableEntry(short startPc, short length, short nameIndex, short descriptorIndex, short index) { }
+    private static record LocalVariableTableEntry(short startPc, short length, short nameIndex, short descriptorIndex,
+                                                  short index) {
+    }
 }
