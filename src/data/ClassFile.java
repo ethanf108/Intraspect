@@ -3,7 +3,10 @@ package data;
 import data.constant.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
+import static util.Util.readShort;
+import static util.Util.writeShort;
 
 public class ClassFile {
 
@@ -18,7 +21,7 @@ public class ClassFile {
     private short[] interfaces;
     private FieldDesc[] fields;
     private MethodDesc[] methods;
-    private Attribute[] attributes;
+    private AttributeDesc[] attributes;
 
     private ClassFile() {
 
@@ -41,8 +44,40 @@ public class ClassFile {
         return ret;
     }
 
-    public static short readShort(InputStream in) throws IOException {
-        return (short) ((in.read() & 0b11111111) << 8 | (in.read() & 0b11111111));
+    public void write(OutputStream out) throws IOException {
+        out.write(MAGIC);
+        writeShort(out, this.minorVersion);
+        writeShort(out, this.majorVersion.getMajorVersion());
+
+        writeShort(out, (short) this.constantPool.length);
+        for (int i = 1; i < this.constantPool.length; i++) {
+            this.constantPool[i].write(out);
+        }
+
+        writeShort(out, this.accessFlags);
+        writeShort(out, this.thisClass);
+        writeShort(out, this.superClass);
+
+        writeShort(out, (short) this.interfaces.length);
+        for (short s : this.interfaces) {
+            writeShort(out, s);
+        }
+
+        writeShort(out, (short) this.fields.length);
+        for (FieldDesc field : this.fields) {
+            field.write(out);
+        }
+
+        writeShort(out, (short) this.methods.length);
+        for (MethodDesc method : this.methods) {
+            method.write(out);
+        }
+
+        writeShort(out, (short) this.attributes.length);
+        for (AttributeDesc attr : this.attributes) {
+            attr.write(out);
+        }
+        out.flush();
     }
 
     private static ConstantDesc readConstant(InputStream in) throws IOException {
@@ -91,26 +126,44 @@ public class ClassFile {
         if (!Arrays.equals(MAGIC, r.readNBytes(4))) {
             throw new IllegalArgumentException("Not a Java Class file");
         }
+
         ret.minorVersion = readShort(r);
         ret.majorVersion = new MajorVersion(readShort(r));
+
         final short constantPoolCount = readShort(r);
         ret.constantPool = new ConstantDesc[constantPoolCount];
         for (int i = 1; i < constantPoolCount; i++) {
             ret.constantPool[i] = readConstant(r);
         }
+
         ret.accessFlags = readShort(r);
         ret.thisClass = readShort(r);
         ret.superClass = readShort(r);
+
         final int interfacesCount = readShort(r);
         ret.interfaces = new short[interfacesCount];
         for (int i = 0; i < interfacesCount; i++) {
             ret.interfaces[i] = readShort(r);
         }
+
         final int fieldsCount = readShort(r);
         ret.fields = new FieldDesc[fieldsCount];
         for (int i = 0; i < fieldsCount; i++) {
-
+            ret.fields[i] = FieldDesc.parse(r, ret);
         }
+
+        final int methodsCount = readShort(r);
+        ret.methods = new MethodDesc[methodsCount];
+        for (int i = 0; i < methodsCount; i++) {
+            ret.methods[i] = MethodDesc.parse(r, ret);
+        }
+
+        final int attributesCount = readShort(r);
+        ret.attributes = new AttributeDesc[attributesCount];
+        for (int i = 0; i < attributesCount; i++) {
+            ret.attributes[i] = AttributeReader.read(r, ret);
+        }
+
         return ret;
     }
 }

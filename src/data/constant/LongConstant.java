@@ -4,6 +4,8 @@ import data.ClassFile;
 import data.ConstantDesc;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import static util.Util.writeLong;
 
 public class LongConstant implements ConstantDesc {
 
@@ -11,6 +13,11 @@ public class LongConstant implements ConstantDesc {
 
     private LongConstant(long val) {
         this.value = val;
+    }
+
+    @Override
+    public byte getTag() {
+        return 5;
     }
 
     public long getValue() {
@@ -29,5 +36,11 @@ public class LongConstant implements ConstantDesc {
     @Override
     public boolean isValid(ClassFile ref) {
         return true;
+    }
+
+    @Override
+    public void write(OutputStream out) throws IOException {
+        out.write(getTag());
+        writeLong(out, this.value);
     }
 }

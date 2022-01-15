@@ -2,6 +2,9 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+import java.io.IOException;
+import java.io.OutputStream;
+import static util.Util.writeShort;
 
 public class StringConstant implements ConstantDesc {
 
@@ -11,6 +14,11 @@ public class StringConstant implements ConstantDesc {
         this.utf8Index = ref;
     }
 
+    @Override
+    public byte getTag() {
+        return 8;
+    }
+
     public short getUTF8Index() {
         return this.utf8Index;
     }
@@ -18,5 +26,11 @@ public class StringConstant implements ConstantDesc {
     @Override
     public boolean isValid(ClassFile ref) {
         return ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant;
+    }
+
+    @Override
+    public void write(OutputStream out) throws IOException {
+        out.write(this.getTag());
+        writeShort(out, this.utf8Index);
     }
 }

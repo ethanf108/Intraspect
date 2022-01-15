@@ -2,6 +2,9 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+import java.io.IOException;
+import java.io.OutputStream;
+import static util.Util.writeShort;
 
 public class MethodHandleConstant implements ConstantDesc {
 
@@ -12,6 +15,11 @@ public class MethodHandleConstant implements ConstantDesc {
     public MethodHandleConstant(byte kind, short ref) {
         this.kind = kind;
         this.referenceIndex = ref;
+    }
+
+    @Override
+    public byte getTag() {
+        return 15;
     }
 
     public byte getKind() {
@@ -37,5 +45,12 @@ public class MethodHandleConstant implements ConstantDesc {
             default ->
                 false;
         };
+    }
+
+    @Override
+    public void write(OutputStream out) throws IOException {
+        out.write(this.getTag());
+        out.write(this.kind);
+        writeShort(out, this.referenceIndex);
     }
 }

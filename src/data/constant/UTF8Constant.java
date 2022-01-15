@@ -4,6 +4,8 @@ import data.ClassFile;
 import data.ConstantDesc;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import static util.Util.readShort;
 
 public class UTF8Constant implements ConstantDesc {
 
@@ -13,12 +15,17 @@ public class UTF8Constant implements ConstantDesc {
         this.value = val;
     }
 
+    @Override
+    public byte getTag() {
+        return 1;
+    }
+
     public String getValue() {
         return this.value;
     }
 
     public static UTF8Constant read(InputStream in) throws IOException {
-        final short length = ClassFile.readShort(in);
+        final short length = readShort(in);
         final String val = new String(in.readNBytes(length));
         return new UTF8Constant(val);
     }
@@ -26,5 +33,11 @@ public class UTF8Constant implements ConstantDesc {
     @Override
     public boolean isValid(ClassFile ref) {
         return this.value != null;
+    }
+
+    @Override
+    public void write(OutputStream out) throws IOException {
+        out.write(this.getTag());
+        out.write(this.value.getBytes());
     }
 }
