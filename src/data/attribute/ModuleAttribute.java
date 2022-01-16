@@ -116,7 +116,7 @@ public class ModuleAttribute implements AttributeDesc {
     }
 
     public static ModuleAttribute read(final short ani, final InputStream in) throws IOException {
-        final int length = readInt(in); // Ignore
+        readInt(in);    // Ignore
 
         final short moduleNameIndex = readShort(in);
 

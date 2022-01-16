@@ -40,7 +40,7 @@ public class MethodParametersAttribute implements AttributeDesc {
     }
 
     public static MethodParametersAttribute read(short ani, InputStream in) throws IOException {
-        final int length = readInt(in);
+        readInt(in);    // Ignore
         final byte numParameters = (byte) in.read();
         final Parameter[] params = new Parameter[numParameters];
         for (int i = 0; i < numParameters; i++) {
