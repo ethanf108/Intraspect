@@ -10,15 +10,6 @@ import java.io.OutputStream;
 import static util.Util.*;
 import static util.Util.readShort;
 
-/*
-PermittedSubclasses_attribute {
-    u2 attribute_name_index;
-    u4 attribute_length;
-    u2 number_of_classes;
-    u2 classes[number_of_classes];
-}
- */
-
 @AttributeName("PermittedSubclasses")
 public class PermittedSubclassesAttribute implements AttributeDesc {
 
@@ -38,7 +29,6 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
 
         return new PermittedSubclassesAttribute(ani, arr);
     }
-
 
     @Override
     public short getAttributeNameIndex() {
