@@ -2,9 +2,11 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import static util.Util.writeLong;
 
 public class DoubleConstant implements ConstantDesc {

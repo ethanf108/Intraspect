@@ -2,8 +2,10 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.IOException;
 import java.io.OutputStream;
+
 import static util.Util.writeShort;
 
 public class DynamicConstant implements ConstantDesc {

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,10 +52,12 @@ public class Util {
     }
 
     public static Set<Class<?>> findClassesInPackage(String packageName) {
-        InputStream stream = ClassLoader.getSystemClassLoader()
+        final InputStream stream = ClassLoader.getSystemClassLoader()
                 .getResourceAsStream(packageName.replaceAll("[.]", "/"));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        return reader.lines()
+
+        Objects.requireNonNull(stream);
+
+        return new BufferedReader(new InputStreamReader(stream)).lines()
                 .filter(line -> line.endsWith(".class"))
                 .map(line -> getClass(line, packageName))
                 .collect(Collectors.toSet());

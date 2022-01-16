@@ -5,9 +5,9 @@ import java.io.OutputStream;
 
 public interface ConstantDesc {
 
-    public byte getTag();
+    byte getTag();
 
-    public boolean isValid(ClassFile ref);
+    boolean isValid(ClassFile ref);
 
-    public void write(OutputStream out) throws IOException;
+    void write(OutputStream out) throws IOException;
 }

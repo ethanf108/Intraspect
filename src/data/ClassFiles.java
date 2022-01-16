@@ -1,6 +1,7 @@
 package data;
 
 import data.constant.UTF8Constant;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,24 +13,15 @@ public enum ClassFiles {
         Objects.requireNonNull(desc);
         final String baseType = desc.substring(desc.lastIndexOf("[") + 1);
         Class<?> ret = switch (baseType) {
-            case "I" ->
-                int.class;
-            case "B" ->
-                byte.class;
-            case "C" ->
-                char.class;
-            case "Z" ->
-                boolean.class;
-            case "S" ->
-                short.class;
-            case "J" ->
-                long.class;
-            case "F" ->
-                float.class;
-            case "D" ->
-                double.class;
-            case "V" ->
-                void.class;
+            case "I" -> int.class;
+            case "B" -> byte.class;
+            case "C" -> char.class;
+            case "Z" -> boolean.class;
+            case "S" -> short.class;
+            case "J" -> long.class;
+            case "F" -> float.class;
+            case "D" -> double.class;
+            case "V" -> void.class;
             default -> {
                 if (!baseType.startsWith("L")) {
                     throw new IllegalArgumentException("Invalid Descriptor");
@@ -68,7 +60,7 @@ public enum ClassFiles {
                     index++;
                 }
                 default -> {
-                    Class<?> temp = null;
+                    Class<?> temp;
                     if (desc.charAt(index) == 'L') {
                         temp = getFromDescriptor(desc.substring(index, desc.indexOf(";", index) + 1));
                         index = desc.indexOf(";", index) + 1;
@@ -94,7 +86,7 @@ public enum ClassFiles {
         if (index != desc.length()) {
             throw new IllegalArgumentException("Method Descriptor has invalid length");
         }
-        Class[] ret = new Class[args.size()];
+        Class<?>[] ret = new Class<?>[args.size()];
         args.toArray(ret);
         return ret;
     }
@@ -183,7 +175,7 @@ public enum ClassFiles {
         if ((md.getAccessFlags() & 0x1000) > 0) {
             ret.append("synthetic ");
         }
-        final Class[] types = getFromMethodDescriptor(descriptor);
+        final Class<?>[] types = getFromMethodDescriptor(descriptor);
         ret.append(types[0].getCanonicalName()).append(" ").append(name).append("(");
         boolean has = false;
         for (int i = 1; i < types.length; i++) {

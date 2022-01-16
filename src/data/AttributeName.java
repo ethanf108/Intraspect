@@ -8,6 +8,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AttributeName {
-
-    public String value();
+    String value();
 }

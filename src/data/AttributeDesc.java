@@ -5,9 +5,9 @@ import java.io.OutputStream;
 
 public interface AttributeDesc {
 
-    public short getAttributeNameIndex();
+    short getAttributeNameIndex();
 
-    public int getDataLength();
+    int getDataLength();
 
-    public void write(OutputStream out) throws IOException;
+    void write(OutputStream out) throws IOException;
 }

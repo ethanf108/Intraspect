@@ -51,11 +51,10 @@ public class AttributeReader {
         }
         final Class<? extends AttributeDesc> clazz = attributeClasses.getOrDefault(attributeName, UnknownAttribute.class);
         try {
-            final Method readMethod = clazz.getDeclaredMethod("read", new Class<?>[]{short.class, InputStream.class});
+            final Method readMethod = clazz.getDeclaredMethod("read", short.class, InputStream.class);
             readMethod.setAccessible(true);
-            final AttributeDesc ret = (AttributeDesc) readMethod.invoke(null, attributeNameIndex, in);
-            return ret;
-        } catch (NoSuchMethodException ex) {
+            return (AttributeDesc) readMethod.invoke(null, attributeNameIndex, in);
+        } catch (NoSuchMethodException ignored) {
         } catch (SecurityException ex) {
             throw new IllegalStateException("Security Exception????", ex);
         } catch (IllegalAccessException ex) {
@@ -64,10 +63,9 @@ public class AttributeReader {
             throw new IllegalStateException(ex);
         }
         try {
-            final Method readMethod = clazz.getDeclaredMethod("read", new Class<?>[]{short.class, InputStream.class, ClassFile.class});
+            final Method readMethod = clazz.getDeclaredMethod("read", short.class, InputStream.class, ClassFile.class);
             readMethod.setAccessible(true);
-            final AttributeDesc ret = (AttributeDesc) readMethod.invoke(null, attributeNameIndex, in, ref);
-            return ret;
+            return (AttributeDesc) readMethod.invoke(null, attributeNameIndex, in, ref);
         } catch (NoSuchMethodException ex) {
             throw new IllegalStateException("Attribute Class with invalid read method");
         } catch (SecurityException ex) {
