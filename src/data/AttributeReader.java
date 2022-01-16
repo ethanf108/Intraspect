@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import util.Util;
 import static util.Util.readShort;
 
@@ -28,6 +29,18 @@ public class AttributeReader {
 
     private AttributeReader() {
 
+    }
+
+    public static void submitAttribute(Class<? extends AttributeDesc> clazz) {
+        Objects.requireNonNull(clazz);
+        if (!AttributeDesc.class.isAssignableFrom(clazz) || !clazz.isAnnotationPresent(AttributeName.class)) {
+            throw new IllegalArgumentException("Class does not meet requirements to be submitted");
+        }
+        final AttributeName name = clazz.getAnnotation(AttributeName.class);
+        if (attributeClasses.containsKey(name.value())) {
+            throw new IllegalArgumentException("Attribute with name already registered");
+        }
+        attributeClasses.put(name.value(), clazz.asSubclass(AttributeDesc.class));
     }
 
     public static AttributeDesc read(InputStream in, ClassFile ref) throws IOException {
