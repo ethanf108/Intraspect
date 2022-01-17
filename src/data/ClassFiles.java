@@ -9,7 +9,7 @@ import java.util.Objects;
 public enum ClassFiles {
     ;
 
-    public static Class<?> getFromDescriptor(String desc) {
+    public static String getFromDescriptor(String desc) {
         Objects.requireNonNull(desc);
         final String baseType = desc.substring(desc.lastIndexOf("[") + 1);
         Class<?> ret = switch (baseType) {
@@ -27,24 +27,24 @@ public enum ClassFiles {
                     throw new IllegalArgumentException("Invalid Descriptor");
                 }
                 try {
-                    yield Class.forName(baseType.substring(1, baseType.length() - 1).replaceAll("/", "."));
+                    yield Class.forName(baseType.substring(1, baseType.length() - 1).replaceAll("/", ".")).getCanonicalName();
                 } catch (ClassNotFoundException ex) {
-                    throw new IllegalArgumentException("Class not Found", ex);
+                    yield baseType.substring(1, baseType.length() - 1).replaceAll("/", ".");
                 }
             }
         };
         int numArrays = desc.lastIndexOf("[") + 1;
         while (numArrays-- > 0) {
-            ret = ret.arrayType();
+            ret += "[]";
         }
         return ret;
     }
 
-    public static Class<?>[] getFromMethodDescriptor(String desc) {
+    public static String[] getFromMethodDescriptor(String desc) {
         if (!desc.startsWith("(")) {
             throw new IllegalArgumentException("Invalid Method Descriptor format");
         }
-        List<Class<?>> args = new ArrayList<>();
+        List<String> args = new ArrayList<>();
         int index = 1;
         int numArrays = 0;
         boolean argMode = true;
@@ -60,24 +60,24 @@ public enum ClassFiles {
                     index++;
                 }
                 default -> {
-                    Class<?> temp;
+                    String className;
                     if (desc.charAt(index) == 'L') {
-                        temp = getFromDescriptor(desc.substring(index, desc.indexOf(";", index) + 1));
+                        className = getFromDescriptor(desc.substring(index, desc.indexOf(";", index) + 1));
                         index = desc.indexOf(";", index) + 1;
                     } else {
                         if (desc.charAt(index) == 'V' && argMode) {
                             throw new IllegalArgumentException("Argument cannot be of type void");
                         }
-                        temp = getFromDescriptor(String.valueOf(desc.charAt(index)));
+                        className = getFromDescriptor(String.valueOf(desc.charAt(index)));
                         index++;
                     }
                     while (numArrays-- > 0) {
                         temp = temp.arrayType();
                     }
                     if (argMode) {
-                        args.add(temp);
+                        args.add(className);
                     } else {
-                        args.add(0, temp);
+                        args.add(0, className);
                         break OUTER;
                     }
                 }
@@ -86,7 +86,7 @@ public enum ClassFiles {
         if (index != desc.length()) {
             throw new IllegalArgumentException("Method Descriptor has invalid length");
         }
-        Class<?>[] ret = new Class<?>[args.size()];
+        String[] ret = new String[args.size()];
         args.toArray(ret);
         return ret;
     }
@@ -127,7 +127,7 @@ public enum ClassFiles {
             ret.append("enum ");
         }
         ret
-                .append(getFromDescriptor(descriptor).getCanonicalName())
+                .append(getFromDescriptor(descriptor))
                 .append(" ")
                 .append(name)
                 .append(";");
@@ -175,15 +175,15 @@ public enum ClassFiles {
         if ((md.getAccessFlags() & 0x1000) > 0) {
             ret.append("synthetic ");
         }
-        final Class<?>[] types = getFromMethodDescriptor(descriptor);
-        ret.append(types[0].getCanonicalName()).append(" ").append(name).append("(");
+        final String[] types = getFromMethodDescriptor(descriptor);
+        ret.append(types[0]).append(" ").append(name).append("(");
         boolean has = false;
         for (int i = 1; i < types.length; i++) {
             if (has) {
                 ret.append(", ");
             }
             has = true;
-            ret.append(types[i].getCanonicalName());
+            ret.append(types[i]);
             if (i == types.length - 1 && (md.getAccessFlags() & 0x80) > 0) {
                 ret.append("...");
             }
