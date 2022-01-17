@@ -72,7 +72,7 @@ public enum ClassFiles {
                         index++;
                     }
                     while (numArrays-- > 0) {
-                        temp = temp.arrayType();
+                        className += "[]";
                     }
                     if (argMode) {
                         args.add(className);
