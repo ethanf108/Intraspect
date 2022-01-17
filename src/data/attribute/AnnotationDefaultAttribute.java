@@ -23,7 +23,6 @@ public class AnnotationDefaultAttribute implements AttributeDesc {
 
     public static AnnotationDefaultAttribute read(final short ani, final InputStream in) throws IOException {
         readInt(in);    // Ignore
-
         return new AnnotationDefaultAttribute(ani, ElementValue.read(in));
     }
 
