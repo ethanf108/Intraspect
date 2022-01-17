@@ -12,16 +12,25 @@ public enum ClassFiles {
     public static String getFromDescriptor(String desc) {
         Objects.requireNonNull(desc);
         final String baseType = desc.substring(desc.lastIndexOf("[") + 1);
-        Class<?> ret = switch (baseType) {
-            case "I" -> int.class;
-            case "B" -> byte.class;
-            case "C" -> char.class;
-            case "Z" -> boolean.class;
-            case "S" -> short.class;
-            case "J" -> long.class;
-            case "F" -> float.class;
-            case "D" -> double.class;
-            case "V" -> void.class;
+        String ret = switch (baseType) {
+            case "I" ->
+                int.class.getCanonicalName();
+            case "B" ->
+                byte.class.getCanonicalName();
+            case "C" ->
+                char.class.getCanonicalName();
+            case "Z" ->
+                boolean.class.getCanonicalName();
+            case "S" ->
+                short.class.getCanonicalName();
+            case "J" ->
+                long.class.getCanonicalName();
+            case "F" ->
+                float.class.getCanonicalName();
+            case "D" ->
+                double.class.getCanonicalName();
+            case "V" ->
+                void.class.getCanonicalName();
             default -> {
                 if (!baseType.startsWith("L")) {
                     throw new IllegalArgumentException("Invalid Descriptor");
