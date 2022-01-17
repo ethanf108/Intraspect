@@ -8,7 +8,7 @@ import static util.Util.readInt;
 import static util.Util.readShort;
 
 @AttributeName("RuntimeInvisibleAnnotations")
-public final class RuntimeInvisibleAnnotationsAttribute extends RuntimeAnnotationsAttribute {
+public final class RuntimeInvisibleAnnotationsAttribute extends RuntimeAnnotations {
 
     public RuntimeInvisibleAnnotationsAttribute(short attributeNameIndex, AnnotationDesc[] annotations) {
         super(attributeNameIndex, annotations);

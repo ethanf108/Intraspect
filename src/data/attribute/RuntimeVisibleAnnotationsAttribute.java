@@ -8,7 +8,7 @@ import static util.Util.readInt;
 import static util.Util.readShort;
 
 @AttributeName("RuntimeVisibleAnnotations")
-public final class RuntimeVisibleAnnotationsAttribute extends RuntimeAnnotationsAttribute {
+public final class RuntimeVisibleAnnotationsAttribute extends RuntimeAnnotations {
 
     public RuntimeVisibleAnnotationsAttribute(short attributeNameIndex, AnnotationDesc[] annotations) {
         super(attributeNameIndex, annotations);
