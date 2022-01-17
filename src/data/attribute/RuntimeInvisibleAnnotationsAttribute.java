@@ -7,25 +7,25 @@ import java.io.InputStream;
 import static util.Util.readInt;
 import static util.Util.readShort;
 
-@AttributeName("RuntimeVisibleAnnotations")
-public final class RuntimeVisibleAnnotationsAttribute extends RuntimeAnnotationsAttribute {
+@AttributeName("RuntimeInvisibleAnnotations")
+public final class RuntimeInvisibleAnnotationsAttribute extends RuntimeAnnotationsAttribute {
 
-    public RuntimeVisibleAnnotationsAttribute(short attributeNameIndex, AnnotationDesc[] annotations) {
+    public RuntimeInvisibleAnnotationsAttribute(short attributeNameIndex, AnnotationDesc[] annotations) {
         super(attributeNameIndex, annotations);
     }
 
-    public static RuntimeVisibleAnnotationsAttribute read(short ani, InputStream in) throws IOException {
+    public static RuntimeInvisibleAnnotationsAttribute read(short ani, InputStream in) throws IOException {
         final int length = readInt(in);
         final short numAnnotations = readShort(in);
         final AnnotationDesc[] annotations = new AnnotationDesc[numAnnotations];
         for (int i = 0; i < numAnnotations; i++) {
             annotations[i] = AnnotationDesc.read(in);
         }
-        return new RuntimeVisibleAnnotationsAttribute(ani, annotations);
+        return new RuntimeInvisibleAnnotationsAttribute(ani, annotations);
     }
 
     @Override
     public boolean isRuntimeVisible() {
-        return true;
+        return false;
     }
 }
