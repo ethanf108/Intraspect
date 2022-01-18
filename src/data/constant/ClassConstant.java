@@ -2,26 +2,24 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
-
 import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.writeShort;
 
 public class ClassConstant implements ConstantDesc {
 
-    private final short utf8Index;
+    private final int utf8Index;
 
-    public ClassConstant(short utf8) {
+    public ClassConstant(int utf8) {
         this.utf8Index = utf8;
     }
 
-    public short getUTF8Index() {
+    public int getUTF8Index() {
         return this.utf8Index;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 7;
     }
 

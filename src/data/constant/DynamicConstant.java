@@ -2,32 +2,30 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
-
 import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.writeShort;
 
 public class DynamicConstant implements ConstantDesc {
 
-    private final short bootstrapMethodAttributeIndex;
-    private final short nameAndTypeIndex;
+    private final int bootstrapMethodAttributeIndex;
+    private final int nameAndTypeIndex;
 
-    public DynamicConstant(short bootstrapMethodAttributeIndex, short nameAndTypeIndex) {
+    public DynamicConstant(int bootstrapMethodAttributeIndex, int nameAndTypeIndex) {
         this.bootstrapMethodAttributeIndex = bootstrapMethodAttributeIndex;
         this.nameAndTypeIndex = nameAndTypeIndex;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 17;
     }
 
-    public short getBootstrapMethodAttributeIndex() {
+    public int getBootstrapMethodAttributeIndex() {
         return bootstrapMethodAttributeIndex;
     }
 
-    public short getNameAndTypeIndex() {
+    public int getNameAndTypeIndex() {
         return nameAndTypeIndex;
     }
 

@@ -16,7 +16,7 @@ public final class RuntimeInvisibleAnnotationsAttribute extends RuntimeAnnotatio
 
     public static RuntimeInvisibleAnnotationsAttribute read(short ani, DataInputStream in) throws IOException {
         final int length = readInt(in);
-        final short numAnnotations = readShort(in);
+        final short numAnnotations = in.readUnsignedShort();
         final AnnotationDesc[] annotations = new AnnotationDesc[numAnnotations];
         for (int i = 0; i < numAnnotations; i++) {
             annotations[i] = AnnotationDesc.read(in);

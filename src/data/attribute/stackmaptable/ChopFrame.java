@@ -16,7 +16,7 @@ public final class ChopFrame extends StackMapFrame {
 
     @Override
     StackMapFrame readInternal(DataInputStream in) throws IOException {
-        offsetDelta = readShort(in);
+        offsetDelta = in.readUnsignedShort();
         return this;
     }
 

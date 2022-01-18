@@ -2,32 +2,30 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
-
 import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.writeShort;
 
 public class FieldRefConstant implements ConstantDesc {
 
-    private final short classIndex;
-    private final short nameAndTypeIndex;
+    private final int classIndex;
+    private final int nameAndTypeIndex;
 
-    public FieldRefConstant(short classIndex, short nameAndTypeIndex) {
+    public FieldRefConstant(int classIndex, int nameAndTypeIndex) {
         this.classIndex = classIndex;
         this.nameAndTypeIndex = nameAndTypeIndex;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 9;
     }
 
-    public short getClassIndex() {
+    public int getClassIndex() {
         return classIndex;
     }
 
-    public short getNameAndTypeIndex() {
+    public int getNameAndTypeIndex() {
         return nameAndTypeIndex;
     }
 

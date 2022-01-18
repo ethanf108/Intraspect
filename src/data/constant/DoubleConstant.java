@@ -2,11 +2,9 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
-
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.writeLong;
 
 public class DoubleConstant implements ConstantDesc {
@@ -22,7 +20,7 @@ public class DoubleConstant implements ConstantDesc {
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 6;
     }
 

@@ -33,8 +33,8 @@ public class AnnotationDesc {
     }
 
     public static AnnotationDesc read(DataInputStream in) throws IOException {
-        final short typeIndex = readShort(in);
-        final short numElementValuePairs = readShort(in);
+        final short typeIndex = in.readUnsignedShort();
+        final short numElementValuePairs = in.readUnsignedShort();
         final ElementValue.ElementValuePair[] elementValuePairs = new ElementValue.ElementValuePair[numElementValuePairs];
         for (int i = 0; i < numElementValuePairs; i++) {
 

@@ -20,7 +20,7 @@ public final class AppendFrame extends StackMapFrame {
     @Override
     StackMapFrame readInternal(final DataInputStream in) throws IOException {
 
-        offsetDelta = readShort(in);
+        offsetDelta = in.readUnsignedShort();
 
         locals = new VerificationTypeInfo[Short.toUnsignedInt(tag) - 251];
 

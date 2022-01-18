@@ -24,7 +24,7 @@ public class ModuleMainClassAttribute implements AttributeDesc {
         if (readInt(in) != ATTRIBUTE_LENGTH) {
             throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
         }
-        return new ModuleMainClassAttribute(ani, readShort(in));
+        return new ModuleMainClassAttribute(ani, in.readUnsignedShort());
     }
 
     public short getMainClassIndex() {

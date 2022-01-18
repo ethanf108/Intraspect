@@ -5,7 +5,7 @@ import java.io.OutputStream;
 
 public interface ConstantDesc {
 
-    byte getTag();
+    int getTag();
 
     boolean isValid(ClassFile ref);
 

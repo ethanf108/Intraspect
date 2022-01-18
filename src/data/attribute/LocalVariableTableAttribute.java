@@ -21,8 +21,8 @@ public class LocalVariableTableAttribute implements AttributeDesc {
     public static LocalVariableTableAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Discard attribute length
 
-        final LocalVariableTableEntry[] arr = new LocalVariableTableEntry[readShort(in)];
-        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTableEntry(readShort(in), readShort(in), readShort(in), readShort(in), readShort(in)))
+        final LocalVariableTableEntry[] arr = new LocalVariableTableEntry[in.readUnsignedShort()];
+        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
             ;
 
         return new LocalVariableTableAttribute(ani, arr);

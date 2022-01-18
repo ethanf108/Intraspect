@@ -18,7 +18,7 @@ public final class UninitializedVariableInfo extends VerificationTypeInfo {
     @Override
     VerificationTypeInfo readInternal(final DataInputStream in) throws IOException {
 
-        this.offset = readShort(in);
+        this.offset = in.readUnsignedShort();
 
         return this;
     }

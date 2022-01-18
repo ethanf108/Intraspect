@@ -2,11 +2,9 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
-
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.writeInt;
 
 public class FloatConstant implements ConstantDesc {
@@ -18,7 +16,7 @@ public class FloatConstant implements ConstantDesc {
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 4;
     }
 

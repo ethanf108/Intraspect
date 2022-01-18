@@ -8,18 +8,18 @@ import static util.Util.writeShort;
 
 public class PackageConstant implements ConstantDesc {
 
-    private final short utf8Index;
+    private final int utf8Index;
 
-    public PackageConstant(short ref) {
+    public PackageConstant(int ref) {
         this.utf8Index = ref;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 20;
     }
 
-    public short getPackageNameIndex() {
+    public int getPackageNameIndex() {
         return this.utf8Index;
     }
 

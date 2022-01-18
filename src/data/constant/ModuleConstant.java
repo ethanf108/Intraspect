@@ -8,18 +8,18 @@ import static util.Util.writeShort;
 
 public class ModuleConstant implements ConstantDesc {
 
-    private final short moduleNameIndex;
+    private final int moduleNameIndex;
 
-    public ModuleConstant(short ref) {
+    public ModuleConstant(int ref) {
         this.moduleNameIndex = ref;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 19;
     }
 
-    public short getModuleNameIndex() {
+    public int getModuleNameIndex() {
         return this.moduleNameIndex;
     }
 

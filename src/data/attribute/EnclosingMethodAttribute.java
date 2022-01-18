@@ -26,7 +26,7 @@ public class EnclosingMethodAttribute implements AttributeDesc {
         if (readInt(in) != ATTRIBUTE_LENGTH) {
             throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
         }
-        return new EnclosingMethodAttribute(ani, readShort(in), readShort(in));
+        return new EnclosingMethodAttribute(ani, in.readUnsignedShort(), in.readUnsignedShort());
     }
 
     public short getClassIndex() {

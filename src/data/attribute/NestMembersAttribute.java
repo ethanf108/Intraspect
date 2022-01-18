@@ -23,8 +23,8 @@ public class NestMembersAttribute implements AttributeDesc {
     public static NestMembersAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Discard attribute length
 
-        final short[] arr = new short[readShort(in)];
-        for (int i = 0; i < arr.length; arr[i++] = readShort(in)) ;
+        final short[] arr = new short[in.readUnsignedShort()];
+        for (int i = 0; i < arr.length; arr[i++] = in.readUnsignedShort()) ;
 
         return new NestMembersAttribute(ani, arr);
     }

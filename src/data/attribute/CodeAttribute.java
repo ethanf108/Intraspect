@@ -62,17 +62,17 @@ public class CodeAttribute implements AttributeDesc {
 
     public static CodeAttribute read(short ani, DataInputStream in, ClassFile ref) throws IOException {
         final int length = readInt(in);
-        final short maxStack = readShort(in);
-        final short maxLocals = readShort(in);
+        final short maxStack = in.readUnsignedShort();
+        final short maxLocals = in.readUnsignedShort();
         final int codeLength = readInt(in);
         final byte[] code = new byte[codeLength];
         in.read(code);
-        final short exceptionTableLength = readShort(in);
+        final short exceptionTableLength = in.readUnsignedShort();
         final ExceptionDesc[] exceptions = new ExceptionDesc[exceptionTableLength];
         for (int i = 0; i < exceptionTableLength; i++) {
-            exceptions[i] = new ExceptionDesc(readShort(in), readShort(in), readShort(in), readShort(in));
+            exceptions[i] = new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
         }
-        final short attributesCount = readShort(in);
+        final short attributesCount = in.readUnsignedShort();
         final AttributeDesc[] attributes = new AttributeDesc[attributesCount];
         for (int i = 0; i < attributesCount; i++) {
             attributes[i] = AttributeReader.read(in, ref);

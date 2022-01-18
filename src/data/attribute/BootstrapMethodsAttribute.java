@@ -21,13 +21,13 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     public static BootstrapMethodsAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Discard attribute length
 
-        final BootstrapMethodsTableEntry[] arr = new BootstrapMethodsTableEntry[readShort(in)];
+        final BootstrapMethodsTableEntry[] arr = new BootstrapMethodsTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; i++) {
-            final short bootstrapMethodRef = readShort(in);
-            final short numBoostrapArguments = readShort(in);
+            final short bootstrapMethodRef = in.readUnsignedShort();
+            final short numBoostrapArguments = in.readUnsignedShort();
 
             final short[] bootstrapArguments = new short[numBoostrapArguments];
-            for (int j = 0; j < bootstrapArguments.length; bootstrapArguments[j++] = readShort(in));
+            for (int j = 0; j < bootstrapArguments.length; bootstrapArguments[j++] = in.readUnsignedShort());
 
             arr[i] = new BootstrapMethodsTableEntry(bootstrapMethodRef, numBoostrapArguments, bootstrapArguments);
         }

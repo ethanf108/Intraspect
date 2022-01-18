@@ -8,18 +8,18 @@ import static util.Util.writeShort;
 
 public class StringConstant implements ConstantDesc {
 
-    private final short utf8Index;
+    private final int utf8Index;
 
-    public StringConstant(short ref) {
+    public StringConstant(int ref) {
         this.utf8Index = ref;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 8;
     }
 
-    public short getUTF8Index() {
+    public int getUTF8Index() {
         return this.utf8Index;
     }
 

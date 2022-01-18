@@ -5,7 +5,7 @@ import java.io.OutputStream;
 
 public interface AttributeDesc {
 
-    short getAttributeNameIndex();
+    int getAttributeNameIndex();
 
     int getDataLength();
 

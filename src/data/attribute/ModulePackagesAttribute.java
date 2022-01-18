@@ -32,10 +32,10 @@ public class ModulePackagesAttribute implements AttributeDesc {
 
     public static ModulePackagesAttribute read(short ani, DataInputStream in) throws IOException {
         final int length = readInt(in);
-        final short packageCount = readShort(in);
+        final short packageCount = in.readUnsignedShort();
         final short[] packageIndex = new short[packageCount];
         for (int i = 0; i < packageCount; i++) {
-            packageIndex[i] = readShort(in);
+            packageIndex[i] = in.readUnsignedShort();
         }
         return new ModulePackagesAttribute(ani, packageIndex);
     }

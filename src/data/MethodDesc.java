@@ -37,10 +37,10 @@ public class MethodDesc {
     }
 
     public static MethodDesc parse(DataInputStream in, ClassFile ref) throws IOException {
-        final short accessFlags = readShort(in);
-        final short nameIndex = readShort(in);
-        final short descIndex = readShort(in);
-        final short attributesCount = readShort(in);
+        final short accessFlags = in.readUnsignedShort();
+        final short nameIndex = in.readUnsignedShort();
+        final short descIndex = in.readUnsignedShort();
+        final short attributesCount = in.readUnsignedShort();
         final AttributeDesc[] attributes = new AttributeDesc[attributesCount];
         for (int i = 0; i < attributesCount; i++) {
             attributes[i] = AttributeReader.read(in, ref);

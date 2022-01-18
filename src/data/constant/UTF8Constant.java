@@ -2,10 +2,9 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readShort;
 import static util.Util.writeShort;
 
 public class UTF8Constant implements ConstantDesc {
@@ -17,7 +16,7 @@ public class UTF8Constant implements ConstantDesc {
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 1;
     }
 
@@ -26,7 +25,7 @@ public class UTF8Constant implements ConstantDesc {
     }
 
     public static UTF8Constant read(DataInputStream in) throws IOException {
-        final short length = readShort(in);
+        final int length = in.readUnsignedShort();
         final String val = new String(in.readNBytes(length));
         return new UTF8Constant(val);
     }

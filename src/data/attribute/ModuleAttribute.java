@@ -118,65 +118,65 @@ public class ModuleAttribute implements AttributeDesc {
     public static ModuleAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Ignore
 
-        final short moduleNameIndex = readShort(in);
+        final short moduleNameIndex = in.readUnsignedShort();
 
-        final short moduleFlags = readShort(in);
+        final short moduleFlags = in.readUnsignedShort();
 
-        final short moduleVersionIndex = readShort(in);
+        final short moduleVersionIndex = in.readUnsignedShort();
 
         // Requires Entry
-        final short requiresCount = readShort(in);
+        final short requiresCount = in.readUnsignedShort();
         final RequiresEntry[] requires = new RequiresEntry[requiresCount];
         for (int i = 0; i < requires.length; i++) {
-            requires[i] = new RequiresEntry(readShort(in), readShort(in), readShort(in));
+            requires[i] = new RequiresEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
         }
 
         // Exports Entry
-        final short exportsCount = readShort(in);
+        final short exportsCount = in.readUnsignedShort();
         final ExportsEntry[] exports = new ExportsEntry[exportsCount];
         for (int i = 0; i < exports.length; i++) {
-            final short exportsIndex = readShort(in);
-            final short exportsFlags = readShort(in);
-            final short exportsToCount = readShort(in);
+            final short exportsIndex = in.readUnsignedShort();
+            final short exportsFlags = in.readUnsignedShort();
+            final short exportsToCount = in.readUnsignedShort();
 
             final short[] exportsToIndex = new short[exportsToCount];
             for (int j = 0; j < exportsToIndex.length; j++) {
-                exportsToIndex[j] = readShort(in);
+                exportsToIndex[j] = in.readUnsignedShort();
             }
             exports[i] = new ExportsEntry(exportsIndex, exportsFlags, exportsToIndex);
         }
 
         // Opens Entry
-        final short opensCount = readShort(in);
+        final short opensCount = in.readUnsignedShort();
         final OpensEntry[] opens = new OpensEntry[opensCount];
         for (int i = 0; i < opens.length; i++) {
-            final short opensIndex = readShort(in);
-            final short opensFlags = readShort(in);
-            final short opensToCount = readShort(in);
+            final short opensIndex = in.readUnsignedShort();
+            final short opensFlags = in.readUnsignedShort();
+            final short opensToCount = in.readUnsignedShort();
 
             final short[] opensToIndex = new short[opensToCount];
             for (int j = 0; j < opensToIndex.length; j++) {
-                opensToIndex[j] = readShort(in);
+                opensToIndex[j] = in.readUnsignedShort();
             }
             opens[i] = new OpensEntry(opensIndex, opensFlags, opensToIndex);
         }
 
-        final short usesCount = readShort(in);
+        final short usesCount = in.readUnsignedShort();
         final short[] usesIndex = new short[usesCount];
         for (int i = 0; i < usesIndex.length; i++) {
-            usesIndex[i] = readShort(in);
+            usesIndex[i] = in.readUnsignedShort();
         }
 
         // Provides Entry
-        final short providesCount = readShort(in);
+        final short providesCount = in.readUnsignedShort();
         final ProvidesEntry[] provides = new ProvidesEntry[providesCount];
         for (int i = 0; i < provides.length; i++) {
-            final short providesIndex = readShort(in);
-            final short providesWithCount = readShort(in);
+            final short providesIndex = in.readUnsignedShort();
+            final short providesWithCount = in.readUnsignedShort();
 
             final short[] providesWithIndex = new short[providesWithCount];
             for (int j = 0; j < providesWithIndex.length; j++) {
-                providesWithIndex[j] = readShort(in);
+                providesWithIndex[j] = in.readUnsignedShort();
             }
             provides[i] = new ProvidesEntry(providesIndex, providesWithIndex);
         }

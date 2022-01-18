@@ -23,8 +23,8 @@ public class LineNumberTableAttribute implements AttributeDesc {
     public static LineNumberTableAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Discard attribute length
 
-        final LineNumberTableEntry[] arr = new LineNumberTableEntry[readShort(in)];
-        for (int i = 0; i < arr.length; arr[i++] = new LineNumberTableEntry(readShort(in), readShort(in))) ;
+        final LineNumberTableEntry[] arr = new LineNumberTableEntry[in.readUnsignedShort()];
+        for (int i = 0; i < arr.length; arr[i++] = new LineNumberTableEntry(in.readUnsignedShort(), in.readUnsignedShort())) ;
 
         return new LineNumberTableAttribute(ani, arr);
     }

@@ -19,15 +19,15 @@ public final class FullFrame extends StackMapFrame {
     @Override
     StackMapFrame readInternal(final DataInputStream in) throws IOException {
 
-        offsetDelta = readShort(in);
+        offsetDelta = in.readUnsignedShort();
 
-        final short numberOfLocals = readShort(in);
+        final short numberOfLocals = in.readUnsignedShort();
         locals = new VerificationTypeInfo[numberOfLocals];
         for (int i = 0; i < locals.length; i++) {
             locals[i] = VerificationTypeInfo.read(in);
         }
 
-        final short numberOfStackItems = readShort(in);
+        final short numberOfStackItems = in.readUnsignedShort();
         stack = new VerificationTypeInfo[numberOfStackItems];
         for (int i = 0; i < stack.length; i++) {
             stack[i] = VerificationTypeInfo.read(in);

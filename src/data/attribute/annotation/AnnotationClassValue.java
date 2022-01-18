@@ -24,7 +24,7 @@ public final class AnnotationClassValue extends ElementValue {
 
     @Override
     ElementValue readInternal(DataInputStream in) throws IOException {
-        this.classInfoIndex = readShort(in);
+        this.classInfoIndex = in.readUnsignedShort();
         return this;
     }
 

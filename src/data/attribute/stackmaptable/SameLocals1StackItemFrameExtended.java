@@ -20,7 +20,7 @@ public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
     @Override
     StackMapFrame readInternal(DataInputStream in) throws IOException {
 
-        offsetDelta = readShort(in);
+        offsetDelta = in.readUnsignedShort();
 
         stack = VerificationTypeInfo.read(in);
 

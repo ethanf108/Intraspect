@@ -32,10 +32,10 @@ public class ExceptionsAttribute implements AttributeDesc {
 
     public static ExceptionsAttribute read(short ani, DataInputStream in) throws IOException {
         final int length = readInt(in);
-        final int numExceptions = readShort(in);
+        final int numExceptions = in.readUnsignedShort();
         final short[] exceptions = new short[numExceptions];
         for (int i = 0; i < numExceptions; i++) {
-            exceptions[i] = readShort(in);
+            exceptions[i] = in.readUnsignedShort();
         }
         return new ExceptionsAttribute(ani, exceptions);
     }

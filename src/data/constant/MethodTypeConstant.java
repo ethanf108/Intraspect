@@ -8,18 +8,18 @@ import static util.Util.writeShort;
 
 public class MethodTypeConstant implements ConstantDesc {
 
-    private final short descriptorIndex;
+    private final int descriptorIndex;
 
-    public MethodTypeConstant(short ref) {
+    public MethodTypeConstant(int ref) {
         this.descriptorIndex = ref;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 16;
     }
 
-    public short getMethodDescriptorIndex() {
+    public int getMethodDescriptorIndex() {
         return this.descriptorIndex;
     }
 

@@ -40,7 +40,7 @@ public class SignatureAttribute implements AttributeDesc {
         if (length != 2) {
             throw new IllegalArgumentException("Signature Attribute Length must be 2");
         }
-        final short signatureIndex = readShort(in);
+        final short signatureIndex = in.readUnsignedShort();
         return new SignatureAttribute(ani, signatureIndex);
     }
 

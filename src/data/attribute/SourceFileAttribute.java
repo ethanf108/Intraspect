@@ -25,7 +25,7 @@ public class SourceFileAttribute implements AttributeDesc {
         if (readInt(in) != ATTRIBUTE_LENGTH) {
             throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
         }
-        return new SourceFileAttribute(ani, readShort(in));
+        return new SourceFileAttribute(ani, in.readUnsignedShort());
     }
 
     public short getSourcefileIndex() {

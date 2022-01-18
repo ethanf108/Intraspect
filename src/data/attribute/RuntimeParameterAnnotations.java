@@ -14,7 +14,7 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
     public static record ParameterAnnotations(AnnotationDesc[] annotations) {
 
         public static ParameterAnnotations read(DataInputStream in) throws IOException {
-            final short numAnnotations = readShort(in);
+            final short numAnnotations = in.readUnsignedShort();
             AnnotationDesc[] annotations = new AnnotationDesc[numAnnotations];
             for (int i = 0; i < numAnnotations; i++) {
                 annotations[i] = AnnotationDesc.read(in);

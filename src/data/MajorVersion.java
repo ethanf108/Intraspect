@@ -4,13 +4,13 @@ import java.util.Optional;
 
 public class MajorVersion {
 
-    private final short majorVersion;
+    private final int majorVersion;
 
-    public MajorVersion(short mv) {
+    public MajorVersion(int mv) {
         this.majorVersion = mv;
     }
 
-    public short getMajorVersion() {
+    public int getMajorVersion() {
         return this.majorVersion;
     }
 

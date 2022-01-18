@@ -24,7 +24,7 @@ public class StackMapTableAttribute implements AttributeDesc {
     public static StackMapTableAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Ignore
 
-        final short numberOfEntries = readShort(in);
+        final short numberOfEntries = in.readUnsignedShort();
 
         final StackMapFrame[] entries = new StackMapFrame[numberOfEntries];
         for (short i = 0; i < numberOfEntries; i++) {

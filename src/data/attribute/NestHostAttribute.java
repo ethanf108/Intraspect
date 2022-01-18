@@ -35,7 +35,7 @@ public class NestHostAttribute implements AttributeDesc {
         if (length != 2) {
             throw new IllegalArgumentException("Nest Host Attribute Length must be 2");
         }
-        final short hostClass = readShort(in);
+        final short hostClass = in.readUnsignedShort();
         return new NestHostAttribute(ani, hostClass);
     }
 

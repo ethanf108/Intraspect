@@ -17,7 +17,7 @@ public final class SameFrameExtended extends StackMapFrame {
     @Override
     StackMapFrame readInternal(DataInputStream in) throws IOException {
 
-        offsetDelta = readShort(in);
+        offsetDelta = in.readUnsignedShort();
 
         return this;
     }

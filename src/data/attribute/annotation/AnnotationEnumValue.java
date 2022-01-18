@@ -33,8 +33,8 @@ public final class AnnotationEnumValue extends ElementValue {
 
     @Override
     ElementValue readInternal(DataInputStream in) throws IOException {
-        this.typeNameIndex = readShort(in);
-        this.constNameIndex = readShort(in);
+        this.typeNameIndex = in.readUnsignedShort();
+        this.constNameIndex = in.readUnsignedShort();
         return this;
     }
 

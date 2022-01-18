@@ -24,8 +24,8 @@ public class InnerClassesAttribute implements AttributeDesc {
     public static InnerClassesAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Discard attribute length
 
-        final InnerClassesTableEntry[] arr = new InnerClassesTableEntry[readShort(in)];
-        for (int i = 0; i < arr.length; arr[i++] = new InnerClassesTableEntry(readShort(in), readShort(in), readShort(in), readShort(in)))
+        final InnerClassesTableEntry[] arr = new InnerClassesTableEntry[in.readUnsignedShort()];
+        for (int i = 0; i < arr.length; arr[i++] = new InnerClassesTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
             ;
 
         return new InnerClassesAttribute(ani, arr);

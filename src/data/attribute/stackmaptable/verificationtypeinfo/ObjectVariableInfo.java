@@ -21,7 +21,7 @@ public final class ObjectVariableInfo extends VerificationTypeInfo {
     @Override
     VerificationTypeInfo readInternal(DataInputStream in) throws IOException {
 
-        this.cpoolIndex = readShort(in);
+        this.cpoolIndex = in.readUnsignedShort();
 
         return this;
     }

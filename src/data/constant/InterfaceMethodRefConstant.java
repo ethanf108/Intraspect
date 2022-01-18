@@ -8,24 +8,24 @@ import static util.Util.writeShort;
 
 public class InterfaceMethodRefConstant implements ConstantDesc {
 
-    private final short classIndex;
-    private final short nameAndTypeIndex;
+    private final int classIndex;
+    private final int nameAndTypeIndex;
 
-    public InterfaceMethodRefConstant(short classIndex, short nameAndTypeIndex) {
+    public InterfaceMethodRefConstant(int classIndex, int nameAndTypeIndex) {
         this.classIndex = classIndex;
         this.nameAndTypeIndex = nameAndTypeIndex;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 11;
     }
 
-    public short getClassIndex() {
+    public int getClassIndex() {
         return classIndex;
     }
 
-    public short getNameAndTypeIndex() {
+    public int getNameAndTypeIndex() {
         return nameAndTypeIndex;
     }
 

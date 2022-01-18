@@ -62,13 +62,13 @@ public class RecordAttribute implements AttributeDesc {
     public static RecordAttribute read(final short ani, final DataInputStream in, final ClassFile ref) throws IOException {
         readInt(in);    // Ignore
 
-        final short componentsCount = readShort(in);
+        final short componentsCount = in.readUnsignedShort();
 
         final RecordComponentInfo[] components = new RecordComponentInfo[componentsCount];
         for (int i = 0; i < components.length; i++) {
-            final short nameIndex = readShort(in);
-            final short descriptorIndex = readShort(in);
-            final short attributesCount = readShort(in);
+            final short nameIndex = in.readUnsignedShort();
+            final short descriptorIndex = in.readUnsignedShort();
+            final short attributesCount = in.readUnsignedShort();
 
             final AttributeDesc[] attributes = new AttributeDesc[attributesCount];
             for (int j = 0; j < attributes.length; j++) {

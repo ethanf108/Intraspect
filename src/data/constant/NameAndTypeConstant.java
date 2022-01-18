@@ -8,24 +8,24 @@ import static util.Util.writeShort;
 
 public class NameAndTypeConstant implements ConstantDesc {
 
-    private final short nameIndex;
-    private final short descriptorIndex;
+    private final int nameIndex;
+    private final int descriptorIndex;
 
-    public NameAndTypeConstant(short name, short descriptor) {
+    public NameAndTypeConstant(int name, int descriptor) {
         this.nameIndex = name;
         this.descriptorIndex = descriptor;
     }
 
     @Override
-    public byte getTag() {
+    public int getTag() {
         return 12;
     }
 
-    public short getNameIndex() {
+    public int getNameIndex() {
         return nameIndex;
     }
 
-    public short getDescriptorIndex() {
+    public int getDescriptorIndex() {
         return descriptorIndex;
     }
 

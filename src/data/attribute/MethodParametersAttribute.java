@@ -44,7 +44,7 @@ public class MethodParametersAttribute implements AttributeDesc {
         final byte numParameters = (byte) in.read();
         final Parameter[] params = new Parameter[numParameters];
         for (int i = 0; i < numParameters; i++) {
-            params[i] = new Parameter(readShort(in), readShort(in));
+            params[i] = new Parameter(in.readUnsignedShort(), in.readUnsignedShort());
         }
         return new MethodParametersAttribute(ani, params);
     }

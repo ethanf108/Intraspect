@@ -24,7 +24,7 @@ public final class AnnotationArrayValue extends ElementValue {
 
     @Override
     ElementValue readInternal(DataInputStream in) throws IOException {
-        final short numValues = readShort(in);
+        final short numValues = in.readUnsignedShort();
         this.values = new ElementValue[numValues];
         for (int i = 0; i < numValues; i++) {
             this.values[i] = ElementValue.read(in);

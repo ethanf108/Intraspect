@@ -34,7 +34,7 @@ public class ConstantValueAttribute implements AttributeDesc {
         if (readInt(in) != 2) {
             throw new IllegalArgumentException("Constant Value Attribute length must be 2");
         }
-        return new ConstantValueAttribute(ani, readShort(in));
+        return new ConstantValueAttribute(ani, in.readUnsignedShort());
     }
 
     @Override

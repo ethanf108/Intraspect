@@ -28,7 +28,7 @@ public final class AnnotationConstantValue extends ElementValue {
 
     @Override
     ElementValue readInternal(DataInputStream in) throws IOException {
-        this.constValueIndex = readShort(in);
+        this.constValueIndex = in.readUnsignedShort();
         return this;
     }
 
