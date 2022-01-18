@@ -5,7 +5,7 @@ import data.AttributeName;
 import data.attribute.stackmaptable.StackMapFrame;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.*;
@@ -21,7 +21,7 @@ public class StackMapTableAttribute implements AttributeDesc {
         this.entries = entries;
     }
 
-    public static StackMapTableAttribute read(final short ani, final InputStream in) throws IOException {
+    public static StackMapTableAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Ignore
 
         final short numberOfEntries = readShort(in);

@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readInt;
 import static util.Util.readShort;
@@ -30,7 +30,7 @@ public class ConstantValueAttribute implements AttributeDesc {
         return constantValueIndex;
     }
 
-    public static ConstantValueAttribute read(short ani, InputStream in) throws IOException {
+    public static ConstantValueAttribute read(short ani, DataInputStream in) throws IOException {
         if (readInt(in) != 2) {
             throw new IllegalArgumentException("Constant Value Attribute length must be 2");
         }

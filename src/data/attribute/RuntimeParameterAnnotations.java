@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readShort;
 import static util.Util.writeInt;
@@ -13,7 +13,7 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
 
     public static record ParameterAnnotations(AnnotationDesc[] annotations) {
 
-        public static ParameterAnnotations read(InputStream in) throws IOException {
+        public static ParameterAnnotations read(DataInputStream in) throws IOException {
             final short numAnnotations = readShort(in);
             AnnotationDesc[] annotations = new AnnotationDesc[numAnnotations];
             for (int i = 0; i < numAnnotations; i++) {

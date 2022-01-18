@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readInt;
 import static util.Util.readShort;
@@ -30,7 +30,7 @@ public class ModulePackagesAttribute implements AttributeDesc {
         return packageIndex;
     }
 
-    public static ModulePackagesAttribute read(short ani, InputStream in) throws IOException {
+    public static ModulePackagesAttribute read(short ani, DataInputStream in) throws IOException {
         final int length = readInt(in);
         final short packageCount = readShort(in);
         final short[] packageIndex = new short[packageCount];

@@ -4,7 +4,7 @@ import data.AttributeDesc;
 import data.AttributeName;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.*;
@@ -20,7 +20,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
         this.lineNumberTable = lineNumberTable;
     }
 
-    public static LineNumberTableAttribute read(final short ani, final InputStream in) throws IOException {
+    public static LineNumberTableAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Discard attribute length
 
         final LineNumberTableEntry[] arr = new LineNumberTableEntry[readShort(in)];

@@ -1,7 +1,7 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.*;
@@ -19,7 +19,7 @@ public final class ObjectVariableInfo extends VerificationTypeInfo {
     }
 
     @Override
-    VerificationTypeInfo readInternal(InputStream in) throws IOException {
+    VerificationTypeInfo readInternal(DataInputStream in) throws IOException {
 
         this.cpoolIndex = readShort(in);
 

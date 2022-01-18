@@ -3,7 +3,7 @@ package data.constant;
 import data.ClassFile;
 import data.ConstantDesc;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readShort;
 import static util.Util.writeShort;
@@ -25,7 +25,7 @@ public class UTF8Constant implements ConstantDesc {
         return this.value;
     }
 
-    public static UTF8Constant read(InputStream in) throws IOException {
+    public static UTF8Constant read(DataInputStream in) throws IOException {
         final short length = readShort(in);
         final String val = new String(in.readNBytes(length));
         return new UTF8Constant(val);

@@ -1,7 +1,7 @@
 package data;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readShort;
 import static util.Util.writeShort;
@@ -36,7 +36,7 @@ public class MethodDesc {
         return attributes;
     }
 
-    public static MethodDesc parse(InputStream in, ClassFile ref) throws IOException {
+    public static MethodDesc parse(DataInputStream in, ClassFile ref) throws IOException {
         final short accessFlags = readShort(in);
         final short nameIndex = readShort(in);
         final short descIndex = readShort(in);

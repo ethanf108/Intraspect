@@ -2,7 +2,7 @@ package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.*;
 
@@ -17,7 +17,7 @@ public final class FullFrame extends StackMapFrame {
     }
 
     @Override
-    StackMapFrame readInternal(final InputStream in) throws IOException {
+    StackMapFrame readInternal(final DataInputStream in) throws IOException {
 
         offsetDelta = readShort(in);
 

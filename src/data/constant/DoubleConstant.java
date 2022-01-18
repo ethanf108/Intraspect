@@ -4,7 +4,7 @@ import data.ClassFile;
 import data.ConstantDesc;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.writeLong;
@@ -37,7 +37,7 @@ public class DoubleConstant implements ConstantDesc {
         writeLong(out, Double.doubleToRawLongBits(this.value));
     }
 
-    public static DoubleConstant read(InputStream in) throws IOException {
+    public static DoubleConstant read(DataInputStream in) throws IOException {
         return new DoubleConstant(Double.longBitsToDouble(LongConstant.read(in).getValue()));
     }
 }

@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.*;
 
@@ -22,7 +22,7 @@ public class EnclosingMethodAttribute implements AttributeDesc {
         this.methodIndex = methodIndex;
     }
 
-    public static EnclosingMethodAttribute read(final short ani, final InputStream in) throws IOException {
+    public static EnclosingMethodAttribute read(final short ani, final DataInputStream in) throws IOException {
         if (readInt(in) != ATTRIBUTE_LENGTH) {
             throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
         }

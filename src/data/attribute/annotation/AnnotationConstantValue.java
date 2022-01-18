@@ -1,7 +1,7 @@
 package data.attribute.annotation;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readShort;
 import static util.Util.writeShort;
@@ -27,7 +27,7 @@ public final class AnnotationConstantValue extends ElementValue {
     }
 
     @Override
-    ElementValue readInternal(InputStream in) throws IOException {
+    ElementValue readInternal(DataInputStream in) throws IOException {
         this.constValueIndex = readShort(in);
         return this;
     }

@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readInt;
 import static util.Util.writeInt;
@@ -23,7 +23,7 @@ public class DeprecatedAttribute implements AttributeDesc {
         return attributeNameIndex;
     }
 
-    public static DeprecatedAttribute read(short ani, InputStream in) throws IOException {
+    public static DeprecatedAttribute read(short ani, DataInputStream in) throws IOException {
         final int length = readInt(in);
         if (length != 0) {
             throw new IllegalArgumentException("Deprecated Attribute Length must be 0");

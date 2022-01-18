@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readInt;
 import static util.Util.readShort;
@@ -30,7 +30,7 @@ public class NestHostAttribute implements AttributeDesc {
         return hostClassIndex;
     }
 
-    public static NestHostAttribute read(short ani, InputStream in) throws IOException {
+    public static NestHostAttribute read(short ani, DataInputStream in) throws IOException {
         final int length = readInt(in);
         if (length != 2) {
             throw new IllegalArgumentException("Nest Host Attribute Length must be 2");

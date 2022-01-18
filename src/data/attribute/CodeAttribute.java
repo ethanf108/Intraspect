@@ -5,7 +5,7 @@ import data.AttributeName;
 import data.AttributeReader;
 import data.ClassFile;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readInt;
 import static util.Util.readShort;
@@ -60,7 +60,7 @@ public class CodeAttribute implements AttributeDesc {
         return attributes;
     }
 
-    public static CodeAttribute read(short ani, InputStream in, ClassFile ref) throws IOException {
+    public static CodeAttribute read(short ani, DataInputStream in, ClassFile ref) throws IOException {
         final int length = readInt(in);
         final short maxStack = readShort(in);
         final short maxLocals = readShort(in);

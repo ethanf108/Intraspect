@@ -1,7 +1,7 @@
 package data.attribute.annotation;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 public final class AnnotationAnnotationValue extends ElementValue {
@@ -21,7 +21,7 @@ public final class AnnotationAnnotationValue extends ElementValue {
     }
 
     @Override
-    ElementValue readInternal(InputStream in) throws IOException {
+    ElementValue readInternal(DataInputStream in) throws IOException {
         this.annotationValue = AnnotationDesc.read(in);
         return this;
     }

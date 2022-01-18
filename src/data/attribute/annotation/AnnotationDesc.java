@@ -1,7 +1,7 @@
 package data.attribute.annotation;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readShort;
 import static util.Util.writeShort;
@@ -32,7 +32,7 @@ public class AnnotationDesc {
         return length;
     }
 
-    public static AnnotationDesc read(InputStream in) throws IOException {
+    public static AnnotationDesc read(DataInputStream in) throws IOException {
         final short typeIndex = readShort(in);
         final short numElementValuePairs = readShort(in);
         final ElementValue.ElementValuePair[] elementValuePairs = new ElementValue.ElementValuePair[numElementValuePairs];

@@ -2,7 +2,7 @@ package data;
 
 import data.constant.*;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import static util.Util.readShort;
@@ -92,7 +92,7 @@ public class ClassFile {
         out.flush();
     }
 
-    private static ConstantDesc readConstant(InputStream in) throws IOException {
+    private static ConstantDesc readConstant(DataInputStream in) throws IOException {
         return switch (in.read()) {
             case 1 ->
                 UTF8Constant.read(in);
@@ -133,7 +133,7 @@ public class ClassFile {
         };
     }
 
-    public static ClassFile readClassFile(InputStream r) throws IOException {
+    public static ClassFile readClassFile(DataInputStream r) throws IOException {
         final ClassFile ret = new ClassFile();
         if (!Arrays.equals(MAGIC, r.readNBytes(4))) {
             throw new IllegalArgumentException("Not a Java Class file");

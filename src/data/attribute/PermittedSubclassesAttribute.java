@@ -4,7 +4,7 @@ import data.AttributeDesc;
 import data.AttributeName;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.*;
@@ -21,7 +21,7 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
         this.classes = classes;
     }
 
-    public static PermittedSubclassesAttribute read(final short ani, final InputStream in) throws IOException {
+    public static PermittedSubclassesAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Discard attribute length
 
         final short[] arr = new short[readShort(in)];

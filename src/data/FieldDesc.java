@@ -1,7 +1,7 @@
 package data;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.readShort;
@@ -37,7 +37,7 @@ public class FieldDesc {
         return attributes;
     }
 
-    public static FieldDesc parse(InputStream in, ClassFile ref) throws IOException {
+    public static FieldDesc parse(DataInputStream in, ClassFile ref) throws IOException {
         final short accessFlags = readShort(in);
         final short nameIndex = readShort(in);
         final short descIndex = readShort(in);

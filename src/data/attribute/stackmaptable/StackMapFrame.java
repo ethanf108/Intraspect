@@ -1,7 +1,7 @@
 package data.attribute.stackmaptable;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 public abstract sealed class StackMapFrame permits SameFrame, SameLocals1StackItemFrame, SameLocals1StackItemFrameExtended, ChopFrame, SameFrameExtended, AppendFrame, FullFrame {
@@ -16,13 +16,13 @@ public abstract sealed class StackMapFrame permits SameFrame, SameLocals1StackIt
         return this.tag;
     }
 
-    abstract StackMapFrame readInternal(InputStream in) throws IOException;
+    abstract StackMapFrame readInternal(DataInputStream in) throws IOException;
 
     public abstract void write(OutputStream out) throws IOException;
 
     public abstract int getDataLength();
 
-    public static StackMapFrame read(final InputStream in) throws IOException {
+    public static StackMapFrame read(final DataInputStream in) throws IOException {
         final int tag = in.read();  // Made this an int on purpose
 
         if (tag >= 0 && tag <= 63) {

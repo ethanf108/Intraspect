@@ -3,7 +3,7 @@ package data.constant;
 import data.ClassFile;
 import data.ConstantDesc;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.writeInt;
 
@@ -24,7 +24,7 @@ public class IntegerConstant implements ConstantDesc {
         return this.value;
     }
 
-    public static IntegerConstant read(InputStream in) throws IOException {
+    public static IntegerConstant read(DataInputStream in) throws IOException {
         int val = 0;
         for (byte b : in.readNBytes(4)) {
             val <<= 8;

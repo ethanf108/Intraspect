@@ -2,7 +2,7 @@ package data.attribute;
 
 import data.AttributeName;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import static util.Util.readInt;
 
 @AttributeName("RuntimeVisibleParameterAnnotations")
@@ -17,7 +17,7 @@ public final class RuntimeVisibleParameterAnnotationsAttribute extends RuntimePa
         return false;
     }
 
-    public static RuntimeVisibleParameterAnnotationsAttribute read(short ani, InputStream in) throws IOException {
+    public static RuntimeVisibleParameterAnnotationsAttribute read(short ani, DataInputStream in) throws IOException {
         final int length = readInt(in);
         final byte numParameters = (byte) in.read();
         final ParameterAnnotations[] parameters = new ParameterAnnotations[numParameters];

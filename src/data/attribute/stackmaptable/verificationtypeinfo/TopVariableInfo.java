@@ -1,7 +1,7 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 public final class TopVariableInfo extends VerificationTypeInfo {
@@ -11,7 +11,7 @@ public final class TopVariableInfo extends VerificationTypeInfo {
     }
 
     @Override
-    VerificationTypeInfo readInternal(final InputStream in) throws IOException {
+    VerificationTypeInfo readInternal(final DataInputStream in) throws IOException {
         return this;
     }
 

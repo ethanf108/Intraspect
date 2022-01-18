@@ -4,7 +4,7 @@ import data.AttributeDesc;
 import data.AttributeName;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.*;
@@ -21,7 +21,7 @@ public class SourceFileAttribute implements AttributeDesc {
         this.sourcefileIndex = sourcefileIndex;
     }
 
-    public static SourceFileAttribute read(final short ani, final InputStream in) throws IOException {
+    public static SourceFileAttribute read(final short ani, final DataInputStream in) throws IOException {
         if (readInt(in) != ATTRIBUTE_LENGTH) {
             throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
         }

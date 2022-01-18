@@ -2,7 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readInt;
 import static util.Util.writeInt;
@@ -34,7 +34,7 @@ public class UnknownAttribute implements AttributeDesc {
         return ret;
     }
 
-    public static UnknownAttribute read(short attributeNameIndex, InputStream in) throws IOException {
+    public static UnknownAttribute read(short attributeNameIndex, DataInputStream in) throws IOException {
         final int length = readInt(in);
         return new UnknownAttribute(attributeNameIndex, in.readNBytes(length));
     }

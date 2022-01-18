@@ -1,7 +1,7 @@
 package data.attribute.stackmaptable;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.*;
@@ -15,7 +15,7 @@ public final class SameFrameExtended extends StackMapFrame {
     }
 
     @Override
-    StackMapFrame readInternal(InputStream in) throws IOException {
+    StackMapFrame readInternal(DataInputStream in) throws IOException {
 
         offsetDelta = readShort(in);
 

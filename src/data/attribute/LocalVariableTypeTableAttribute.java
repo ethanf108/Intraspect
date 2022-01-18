@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.*;
 
@@ -18,7 +18,7 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
         this.localVariableTypeTable = localVariableTypeTable;
     }
 
-    public static LocalVariableTypeTableAttribute read(final short ani, final InputStream in) throws IOException {
+    public static LocalVariableTypeTableAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Discard attribute length
 
         final LocalVariableTypeTableEntry[] arr = new LocalVariableTypeTableEntry[readShort(in)];

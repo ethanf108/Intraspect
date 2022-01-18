@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeName;
 import data.attribute.annotation.AnnotationDesc;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import static util.Util.readInt;
 import static util.Util.readShort;
 
@@ -14,7 +14,7 @@ public final class RuntimeInvisibleAnnotationsAttribute extends RuntimeAnnotatio
         super(attributeNameIndex, annotations);
     }
 
-    public static RuntimeInvisibleAnnotationsAttribute read(short ani, InputStream in) throws IOException {
+    public static RuntimeInvisibleAnnotationsAttribute read(short ani, DataInputStream in) throws IOException {
         final int length = readInt(in);
         final short numAnnotations = readShort(in);
         final AnnotationDesc[] annotations = new AnnotationDesc[numAnnotations];

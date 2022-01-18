@@ -3,7 +3,7 @@ package data;
 import data.attribute.UnknownAttribute;
 import data.constant.UTF8Constant;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class AttributeReader {
         attributeClasses.put(name.value(), clazz.asSubclass(AttributeDesc.class));
     }
 
-    public static AttributeDesc read(InputStream in, ClassFile ref) throws IOException {
+    public static AttributeDesc read(DataInputStream in, ClassFile ref) throws IOException {
         final short attributeNameIndex = readShort(in);
         final String attributeName = ref.getConstandDesc(attributeNameIndex) instanceof UTF8Constant u ? u.getValue() : null;
         if (attributeName == null) {
@@ -51,7 +51,7 @@ public class AttributeReader {
         }
         final Class<? extends AttributeDesc> clazz = attributeClasses.getOrDefault(attributeName, UnknownAttribute.class);
         try {
-            final Method readMethod = clazz.getDeclaredMethod("read", short.class, InputStream.class);
+            final Method readMethod = clazz.getDeclaredMethod("read", short.class, DataInputStream.class);
             readMethod.setAccessible(true);
             return (AttributeDesc) readMethod.invoke(null, attributeNameIndex, in);
         } catch (NoSuchMethodException ignored) {
@@ -63,7 +63,7 @@ public class AttributeReader {
             throw new IllegalStateException(ex);
         }
         try {
-            final Method readMethod = clazz.getDeclaredMethod("read", short.class, InputStream.class, ClassFile.class);
+            final Method readMethod = clazz.getDeclaredMethod("read", short.class, DataInputStream.class, ClassFile.class);
             readMethod.setAccessible(true);
             return (AttributeDesc) readMethod.invoke(null, attributeNameIndex, in, ref);
         } catch (NoSuchMethodException ex) {

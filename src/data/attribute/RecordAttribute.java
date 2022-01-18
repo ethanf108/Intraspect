@@ -6,7 +6,7 @@ import data.AttributeReader;
 import data.ClassFile;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.*;
@@ -59,7 +59,7 @@ public class RecordAttribute implements AttributeDesc {
         }
     }
 
-    public static RecordAttribute read(final short ani, final InputStream in, final ClassFile ref) throws IOException {
+    public static RecordAttribute read(final short ani, final DataInputStream in, final ClassFile ref) throws IOException {
         readInt(in);    // Ignore
 
         final short componentsCount = readShort(in);

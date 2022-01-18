@@ -1,7 +1,7 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.readShort;
@@ -16,7 +16,7 @@ public final class UninitializedVariableInfo extends VerificationTypeInfo {
     }
 
     @Override
-    VerificationTypeInfo readInternal(final InputStream in) throws IOException {
+    VerificationTypeInfo readInternal(final DataInputStream in) throws IOException {
 
         this.offset = readShort(in);
 

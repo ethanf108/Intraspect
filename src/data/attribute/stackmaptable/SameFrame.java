@@ -1,7 +1,7 @@
 package data.attribute.stackmaptable;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 public final class SameFrame extends StackMapFrame {
@@ -11,7 +11,7 @@ public final class SameFrame extends StackMapFrame {
     }
 
     @Override
-    StackMapFrame readInternal(InputStream in) throws IOException {
+    StackMapFrame readInternal(DataInputStream in) throws IOException {
         return this;
     }
 

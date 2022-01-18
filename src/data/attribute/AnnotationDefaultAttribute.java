@@ -5,7 +5,7 @@ import data.AttributeName;
 import data.attribute.annotation.ElementValue;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 
 import static util.Util.*;
@@ -21,7 +21,7 @@ public class AnnotationDefaultAttribute implements AttributeDesc {
         this.defaultValue = defaultValue;
     }
 
-    public static AnnotationDefaultAttribute read(final short ani, final InputStream in) throws IOException {
+    public static AnnotationDefaultAttribute read(final short ani, final DataInputStream in) throws IOException {
         readInt(in);    // Ignore
         return new AnnotationDefaultAttribute(ani, ElementValue.read(in));
     }

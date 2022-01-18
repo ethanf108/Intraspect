@@ -3,7 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import static util.Util.readInt;
 import static util.Util.readShort;
@@ -39,7 +39,7 @@ public class MethodParametersAttribute implements AttributeDesc {
         return 1 + 4 * this.parameters.length;
     }
 
-    public static MethodParametersAttribute read(short ani, InputStream in) throws IOException {
+    public static MethodParametersAttribute read(short ani, DataInputStream in) throws IOException {
         readInt(in);    // Ignore
         final byte numParameters = (byte) in.read();
         final Parameter[] params = new Parameter[numParameters];
