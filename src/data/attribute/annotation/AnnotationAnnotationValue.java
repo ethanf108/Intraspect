@@ -1,14 +1,14 @@
 package data.attribute.annotation;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 public final class AnnotationAnnotationValue extends ElementValue {
 
     private AnnotationDesc annotationValue;
 
-    public AnnotationAnnotationValue(byte tag) {
+    public AnnotationAnnotationValue(int tag) {
         super(tag);
     }
 

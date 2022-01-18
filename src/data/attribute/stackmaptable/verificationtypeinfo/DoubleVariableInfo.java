@@ -1,11 +1,12 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 public final class DoubleVariableInfo extends VerificationTypeInfo {
-    public DoubleVariableInfo(byte tag) {
+
+    public DoubleVariableInfo(int tag) {
         super(tag);
     }
 

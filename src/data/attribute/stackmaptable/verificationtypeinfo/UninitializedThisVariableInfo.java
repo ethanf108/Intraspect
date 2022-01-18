@@ -1,12 +1,12 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 public final class UninitializedThisVariableInfo extends VerificationTypeInfo {
 
-    public UninitializedThisVariableInfo(byte tag) {
+    public UninitializedThisVariableInfo(int tag) {
         super(tag);
     }
 

@@ -1,16 +1,15 @@
 package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
-
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 public final class SameLocals1StackItemFrame extends StackMapFrame {
 
     private VerificationTypeInfo stack;
 
-    public SameLocals1StackItemFrame(byte tag) {
+    public SameLocals1StackItemFrame(int tag) {
         super(tag);
     }
 

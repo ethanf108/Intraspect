@@ -1,16 +1,15 @@
 package data.attribute.stackmaptable;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 public final class ChopFrame extends StackMapFrame {
 
-    private short offsetDelta;
+    private int offsetDelta;
 
-    public ChopFrame(byte tag) {
+    public ChopFrame(int tag) {
         super(tag);
     }
 

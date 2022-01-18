@@ -1,22 +1,21 @@
 package data.attribute.annotation;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readShort;
 import static util.Util.writeShort;
 
 public class AnnotationDesc {
 
-    private final short typeIndex;
+    private final int typeIndex;
     private final ElementValue.ElementValuePair[] elementValuePairs;
 
-    public AnnotationDesc(short typeIndex, ElementValue.ElementValuePair[] elementValuePairs) {
+    public AnnotationDesc(int typeIndex, ElementValue.ElementValuePair[] elementValuePairs) {
         this.typeIndex = typeIndex;
         this.elementValuePairs = elementValuePairs;
     }
 
-    public short getTypeIndex() {
+    public int getTypeIndex() {
         return typeIndex;
     }
 
@@ -33,8 +32,8 @@ public class AnnotationDesc {
     }
 
     public static AnnotationDesc read(DataInputStream in) throws IOException {
-        final short typeIndex = in.readUnsignedShort();
-        final short numElementValuePairs = in.readUnsignedShort();
+        final int typeIndex = in.readUnsignedShort();
+        final int numElementValuePairs = in.readUnsignedShort();
         final ElementValue.ElementValuePair[] elementValuePairs = new ElementValue.ElementValuePair[numElementValuePairs];
         for (int i = 0; i < numElementValuePairs; i++) {
 

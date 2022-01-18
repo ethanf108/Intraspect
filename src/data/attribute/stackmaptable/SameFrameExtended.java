@@ -1,16 +1,15 @@
 package data.attribute.stackmaptable;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 public final class SameFrameExtended extends StackMapFrame {
 
-    private short offsetDelta;
+    private int offsetDelta;
 
-    public SameFrameExtended(byte tag) {
+    public SameFrameExtended(int tag) {
         super(tag);
     }
 

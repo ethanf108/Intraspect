@@ -1,33 +1,32 @@
 package data.attribute.annotation;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readShort;
 import static util.Util.writeShort;
 
 public final class AnnotationEnumValue extends ElementValue {
 
-    private short typeNameIndex;
-    private short constNameIndex;
+    private int typeNameIndex;
+    private int constNameIndex;
 
-    public AnnotationEnumValue(byte tag) {
+    public AnnotationEnumValue(int tag) {
         super(tag);
     }
 
-    public short getTypeNameIndex() {
+    public int getTypeNameIndex() {
         return typeNameIndex;
     }
 
-    public void setTypeNameIndex(short typeNameIndex) {
+    public void setTypeNameIndex(int typeNameIndex) {
         this.typeNameIndex = typeNameIndex;
     }
 
-    public short getConstNameIndex() {
+    public int getConstNameIndex() {
         return constNameIndex;
     }
 
-    public void setConstNameIndex(short constNameIndex) {
+    public void setConstNameIndex(int constNameIndex) {
         this.constNameIndex = constNameIndex;
     }
 

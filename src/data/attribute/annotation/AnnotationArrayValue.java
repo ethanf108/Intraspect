@@ -1,16 +1,15 @@
 package data.attribute.annotation;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readShort;
 import static util.Util.writeShort;
 
 public final class AnnotationArrayValue extends ElementValue {
 
     private ElementValue[] values;
 
-    public AnnotationArrayValue(byte tag) {
+    public AnnotationArrayValue(int tag) {
         super(tag);
     }
 
@@ -24,7 +23,7 @@ public final class AnnotationArrayValue extends ElementValue {
 
     @Override
     ElementValue readInternal(DataInputStream in) throws IOException {
-        final short numValues = in.readUnsignedShort();
+        final int numValues = in.readUnsignedShort();
         this.values = new ElementValue[numValues];
         for (int i = 0; i < numValues; i++) {
             this.values[i] = ElementValue.read(in);

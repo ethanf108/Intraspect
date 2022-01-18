@@ -1,11 +1,12 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 public final class LongVariableInfo extends VerificationTypeInfo {
-    public LongVariableInfo(byte tag) {
+
+    public LongVariableInfo(int tag) {
         super(tag);
     }
 

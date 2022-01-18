@@ -1,11 +1,12 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 public final class NullVariableInfo extends VerificationTypeInfo {
-    public NullVariableInfo(byte tag) {
+
+    public NullVariableInfo(int tag) {
         super(tag);
     }
 

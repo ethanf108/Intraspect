@@ -1,24 +1,23 @@
 package data.attribute.annotation;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readShort;
 import static util.Util.writeShort;
 
 public final class AnnotationConstantValue extends ElementValue {
 
-    private short constValueIndex;
+    private int constValueIndex;
 
-    public AnnotationConstantValue(byte tag) {
+    public AnnotationConstantValue(int tag) {
         super(tag);
     }
 
-    public void setTag(byte tag) {
+    public void setTag(int tag) {
         this.tag = tag;
     }
 
-    public short getConstValueIndex() {
+    public int getConstValueIndex() {
         return constValueIndex;
     }
 

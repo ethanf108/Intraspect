@@ -1,13 +1,13 @@
 package data.attribute.annotation;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import static util.Util.writeShort;
 
 public abstract sealed class ElementValue permits AnnotationConstantValue, AnnotationEnumValue, AnnotationClassValue, AnnotationAnnotationValue, AnnotationArrayValue {
 
-    public static record ElementValuePair(short elementNameIndex, ElementValue elementValue) {
+    public static record ElementValuePair(int elementNameIndex, ElementValue elementValue) {
 
         public int getDataLength() {
             return 2 + this.elementValue.getDataLength();
@@ -19,13 +19,13 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
         }
     }
 
-    protected byte tag;
+    protected int tag;
 
-    public ElementValue(byte tag) {
+    public ElementValue(int tag) {
         this.tag = tag;
     }
 
-    public byte getTag() {
+    public int getTag() {
         return tag;
     }
 
@@ -36,7 +36,7 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
     public abstract int getDataLength();
 
     public static ElementValue read(DataInputStream in) throws IOException {
-        final byte tag = (byte) in.read();
+        final int tag = in.read();
         return switch (tag) {
             case 'B','C','D','F','I','J','S','Z','s' ->
                 new AnnotationConstantValue(tag).readInternal(in);

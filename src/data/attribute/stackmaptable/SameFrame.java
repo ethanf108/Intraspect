@@ -1,12 +1,12 @@
 package data.attribute.stackmaptable;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 public final class SameFrame extends StackMapFrame {
 
-    public SameFrame(byte tag) {
+    public SameFrame(int tag) {
         super(tag);
     }
 

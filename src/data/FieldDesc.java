@@ -1,35 +1,33 @@
 package data;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
-import static util.Util.readShort;
 import static util.Util.writeShort;
 
 public class FieldDesc {
 
-    private final short accessFlags;
-    private final short nameIndex;
-    private final short descriptorIndex;
+    private final int accessFlags;
+    private final int nameIndex;
+    private final int descriptorIndex;
     private final AttributeDesc[] attributes;
 
-    public FieldDesc(short accessFlags, short nameIndex, short descriptorIndex, AttributeDesc[] attributes) {
+    public FieldDesc(int accessFlags, int nameIndex, int descriptorIndex, AttributeDesc[] attributes) {
         this.accessFlags = accessFlags;
         this.nameIndex = nameIndex;
         this.descriptorIndex = descriptorIndex;
         this.attributes = attributes;
     }
 
-    public short getAccessFlags() {
+    public int getAccessFlags() {
         return accessFlags;
     }
 
-    public short getNameIndex() {
+    public int getNameIndex() {
         return nameIndex;
     }
 
-    public short getDescriptorIndex() {
+    public int getDescriptorIndex() {
         return descriptorIndex;
     }
 
@@ -38,10 +36,10 @@ public class FieldDesc {
     }
 
     public static FieldDesc parse(DataInputStream in, ClassFile ref) throws IOException {
-        final short accessFlags = in.readUnsignedShort();
-        final short nameIndex = in.readUnsignedShort();
-        final short descIndex = in.readUnsignedShort();
-        final short attributesCount = in.readUnsignedShort();
+        final int accessFlags = in.readUnsignedShort();
+        final int nameIndex = in.readUnsignedShort();
+        final int descIndex = in.readUnsignedShort();
+        final int attributesCount = in.readUnsignedShort();
         final AttributeDesc[] attributes = new AttributeDesc[attributesCount];
         for (int i = 0; i < attributesCount; i++) {
             attributes[i] = AttributeReader.read(in, ref);

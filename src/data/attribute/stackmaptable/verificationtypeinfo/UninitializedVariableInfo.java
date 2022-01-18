@@ -1,17 +1,15 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
-import static util.Util.readShort;
 import static util.Util.writeShort;
 
 public final class UninitializedVariableInfo extends VerificationTypeInfo {
 
-    private short offset;
+    private int offset;
 
-    public UninitializedVariableInfo(final byte tag) {
+    public UninitializedVariableInfo(final int tag) {
         super(tag);
     }
 
