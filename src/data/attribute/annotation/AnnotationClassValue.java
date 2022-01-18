@@ -1,24 +1,23 @@
 package data.attribute.annotation;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readShort;
 import static util.Util.writeShort;
 
 public final class AnnotationClassValue extends ElementValue {
 
-    private short classInfoIndex;
+    private int classInfoIndex;
 
-    public AnnotationClassValue(byte tag) {
+    public AnnotationClassValue(int tag) {
         super(tag);
     }
 
-    public short getClassInfoIndex() {
+    public int getClassInfoIndex() {
         return classInfoIndex;
     }
 
-    public void setClassInfoIndex(short classInfoIndex) {
+    public void setClassInfoIndex(int classInfoIndex) {
         this.classInfoIndex = classInfoIndex;
     }
 
