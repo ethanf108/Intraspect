@@ -2,9 +2,8 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import static util.Util.writeShort;
 
 public class MethodHandleConstant implements ConstantDesc {
 
@@ -47,9 +46,9 @@ public class MethodHandleConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(OutputStream out) throws IOException {
-        out.write(this.getTag());
-        out.write(this.kind);
-        writeShort(out, this.referenceIndex);
+    public void write(DataOutputStream out) throws IOException {
+        out.writeByte(this.getTag());
+        out.writeByte(this.kind);
+        out.writeShort(this.referenceIndex);
     }
 }

@@ -2,7 +2,7 @@ package data.attribute.stackmaptable;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 
 public abstract sealed class StackMapFrame permits SameFrame, SameLocals1StackItemFrame, SameLocals1StackItemFrameExtended, ChopFrame, SameFrameExtended, AppendFrame, FullFrame {
 
@@ -18,7 +18,7 @@ public abstract sealed class StackMapFrame permits SameFrame, SameLocals1StackIt
 
     abstract StackMapFrame readInternal(DataInputStream in) throws IOException;
 
-    public abstract void write(OutputStream out) throws IOException;
+    public abstract void write(DataOutputStream out) throws IOException;
 
     public abstract int getDataLength();
 

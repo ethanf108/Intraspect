@@ -2,7 +2,7 @@ package data.attribute.annotation;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.writeShort;
 
 public final class AnnotationArrayValue extends ElementValue {
@@ -41,7 +41,7 @@ public final class AnnotationArrayValue extends ElementValue {
     }
 
     @Override
-    public void write(OutputStream out) throws IOException {
+    public void write(DataOutputStream out) throws IOException {
         writeShort(out, (short) this.values.length);
         for (ElementValue elementValue : this.values) {
             elementValue.write(out);

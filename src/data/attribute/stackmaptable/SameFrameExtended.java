@@ -2,7 +2,7 @@ package data.attribute.stackmaptable;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.*;
 
 public final class SameFrameExtended extends StackMapFrame {
@@ -22,7 +22,7 @@ public final class SameFrameExtended extends StackMapFrame {
     }
 
     @Override
-    public void write(OutputStream out) throws IOException {
+    public void write(DataOutputStream out) throws IOException {
         out.write(tag);
         writeShort(out, offsetDelta);
     }

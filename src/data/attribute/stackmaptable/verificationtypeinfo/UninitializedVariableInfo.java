@@ -2,7 +2,7 @@ package data.attribute.stackmaptable.verificationtypeinfo;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.writeShort;
 
 public final class UninitializedVariableInfo extends VerificationTypeInfo {
@@ -22,7 +22,7 @@ public final class UninitializedVariableInfo extends VerificationTypeInfo {
     }
 
     @Override
-    public void write(final OutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.write(tag);
         writeShort(out, offset);
     }

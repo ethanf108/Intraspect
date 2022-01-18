@@ -1,7 +1,7 @@
 package data;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 
 public interface AttributeDesc {
 
@@ -9,5 +9,5 @@ public interface AttributeDesc {
 
     int getDataLength();
 
-    void write(OutputStream out) throws IOException;
+    void write(DataOutputStream out) throws IOException;
 }

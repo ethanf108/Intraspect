@@ -1,7 +1,7 @@
 package data;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 
 public interface ConstantDesc {
 
@@ -9,5 +9,5 @@ public interface ConstantDesc {
 
     boolean isValid(ClassFile ref);
 
-    void write(OutputStream out) throws IOException;
+    void write(DataOutputStream out) throws IOException;
 }

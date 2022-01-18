@@ -3,9 +3,8 @@ package data.constant;
 import data.ClassFile;
 import data.ConstantDesc;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import static util.Util.writeLong;
 
 public class LongConstant implements ConstantDesc {
 
@@ -39,8 +38,8 @@ public class LongConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(OutputStream out) throws IOException {
-        out.write(getTag());
-        writeLong(out, this.value);
+    public void write(DataOutputStream out) throws IOException {
+        out.writeByte(getTag());
+        out.writeLong(this.value);
     }
 }

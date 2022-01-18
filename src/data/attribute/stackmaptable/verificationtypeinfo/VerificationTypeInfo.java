@@ -2,7 +2,7 @@ package data.attribute.stackmaptable.verificationtypeinfo;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 
 public abstract sealed class VerificationTypeInfo permits TopVariableInfo, IntegerVariableInfo, FloatVariableInfo, LongVariableInfo, DoubleVariableInfo, NullVariableInfo, UninitializedThisVariableInfo, ObjectVariableInfo, UninitializedVariableInfo {
 
@@ -14,7 +14,7 @@ public abstract sealed class VerificationTypeInfo permits TopVariableInfo, Integ
 
     abstract VerificationTypeInfo readInternal(DataInputStream in) throws IOException;
 
-    public abstract void write(OutputStream out) throws IOException;
+    public abstract void write(DataOutputStream out) throws IOException;
 
     public abstract int getDataLength();
 

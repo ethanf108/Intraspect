@@ -6,7 +6,7 @@ import data.AttributeReader;
 import data.ClassFile;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.*;
 
 @AttributeName("Record")
@@ -41,7 +41,7 @@ public class RecordAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(final OutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
         writeInt(out, this.getDataLength());
         writeShort(out, (short) this.components.length);

@@ -5,7 +5,7 @@ import data.AttributeName;
 import data.attribute.stackmaptable.StackMapFrame;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.*;
 
 @AttributeName("StackMapTable")
@@ -51,7 +51,7 @@ public class StackMapTableAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(final OutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
         writeInt(out, getDataLength());
         for (StackMapFrame entry : entries) {

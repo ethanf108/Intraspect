@@ -2,7 +2,7 @@ package data.attribute.annotation;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.writeShort;
 
 public final class AnnotationEnumValue extends ElementValue {
@@ -43,7 +43,7 @@ public final class AnnotationEnumValue extends ElementValue {
     }
 
     @Override
-    public void write(OutputStream out) throws IOException {
+    public void write(DataOutputStream out) throws IOException {
         writeShort(out, this.typeNameIndex);
         writeShort(out, this.constNameIndex);
     }

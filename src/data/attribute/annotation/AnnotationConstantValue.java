@@ -2,7 +2,7 @@ package data.attribute.annotation;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.writeShort;
 
 public final class AnnotationConstantValue extends ElementValue {
@@ -37,7 +37,7 @@ public final class AnnotationConstantValue extends ElementValue {
     }
 
     @Override
-    public void write(OutputStream out) throws IOException {
+    public void write(DataOutputStream out) throws IOException {
         writeShort(out, this.constValueIndex);
     }
 

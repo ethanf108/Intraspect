@@ -1,9 +1,8 @@
 package data;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import static util.Util.writeShort;
 
 public class MethodDesc {
 
@@ -47,11 +46,11 @@ public class MethodDesc {
         return new MethodDesc(accessFlags, nameIndex, descIndex, attributes);
     }
 
-    public void write(OutputStream out) throws IOException {
-        writeShort(out, this.accessFlags);
-        writeShort(out, this.nameIndex);
-        writeShort(out, this.descriptorIndex);
-        writeShort(out, (short) this.attributes.length);
+    public void write(DataOutputStream out) throws IOException {
+        out.writeShort(this.accessFlags);
+        out.writeShort(this.nameIndex);
+        out.writeShort(this.descriptorIndex);
+        out.writeShort(this.attributes.length);
         for (AttributeDesc a : this.attributes) {
             a.write(out);
         }

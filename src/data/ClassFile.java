@@ -2,10 +2,9 @@ package data;
 
 import data.constant.*;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
-import static util.Util.writeShort;
 
 public class ClassFile {
 
@@ -55,36 +54,36 @@ public class ClassFile {
         return methods;
     }
 
-    public void write(OutputStream out) throws IOException {
+    public void write(DataOutputStream out) throws IOException {
         out.write(MAGIC);
-        writeShort(out, this.minorVersion);
-        writeShort(out, this.majorVersion.getMajorVersion());
+        out.writeShort(this.minorVersion);
+        out.writeShort(this.majorVersion.getMajorVersion());
 
-        writeShort(out, (short) this.constantPool.length);
+        out.writeShort(this.constantPool.length);
         for (int i = 1; i < this.constantPool.length; i++) {
             this.constantPool[i].write(out);
         }
 
-        writeShort(out, this.accessFlags);
-        writeShort(out, this.thisClass);
-        writeShort(out, this.superClass);
+        out.writeShort(this.accessFlags);
+        out.writeShort(this.thisClass);
+        out.writeShort(this.superClass);
 
-        writeShort(out, (short) this.interfaces.length);
-        for (short s : this.interfaces) {
-            writeShort(out, s);
+        out.writeShort(this.interfaces.length);
+        for (int s : this.interfaces) {
+            out.writeShort(s);
         }
 
-        writeShort(out, (short) this.fields.length);
+        out.writeShort(this.fields.length);
         for (FieldDesc field : this.fields) {
             field.write(out);
         }
 
-        writeShort(out, (short) this.methods.length);
+        out.writeShort(this.methods.length);
         for (MethodDesc method : this.methods) {
             method.write(out);
         }
 
-        writeShort(out, (short) this.attributes.length);
+        out.writeShort(this.attributes.length);
         for (AttributeDesc attr : this.attributes) {
             attr.write(out);
         }

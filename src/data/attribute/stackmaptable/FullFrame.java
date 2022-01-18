@@ -3,7 +3,7 @@ package data.attribute.stackmaptable;
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.*;
 
 public final class FullFrame extends StackMapFrame {
@@ -37,7 +37,7 @@ public final class FullFrame extends StackMapFrame {
     }
 
     @Override
-    public void write(final OutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.write(tag);
 
         writeShort(out, offsetDelta);

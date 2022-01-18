@@ -4,7 +4,7 @@ import data.AttributeDesc;
 import data.AttributeName;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.*;
 
 @AttributeName("PermittedSubclasses")
@@ -46,7 +46,7 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(final OutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
         writeInt(out, getDataLength());
         writeShort(out, getNumberOfClasses());

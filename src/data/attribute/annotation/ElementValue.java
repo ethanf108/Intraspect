@@ -2,7 +2,7 @@ package data.attribute.annotation;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.writeShort;
 
 public abstract sealed class ElementValue permits AnnotationConstantValue, AnnotationEnumValue, AnnotationClassValue, AnnotationAnnotationValue, AnnotationArrayValue {
@@ -13,7 +13,7 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
             return 2 + this.elementValue.getDataLength();
         }
 
-        public void write(OutputStream out) throws IOException {
+        public void write(DataOutputStream out) throws IOException {
             writeShort(out, this.elementNameIndex);
             this.elementValue.write(out);
         }
@@ -31,7 +31,7 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
 
     abstract ElementValue readInternal(DataInputStream in) throws IOException;
 
-    public abstract void write(OutputStream out) throws IOException;
+    public abstract void write(DataOutputStream out) throws IOException;
 
     public abstract int getDataLength();
 

@@ -2,9 +2,8 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import static util.Util.writeShort;
 
 public class InvokeDynamicConstant implements ConstantDesc {
 
@@ -36,9 +35,9 @@ public class InvokeDynamicConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(OutputStream out) throws IOException {
-        out.write(this.getTag());
-        writeShort(out, this.bootstrapMethodAttributeIndex);
-        writeShort(out, this.nameAndTypeIndex);
+    public void write(DataOutputStream out) throws IOException {
+        out.writeByte(this.getTag());
+        out.writeShort(this.bootstrapMethodAttributeIndex);
+        out.writeShort(this.nameAndTypeIndex);
     }
 }

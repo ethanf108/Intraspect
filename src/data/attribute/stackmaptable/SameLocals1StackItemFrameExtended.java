@@ -3,7 +3,7 @@ package data.attribute.stackmaptable;
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.*;
 
 public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
@@ -26,7 +26,7 @@ public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
     }
 
     @Override
-    public void write(OutputStream out) throws IOException {
+    public void write(DataOutputStream out) throws IOException {
         out.write(tag);
         writeShort(out, offsetDelta);
         stack.write(out);

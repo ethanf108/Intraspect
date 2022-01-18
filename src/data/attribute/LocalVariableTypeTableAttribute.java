@@ -4,7 +4,7 @@ import data.AttributeDesc;
 import data.AttributeName;
 import java.io.IOException;
 import java.io.DataInputStream;
-import java.io.OutputStream;
+import java.io.DataOutputStream;
 import static util.Util.*;
 
 @AttributeName("LocalVariableTypeTable")
@@ -47,7 +47,7 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(final OutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         writeShort(out, this.attributeNameIndex);
         writeInt(out, this.getDataLength());
         writeShort(out, getLocalVariableTypeTableLength());
