@@ -19,7 +19,7 @@ public final class AppendFrame extends StackMapFrame {
 
         offsetDelta = in.readUnsignedShort();
 
-        locals = new VerificationTypeInfo[251];
+        locals = new VerificationTypeInfo[this.tag - 251];
 
         for (int i = 0; i < locals.length; i++) {
             locals[i] = VerificationTypeInfo.read(in);

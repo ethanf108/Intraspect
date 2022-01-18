@@ -35,7 +35,7 @@ public class AnnotationDesc {
         final int numElementValuePairs = in.readUnsignedShort();
         final ElementValue.ElementValuePair[] elementValuePairs = new ElementValue.ElementValuePair[numElementValuePairs];
         for (int i = 0; i < numElementValuePairs; i++) {
-
+            elementValuePairs[i] = ElementValue.ElementValuePair.read(in);
         }
         return new AnnotationDesc(typeIndex, elementValuePairs);
     }

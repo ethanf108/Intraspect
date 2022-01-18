@@ -12,6 +12,10 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
             return 2 + this.elementValue.getDataLength();
         }
 
+        public static ElementValuePair read(DataInputStream in) throws IOException {
+            return new ElementValuePair(in.readUnsignedShort(), ElementValue.read(in));
+        }
+
         public void write(DataOutputStream out) throws IOException {
             out.writeShort(this.elementNameIndex);
             this.elementValue.write(out);
