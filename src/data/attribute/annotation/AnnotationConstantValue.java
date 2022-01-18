@@ -1,9 +1,8 @@
 package data.attribute.annotation;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 public final class AnnotationConstantValue extends ElementValue {
 
@@ -38,7 +37,7 @@ public final class AnnotationConstantValue extends ElementValue {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeShort(out, this.constValueIndex);
+        out.writeShort(this.constValueIndex);
     }
 
 }

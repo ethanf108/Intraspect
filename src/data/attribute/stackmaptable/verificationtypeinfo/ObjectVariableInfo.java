@@ -1,8 +1,8 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 public final class ObjectVariableInfo extends VerificationTypeInfo {
 
@@ -26,7 +26,8 @@ public final class ObjectVariableInfo extends VerificationTypeInfo {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        out.write(tag);
+        out.writeByte(tag);
+        out.writeShort(this.cpoolIndex);
 
     }
 

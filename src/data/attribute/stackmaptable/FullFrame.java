@@ -2,9 +2,8 @@ package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.*;
+import java.io.IOException;
 
 public final class FullFrame extends StackMapFrame {
 
@@ -38,17 +37,17 @@ public final class FullFrame extends StackMapFrame {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        out.write(tag);
+        out.writeByte(tag);
 
-        writeShort(out, offsetDelta);
+        out.writeShort(offsetDelta);
 
-        writeShort(out, (short) locals.length);
+        out.writeShort(locals.length);
 
         for (VerificationTypeInfo local : locals) {
             local.write(out);
         }
 
-        writeShort(out, (short) stack.length);
+        out.writeShort(stack.length);
 
         for (VerificationTypeInfo verificationTypeInfo : stack) {
             verificationTypeInfo.write(out);

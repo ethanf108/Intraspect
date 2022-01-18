@@ -1,9 +1,8 @@
 package data.attribute.annotation;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 public abstract sealed class ElementValue permits AnnotationConstantValue, AnnotationEnumValue, AnnotationClassValue, AnnotationAnnotationValue, AnnotationArrayValue {
 
@@ -14,7 +13,7 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
         }
 
         public void write(DataOutputStream out) throws IOException {
-            writeShort(out, this.elementNameIndex);
+            out.writeShort(this.elementNameIndex);
             this.elementValue.write(out);
         }
     }

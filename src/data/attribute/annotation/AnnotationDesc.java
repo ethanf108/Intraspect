@@ -1,9 +1,8 @@
 package data.attribute.annotation;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 public class AnnotationDesc {
 
@@ -42,8 +41,8 @@ public class AnnotationDesc {
     }
 
     public void write(DataOutputStream out) throws IOException {
-        writeShort(out, this.typeIndex);
-        writeShort(out, (short) this.elementValuePairs.length);
+        out.writeShort(this.typeIndex);
+        out.writeShort((short) this.elementValuePairs.length);
         for (ElementValue.ElementValuePair elementValuePair : this.elementValuePairs) {
             elementValuePair.write(out);
         }

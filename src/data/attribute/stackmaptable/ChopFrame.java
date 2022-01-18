@@ -1,9 +1,8 @@
 package data.attribute.stackmaptable;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.*;
+import java.io.IOException;
 
 public final class ChopFrame extends StackMapFrame {
 
@@ -21,8 +20,8 @@ public final class ChopFrame extends StackMapFrame {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        out.write(tag);
-        writeShort(out, offsetDelta);
+        out.writeByte(tag);
+        out.writeShort(offsetDelta);
     }
 
     @Override

@@ -2,9 +2,8 @@ package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.*;
+import java.io.IOException;
 
 public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
 
@@ -27,8 +26,8 @@ public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        out.write(tag);
-        writeShort(out, offsetDelta);
+        out.writeByte(tag);
+        out.writeShort(offsetDelta);
         stack.write(out);
     }
 
