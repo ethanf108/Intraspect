@@ -5,28 +5,24 @@ import data.AttributeName;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.OutputStream;
-import static util.Util.readInt;
-import static util.Util.readShort;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
 
 @AttributeName("MethodParameters")
 public class MethodParametersAttribute implements AttributeDesc {
 
-    public static record Parameter(short nameIndex, short accessFlags) {
+    public static record Parameter(int nameIndex, int accessFlags) {
 
     }
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final Parameter[] parameters;
 
-    public MethodParametersAttribute(short attributeNameIndex, Parameter[] parameters) {
+    public MethodParametersAttribute(int attributeNameIndex, Parameter[] parameters) {
         this.attributeNameIndex = attributeNameIndex;
         this.parameters = parameters;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
@@ -39,9 +35,9 @@ public class MethodParametersAttribute implements AttributeDesc {
         return 1 + 4 * this.parameters.length;
     }
 
-    public static MethodParametersAttribute read(short ani, DataInputStream in) throws IOException {
-        readInt(in);    // Ignore
-        final byte numParameters = (byte) in.read();
+    public static MethodParametersAttribute read(int ani, DataInputStream in) throws IOException {
+        in.readInt();    // Ignore
+        final int numParameters = in.readUnsignedByte();
         final Parameter[] params = new Parameter[numParameters];
         for (int i = 0; i < numParameters; i++) {
             params[i] = new Parameter(in.readUnsignedShort(), in.readUnsignedShort());

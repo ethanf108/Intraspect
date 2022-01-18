@@ -12,25 +12,25 @@ import static util.Util.*;
 @AttributeName("Module")
 public class ModuleAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
 
-    private final short moduleNameIndex;
-    private final short moduleFlags;
-    private final short moduleVersionIndex;
+    private final int moduleNameIndex;
+    private final int moduleFlags;
+    private final int moduleVersionIndex;
     private final RequiresEntry[] requires;
     private final ExportsEntry[] exports;
     private final OpensEntry[] opens;
-    private final short[] usesIndex;
+    private final int[] usesIndex;
     private final ProvidesEntry[] provides;
 
-    public ModuleAttribute(final short attributeNameIndex,
-                           final short moduleNameIndex,
-                           final short moduleFlags,
-                           final short moduleVersionIndex,
+    public ModuleAttribute(final int attributeNameIndex,
+                           final int moduleNameIndex,
+                           final int moduleFlags,
+                           final int moduleVersionIndex,
                            final RequiresEntry[] requires,
                            final ExportsEntry[] exports,
                            final OpensEntry[] opens,
-                           final short[] usesIndex,
+                           final int[] usesIndex,
                            final ProvidesEntry[] provides) {
         this.attributeNameIndex = attributeNameIndex;
         this.moduleNameIndex = moduleNameIndex;
@@ -44,7 +44,7 @@ public class ModuleAttribute implements AttributeDesc {
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
@@ -115,31 +115,31 @@ public class ModuleAttribute implements AttributeDesc {
         }
     }
 
-    public static ModuleAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Ignore
+    public static ModuleAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();   // Ignore
 
-        final short moduleNameIndex = in.readUnsignedShort();
+        final int moduleNameIndex = in.readUnsignedShort();
 
-        final short moduleFlags = in.readUnsignedShort();
+        final int moduleFlags = in.readUnsignedShort();
 
-        final short moduleVersionIndex = in.readUnsignedShort();
+        final int moduleVersionIndex = in.readUnsignedShort();
 
         // Requires Entry
-        final short requiresCount = in.readUnsignedShort();
+        final int requiresCount = in.readUnsignedShort();
         final RequiresEntry[] requires = new RequiresEntry[requiresCount];
         for (int i = 0; i < requires.length; i++) {
             requires[i] = new RequiresEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
         }
 
         // Exports Entry
-        final short exportsCount = in.readUnsignedShort();
+        final int exportsCount = in.readUnsignedShort();
         final ExportsEntry[] exports = new ExportsEntry[exportsCount];
         for (int i = 0; i < exports.length; i++) {
-            final short exportsIndex = in.readUnsignedShort();
-            final short exportsFlags = in.readUnsignedShort();
-            final short exportsToCount = in.readUnsignedShort();
+            final int exportsIndex = in.readUnsignedShort();
+            final int exportsFlags = in.readUnsignedShort();
+            final int exportsToCount = in.readUnsignedShort();
 
-            final short[] exportsToIndex = new short[exportsToCount];
+            final int[] exportsToIndex = new int[exportsToCount];
             for (int j = 0; j < exportsToIndex.length; j++) {
                 exportsToIndex[j] = in.readUnsignedShort();
             }
@@ -147,34 +147,34 @@ public class ModuleAttribute implements AttributeDesc {
         }
 
         // Opens Entry
-        final short opensCount = in.readUnsignedShort();
+        final int opensCount = in.readUnsignedShort();
         final OpensEntry[] opens = new OpensEntry[opensCount];
         for (int i = 0; i < opens.length; i++) {
-            final short opensIndex = in.readUnsignedShort();
-            final short opensFlags = in.readUnsignedShort();
-            final short opensToCount = in.readUnsignedShort();
+            final int opensIndex = in.readUnsignedShort();
+            final int opensFlags = in.readUnsignedShort();
+            final int opensToCount = in.readUnsignedShort();
 
-            final short[] opensToIndex = new short[opensToCount];
+            final int[] opensToIndex = new int[opensToCount];
             for (int j = 0; j < opensToIndex.length; j++) {
                 opensToIndex[j] = in.readUnsignedShort();
             }
             opens[i] = new OpensEntry(opensIndex, opensFlags, opensToIndex);
         }
 
-        final short usesCount = in.readUnsignedShort();
-        final short[] usesIndex = new short[usesCount];
+        final int usesCount = in.readUnsignedShort();
+        final int[] usesIndex = new int[usesCount];
         for (int i = 0; i < usesIndex.length; i++) {
             usesIndex[i] = in.readUnsignedShort();
         }
 
         // Provides Entry
-        final short providesCount = in.readUnsignedShort();
+        final int providesCount = in.readUnsignedShort();
         final ProvidesEntry[] provides = new ProvidesEntry[providesCount];
         for (int i = 0; i < provides.length; i++) {
-            final short providesIndex = in.readUnsignedShort();
-            final short providesWithCount = in.readUnsignedShort();
+            final int providesIndex = in.readUnsignedShort();
+            final int providesWithCount = in.readUnsignedShort();
 
-            final short[] providesWithIndex = new short[providesWithCount];
+            final int[] providesWithIndex = new int[providesWithCount];
             for (int j = 0; j < providesWithIndex.length; j++) {
                 providesWithIndex[j] = in.readUnsignedShort();
             }
@@ -184,15 +184,15 @@ public class ModuleAttribute implements AttributeDesc {
         return new ModuleAttribute(ani, moduleNameIndex, moduleFlags, moduleVersionIndex, requires, exports, opens, usesIndex, provides);
     }
 
-    private static record RequiresEntry(short requiresIndex, short requiresFlags, short requiresVersionIndex) {
+    private static record RequiresEntry(int requiresIndex, int requiresFlags, int requiresVersionIndex) {
     }
 
-    private static record ExportsEntry(short exportsIndex, short exportsFlags, short[] exportsToIndex) {
+    private static record ExportsEntry(int exportsIndex, int exportsFlags, int[] exportsToIndex) {
     }
 
-    private static record OpensEntry(short opensIndex, short opensFlags, short[] opensToIndex) {
+    private static record OpensEntry(int opensIndex, int opensFlags, int[] opensToIndex) {
     }
 
-    private static record ProvidesEntry(short providesIndex, short[] providesWithIndex) {
+    private static record ProvidesEntry(int providesIndex, int[] providesWithIndex) {
     }
 }

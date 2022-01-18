@@ -10,16 +10,16 @@ import static util.Util.*;
 @AttributeName("LocalVariableTypeTable")
 public class LocalVariableTypeTableAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final LocalVariableTypeTableEntry[] localVariableTypeTable;
 
-    private LocalVariableTypeTableAttribute(final short attributeNameIndex, final LocalVariableTypeTableEntry[] localVariableTypeTable) {
+    private LocalVariableTypeTableAttribute(final int attributeNameIndex, final LocalVariableTypeTableEntry[] localVariableTypeTable) {
         this.attributeNameIndex = attributeNameIndex;
         this.localVariableTypeTable = localVariableTypeTable;
     }
 
-    public static LocalVariableTypeTableAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Discard attribute length
+    public static LocalVariableTypeTableAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();   // Discard attribute length
 
         final LocalVariableTypeTableEntry[] arr = new LocalVariableTypeTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTypeTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
@@ -29,7 +29,7 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
@@ -61,8 +61,8 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
         }
     }
 
-    private static record LocalVariableTypeTableEntry(short startPc, short length, short nameIndex,
-            short signatureIndex, short index) {
+    private static record LocalVariableTypeTableEntry(int startPc, int length, int nameIndex,
+            int signatureIndex, int index) {
 
     }
 }

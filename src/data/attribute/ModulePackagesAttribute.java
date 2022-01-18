@@ -5,35 +5,31 @@ import data.AttributeName;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.OutputStream;
-import static util.Util.readInt;
-import static util.Util.readShort;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
 
 @AttributeName("ModulePackages")
 public class ModulePackagesAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
-    private final short[] packageIndex;
+    private final int attributeNameIndex;
+    private final int[] packageIndex;
 
-    public ModulePackagesAttribute(short attributeNameIndex, short[] packageIndex) {
+    public ModulePackagesAttribute(int attributeNameIndex, int[] packageIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.packageIndex = packageIndex;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
-    public short[] getPackageIndex() {
+    public int[] getPackageIndex() {
         return packageIndex;
     }
 
-    public static ModulePackagesAttribute read(short ani, DataInputStream in) throws IOException {
-        final int length = readInt(in);
-        final short packageCount = in.readUnsignedShort();
-        final short[] packageIndex = new short[packageCount];
+    public static ModulePackagesAttribute read(int ani, DataInputStream in) throws IOException {
+        final int length = in.readInt();    // Ignore
+        final int packageCount = in.readUnsignedShort();
+        final int[] packageIndex = new int[packageCount];
         for (int i = 0; i < packageCount; i++) {
             packageIndex[i] = in.readUnsignedShort();
         }

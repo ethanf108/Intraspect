@@ -12,25 +12,25 @@ import static util.Util.*;
 @AttributeName("NestMembers")
 public class NestMembersAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
-    private final short[] classes;
+    private final int attributeNameIndex;
+    private final int[] classes;
 
-    private NestMembersAttribute(final short attributeNameIndex, final short[] classes) {
+    private NestMembersAttribute(final int attributeNameIndex, final int[] classes) {
         this.attributeNameIndex = attributeNameIndex;
         this.classes = classes;
     }
 
-    public static NestMembersAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Discard attribute length
+    public static NestMembersAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();    // Discard attribute length
 
-        final short[] arr = new short[in.readUnsignedShort()];
+        final int[] arr = new int[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = in.readUnsignedShort()) ;
 
         return new NestMembersAttribute(ani, arr);
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
@@ -43,7 +43,7 @@ public class NestMembersAttribute implements AttributeDesc {
         return (short) this.classes.length;
     }
 
-    public short[] getClasses() {
+    public int[] getClasses() {
         return this.classes;
     }
 
@@ -53,7 +53,7 @@ public class NestMembersAttribute implements AttributeDesc {
         writeInt(out, getDataLength());
         writeShort(out, getNumberOfClasses());
 
-        for (short aClass : this.classes) {
+        for (int aClass : this.classes) {
             writeShort(out, aClass);
         }
     }

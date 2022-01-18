@@ -13,16 +13,16 @@ import static util.Util.writeShort;
 @AttributeName("InnerClasses")
 public class InnerClassesAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final InnerClassesTableEntry[] innerClassesTable;
 
-    private InnerClassesAttribute(final short attributeNameIndex, final InnerClassesTableEntry[] innerClassesTable) {
+    private InnerClassesAttribute(final int attributeNameIndex, final InnerClassesTableEntry[] innerClassesTable) {
         this.attributeNameIndex = attributeNameIndex;
         this.innerClassesTable = innerClassesTable;
     }
 
-    public static InnerClassesAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Discard attribute length
+    public static InnerClassesAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();    // Discard attribute length
 
         final InnerClassesTableEntry[] arr = new InnerClassesTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = new InnerClassesTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
@@ -32,7 +32,7 @@ public class InnerClassesAttribute implements AttributeDesc {
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
@@ -63,7 +63,7 @@ public class InnerClassesAttribute implements AttributeDesc {
         }
     }
 
-    record InnerClassesTableEntry(short innerClassInfoIndex, short outerClassInfoIndex, short innerNameIndex,
-                                  short innerClassAccessFlags) {
+    record InnerClassesTableEntry(int innerClassInfoIndex, int outerClassInfoIndex, int innerNameIndex,
+                                  int innerClassAccessFlags) {
     }
 }

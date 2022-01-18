@@ -12,16 +12,16 @@ import static util.Util.*;
 @AttributeName("LineNumberTable")
 public class LineNumberTableAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final LineNumberTableEntry[] lineNumberTable;
 
-    private LineNumberTableAttribute(final short attributeNameIndex, final LineNumberTableEntry[] lineNumberTable) {
+    private LineNumberTableAttribute(final int attributeNameIndex, final LineNumberTableEntry[] lineNumberTable) {
         this.attributeNameIndex = attributeNameIndex;
         this.lineNumberTable = lineNumberTable;
     }
 
-    public static LineNumberTableAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Discard attribute length
+    public static LineNumberTableAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();    // Discard attribute length
 
         final LineNumberTableEntry[] arr = new LineNumberTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = new LineNumberTableEntry(in.readUnsignedShort(), in.readUnsignedShort())) ;
@@ -30,11 +30,11 @@ public class LineNumberTableAttribute implements AttributeDesc {
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
-    public short getLineNumberTableLength() {
+    public int getLineNumberTableLength() {
         return (short) this.lineNumberTable.length;
     }
 
@@ -59,7 +59,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
         return getLineNumberTableLength() * 4 + 2;
     }
 
-    private static record LineNumberTableEntry(short startPc, short lineNumber) {
+    private static record LineNumberTableEntry(int startPc, int lineNumber) {
 
     }
 }

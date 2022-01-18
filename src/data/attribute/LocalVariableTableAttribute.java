@@ -10,16 +10,16 @@ import static util.Util.*;
 @AttributeName("LocalVariableTable")
 public class LocalVariableTableAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final LocalVariableTableEntry[] localVariableTable;
 
-    public LocalVariableTableAttribute(final short attributeNameIndex, final LocalVariableTableEntry[] localVariableTable) {
+    public LocalVariableTableAttribute(final int attributeNameIndex, final LocalVariableTableEntry[] localVariableTable) {
         this.attributeNameIndex = attributeNameIndex;
         this.localVariableTable = localVariableTable;
     }
 
-    public static LocalVariableTableAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Discard attribute length
+    public static LocalVariableTableAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();    // Discard attribute length
 
         final LocalVariableTableEntry[] arr = new LocalVariableTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
@@ -29,12 +29,12 @@ public class LocalVariableTableAttribute implements AttributeDesc {
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
-    public short getLineNumberTableLength() {
-        return (short) this.localVariableTable.length;
+    public int getLineNumberTableLength() {
+        return this.localVariableTable.length;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         }
     }
 
-    private static record LocalVariableTableEntry(short startPc, short length, short nameIndex, short descriptorIndex, short index) {
+    private static record LocalVariableTableEntry(int startPc, int length, int nameIndex, int descriptorIndex, int index) {
 
     }
 }

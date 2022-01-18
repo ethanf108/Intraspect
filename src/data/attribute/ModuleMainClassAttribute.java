@@ -12,27 +12,27 @@ public class ModuleMainClassAttribute implements AttributeDesc {
 
     private static final int ATTRIBUTE_LENGTH = 2;
 
-    private final short attributeNameIndex;
-    private final short mainClassIndex;
+    private final int attributeNameIndex;
+    private final int mainClassIndex;
 
-    private ModuleMainClassAttribute(final short attributeNameIndex, final short mainClassIndex) {
+    private ModuleMainClassAttribute(final int attributeNameIndex, final int mainClassIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.mainClassIndex = mainClassIndex;
     }
 
-    public static ModuleMainClassAttribute read(final short ani, final DataInputStream in) throws IOException {
-        if (readInt(in) != ATTRIBUTE_LENGTH) {
+    public static ModuleMainClassAttribute read(final int ani, final DataInputStream in) throws IOException {
+        if (in.readInt() != ATTRIBUTE_LENGTH) {
             throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
         }
         return new ModuleMainClassAttribute(ani, in.readUnsignedShort());
     }
 
-    public short getMainClassIndex() {
+    public int getMainClassIndex() {
         return this.mainClassIndex;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
