@@ -13,27 +13,27 @@ import static util.Util.writeShort;
 @AttributeName("Exceptions")
 public class ExceptionsAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
-    private final short[] exceptionIndexTable;
+    private final int attributeNameIndex;
+    private final int[] exceptionIndexTable;
 
-    private ExceptionsAttribute(short ani, short[] eit) {
+    private ExceptionsAttribute(int ani, int[] eit) {
         this.attributeNameIndex = ani;
         this.exceptionIndexTable = eit;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
-    public short[] getExceptionIndexTable() {
+    public int[] getExceptionIndexTable() {
         return exceptionIndexTable;
     }
 
-    public static ExceptionsAttribute read(short ani, DataInputStream in) throws IOException {
-        final int length = readInt(in);
+    public static ExceptionsAttribute read(int ani, DataInputStream in) throws IOException {
+        final int length = in.readInt();
         final int numExceptions = in.readUnsignedShort();
-        final short[] exceptions = new short[numExceptions];
+        final int[] exceptions = new int[numExceptions];
         for (int i = 0; i < numExceptions; i++) {
             exceptions[i] = in.readUnsignedShort();
         }

@@ -15,18 +15,18 @@ import static util.Util.writeShort;
 @AttributeName("Code")
 public class CodeAttribute implements AttributeDesc {
 
-    public static record ExceptionDesc(short startPc, short endPc, short handlerPc, short catchType) {
+    public static record ExceptionDesc(int startPc, int endPc, int handlerPc, int catchType) {
 
     }
 
-    private final short attributeNameIndex;
-    private final short maxStack;
-    private final short maxLocals;
-    private final byte[] code;
+    private final int attributeNameIndex;
+    private final int maxStack;
+    private final int maxLocals;
+    private final int[] code;
     private final ExceptionDesc[] exceptionTable;
     private final AttributeDesc[] attributes;
 
-    public CodeAttribute(short attributeNameIndex, short maxStack, short maxLocals, byte[] code, ExceptionDesc[] exceptionTable, AttributeDesc[] attributes) {
+    public CodeAttribute(int attributeNameIndex, int maxStack, int maxLocals, int[] code, ExceptionDesc[] exceptionTable, AttributeDesc[] attributes) {
         this.attributeNameIndex = attributeNameIndex;
         this.maxStack = maxStack;
         this.maxLocals = maxLocals;
@@ -36,19 +36,19 @@ public class CodeAttribute implements AttributeDesc {
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
-    public short getMaxStack() {
+    public int getMaxStack() {
         return maxStack;
     }
 
-    public short getMaxLocals() {
+    public int getMaxLocals() {
         return maxLocals;
     }
 
-    public byte[] getCode() {
+    public int[] getCode() {
         return code;
     }
 
@@ -61,18 +61,21 @@ public class CodeAttribute implements AttributeDesc {
     }
 
     public static CodeAttribute read(short ani, DataInputStream in, ClassFile ref) throws IOException {
-        final int length = readInt(in);
-        final short maxStack = in.readUnsignedShort();
-        final short maxLocals = in.readUnsignedShort();
-        final int codeLength = readInt(in);
-        final byte[] code = new byte[codeLength];
-        in.read(code);
-        final short exceptionTableLength = in.readUnsignedShort();
+        in.readInt();   // Ignore
+
+        final int maxStack = in.readUnsignedShort();
+        final int maxLocals = in.readUnsignedShort();
+        final int codeLength = in.readInt();
+        final int[] code = new int[codeLength];
+
+        in.readByte();
+
+        final int exceptionTableLength = in.readUnsignedShort();
         final ExceptionDesc[] exceptions = new ExceptionDesc[exceptionTableLength];
         for (int i = 0; i < exceptionTableLength; i++) {
             exceptions[i] = new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
         }
-        final short attributesCount = in.readUnsignedShort();
+        final int attributesCount = in.readUnsignedShort();
         final AttributeDesc[] attributes = new AttributeDesc[attributesCount];
         for (int i = 0; i < attributesCount; i++) {
             attributes[i] = AttributeReader.read(in, ref);

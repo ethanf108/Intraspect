@@ -10,7 +10,7 @@ import static util.Util.*;
 @AttributeName("BootstrapMethods")
 public class BootstrapMethodsAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final BootstrapMethodsTableEntry[] bootstrapMethodsTable;
 
     private BootstrapMethodsAttribute(final short attributeNameIndex, final BootstrapMethodsTableEntry[] bootstrapMethodsTable) {
@@ -19,14 +19,14 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     }
 
     public static BootstrapMethodsAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Discard attribute length
+        in.readInt();    // Discard attribute length
 
         final BootstrapMethodsTableEntry[] arr = new BootstrapMethodsTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; i++) {
-            final short bootstrapMethodRef = in.readUnsignedShort();
-            final short numBoostrapArguments = in.readUnsignedShort();
+            final int bootstrapMethodRef = in.readUnsignedShort();
+            final int numBoostrapArguments = in.readUnsignedShort();
 
-            final short[] bootstrapArguments = new short[numBoostrapArguments];
+            final int[] bootstrapArguments = new int[numBoostrapArguments];
             for (int j = 0; j < bootstrapArguments.length; bootstrapArguments[j++] = in.readUnsignedShort());
 
             arr[i] = new BootstrapMethodsTableEntry(bootstrapMethodRef, numBoostrapArguments, bootstrapArguments);
@@ -44,19 +44,19 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
         for (final BootstrapMethodsTableEntry entry : bootstrapMethodsTable) {
             writeShort(out, entry.bootstrapMethodRef);
             writeShort(out, entry.numBootstrapArguments);
-            for (short bootstrapArgument : entry.bootstrapArguments) {
+            for (int bootstrapArgument : entry.bootstrapArguments) {
                 writeShort(out, bootstrapArgument);
             }
         }
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
-    public short getBootstrapMethodsTableLength() {
-        return (short) this.bootstrapMethodsTable.length;
+    public int getBootstrapMethodsTableLength() {
+        return this.bootstrapMethodsTable.length;
     }
 
     @Override
@@ -72,8 +72,8 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
         return this.bootstrapMethodsTable;
     }
 
-    private static record BootstrapMethodsTableEntry(short bootstrapMethodRef, short numBootstrapArguments,
-            short[] bootstrapArguments) {
+    private static record BootstrapMethodsTableEntry(int bootstrapMethodRef, int numBootstrapArguments,
+            int[] bootstrapArguments) {
 
     }
 }

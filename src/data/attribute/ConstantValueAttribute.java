@@ -13,25 +13,25 @@ import static util.Util.writeShort;
 @AttributeName("ConstantValue")
 public class ConstantValueAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
-    private final short constantValueIndex;
+    private final int attributeNameIndex;
+    private final int constantValueIndex;
 
-    private ConstantValueAttribute(short attributeNameIndex, short constantValueIndex) {
+    private ConstantValueAttribute(int attributeNameIndex, int constantValueIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.constantValueIndex = constantValueIndex;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
-    public short getConstantValueIndex() {
+    public int getConstantValueIndex() {
         return constantValueIndex;
     }
 
-    public static ConstantValueAttribute read(short ani, DataInputStream in) throws IOException {
-        if (readInt(in) != 2) {
+    public static ConstantValueAttribute read(int ani, DataInputStream in) throws IOException {
+        if (in.readInt() != 2) {
             throw new IllegalArgumentException("Constant Value Attribute length must be 2");
         }
         return new ConstantValueAttribute(ani, in.readUnsignedShort());

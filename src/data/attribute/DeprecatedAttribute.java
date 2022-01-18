@@ -12,19 +12,19 @@ import static util.Util.writeShort;
 @AttributeName("Deprecated")
 public class DeprecatedAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
 
-    public DeprecatedAttribute(short attributeNameIndex) {
+    public DeprecatedAttribute(int attributeNameIndex) {
         this.attributeNameIndex = attributeNameIndex;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
-    public static DeprecatedAttribute read(short ani, DataInputStream in) throws IOException {
-        final int length = readInt(in);
+    public static DeprecatedAttribute read(int ani, DataInputStream in) throws IOException {
+        final int length = in.readInt();
         if (length != 0) {
             throw new IllegalArgumentException("Deprecated Attribute Length must be 0");
         }

@@ -12,33 +12,33 @@ public class EnclosingMethodAttribute implements AttributeDesc {
 
     private static final int ATTRIBUTE_LENGTH = 4;
 
-    private final short attributeNameIndex;
-    private final short classIndex;
-    private final short methodIndex;
+    private final int attributeNameIndex;
+    private final int classIndex;
+    private final int methodIndex;
 
-    private EnclosingMethodAttribute(final short attributeNameIndex, final short classIndex, final short methodIndex) {
+    private EnclosingMethodAttribute(final int attributeNameIndex, final int classIndex, final int methodIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.classIndex = classIndex;
         this.methodIndex = methodIndex;
     }
 
-    public static EnclosingMethodAttribute read(final short ani, final DataInputStream in) throws IOException {
-        if (readInt(in) != ATTRIBUTE_LENGTH) {
+    public static EnclosingMethodAttribute read(final int ani, final DataInputStream in) throws IOException {
+        if (in.readInt() != ATTRIBUTE_LENGTH) {
             throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
         }
         return new EnclosingMethodAttribute(ani, in.readUnsignedShort(), in.readUnsignedShort());
     }
 
-    public short getClassIndex() {
+    public int getClassIndex() {
         return this.classIndex;
     }
 
-    public short getMethodIndex() {
+    public int getMethodIndex() {
         return this.methodIndex;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 

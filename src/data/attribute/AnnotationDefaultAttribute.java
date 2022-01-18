@@ -13,7 +13,7 @@ import static util.Util.*;
 @AttributeName("AnnotationDefault")
 public class AnnotationDefaultAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final ElementValue defaultValue;
 
     private AnnotationDefaultAttribute(final short attributeNameIndex, final ElementValue defaultValue) {
@@ -22,7 +22,7 @@ public class AnnotationDefaultAttribute implements AttributeDesc {
     }
 
     public static AnnotationDefaultAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Ignore
+        in.readInt();   // Ignore
         return new AnnotationDefaultAttribute(ani, ElementValue.read(in));
     }
 
@@ -31,7 +31,7 @@ public class AnnotationDefaultAttribute implements AttributeDesc {
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
