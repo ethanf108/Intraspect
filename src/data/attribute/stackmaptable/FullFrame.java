@@ -1,18 +1,18 @@
 package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import static util.Util.*;
 
 public final class FullFrame extends StackMapFrame {
 
-    private short offsetDelta;
+    private int offsetDelta;
     private VerificationTypeInfo[] locals;
     private VerificationTypeInfo[] stack;
 
-    public FullFrame(byte tag) {
+    public FullFrame(int tag) {
         super(tag);
     }
 
@@ -21,13 +21,13 @@ public final class FullFrame extends StackMapFrame {
 
         offsetDelta = in.readUnsignedShort();
 
-        final short numberOfLocals = in.readUnsignedShort();
+        final int numberOfLocals = in.readUnsignedShort();
         locals = new VerificationTypeInfo[numberOfLocals];
         for (int i = 0; i < locals.length; i++) {
             locals[i] = VerificationTypeInfo.read(in);
         }
 
-        final short numberOfStackItems = in.readUnsignedShort();
+        final int numberOfStackItems = in.readUnsignedShort();
         stack = new VerificationTypeInfo[numberOfStackItems];
         for (int i = 0; i < stack.length; i++) {
             stack[i] = VerificationTypeInfo.read(in);

@@ -1,21 +1,19 @@
 package data.attribute.stackmaptable.verificationtypeinfo;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
-import static util.Util.*;
 
 public final class ObjectVariableInfo extends VerificationTypeInfo {
 
-    private short cpoolIndex;
-
-    public short getCpoolIndex() {
-        return this.cpoolIndex;
+    public ObjectVariableInfo(int tag) {
+        super(tag);
     }
 
-    public ObjectVariableInfo(byte tag) {
-        super(tag);
+    private int cpoolIndex;
+
+    public int getCpoolIndex() {
+        return this.cpoolIndex;
     }
 
     @Override

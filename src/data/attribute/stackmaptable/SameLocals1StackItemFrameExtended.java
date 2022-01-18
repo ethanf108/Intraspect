@@ -1,19 +1,17 @@
 package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
-
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
 
-    private short offsetDelta;
+    private int offsetDelta;
     private VerificationTypeInfo stack;
 
-    public SameLocals1StackItemFrameExtended(byte tag) {
+    public SameLocals1StackItemFrameExtended(int tag) {
         super(tag);
     }
 
