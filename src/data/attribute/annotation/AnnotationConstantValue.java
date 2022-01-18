@@ -20,7 +20,7 @@ public final class AnnotationConstantValue extends ElementValue {
         return constValueIndex;
     }
 
-    public void setConstValueIndex(short constValueIndex) {
+    public void setConstValueIndex(int constValueIndex) {
         this.constValueIndex = constValueIndex;
     }
 

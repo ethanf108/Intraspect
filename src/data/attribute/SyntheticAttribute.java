@@ -3,10 +3,8 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 @AttributeName("Synthetic")
 public class SyntheticAttribute implements AttributeDesc {
@@ -36,7 +34,7 @@ public class SyntheticAttribute implements AttributeDesc {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, 0);
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
     }
 }

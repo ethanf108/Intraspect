@@ -3,12 +3,9 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import data.attribute.annotation.ElementValue;
-
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-
-import static util.Util.*;
+import java.io.IOException;
 
 @AttributeName("AnnotationDefault")
 public class AnnotationDefaultAttribute implements AttributeDesc {
@@ -16,12 +13,12 @@ public class AnnotationDefaultAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final ElementValue defaultValue;
 
-    private AnnotationDefaultAttribute(final short attributeNameIndex, final ElementValue defaultValue) {
+    private AnnotationDefaultAttribute(final int attributeNameIndex, final ElementValue defaultValue) {
         this.attributeNameIndex = attributeNameIndex;
         this.defaultValue = defaultValue;
     }
 
-    public static AnnotationDefaultAttribute read(final short ani, final DataInputStream in) throws IOException {
+    public static AnnotationDefaultAttribute read(final int ani, final DataInputStream in) throws IOException {
         in.readInt();   // Ignore
         return new AnnotationDefaultAttribute(ani, ElementValue.read(in));
     }
@@ -42,8 +39,8 @@ public class AnnotationDefaultAttribute implements AttributeDesc {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, getDataLength());
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(getDataLength());
         this.defaultValue.write(out);
     }
 }

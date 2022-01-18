@@ -2,9 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 @AttributeName("MethodParameters")
 public class MethodParametersAttribute implements AttributeDesc {
@@ -47,11 +47,12 @@ public class MethodParametersAttribute implements AttributeDesc {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeInt(out, this.getDataLength());
-        out.write((byte) this.parameters.length);
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeByte(this.parameters.length);
         for (Parameter p : this.parameters) {
-            writeShort(out, p.nameIndex);
-            writeShort(out, p.accessFlags);
+            out.writeShort(p.nameIndex);
+            out.writeShort(p.accessFlags);
         }
     }
 

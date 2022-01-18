@@ -2,10 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import static util.Util.*;
+import java.io.IOException;
 
 @AttributeName("LocalVariableTypeTable")
 public class LocalVariableTypeTableAttribute implements AttributeDesc {
@@ -33,8 +32,8 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
         return this.attributeNameIndex;
     }
 
-    public short getLocalVariableTypeTableLength() {
-        return (short) this.localVariableTypeTable.length;
+    public int getLocalVariableTypeTableLength() {
+        return this.localVariableTypeTable.length;
     }
 
     @Override
@@ -48,20 +47,20 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.getDataLength());
-        writeShort(out, getLocalVariableTypeTableLength());
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(getLocalVariableTypeTableLength());
 
         for (final LocalVariableTypeTableEntry entry : localVariableTypeTable) {
-            writeShort(out, entry.startPc);
-            writeShort(out, entry.length);
-            writeShort(out, entry.nameIndex);
-            writeShort(out, entry.signatureIndex);
-            writeShort(out, entry.index);
+            out.writeShort(entry.startPc);
+            out.writeShort(entry.length);
+            out.writeShort(entry.nameIndex);
+            out.writeShort(entry.signatureIndex);
+            out.writeShort(entry.index);
         }
     }
 
-    private static record LocalVariableTypeTableEntry(int startPc, int length, int nameIndex,
+    public static record LocalVariableTypeTableEntry(int startPc, int length, int nameIndex,
             int signatureIndex, int index) {
 
     }

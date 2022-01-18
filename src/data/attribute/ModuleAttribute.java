@@ -2,12 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-
-import static util.Util.*;
+import java.io.IOException;
 
 @AttributeName("Module")
 public class ModuleAttribute implements AttributeDesc {
@@ -24,14 +21,14 @@ public class ModuleAttribute implements AttributeDesc {
     private final ProvidesEntry[] provides;
 
     public ModuleAttribute(final int attributeNameIndex,
-                           final int moduleNameIndex,
-                           final int moduleFlags,
-                           final int moduleVersionIndex,
-                           final RequiresEntry[] requires,
-                           final ExportsEntry[] exports,
-                           final OpensEntry[] opens,
-                           final int[] usesIndex,
-                           final ProvidesEntry[] provides) {
+            final int moduleNameIndex,
+            final int moduleFlags,
+            final int moduleVersionIndex,
+            final RequiresEntry[] requires,
+            final ExportsEntry[] exports,
+            final OpensEntry[] opens,
+            final int[] usesIndex,
+            final ProvidesEntry[] provides) {
         this.attributeNameIndex = attributeNameIndex;
         this.moduleNameIndex = moduleNameIndex;
         this.moduleFlags = moduleFlags;
@@ -55,62 +52,62 @@ public class ModuleAttribute implements AttributeDesc {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        writeInt(out, this.getDataLength());
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
 
-        writeShort(out, moduleNameIndex);
+        out.writeShort(moduleNameIndex);
 
-        writeShort(out, moduleFlags);
+        out.writeShort(moduleFlags);
 
-        writeShort(out, moduleVersionIndex);
+        out.writeShort(moduleVersionIndex);
 
-        writeShort(out, (short) requires.length);
+        out.writeShort(requires.length);
 
         // Requires write
         for (RequiresEntry entry : requires) {
-            writeShort(out, entry.requiresIndex);
-            writeShort(out, entry.requiresFlags);
-            writeShort(out, entry.requiresVersionIndex);
+            out.writeShort(entry.requiresIndex);
+            out.writeShort(entry.requiresFlags);
+            out.writeShort(entry.requiresVersionIndex);
         }
 
-
-        writeShort(out, (short) exports.length);
+        out.writeShort(exports.length);
 
         // Exports write
         for (ExportsEntry entry : exports) {
-            writeShort(out, entry.exportsIndex);
-            writeShort(out, entry.exportsFlags);
-            writeShort(out, (short) entry.exportsToIndex.length);
+            out.writeShort(entry.exportsIndex);
+            out.writeShort(entry.exportsFlags);
+            out.writeShort(entry.exportsToIndex.length);
 
-            for (final short export : entry.exportsToIndex) {
-                writeShort(out, export);
+            for (final int export : entry.exportsToIndex) {
+                out.writeShort(export);
             }
         }
 
         // Opens write
-        writeShort(out, (short) opens.length);
+        out.writeShort(opens.length);
         for (OpensEntry entry : opens) {
-            writeShort(out, entry.opensIndex);
-            writeShort(out, entry.opensFlags);
-            writeShort(out, (short) entry.opensToIndex.length);
+            out.writeShort(entry.opensIndex);
+            out.writeShort(entry.opensFlags);
+            out.writeShort(entry.opensToIndex.length);
 
-            for (final short export : entry.opensToIndex) {
-                writeShort(out, export);
+            for (final int export : entry.opensToIndex) {
+                out.writeShort(export);
             }
         }
 
-        writeShort(out, (short) usesIndex.length);
-        for (short index : usesIndex) {
-            writeShort(out, index);
+        out.writeShort(usesIndex.length);
+        for (int index : usesIndex) {
+            out.writeShort(index);
         }
 
         // Provides write
-        writeShort(out, (short) provides.length);
+        out.writeShort(provides.length);
         for (ProvidesEntry entry : provides) {
-            writeShort(out, entry.providesIndex);
-            writeShort(out, (short) entry.providesWithIndex.length);
+            out.writeShort(entry.providesIndex);
+            out.writeShort(entry.providesWithIndex.length);
 
-            for (short provides : entry.providesWithIndex) {
-                writeShort(out, provides);
+            for (int provides : entry.providesWithIndex) {
+                out.writeShort(provides);
             }
         }
     }
@@ -185,14 +182,18 @@ public class ModuleAttribute implements AttributeDesc {
     }
 
     private static record RequiresEntry(int requiresIndex, int requiresFlags, int requiresVersionIndex) {
+
     }
 
     private static record ExportsEntry(int exportsIndex, int exportsFlags, int[] exportsToIndex) {
+
     }
 
     private static record OpensEntry(int opensIndex, int opensFlags, int[] opensToIndex) {
+
     }
 
     private static record ProvidesEntry(int providesIndex, int[] providesWithIndex) {
+
     }
 }

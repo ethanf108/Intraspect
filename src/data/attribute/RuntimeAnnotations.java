@@ -2,10 +2,8 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 public sealed abstract class RuntimeAnnotations implements AttributeDesc permits RuntimeVisibleAnnotationsAttribute, RuntimeInvisibleAnnotationsAttribute {
 
@@ -39,8 +37,8 @@ public sealed abstract class RuntimeAnnotations implements AttributeDesc permits
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeInt(out, this.getDataLength());
-        writeShort(out, (short) this.annotations.length);
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.annotations.length);
         for (AnnotationDesc annotation : annotations) {
             annotation.write(out);
         }

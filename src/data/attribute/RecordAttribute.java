@@ -5,9 +5,8 @@ import data.AttributeName;
 import data.AttributeReader;
 import data.ClassFile;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.*;
+import java.io.IOException;
 
 @AttributeName("Record")
 public class RecordAttribute implements AttributeDesc {
@@ -42,14 +41,14 @@ public class RecordAttribute implements AttributeDesc {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.getDataLength());
-        writeShort(out, (short) this.components.length);
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.components.length);
 
         for (final RecordComponentInfo component : this.components) {
-            writeShort(out, component.nameIndex);
-            writeShort(out, component.descriptorIndex);
-            writeShort(out, (short) component.attributes.length);
+            out.writeShort(component.nameIndex);
+            out.writeShort(component.descriptorIndex);
+            out.writeShort(component.attributes.length);
 
             for (final AttributeDesc attribute : component.attributes) {
                 attribute.write(out);
@@ -79,7 +78,7 @@ public class RecordAttribute implements AttributeDesc {
         return new RecordAttribute(ani, components);
     }
 
-    private static record RecordComponentInfo(int nameIndex, int descriptorIndex, AttributeDesc[] attributes) {
+    public static record RecordComponentInfo(int nameIndex, int descriptorIndex, AttributeDesc[] attributes) {
 
     }
 }

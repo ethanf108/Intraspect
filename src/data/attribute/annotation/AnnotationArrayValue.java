@@ -41,7 +41,7 @@ public final class AnnotationArrayValue extends ElementValue {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        out.writeShort((short) this.values.length);
+        out.writeShort(this.values.length);
         for (ElementValue elementValue : this.values) {
             elementValue.write(out);
         }

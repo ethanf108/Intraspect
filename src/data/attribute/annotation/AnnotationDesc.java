@@ -42,7 +42,7 @@ public class AnnotationDesc {
 
     public void write(DataOutputStream out) throws IOException {
         out.writeShort(this.typeIndex);
-        out.writeShort((short) this.elementValuePairs.length);
+        out.writeShort(this.elementValuePairs.length);
         for (ElementValue.ElementValuePair elementValuePair : this.elementValuePairs) {
             elementValuePair.write(out);
         }

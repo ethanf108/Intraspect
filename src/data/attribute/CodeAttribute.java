@@ -5,10 +5,8 @@ import data.AttributeName;
 import data.AttributeReader;
 import data.ClassFile;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 @AttributeName("Code")
 public class CodeAttribute implements AttributeDesc {
@@ -58,7 +56,7 @@ public class CodeAttribute implements AttributeDesc {
         return attributes;
     }
 
-    public static CodeAttribute read(short ani, DataInputStream in, ClassFile ref) throws IOException {
+    public static CodeAttribute read(int ani, DataInputStream in, ClassFile ref) throws IOException {
         in.readInt();   // Ignore
 
         final int maxStack = in.readUnsignedShort();
@@ -92,20 +90,20 @@ public class CodeAttribute implements AttributeDesc {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.getDataLength());
-        writeShort(out, this.maxStack);
-        writeShort(out, this.maxLocals);
-        writeInt(out, this.code.length);
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.maxStack);
+        out.writeShort(this.maxLocals);
+        out.writeInt(this.code.length);
         out.write(this.code);
-        writeShort(out, (short) this.exceptionTable.length);
+        out.writeShort(this.exceptionTable.length);
         for (ExceptionDesc ed : this.exceptionTable) {
-            writeShort(out, ed.startPc);
-            writeShort(out, ed.endPc);
-            writeShort(out, ed.handlerPc);
-            writeShort(out, ed.catchType);
+            out.writeShort(ed.startPc);
+            out.writeShort(ed.endPc);
+            out.writeShort(ed.handlerPc);
+            out.writeShort(ed.catchType);
         }
-        writeShort(out, (short) this.attributes.length);
+        out.writeShort(this.attributes.length);
         for (AttributeDesc ad : this.attributes) {
             ad.write(out);
         }

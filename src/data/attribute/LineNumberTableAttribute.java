@@ -2,12 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-
-import static util.Util.*;
+import java.io.IOException;
 
 @AttributeName("LineNumberTable")
 public class LineNumberTableAttribute implements AttributeDesc {
@@ -35,7 +32,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
     }
 
     public int getLineNumberTableLength() {
-        return (short) this.lineNumberTable.length;
+        return this.lineNumberTable.length;
     }
 
     public LineNumberTableEntry[] getLineNumberTable() {
@@ -44,13 +41,13 @@ public class LineNumberTableAttribute implements AttributeDesc {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.getDataLength());
-        writeShort(out, getLineNumberTableLength());
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(getLineNumberTableLength());
 
         for (LineNumberTableEntry entry : lineNumberTable) {
-            writeShort(out, entry.startPc);
-            writeShort(out, entry.lineNumber);
+            out.writeShort(entry.startPc);
+            out.writeShort(entry.lineNumber);
         }
     }
 
@@ -59,7 +56,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
         return getLineNumberTableLength() * 4 + 2;
     }
 
-    private static record LineNumberTableEntry(int startPc, int lineNumber) {
+    public static record LineNumberTableEntry(int startPc, int lineNumber) {
 
     }
 }

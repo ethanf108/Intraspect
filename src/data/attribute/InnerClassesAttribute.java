@@ -2,13 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-
-import static util.Util.*;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 @AttributeName("InnerClasses")
 public class InnerClassesAttribute implements AttributeDesc {
@@ -41,8 +37,8 @@ public class InnerClassesAttribute implements AttributeDesc {
         return 2 + getInnerClassesTableLength() * 8;
     }
 
-    public short getInnerClassesTableLength() {
-        return (short) this.innerClassesTable.length;
+    public int getInnerClassesTableLength() {
+        return this.innerClassesTable.length;
     }
 
     public InnerClassesTableEntry[] getInnerClassesTable() {
@@ -51,19 +47,20 @@ public class InnerClassesAttribute implements AttributeDesc {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.getDataLength());
-        writeShort(out, getInnerClassesTableLength());
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(getInnerClassesTableLength());
 
         for (final InnerClassesTableEntry entry : innerClassesTable) {
-            writeShort(out, entry.innerClassInfoIndex);
-            writeShort(out, entry.outerClassInfoIndex);
-            writeShort(out, entry.innerNameIndex);
-            writeShort(out, entry.innerClassAccessFlags);
+            out.writeShort(entry.innerClassInfoIndex);
+            out.writeShort(entry.outerClassInfoIndex);
+            out.writeShort(entry.innerNameIndex);
+            out.writeShort(entry.innerClassAccessFlags);
         }
     }
 
-    record InnerClassesTableEntry(int innerClassInfoIndex, int outerClassInfoIndex, int innerNameIndex,
-                                  int innerClassAccessFlags) {
+    public record InnerClassesTableEntry(int innerClassInfoIndex, int outerClassInfoIndex, int innerNameIndex,
+            int innerClassAccessFlags) {
+
     }
 }

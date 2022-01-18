@@ -3,10 +3,8 @@ package data.attribute;
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 public abstract sealed class RuntimeParameterAnnotations implements AttributeDesc permits RuntimeVisibleParameterAnnotationsAttribute, RuntimeInvisibleParameterAnnotationsAttribute {
 
@@ -22,7 +20,7 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
         }
 
         public void write(DataOutputStream out) throws IOException {
-            writeShort(out, (short) this.annotations.length);
+            out.writeShort(this.annotations.length);
             for (AnnotationDesc annotation : this.annotations) {
                 annotation.write(out);
             }
@@ -62,8 +60,8 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeInt(out, this.getDataLength());
-        out.write((byte) this.parameterAnnotations.length);
+        out.writeInt(this.getDataLength());
+        out.writeByte(this.parameterAnnotations.length);
         for (ParameterAnnotations parameter : this.parameterAnnotations) {
             parameter.write(out);
         }

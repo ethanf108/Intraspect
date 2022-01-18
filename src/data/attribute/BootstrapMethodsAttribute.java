@@ -2,10 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import static util.Util.*;
+import java.io.IOException;
 
 @AttributeName("BootstrapMethods")
 public class BootstrapMethodsAttribute implements AttributeDesc {
@@ -13,12 +12,12 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final BootstrapMethodsTableEntry[] bootstrapMethodsTable;
 
-    private BootstrapMethodsAttribute(final short attributeNameIndex, final BootstrapMethodsTableEntry[] bootstrapMethodsTable) {
+    private BootstrapMethodsAttribute(final int attributeNameIndex, final BootstrapMethodsTableEntry[] bootstrapMethodsTable) {
         this.attributeNameIndex = attributeNameIndex;
         this.bootstrapMethodsTable = bootstrapMethodsTable;
     }
 
-    public static BootstrapMethodsAttribute read(final short ani, final DataInputStream in) throws IOException {
+    public static BootstrapMethodsAttribute read(final int ani, final DataInputStream in) throws IOException {
         in.readInt();    // Discard attribute length
 
         final BootstrapMethodsTableEntry[] arr = new BootstrapMethodsTableEntry[in.readUnsignedShort()];
@@ -37,15 +36,15 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.getDataLength());
-        writeShort(out, getBootstrapMethodsTableLength());
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(getBootstrapMethodsTableLength());
 
         for (final BootstrapMethodsTableEntry entry : bootstrapMethodsTable) {
-            writeShort(out, entry.bootstrapMethodRef);
-            writeShort(out, entry.numBootstrapArguments);
+            out.writeShort(entry.bootstrapMethodRef);
+            out.writeShort(entry.numBootstrapArguments);
             for (int bootstrapArgument : entry.bootstrapArguments) {
-                writeShort(out, bootstrapArgument);
+                out.writeShort(bootstrapArgument);
             }
         }
     }
@@ -72,7 +71,7 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
         return this.bootstrapMethodsTable;
     }
 
-    private static record BootstrapMethodsTableEntry(int bootstrapMethodRef, int numBootstrapArguments,
+    public static record BootstrapMethodsTableEntry(int bootstrapMethodRef, int numBootstrapArguments,
             int[] bootstrapArguments) {
 
     }

@@ -3,10 +3,8 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 @AttributeName("Exceptions")
 public class ExceptionsAttribute implements AttributeDesc {
@@ -40,11 +38,11 @@ public class ExceptionsAttribute implements AttributeDesc {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.getDataLength());
-        writeShort(out, (short) this.exceptionIndexTable.length);
-        for (short s : this.exceptionIndexTable) {
-            writeShort(out, s);
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.exceptionIndexTable.length);
+        for (int s : this.exceptionIndexTable) {
+            out.writeShort(s);
         }
     }
 

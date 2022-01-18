@@ -3,10 +3,8 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 @AttributeName("Signature")
 public class SignatureAttribute implements AttributeDesc {
@@ -44,8 +42,8 @@ public class SignatureAttribute implements AttributeDesc {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, 2);
-        writeShort(out, this.signatureIndex);
+        out.writeShort(this.attributeNameIndex);
+        out.writeLong(2);
+        out.writeShort(this.signatureIndex);
     }
 }

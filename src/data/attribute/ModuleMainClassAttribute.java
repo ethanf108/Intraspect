@@ -2,10 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import static util.Util.*;
+import java.io.IOException;
 
 @AttributeName("ModuleMainClass")
 public class ModuleMainClassAttribute implements AttributeDesc {
@@ -38,9 +37,9 @@ public class ModuleMainClassAttribute implements AttributeDesc {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, ATTRIBUTE_LENGTH);
-        writeShort(out, this.mainClassIndex);
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(ATTRIBUTE_LENGTH);
+        out.writeShort(this.mainClassIndex);
     }
 
     @Override

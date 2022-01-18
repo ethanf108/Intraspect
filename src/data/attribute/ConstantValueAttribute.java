@@ -3,10 +3,8 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.writeInt;
-import static util.Util.writeShort;
+import java.io.IOException;
 
 @AttributeName("ConstantValue")
 public class ConstantValueAttribute implements AttributeDesc {
@@ -37,9 +35,9 @@ public class ConstantValueAttribute implements AttributeDesc {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, this.getDataLength());
-        writeShort(out, this.constantValueIndex);
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.constantValueIndex);
     }
 
     @Override

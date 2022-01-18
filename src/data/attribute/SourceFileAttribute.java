@@ -3,9 +3,8 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
-import static util.Util.*;
+import java.io.IOException;
 
 @AttributeName("SourceFile")
 public class SourceFileAttribute implements AttributeDesc {
@@ -42,8 +41,8 @@ public class SourceFileAttribute implements AttributeDesc {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        writeShort(out, this.attributeNameIndex);
-        writeInt(out, ATTRIBUTE_LENGTH);
-        writeShort(out, this.sourcefileIndex);
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.sourcefileIndex);
     }
 }
