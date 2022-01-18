@@ -4,11 +4,9 @@ import data.AttributeDesc;
 import data.AttributeName;
 import data.AttributeReader;
 import data.ClassFile;
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readInt;
-import static util.Util.readShort;
 import static util.Util.writeInt;
 import static util.Util.writeShort;
 
@@ -22,11 +20,11 @@ public class CodeAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final int maxStack;
     private final int maxLocals;
-    private final int[] code;
+    private final byte[] code;
     private final ExceptionDesc[] exceptionTable;
     private final AttributeDesc[] attributes;
 
-    public CodeAttribute(int attributeNameIndex, int maxStack, int maxLocals, int[] code, ExceptionDesc[] exceptionTable, AttributeDesc[] attributes) {
+    public CodeAttribute(int attributeNameIndex, int maxStack, int maxLocals, byte[] code, ExceptionDesc[] exceptionTable, AttributeDesc[] attributes) {
         this.attributeNameIndex = attributeNameIndex;
         this.maxStack = maxStack;
         this.maxLocals = maxLocals;
@@ -48,7 +46,7 @@ public class CodeAttribute implements AttributeDesc {
         return maxLocals;
     }
 
-    public int[] getCode() {
+    public byte[] getCode() {
         return code;
     }
 
@@ -66,9 +64,9 @@ public class CodeAttribute implements AttributeDesc {
         final int maxStack = in.readUnsignedShort();
         final int maxLocals = in.readUnsignedShort();
         final int codeLength = in.readInt();
-        final int[] code = new int[codeLength];
+        final byte[] code = new byte[codeLength];
 
-        in.readByte();
+        in.read(code);
 
         final int exceptionTableLength = in.readUnsignedShort();
         final ExceptionDesc[] exceptions = new ExceptionDesc[exceptionTableLength];

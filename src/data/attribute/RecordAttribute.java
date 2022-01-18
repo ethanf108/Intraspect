@@ -4,26 +4,24 @@ import data.AttributeDesc;
 import data.AttributeName;
 import data.AttributeReader;
 import data.ClassFile;
-
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 @AttributeName("Record")
 public class RecordAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final RecordComponentInfo[] components;
 
-    private RecordAttribute(final short attributeNameIndex, final RecordComponentInfo[] components) {
+    private RecordAttribute(final int attributeNameIndex, final RecordComponentInfo[] components) {
         this.attributeNameIndex = attributeNameIndex;
         this.components = components;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
@@ -59,16 +57,16 @@ public class RecordAttribute implements AttributeDesc {
         }
     }
 
-    public static RecordAttribute read(final short ani, final DataInputStream in, final ClassFile ref) throws IOException {
-        readInt(in);    // Ignore
+    public static RecordAttribute read(final int ani, final DataInputStream in, final ClassFile ref) throws IOException {
+        in.readInt();    // Ignore
 
-        final short componentsCount = in.readUnsignedShort();
+        final int componentsCount = in.readUnsignedShort();
 
         final RecordComponentInfo[] components = new RecordComponentInfo[componentsCount];
         for (int i = 0; i < components.length; i++) {
-            final short nameIndex = in.readUnsignedShort();
-            final short descriptorIndex = in.readUnsignedShort();
-            final short attributesCount = in.readUnsignedShort();
+            final int nameIndex = in.readUnsignedShort();
+            final int descriptorIndex = in.readUnsignedShort();
+            final int attributesCount = in.readUnsignedShort();
 
             final AttributeDesc[] attributes = new AttributeDesc[attributesCount];
             for (int j = 0; j < attributes.length; j++) {
@@ -81,7 +79,7 @@ public class RecordAttribute implements AttributeDesc {
         return new RecordAttribute(ani, components);
     }
 
+    private static record RecordComponentInfo(int nameIndex, int descriptorIndex, AttributeDesc[] attributes) {
 
-    private static record RecordComponentInfo(short nameIndex, short descriptorIndex, AttributeDesc[] attributes) {
     }
 }

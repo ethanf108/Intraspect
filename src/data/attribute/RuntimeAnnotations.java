@@ -9,16 +9,16 @@ import static util.Util.writeShort;
 
 public sealed abstract class RuntimeAnnotations implements AttributeDesc permits RuntimeVisibleAnnotationsAttribute, RuntimeInvisibleAnnotationsAttribute {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final AnnotationDesc[] annotations;
 
-    RuntimeAnnotations(short attributeNameIndex, AnnotationDesc[] annotations) {
+    RuntimeAnnotations(int attributeNameIndex, AnnotationDesc[] annotations) {
         this.attributeNameIndex = attributeNameIndex;
         this.annotations = annotations;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 

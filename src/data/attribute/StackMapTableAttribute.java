@@ -3,28 +3,26 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import data.attribute.stackmaptable.StackMapFrame;
-
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 @AttributeName("StackMapTable")
 public class StackMapTableAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final StackMapFrame[] entries;
 
-    private StackMapTableAttribute(short attributeNameIndex, StackMapFrame[] entries) {
+    private StackMapTableAttribute(int attributeNameIndex, StackMapFrame[] entries) {
         this.attributeNameIndex = attributeNameIndex;
         this.entries = entries;
     }
 
-    public static StackMapTableAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Ignore
+    public static StackMapTableAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();    // Ignore
 
-        final short numberOfEntries = in.readUnsignedShort();
+        final int numberOfEntries = in.readUnsignedShort();
 
         final StackMapFrame[] entries = new StackMapFrame[numberOfEntries];
         for (short i = 0; i < numberOfEntries; i++) {
@@ -39,7 +37,7 @@ public class StackMapTableAttribute implements AttributeDesc {
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 

@@ -2,21 +2,19 @@ package data.attribute;
 
 import data.AttributeName;
 import data.attribute.annotation.AnnotationDesc;
-import java.io.IOException;
 import java.io.DataInputStream;
-import static util.Util.readInt;
-import static util.Util.readShort;
+import java.io.IOException;
 
 @AttributeName("RuntimeInvisibleAnnotations")
 public final class RuntimeInvisibleAnnotationsAttribute extends RuntimeAnnotations {
 
-    public RuntimeInvisibleAnnotationsAttribute(short attributeNameIndex, AnnotationDesc[] annotations) {
+    public RuntimeInvisibleAnnotationsAttribute(int attributeNameIndex, AnnotationDesc[] annotations) {
         super(attributeNameIndex, annotations);
     }
 
-    public static RuntimeInvisibleAnnotationsAttribute read(short ani, DataInputStream in) throws IOException {
-        final int length = readInt(in);
-        final short numAnnotations = in.readUnsignedShort();
+    public static RuntimeInvisibleAnnotationsAttribute read(int ani, DataInputStream in) throws IOException {
+        final int length = in.readInt();
+        final int numAnnotations = in.readUnsignedShort();
         final AnnotationDesc[] annotations = new AnnotationDesc[numAnnotations];
         for (int i = 0; i < numAnnotations; i++) {
             annotations[i] = AnnotationDesc.read(in);

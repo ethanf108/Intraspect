@@ -2,27 +2,25 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readInt;
-import static util.Util.readShort;
 import static util.Util.writeInt;
 import static util.Util.writeShort;
 
 @AttributeName("Signature")
 public class SignatureAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
-    private final short signatureIndex;
+    private final int attributeNameIndex;
+    private final int signatureIndex;
 
-    private SignatureAttribute(short ani, short si) {
+    private SignatureAttribute(int ani, int si) {
         this.attributeNameIndex = ani;
         this.signatureIndex = si;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
@@ -31,16 +29,16 @@ public class SignatureAttribute implements AttributeDesc {
         return 2;
     }
 
-    public short getSignatureIndex() {
+    public int getSignatureIndex() {
         return signatureIndex;
     }
 
-    public static SignatureAttribute read(short ani, DataInputStream in) throws IOException {
-        final int length = readInt(in);
+    public static SignatureAttribute read(int ani, DataInputStream in) throws IOException {
+        final int length = in.readInt();
         if (length != 2) {
             throw new IllegalArgumentException("Signature Attribute Length must be 2");
         }
-        final short signatureIndex = in.readUnsignedShort();
+        final int signatureIndex = in.readUnsignedShort();
         return new SignatureAttribute(ani, signatureIndex);
     }
 

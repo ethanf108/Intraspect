@@ -1,25 +1,24 @@
 package data.attribute;
 
 import data.AttributeDesc;
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readInt;
 import static util.Util.writeInt;
 import static util.Util.writeShort;
 
 public class UnknownAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final byte[] data;
 
-    private UnknownAttribute(short ani, byte[] data) {
+    private UnknownAttribute(int ani, byte[] data) {
         this.attributeNameIndex = ani;
         this.data = data;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
@@ -34,8 +33,8 @@ public class UnknownAttribute implements AttributeDesc {
         return ret;
     }
 
-    public static UnknownAttribute read(short attributeNameIndex, DataInputStream in) throws IOException {
-        final int length = readInt(in);
+    public static UnknownAttribute read(int attributeNameIndex, DataInputStream in) throws IOException {
+        final int length = in.readInt();
         return new UnknownAttribute(attributeNameIndex, in.readNBytes(length));
     }
 

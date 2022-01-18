@@ -2,26 +2,25 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readInt;
 import static util.Util.writeInt;
 import static util.Util.writeShort;
 
 @AttributeName("SourceDebugExtension")
 public class SourceDebugExtensionAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final byte[] debugExtension;
 
-    public SourceDebugExtensionAttribute(short attributeNameIndex, byte[] debugExtension) {
+    public SourceDebugExtensionAttribute(int attributeNameIndex, byte[] debugExtension) {
         this.attributeNameIndex = attributeNameIndex;
         this.debugExtension = debugExtension;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 
@@ -34,8 +33,8 @@ public class SourceDebugExtensionAttribute implements AttributeDesc {
         return debugExtension;
     }
 
-    public static SourceDebugExtensionAttribute read(short ani, DataInputStream in) throws IOException {
-        final int length = readInt(in);
+    public static SourceDebugExtensionAttribute read(int ani, DataInputStream in) throws IOException {
+        final int length = in.readInt();
         final byte[] data = new byte[length];
         in.read(data, 0, length);
         return new SourceDebugExtensionAttribute(ani, data);

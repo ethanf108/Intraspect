@@ -2,38 +2,36 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 @AttributeName("SourceFile")
 public class SourceFileAttribute implements AttributeDesc {
 
     private static final int ATTRIBUTE_LENGTH = 2;
-    private final short attributeNameIndex;
-    private final short sourcefileIndex;
+    private final int attributeNameIndex;
+    private final int sourcefileIndex;
 
-    private SourceFileAttribute(final short attributeNameIndex, final short sourcefileIndex) {
+    private SourceFileAttribute(final int attributeNameIndex, final int sourcefileIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.sourcefileIndex = sourcefileIndex;
     }
 
-    public static SourceFileAttribute read(final short ani, final DataInputStream in) throws IOException {
-        if (readInt(in) != ATTRIBUTE_LENGTH) {
+    public static SourceFileAttribute read(final int ani, final DataInputStream in) throws IOException {
+        if (in.readInt() != ATTRIBUTE_LENGTH) {
             throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
         }
         return new SourceFileAttribute(ani, in.readUnsignedShort());
     }
 
-    public short getSourcefileIndex() {
+    public int getSourcefileIndex() {
         return this.sourcefileIndex;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 

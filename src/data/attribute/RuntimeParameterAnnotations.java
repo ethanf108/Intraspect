@@ -2,10 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readShort;
 import static util.Util.writeInt;
 import static util.Util.writeShort;
 
@@ -14,7 +13,7 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
     public static record ParameterAnnotations(AnnotationDesc[] annotations) {
 
         public static ParameterAnnotations read(DataInputStream in) throws IOException {
-            final short numAnnotations = in.readUnsignedShort();
+            final int numAnnotations = in.readUnsignedShort();
             AnnotationDesc[] annotations = new AnnotationDesc[numAnnotations];
             for (int i = 0; i < numAnnotations; i++) {
                 annotations[i] = AnnotationDesc.read(in);
@@ -30,16 +29,16 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
         }
     }
 
-    private final short attributeNameIndex;
+    private final int attributeNameIndex;
     private final ParameterAnnotations[] parameterAnnotations;
 
-    RuntimeParameterAnnotations(short attributeNameIndex, ParameterAnnotations[] parameterAnnotations) {
+    RuntimeParameterAnnotations(int attributeNameIndex, ParameterAnnotations[] parameterAnnotations) {
         this.attributeNameIndex = attributeNameIndex;
         this.parameterAnnotations = parameterAnnotations;
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return attributeNameIndex;
     }
 

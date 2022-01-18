@@ -2,36 +2,33 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-
 import static util.Util.*;
-import static util.Util.readShort;
 
 @AttributeName("PermittedSubclasses")
 public class PermittedSubclassesAttribute implements AttributeDesc {
 
-    private final short attributeNameIndex;
-    private final short[] classes;
+    private final int attributeNameIndex;
+    private final int[] classes;
 
-    private PermittedSubclassesAttribute(final short attributeNameIndex, final short[] classes) {
+    private PermittedSubclassesAttribute(final int attributeNameIndex, final int[] classes) {
         this.attributeNameIndex = attributeNameIndex;
         this.classes = classes;
     }
 
-    public static PermittedSubclassesAttribute read(final short ani, final DataInputStream in) throws IOException {
-        readInt(in);    // Discard attribute length
+    public static PermittedSubclassesAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();    // Discard attribute length
 
-        final short[] arr = new short[in.readUnsignedShort()];
+        final int[] arr = new int[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = in.readUnsignedShort()) ;
 
         return new PermittedSubclassesAttribute(ani, arr);
     }
 
     @Override
-    public short getAttributeNameIndex() {
+    public int getAttributeNameIndex() {
         return this.attributeNameIndex;
     }
 
@@ -44,7 +41,7 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
         return (short) this.classes.length;
     }
 
-    public short[] getClasses() {
+    public int[] getClasses() {
         return this.classes;
     }
 

@@ -2,11 +2,9 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import static util.Util.readInt;
-import static util.Util.readShort;
 import static util.Util.writeInt;
 import static util.Util.writeShort;
 
