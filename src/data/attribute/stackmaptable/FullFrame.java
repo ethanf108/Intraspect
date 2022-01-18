@@ -1,11 +1,9 @@
 package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import static util.Util.*;
 
 public final class FullFrame extends StackMapFrame {
@@ -30,7 +28,7 @@ public final class FullFrame extends StackMapFrame {
         }
 
         final short numberOfStackItems = readShort(in);
-        stack = new VerificationTypeInfo[numberOfLocals];
+        stack = new VerificationTypeInfo[numberOfStackItems];
         for (int i = 0; i < stack.length; i++) {
             stack[i] = VerificationTypeInfo.read(in);
         }
