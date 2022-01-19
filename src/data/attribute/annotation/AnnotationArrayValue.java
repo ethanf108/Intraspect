@@ -32,7 +32,7 @@ public final class AnnotationArrayValue extends ElementValue {
 
     @Override
     public int getDataLength() {
-        int length = 2;
+        int length = 3;
         for (ElementValue elementValue : this.values) {
             length += elementValue.getDataLength();
         }
@@ -41,6 +41,7 @@ public final class AnnotationArrayValue extends ElementValue {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
+        out.writeByte(this.tag);
         out.writeShort(this.values.length);
         for (ElementValue elementValue : this.values) {
             elementValue.write(out);

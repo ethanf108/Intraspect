@@ -28,11 +28,12 @@ public final class AnnotationClassValue extends ElementValue {
 
     @Override
     public int getDataLength() {
-        return 2;
+        return 3;
     }
 
     @Override
     public void write(DataOutputStream out) throws IOException {
+        out.writeByte(this.tag);
         out.writeShort(this.classInfoIndex);
     }
 

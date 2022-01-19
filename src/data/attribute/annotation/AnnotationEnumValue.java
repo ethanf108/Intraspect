@@ -38,11 +38,12 @@ public final class AnnotationEnumValue extends ElementValue {
 
     @Override
     public int getDataLength() {
-        return 4;
+        return 5;
     }
 
     @Override
     public void write(DataOutputStream out) throws IOException {
+        out.writeByte(this.tag);
         out.writeShort(this.typeNameIndex);
         out.writeShort(this.constNameIndex);
     }
