@@ -53,6 +53,7 @@ public class StackMapTableAttribute implements AttributeDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(getDataLength());
+        out.writeShort(this.entries.length);
         for (StackMapFrame entry : entries) {
             entry.write(out);
         }

@@ -43,7 +43,7 @@ public class SignatureAttribute implements AttributeDesc {
     @Override
     public void write(DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
-        out.writeLong(2);
+        out.writeInt(2);
         out.writeShort(this.signatureIndex);
     }
 }

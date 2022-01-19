@@ -37,6 +37,7 @@ public sealed abstract class RuntimeAnnotations implements AttributeDesc permits
 
     @Override
     public void write(DataOutputStream out) throws IOException {
+        out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.annotations.length);
         for (AnnotationDesc annotation : annotations) {
