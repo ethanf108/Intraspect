@@ -33,6 +33,11 @@ public class FloatConstant implements ConstantDesc {
     }
 
     @Override
+    public boolean isWide() {
+        return false;
+    }
+
+    @Override
     public void write(DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeInt(Float.floatToRawIntBits(this.value));

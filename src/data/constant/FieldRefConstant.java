@@ -35,6 +35,11 @@ public class FieldRefConstant implements ConstantDesc {
     }
 
     @Override
+    public boolean isWide() {
+        return false;
+    }
+
+    @Override
     public void write(DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeShort(this.classIndex);

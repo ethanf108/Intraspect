@@ -29,6 +29,11 @@ public class DoubleConstant implements ConstantDesc {
     }
 
     @Override
+    public boolean isWide() {
+        return true;
+    }
+
+    @Override
     public void write(DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeLong(Double.doubleToRawLongBits(this.value));

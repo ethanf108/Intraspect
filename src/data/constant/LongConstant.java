@@ -38,6 +38,11 @@ public class LongConstant implements ConstantDesc {
     }
 
     @Override
+    public boolean isWide() {
+        return true;
+    }
+
+    @Override
     public void write(DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeLong(this.value);

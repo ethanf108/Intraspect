@@ -27,7 +27,7 @@ public class ClassFile {
 
     public ConstantDesc getConstandDesc(int index) {
         if (index == 0) {
-            throw new IllegalArgumentException("Constant Pool entires are 1-indexed");
+            throw new IllegalArgumentException("Constant Pool entries are 1-indexed");
         }
         return this.constantPool[index];
     }
@@ -91,7 +91,8 @@ public class ClassFile {
     }
 
     private static ConstantDesc readConstant(DataInputStream in) throws IOException {
-        return switch (in.read()) {
+        final int tag = in.readUnsignedByte();
+        return switch (tag) {
             case 1 ->
                 UTF8Constant.read(in);
             case 3 ->
@@ -127,7 +128,7 @@ public class ClassFile {
             case 20 ->
                 new PackageConstant(in.readUnsignedShort());
             default ->
-                null;
+                throw new IllegalArgumentException("Invalid Tag: " + tag);
         };
     }
 
@@ -144,6 +145,9 @@ public class ClassFile {
         ret.constantPool = new ConstantDesc[constantPoolCount];
         for (int i = 1; i < constantPoolCount; i++) {
             ret.constantPool[i] = readConstant(in);
+            if (ret.constantPool[i].isWide()) {
+                ret.constantPool[++i] = new EmptyWideConstant();
+            }
         }
 
         ret.accessFlags = in.readUnsignedShort();
