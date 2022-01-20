@@ -28,6 +28,11 @@ public class ClassConstant implements ConstantDesc {
     }
 
     @Override
+    public boolean isWide() {
+        return false;
+    }
+
+    @Override
     public void write(DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeShort(this.utf8Index);
