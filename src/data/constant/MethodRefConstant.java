@@ -1,9 +1,11 @@
 package data.constant;
 
 import data.ClassFile;
+import data.ClassFiles;
 import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 public class MethodRefConstant implements ConstantDesc {
 
@@ -30,8 +32,23 @@ public class MethodRefConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        //TODO validate non-interface??
-        return ref.getConstandDesc(this.classIndex) instanceof ClassConstant && ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
+        if (!(ref.getConstandDesc(this.classIndex) instanceof ClassConstant cc)) {
+            return false;
+        }
+        Optional<Class<?>> refClass = cc.getReferencedClass(ref);
+        if (refClass.isPresent() && refClass.orElseThrow().isInterface()) {
+            return false;
+        }
+        if (!(ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant natc)) {
+            return false;
+        }
+        final String name = ref.getConstandDesc(natc.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String descriptor = ref.getConstandDesc(natc.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        if (descriptor == null || name == null) {
+            return false;
+        }
+        final String[] descArray = ClassFiles.getFromMethodDescriptor(descriptor);
+        return !(name.startsWith("<") && (!name.equals("<init>") || !descArray[0].equals(void.class.getCanonicalName())));
     }
 
     @Override

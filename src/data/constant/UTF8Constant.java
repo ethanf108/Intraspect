@@ -31,7 +31,13 @@ public class UTF8Constant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return this.value != null;
+        for (byte b : this.value.getBytes()) {
+            final int val = b & 0xFF;
+            if (val == 0 || val > 0xF0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

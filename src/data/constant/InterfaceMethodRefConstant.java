@@ -4,6 +4,7 @@ import data.ClassFile;
 import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 public class InterfaceMethodRefConstant implements ConstantDesc {
 
@@ -30,8 +31,14 @@ public class InterfaceMethodRefConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        //TODO validate interface??
-        return ref.getConstandDesc(this.classIndex) instanceof ClassConstant && ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
+        if (!(ref.getConstandDesc(this.classIndex) instanceof ClassConstant cc)) {
+            return false;
+        }
+        Optional<Class<?>> refClass = cc.getReferencedClass(ref);
+        if (refClass.isPresent() && !refClass.orElseThrow().isInterface()) {
+            return false;
+        }
+        return ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
     }
 
     @Override
