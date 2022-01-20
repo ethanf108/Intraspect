@@ -1,7 +1,6 @@
 package data;
 
 import data.constant.UTF8Constant;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +31,7 @@ public enum ClassFiles {
             case "V" ->
                 void.class.getCanonicalName();
             default -> {
-                if (!baseType.startsWith("L")) {
+                if (!baseType.startsWith("L") || !baseType.endsWith(";")) {
                     throw new IllegalArgumentException("Invalid Descriptor");
                 }
                 try {

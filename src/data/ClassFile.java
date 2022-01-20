@@ -29,6 +29,9 @@ public class ClassFile {
         if (index == 0) {
             throw new IllegalArgumentException("Constant Pool entries are 1-indexed");
         }
+        if (this.constantPool[index] instanceof EmptyWideConstant) {
+            throw new IllegalArgumentException("Cannot index an Empty Wide Constant");
+        }
         return this.constantPool[index];
     }
 

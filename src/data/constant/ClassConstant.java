@@ -4,6 +4,7 @@ import data.ClassFile;
 import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 public class ClassConstant implements ConstantDesc {
 
@@ -30,6 +31,17 @@ public class ClassConstant implements ConstantDesc {
     @Override
     public boolean isWide() {
         return false;
+    }
+
+    public Optional<Class<?>> getReferencedClass(ClassFile ref) {
+        if (!(ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant u)) {
+            throw new IllegalStateException("Class Constant does not point ot UTF8 Constant");
+        }
+        try {
+            return Optional.of(Class.forName(u.getValue().replaceAll("/", ".")));
+        } catch (ClassNotFoundException ex) {
+            return Optional.empty();
+        }
     }
 
     @Override

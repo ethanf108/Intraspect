@@ -26,7 +26,7 @@ public class EmptyWideConstant implements ConstantDesc {
     public boolean isValid(ClassFile ref) {
         int index = -1;
         for (int i = 1; i < ref.getConstants().length + 1; i++) {
-            if (ref.getConstandDesc(i) == this) {
+            if (ref.getConstants()[i] == this) {
                 index = i;
                 break;
             }
@@ -34,7 +34,7 @@ public class EmptyWideConstant implements ConstantDesc {
         if (index == -1) {
             throw new IllegalStateException("Constant not in ClassFile");
         }
-        return ref.getConstandDesc(index - 1).isWide();
+        return ref.getConstandDesc(index).isWide();
     }
 
     @Override
