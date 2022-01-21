@@ -30,7 +30,7 @@ public class NameAndTypeConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.nameIndex) instanceof UTF8Constant && ref.getConstandDesc(this.descriptorIndex) instanceof UTF8Constant;
+        return ref.getConstantDesc(this.nameIndex) instanceof UTF8Constant && ref.getConstantDesc(this.descriptorIndex) instanceof UTF8Constant;
     }
 
     @Override

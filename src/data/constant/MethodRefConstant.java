@@ -32,18 +32,18 @@ public class MethodRefConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        if (!(ref.getConstandDesc(this.classIndex) instanceof ClassConstant cc)) {
+        if (!(ref.getConstantDesc(this.classIndex) instanceof ClassConstant cc)) {
             return false;
         }
         Optional<Class<?>> refClass = cc.getReferencedClass(ref);
         if (refClass.isPresent() && refClass.orElseThrow().isInterface()) {
             return false;
         }
-        if (!(ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant natc)) {
+        if (!(ref.getConstantDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant natc)) {
             return false;
         }
-        final String name = ref.getConstandDesc(natc.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
-        final String descriptor = ref.getConstandDesc(natc.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String name = ref.getConstantDesc(natc.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String descriptor = ref.getConstantDesc(natc.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (descriptor == null || name == null) {
             return false;
         }

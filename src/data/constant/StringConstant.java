@@ -24,7 +24,7 @@ public class StringConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant;
+        return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant;
     }
 
     @Override

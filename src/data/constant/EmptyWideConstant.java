@@ -34,7 +34,7 @@ public class EmptyWideConstant implements ConstantDesc {
         if (index == -1) {
             throw new IllegalStateException("Constant not in ClassFile");
         }
-        return ref.getConstandDesc(index).isWide();
+        return ref.getConstantDesc(index).isWide();
     }
 
     @Override

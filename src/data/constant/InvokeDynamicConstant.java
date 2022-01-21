@@ -31,7 +31,7 @@ public class InvokeDynamicConstant implements ConstantDesc {
     @Override
     public boolean isValid(ClassFile ref) {
         //TODO Check bootstrap method table
-        return ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
+        return ref.getConstantDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
     }
 
     @Override

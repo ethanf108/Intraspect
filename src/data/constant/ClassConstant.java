@@ -25,7 +25,7 @@ public class ClassConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant;
+        return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ClassConstant implements ConstantDesc {
     }
 
     public Optional<Class<?>> getReferencedClass(ClassFile ref) {
-        if (!(ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant u)) {
+        if (!(ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant u)) {
             throw new IllegalStateException("Class Constant does not point ot UTF8 Constant");
         }
         try {

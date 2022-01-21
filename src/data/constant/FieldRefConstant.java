@@ -31,7 +31,7 @@ public class FieldRefConstant implements ConstantDesc {
     @Override
     public boolean isValid(ClassFile ref) {
         //TODO validate field??
-        return ref.getConstandDesc(this.classIndex) instanceof ClassConstant && ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
+        return ref.getConstantDesc(this.classIndex) instanceof ClassConstant && ref.getConstantDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
     }
 
     @Override

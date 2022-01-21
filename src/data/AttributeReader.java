@@ -44,7 +44,7 @@ public class AttributeReader {
 
     public static AttributeDesc read(DataInputStream in, ClassFile ref) throws IOException {
         final int attributeNameIndex = in.readUnsignedShort();
-        final String attributeName = ref.getConstandDesc(attributeNameIndex) instanceof UTF8Constant u ? u.getValue() : null;
+        final String attributeName = ref.getConstantDesc(attributeNameIndex) instanceof UTF8Constant u ? u.getValue() : null;
         if (attributeName == null) {
             throw new IllegalArgumentException("Attribute Name Index must point to a UTF 8 Constant");
         }

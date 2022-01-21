@@ -24,7 +24,7 @@ public class MethodTypeConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.descriptorIndex) instanceof UTF8Constant; //TODO check if valid method descriptor??
+        return ref.getConstantDesc(this.descriptorIndex) instanceof UTF8Constant; //TODO check if valid method descriptor??
     }
 
     @Override

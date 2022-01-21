@@ -24,7 +24,7 @@ public class PackageConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant; //TODO check if valid package name?
+        return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant; //TODO check if valid package name?
     }
 
     @Override

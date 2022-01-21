@@ -24,7 +24,7 @@ public class ModuleConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.moduleNameIndex) instanceof UTF8Constant;
+        return ref.getConstantDesc(this.moduleNameIndex) instanceof UTF8Constant;
     }
 
     @Override

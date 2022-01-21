@@ -31,14 +31,14 @@ public class InterfaceMethodRefConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        if (!(ref.getConstandDesc(this.classIndex) instanceof ClassConstant cc)) {
+        if (!(ref.getConstantDesc(this.classIndex) instanceof ClassConstant cc)) {
             return false;
         }
         Optional<Class<?>> refClass = cc.getReferencedClass(ref);
         if (refClass.isPresent() && !refClass.orElseThrow().isInterface()) {
             return false;
         }
-        return ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
+        return ref.getConstantDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
     }
 
     @Override

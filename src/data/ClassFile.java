@@ -25,7 +25,7 @@ public class ClassFile {
 
     }
 
-    public ConstantDesc getConstandDesc(int index) {
+    public ConstantDesc getConstantDesc(int index) {
         if (index == 0) {
             throw new IllegalArgumentException("Constant Pool entries are 1-indexed");
         }

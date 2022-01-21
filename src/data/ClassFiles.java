@@ -100,11 +100,11 @@ public enum ClassFiles {
     }
 
     public static String fieldSimpleString(FieldDesc fd, ClassFile cf) {
-        final String name = cf.getConstandDesc(fd.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String name = cf.getConstantDesc(fd.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (name == null) {
             throw new IllegalStateException("Field Name Index must point to a UTF 8 Constant");
         }
-        final String descriptor = cf.getConstandDesc(fd.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String descriptor = cf.getConstantDesc(fd.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (descriptor == null) {
             throw new IllegalStateException("Field Descriptor Index must point to a UTF 8 Constant");
         }
@@ -143,11 +143,11 @@ public enum ClassFiles {
     }
 
     public static String methodSimpleString(MethodDesc md, ClassFile cf) {
-        final String name = cf.getConstandDesc(md.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String name = cf.getConstantDesc(md.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (name == null) {
             throw new IllegalStateException("Field Name Index must point to a UTF 8 Constant");
         }
-        final String descriptor = cf.getConstandDesc(md.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String descriptor = cf.getConstantDesc(md.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (descriptor == null) {
             throw new IllegalStateException("Field Descriptor Index must point to a UTF 8 Constant");
         }
