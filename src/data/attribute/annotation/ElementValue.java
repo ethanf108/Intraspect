@@ -46,7 +46,7 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
             case 'c' -> new AnnotationClassValue(tag).readInternal(in);
             case '@' -> new AnnotationAnnotationValue(tag).readInternal(in);
             case '[' -> new AnnotationArrayValue(tag).readInternal(in);
-            default -> throw new IllegalArgumentException("Invalid tag for Element Value");
+            default -> throw new IllegalArgumentException("Invalid tag for Element Value: " + tag);
         };
     }
 

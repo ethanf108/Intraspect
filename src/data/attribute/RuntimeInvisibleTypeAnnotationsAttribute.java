@@ -1,0 +1,42 @@
+package data.attribute;
+
+import data.AttributeName;
+import data.attribute.annotation.type.TypeAnnotation;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+@AttributeName("RuntimeInvisibleTypeAnnotations")
+public final class RuntimeInvisibleTypeAnnotationsAttribute extends RuntimeTypeAnnotations {
+
+    public RuntimeInvisibleTypeAnnotationsAttribute(final int attributeNameIndex, final TypeAnnotation[] annotations) {
+        super(attributeNameIndex, annotations);
+    }
+
+    public RuntimeInvisibleTypeAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();   // Ignore
+
+        final TypeAnnotation[] annotations = new TypeAnnotation[in.readUnsignedShort()];
+        for (int i = 0; i < annotations.length; i++) {
+            annotations[i] = TypeAnnotation.read(in);
+        }
+
+        return new RuntimeInvisibleTypeAnnotationsAttribute(ani, annotations);
+    }
+
+    public void write(final DataOutputStream out) throws IOException {
+        out.writeShort(this.attributeNameIndex);
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.annotations.length);
+
+        for (final TypeAnnotation annotation : this.annotations) {
+            annotation.write(out);
+        }
+    }
+
+    @Override
+    public boolean isRuntimeVisible() {
+        return false;
+    }
+}
