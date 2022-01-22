@@ -1,6 +1,7 @@
 package data.constant;
 
 import data.ClassFile;
+import data.ClassFiles;
 import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class ClassConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant;
+        return ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant u && ClassFiles.isValidQualifiedName(u.getValue());
     }
 
     @Override

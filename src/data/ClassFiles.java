@@ -5,8 +5,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public enum ClassFiles {
-    ;
+public class ClassFiles {
+
+    private ClassFiles() {
+    }
+
+    public static boolean isValidUnqualifiedName(String name) {
+        if (Objects.requireNonNull(name).isBlank()) {
+            return false;
+        }
+        return !(name.contains(".") || name.contains(";") || name.contains("[") || name.contains("/"));
+    }
+
+    public static boolean isValidQualifiedName(String name) {
+        if (Objects.requireNonNull(name).isBlank()) {
+            return false;
+        }
+        for (String unqualifiedName : name.split("/")) {
+            if (!isValidUnqualifiedName(unqualifiedName)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isValidClassDescriptor(String descriptor) {
+        while (descriptor.startsWith("[")) {
+            descriptor = descriptor.substring(descriptor.lastIndexOf('[') + 1);
+        }
+        return switch (descriptor.charAt(0)) {
+            case 'I','B','C','Z','S','J','F','D','V' ->
+                descriptor.length() == 1;
+            case 'L' -> {
+                if (!descriptor.endsWith(";")) {
+                    yield false;
+                }
+                descriptor = descriptor.substring(1, descriptor.length() - 1);
+                yield isValidQualifiedName(descriptor);
+            }
+            default ->
+                false;
+        };
+    }
 
     public static String getFromDescriptor(String desc) {
         Objects.requireNonNull(desc);
