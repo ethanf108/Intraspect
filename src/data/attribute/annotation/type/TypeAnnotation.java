@@ -1,7 +1,6 @@
 package data.attribute.annotation.type;
 
 import data.attribute.annotation.ElementValue;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -67,7 +66,7 @@ public class TypeAnnotation {
 
         final TargetInfo targetInfo = TargetInfo.read(in);
 
-        final int typePathLength = in.readUnsignedShort();
+        final int typePathLength = in.readUnsignedByte();
         final TypePath[] targetPath = new TypePath[typePathLength];
         for (int i = 0; i < targetPath.length; i++) {
             targetPath[i] = TypePath.read(in);

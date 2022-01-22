@@ -2,7 +2,6 @@ package data.attribute;
 
 import data.AttributeName;
 import data.attribute.annotation.type.TypeAnnotation;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -14,7 +13,7 @@ public final class RuntimeInvisibleTypeAnnotationsAttribute extends RuntimeTypeA
         super(attributeNameIndex, annotations);
     }
 
-    public RuntimeInvisibleTypeAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
+    public static RuntimeInvisibleTypeAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
         in.readInt();   // Ignore
 
         final TypeAnnotation[] annotations = new TypeAnnotation[in.readUnsignedShort()];
@@ -25,6 +24,7 @@ public final class RuntimeInvisibleTypeAnnotationsAttribute extends RuntimeTypeA
         return new RuntimeInvisibleTypeAnnotationsAttribute(ani, annotations);
     }
 
+    @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());

@@ -2,7 +2,6 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -11,7 +10,7 @@ public sealed abstract class RuntimeAnnotations implements AttributeDesc permits
     private final int attributeNameIndex;
     private final AnnotationDesc[] annotations;
 
-    RuntimeAnnotations(final int attributeNameIndex, final AnnotationDesc[] annotations) {
+    protected RuntimeAnnotations(final int attributeNameIndex, final AnnotationDesc[] annotations) {
         this.attributeNameIndex = attributeNameIndex;
         this.annotations = annotations;
     }

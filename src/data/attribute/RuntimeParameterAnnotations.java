@@ -2,7 +2,6 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -33,7 +32,7 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
     private final int attributeNameIndex;
     private final ParameterAnnotations[] parameterAnnotations;
 
-    RuntimeParameterAnnotations(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
+    protected RuntimeParameterAnnotations(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
         this.attributeNameIndex = attributeNameIndex;
         this.parameterAnnotations = parameterAnnotations;
     }

@@ -2,19 +2,18 @@ package data.attribute;
 
 import data.AttributeName;
 import data.attribute.annotation.type.TypeAnnotation;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-@AttributeName("RuntimeVisibleTypeAnnotations")
+@AttributeName("RuntimeVisibleTypeAnnotations_")
 public final class RuntimeVisibleTypeAnnotationsAttribute extends RuntimeTypeAnnotations {
 
     public RuntimeVisibleTypeAnnotationsAttribute(final int attributeNameIndex, final TypeAnnotation[] annotations) {
         super(attributeNameIndex, annotations);
     }
 
-    public RuntimeVisibleTypeAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
+    public static RuntimeVisibleTypeAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
         in.readInt();   // Ignore
 
         final TypeAnnotation[] annotations = new TypeAnnotation[in.readUnsignedShort()];
@@ -25,6 +24,7 @@ public final class RuntimeVisibleTypeAnnotationsAttribute extends RuntimeTypeAnn
         return new RuntimeVisibleTypeAnnotationsAttribute(ani, annotations);
     }
 
+    @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
