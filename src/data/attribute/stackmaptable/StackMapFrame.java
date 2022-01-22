@@ -16,9 +16,9 @@ public abstract sealed class StackMapFrame permits SameFrame, SameLocals1StackIt
         return this.tag;
     }
 
-    abstract StackMapFrame readInternal(DataInputStream in) throws IOException;
+    abstract StackMapFrame readInternal(final DataInputStream in) throws IOException;
 
-    public abstract void write(DataOutputStream out) throws IOException;
+    public abstract void write(final DataOutputStream out) throws IOException;
 
     public abstract int getDataLength();
 

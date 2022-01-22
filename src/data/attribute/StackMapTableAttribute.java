@@ -3,6 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import data.attribute.stackmaptable.StackMapFrame;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class StackMapTableAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final StackMapFrame[] entries;
 
-    private StackMapTableAttribute(int attributeNameIndex, StackMapFrame[] entries) {
+    private StackMapTableAttribute(final int attributeNameIndex, final StackMapFrame[] entries) {
         this.attributeNameIndex = attributeNameIndex;
         this.entries = entries;
     }
@@ -43,7 +44,7 @@ public class StackMapTableAttribute implements AttributeDesc {
     @Override
     public int getDataLength() {
         int dataLength = 2;
-        for (final StackMapFrame entry : entries) {
+        for (final StackMapFrame entry : this.entries) {
             dataLength += entry.getDataLength();
         }
         return dataLength;
@@ -52,9 +53,9 @@ public class StackMapTableAttribute implements AttributeDesc {
     @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
-        out.writeInt(getDataLength());
+        out.writeInt(this.getDataLength());
         out.writeShort(this.entries.length);
-        for (StackMapFrame entry : entries) {
+        for (final StackMapFrame entry : entries) {
             entry.write(out);
         }
     }

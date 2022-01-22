@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,31 +13,31 @@ public class NestHostAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final int hostClassIndex;
 
-    public NestHostAttribute(int attributeNameIndex, int hostClassIndex) {
+    public NestHostAttribute(final int attributeNameIndex, final int hostClassIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.hostClassIndex = hostClassIndex;
     }
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public int getHostClassIndex() {
-        return hostClassIndex;
+        return this.hostClassIndex;
     }
 
-    public static NestHostAttribute read(int ani, DataInputStream in) throws IOException {
-        final int length = in.readInt();    // Ignore
-        if (length != 2) {
+    public static NestHostAttribute read(final int ani, final DataInputStream in) throws IOException {
+
+        if (in.readInt() != 2) {
             throw new IllegalArgumentException("Nest Host Attribute Length must be 2");
         }
-        final int hostClass = in.readUnsignedShort();
-        return new NestHostAttribute(ani, hostClass);
+
+        return new NestHostAttribute(ani, in.readUnsignedShort());
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.hostClassIndex);

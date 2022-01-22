@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +11,7 @@ public class LongConstant implements ConstantDesc {
 
     private final long value;
 
-    private LongConstant(long val) {
+    private LongConstant(final long val) {
         this.value = val;
     }
 
@@ -23,9 +24,9 @@ public class LongConstant implements ConstantDesc {
         return value;
     }
 
-    public static LongConstant read(DataInputStream in) throws IOException {
+    public static LongConstant read(final DataInputStream in) throws IOException {
         long val = 0;
-        for (byte b : in.readNBytes(8)) {
+        for (final byte b : in.readNBytes(8)) {
             val <<= 8;
             val |= b;
         }
@@ -33,7 +34,7 @@ public class LongConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 
@@ -43,7 +44,7 @@ public class LongConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeLong(this.value);
     }

@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +11,7 @@ public class DoubleConstant implements ConstantDesc {
 
     private final double value;
 
-    private DoubleConstant(double val) {
+    private DoubleConstant(final double val) {
         this.value = val;
     }
 
@@ -24,7 +25,7 @@ public class DoubleConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 
@@ -34,12 +35,12 @@ public class DoubleConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeLong(Double.doubleToRawLongBits(this.value));
     }
 
-    public static DoubleConstant read(DataInputStream in) throws IOException {
+    public static DoubleConstant read(final DataInputStream in) throws IOException {
         return new DoubleConstant(Double.longBitsToDouble(LongConstant.read(in).getValue()));
     }
 }

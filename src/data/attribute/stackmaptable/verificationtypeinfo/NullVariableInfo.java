@@ -6,18 +6,18 @@ import java.io.IOException;
 
 public final class NullVariableInfo extends VerificationTypeInfo {
 
-    public NullVariableInfo(int tag) {
+    public NullVariableInfo(final int tag) {
         super(tag);
     }
 
     @Override
-    VerificationTypeInfo readInternal(DataInputStream in) throws IOException {
+    VerificationTypeInfo readInternal(final DataInputStream in) throws IOException {
         return this;
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
-        out.writeByte(tag);
+    public void write(final DataOutputStream out) throws IOException {
+        out.writeByte(this.tag);
     }
 
     @Override

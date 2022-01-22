@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,36 +13,38 @@ public class ModulePackagesAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final int[] packageIndex;
 
-    public ModulePackagesAttribute(int attributeNameIndex, int[] packageIndex) {
+    public ModulePackagesAttribute(final int attributeNameIndex, final int[] packageIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.packageIndex = packageIndex;
     }
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public int[] getPackageIndex() {
-        return packageIndex;
+        return this.packageIndex;
     }
 
-    public static ModulePackagesAttribute read(int ani, DataInputStream in) throws IOException {
-        final int length = in.readInt();    // Ignore
-        final int packageCount = in.readUnsignedShort();
-        final int[] packageIndex = new int[packageCount];
-        for (int i = 0; i < packageCount; i++) {
+    public static ModulePackagesAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();    // Ignore
+
+        final int[] packageIndex = new int[in.readUnsignedShort()];
+
+        for (int i = 0; i < packageIndex.length; i++) {
             packageIndex[i] = in.readUnsignedShort();
         }
+
         return new ModulePackagesAttribute(ani, packageIndex);
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.packageIndex.length);
-        for (int s : this.packageIndex) {
+        for (final int s : this.packageIndex) {
             out.writeShort(s);
         }
     }

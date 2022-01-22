@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -9,7 +10,7 @@ public class MethodTypeConstant implements ConstantDesc {
 
     private final int descriptorIndex;
 
-    public MethodTypeConstant(int ref) {
+    public MethodTypeConstant(final int ref) {
         this.descriptorIndex = ref;
     }
 
@@ -23,8 +24,8 @@ public class MethodTypeConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.descriptorIndex) instanceof UTF8Constant; //TODO check if valid method descriptor??
+    public boolean isValid(final ClassFile ref) {
+        return ref.getConstantDesc(this.descriptorIndex) instanceof UTF8Constant; //TODO check if valid method descriptor??
     }
 
     @Override
@@ -33,7 +34,7 @@ public class MethodTypeConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeShort(this.descriptorIndex);
     }

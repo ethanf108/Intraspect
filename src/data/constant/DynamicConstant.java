@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -10,7 +11,7 @@ public class DynamicConstant implements ConstantDesc {
     private final int bootstrapMethodAttributeIndex;
     private final int nameAndTypeIndex;
 
-    public DynamicConstant(int bootstrapMethodAttributeIndex, int nameAndTypeIndex) {
+    public DynamicConstant(final int bootstrapMethodAttributeIndex, final int nameAndTypeIndex) {
         this.bootstrapMethodAttributeIndex = bootstrapMethodAttributeIndex;
         this.nameAndTypeIndex = nameAndTypeIndex;
     }
@@ -29,9 +30,9 @@ public class DynamicConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO Check bootstrap method table
-        return ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
+        return ref.getConstantDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant;
     }
 
     @Override
@@ -40,7 +41,7 @@ public class DynamicConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeShort(this.bootstrapMethodAttributeIndex);
         out.writeShort(this.nameAndTypeIndex);

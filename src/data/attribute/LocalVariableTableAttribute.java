@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,8 +22,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         in.readInt();    // Discard attribute length
 
         final LocalVariableTableEntry[] arr = new LocalVariableTableEntry[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
-            ;
+        for (int i = 0; i < arr.length; arr[i++] = LocalVariableTableEntry.read(in)) ;
 
         return new LocalVariableTableAttribute(ani, arr);
     }
@@ -47,21 +47,30 @@ public class LocalVariableTableAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
-        out.writeShort(getLineNumberTableLength());
+        out.writeShort(this.getLineNumberTableLength());
 
         for (final LocalVariableTableEntry entry : localVariableTable) {
-            out.writeShort(entry.startPc);
-            out.writeShort(entry.length);
-            out.writeShort(entry.nameIndex);
-            out.writeShort(entry.descriptorIndex);
-            out.writeShort(entry.index);
+            entry.write(out);
         }
     }
 
-    public static record LocalVariableTableEntry(int startPc, int length, int nameIndex, int descriptorIndex, int index) {
+    public static record LocalVariableTableEntry(int startPc, int length, int nameIndex, int descriptorIndex,
+                                                 int index) {
+
+        public static LocalVariableTableEntry read(final DataInputStream in) throws IOException {
+            return new LocalVariableTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
+        }
+
+        public void write(final DataOutputStream out) throws IOException {
+            out.writeShort(this.startPc);
+            out.writeShort(this.length);
+            out.writeShort(this.nameIndex);
+            out.writeShort(this.descriptorIndex);
+            out.writeShort(this.index);
+        }
 
     }
 }

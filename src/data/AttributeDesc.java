@@ -9,5 +9,5 @@ public interface AttributeDesc {
 
     int getDataLength();
 
-    void write(DataOutputStream out) throws IOException;
+    void write(final DataOutputStream out) throws IOException;
 }

@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
             final int numBoostrapArguments = in.readUnsignedShort();
 
             final int[] bootstrapArguments = new int[numBoostrapArguments];
-            for (int j = 0; j < bootstrapArguments.length; bootstrapArguments[j++] = in.readUnsignedShort());
+            for (int j = 0; j < bootstrapArguments.length; bootstrapArguments[j++] = in.readUnsignedShort()) ;
 
             arr[i] = new BootstrapMethodsTableEntry(bootstrapMethodRef, numBoostrapArguments, bootstrapArguments);
         }
@@ -35,12 +36,12 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(getBootstrapMethodsTableLength());
 
-        for (final BootstrapMethodsTableEntry entry : bootstrapMethodsTable) {
+        for (final BootstrapMethodsTableEntry entry : this.bootstrapMethodsTable) {
             out.writeShort(entry.bootstrapMethodRef);
             out.writeShort(entry.numBootstrapArguments);
             for (int bootstrapArgument : entry.bootstrapArguments) {
@@ -61,7 +62,7 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     @Override
     public int getDataLength() {
         int entryLengthSum = 2;
-        for (final BootstrapMethodsTableEntry entry : bootstrapMethodsTable) {
+        for (final BootstrapMethodsTableEntry entry : this.bootstrapMethodsTable) {
             entryLengthSum += 4 + 2 * entry.numBootstrapArguments;
         }
         return entryLengthSum;
@@ -72,7 +73,7 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     }
 
     public static record BootstrapMethodsTableEntry(int bootstrapMethodRef, int numBootstrapArguments,
-            int[] bootstrapArguments) {
+                                                    int[] bootstrapArguments) {
 
     }
 }

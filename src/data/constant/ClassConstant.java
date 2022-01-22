@@ -11,7 +11,7 @@ public class ClassConstant implements ConstantDesc {
 
     private final int utf8Index;
 
-    public ClassConstant(int utf8) {
+    public ClassConstant(final int utf8) {
         this.utf8Index = utf8;
     }
 
@@ -26,7 +26,7 @@ public class ClassConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant u && ClassFiles.isValidQualifiedName(u.getValue());
+        return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant u && ClassFiles.isValidQualifiedName(u.getValue());
     }
 
     @Override
@@ -34,8 +34,8 @@ public class ClassConstant implements ConstantDesc {
         return false;
     }
 
-    public Optional<Class<?>> getReferencedClass(ClassFile ref) {
-        if (!(ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant u)) {
+    public Optional<Class<?>> getReferencedClass(final ClassFile ref) {
+        if (!(ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant u)) {
             throw new IllegalStateException("Class Constant does not point ot UTF8 Constant");
         }
         try {
@@ -46,7 +46,7 @@ public class ClassConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeShort(this.utf8Index);
     }

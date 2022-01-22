@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +11,7 @@ public class UTF8Constant implements ConstantDesc {
 
     private final String value;
 
-    private UTF8Constant(String val) {
+    private UTF8Constant(final String val) {
         this.value = val;
     }
 
@@ -23,15 +24,13 @@ public class UTF8Constant implements ConstantDesc {
         return this.value;
     }
 
-    public static UTF8Constant read(DataInputStream in) throws IOException {
-        final int length = in.readUnsignedShort();
-        final String val = new String(in.readNBytes(length));
-        return new UTF8Constant(val);
+    public static UTF8Constant read(final DataInputStream in) throws IOException {
+        return new UTF8Constant(new String(in.readNBytes(in.readUnsignedShort())));
     }
 
     @Override
     public boolean isValid(ClassFile ref) {
-        for (byte b : this.value.getBytes()) {
+        for (final byte b : this.value.getBytes()) {
             final int val = b & 0xFF;
             if (val == 0 || val > 0xF0) {
                 return false;
@@ -46,7 +45,7 @@ public class UTF8Constant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeShort(this.value.getBytes().length);
         out.write(this.value.getBytes());

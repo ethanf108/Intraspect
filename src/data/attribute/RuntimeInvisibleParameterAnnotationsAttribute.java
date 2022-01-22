@@ -1,13 +1,14 @@
 package data.attribute;
 
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 
 @AttributeName("RuntimeInvisibleParameterAnnotationsAttribute")
 public final class RuntimeInvisibleParameterAnnotationsAttribute extends RuntimeParameterAnnotations {
 
-    public RuntimeInvisibleParameterAnnotationsAttribute(int attributeNameIndex, ParameterAnnotations[] parameterAnnotations) {
+    public RuntimeInvisibleParameterAnnotationsAttribute(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
         super(attributeNameIndex, parameterAnnotations);
     }
 
@@ -16,13 +17,14 @@ public final class RuntimeInvisibleParameterAnnotationsAttribute extends Runtime
         return false;
     }
 
-    public static RuntimeInvisibleParameterAnnotationsAttribute read(int ani, DataInputStream in) throws IOException {
-        final int length = in.readInt();
-        final int numParameters = in.readUnsignedByte();
-        final ParameterAnnotations[] parameters = new ParameterAnnotations[numParameters];
-        for (int i = 0; i < numParameters; i++) {
+    public static RuntimeInvisibleParameterAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();   // Ignore
+
+        final ParameterAnnotations[] parameters = new ParameterAnnotations[in.readUnsignedByte()];
+        for (int i = 0; i < parameters.length; i++) {
             parameters[i] = ParameterAnnotations.read(in);
         }
+
         return new RuntimeInvisibleParameterAnnotationsAttribute(ani, parameters);
     }
 }

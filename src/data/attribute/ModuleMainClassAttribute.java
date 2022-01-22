@@ -21,7 +21,7 @@ public class ModuleMainClassAttribute implements AttributeDesc {
 
     public static ModuleMainClassAttribute read(final int ani, final DataInputStream in) throws IOException {
         if (in.readInt() != ATTRIBUTE_LENGTH) {
-            throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ATTRIBUTE_LENGTH);
+            throw new IllegalArgumentException("Enclosing Method Attribute length must be " + ModuleMainClassAttribute.ATTRIBUTE_LENGTH);
         }
         return new ModuleMainClassAttribute(ani, in.readUnsignedShort());
     }
@@ -38,12 +38,12 @@ public class ModuleMainClassAttribute implements AttributeDesc {
     @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
-        out.writeInt(ATTRIBUTE_LENGTH);
+        out.writeInt(ModuleMainClassAttribute.ATTRIBUTE_LENGTH);
         out.writeShort(this.mainClassIndex);
     }
 
     @Override
     public int getDataLength() {
-        return ATTRIBUTE_LENGTH;
+        return ModuleMainClassAttribute.ATTRIBUTE_LENGTH;
     }
 }

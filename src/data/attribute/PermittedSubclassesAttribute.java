@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
         out.writeInt(getDataLength());
         out.writeShort(getNumberOfClasses());
 
-        for (int aClass : this.classes) {
+        for (final int aClass : this.classes) {
             out.writeShort(aClass);
         }
     }

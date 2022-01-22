@@ -8,20 +8,20 @@ public final class AnnotationClassValue extends ElementValue {
 
     private int classInfoIndex;
 
-    public AnnotationClassValue(int tag) {
+    public AnnotationClassValue(final int tag) {
         super(tag);
     }
 
     public int getClassInfoIndex() {
-        return classInfoIndex;
+        return this.classInfoIndex;
     }
 
-    public void setClassInfoIndex(int classInfoIndex) {
+    public void setClassInfoIndex(final int classInfoIndex) {
         this.classInfoIndex = classInfoIndex;
     }
 
     @Override
-    ElementValue readInternal(DataInputStream in) throws IOException {
+    ElementValue readInternal(final DataInputStream in) throws IOException {
         this.classInfoIndex = in.readUnsignedShort();
         return this;
     }
@@ -32,7 +32,7 @@ public final class AnnotationClassValue extends ElementValue {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.tag);
         out.writeShort(this.classInfoIndex);
     }

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public final class ObjectVariableInfo extends VerificationTypeInfo {
 
-    public ObjectVariableInfo(int tag) {
+    public ObjectVariableInfo(final int tag) {
         super(tag);
     }
 
@@ -17,7 +17,7 @@ public final class ObjectVariableInfo extends VerificationTypeInfo {
     }
 
     @Override
-    VerificationTypeInfo readInternal(DataInputStream in) throws IOException {
+    VerificationTypeInfo readInternal(final DataInputStream in) throws IOException {
 
         this.cpoolIndex = in.readUnsignedShort();
 
@@ -25,8 +25,8 @@ public final class ObjectVariableInfo extends VerificationTypeInfo {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
-        out.writeByte(tag);
+    public void write(final DataOutputStream out) throws IOException {
+        out.writeByte(this.tag);
         out.writeShort(this.cpoolIndex);
 
     }

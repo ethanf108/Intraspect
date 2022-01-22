@@ -3,6 +3,7 @@ package data.constant;
 import data.ClassFile;
 import data.ClassFiles;
 import data.ConstantDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public class MethodRefConstant implements ConstantDesc {
     private final int classIndex;
     private final int nameAndTypeIndex;
 
-    public MethodRefConstant(int classIndex, int nameAndTypeIndex) {
+    public MethodRefConstant(final int classIndex, final int nameAndTypeIndex) {
         this.classIndex = classIndex;
         this.nameAndTypeIndex = nameAndTypeIndex;
     }
@@ -31,19 +32,19 @@ public class MethodRefConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
-        if (!(ref.getConstandDesc(this.classIndex) instanceof ClassConstant cc)) {
+    public boolean isValid(final ClassFile ref) {
+        if (!(ref.getConstantDesc(this.classIndex) instanceof ClassConstant cc)) {
             return false;
         }
         Optional<Class<?>> refClass = cc.getReferencedClass(ref);
-        if (refClass.isPresent() && refClass.orElseThrow().isInterface()) {
+        if (refClass.isPresent() && refClass.get().isInterface()) {
             return false;
         }
-        if (!(ref.getConstandDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant natc)) {
+        if (!(ref.getConstantDesc(this.nameAndTypeIndex) instanceof NameAndTypeConstant natc)) {
             return false;
         }
-        final String name = ref.getConstandDesc(natc.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
-        final String descriptor = ref.getConstandDesc(natc.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String name = ref.getConstantDesc(natc.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String descriptor = ref.getConstantDesc(natc.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (descriptor == null || name == null) {
             return false;
         }
@@ -57,7 +58,7 @@ public class MethodRefConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeShort(this.classIndex);
         out.writeShort(this.nameAndTypeIndex);

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public final class TopVariableInfo extends VerificationTypeInfo {
 
-    public TopVariableInfo(int tag) {
+    public TopVariableInfo(final int tag) {
         super(tag);
     }
 
@@ -16,8 +16,8 @@ public final class TopVariableInfo extends VerificationTypeInfo {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
-        out.writeByte(tag);
+    public void write(final DataOutputStream out) throws IOException {
+        out.writeByte(this.tag);
     }
 
     @Override

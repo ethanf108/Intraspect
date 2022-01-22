@@ -6,18 +6,18 @@ import java.io.IOException;
 
 public final class SameFrame extends StackMapFrame {
 
-    public SameFrame(int tag) {
+    public SameFrame(final int tag) {
         super(tag);
     }
 
     @Override
-    StackMapFrame readInternal(DataInputStream in) throws IOException {
+    StackMapFrame readInternal(final DataInputStream in) throws IOException {
         return this;
     }
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        out.writeByte(tag);
+        out.writeByte(this.tag);
     }
 
     @Override

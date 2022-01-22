@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,7 +22,8 @@ public class LineNumberTableAttribute implements AttributeDesc {
         in.readInt();    // Discard attribute length
 
         final LineNumberTableEntry[] arr = new LineNumberTableEntry[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = new LineNumberTableEntry(in.readUnsignedShort(), in.readUnsignedShort())) ;
+        for (int i = 0; i < arr.length; arr[i++] = new LineNumberTableEntry(in.readUnsignedShort(), in.readUnsignedShort()))
+            ;
 
         return new LineNumberTableAttribute(ani, arr);
     }
@@ -43,9 +45,9 @@ public class LineNumberTableAttribute implements AttributeDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
-        out.writeShort(getLineNumberTableLength());
+        out.writeShort(this.getLineNumberTableLength());
 
-        for (LineNumberTableEntry entry : lineNumberTable) {
+        for (final LineNumberTableEntry entry : lineNumberTable) {
             out.writeShort(entry.startPc);
             out.writeShort(entry.lineNumber);
         }
@@ -53,7 +55,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return getLineNumberTableLength() * 4 + 2;
+        return this.getLineNumberTableLength() * 4 + 2;
     }
 
     public static record LineNumberTableEntry(int startPc, int lineNumber) {

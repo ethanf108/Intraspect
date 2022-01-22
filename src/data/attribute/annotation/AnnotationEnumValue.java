@@ -9,28 +9,28 @@ public final class AnnotationEnumValue extends ElementValue {
     private int typeNameIndex;
     private int constNameIndex;
 
-    public AnnotationEnumValue(int tag) {
+    public AnnotationEnumValue(final int tag) {
         super(tag);
     }
 
     public int getTypeNameIndex() {
-        return typeNameIndex;
+        return this.typeNameIndex;
     }
 
-    public void setTypeNameIndex(int typeNameIndex) {
+    public void setTypeNameIndex(final int typeNameIndex) {
         this.typeNameIndex = typeNameIndex;
     }
 
     public int getConstNameIndex() {
-        return constNameIndex;
+        return this.constNameIndex;
     }
 
-    public void setConstNameIndex(int constNameIndex) {
+    public void setConstNameIndex(final int constNameIndex) {
         this.constNameIndex = constNameIndex;
     }
 
     @Override
-    ElementValue readInternal(DataInputStream in) throws IOException {
+    ElementValue readInternal(final DataInputStream in) throws IOException {
         this.typeNameIndex = in.readUnsignedShort();
         this.constNameIndex = in.readUnsignedShort();
         return this;
@@ -42,7 +42,7 @@ public final class AnnotationEnumValue extends ElementValue {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.tag);
         out.writeShort(this.typeNameIndex);
         out.writeShort(this.constNameIndex);

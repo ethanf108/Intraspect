@@ -7,9 +7,9 @@ public interface ConstantDesc {
 
     int getTag();
 
-    boolean isValid(ClassFile ref);
+    boolean isValid(final ClassFile ref);
 
     boolean isWide();
 
-    void write(DataOutputStream out) throws IOException;
+    void write(final DataOutputStream out) throws IOException;
 }

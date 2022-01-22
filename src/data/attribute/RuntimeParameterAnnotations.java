@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,18 +11,20 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
 
     public static record ParameterAnnotations(AnnotationDesc[] annotations) {
 
-        public static ParameterAnnotations read(DataInputStream in) throws IOException {
-            final int numAnnotations = in.readUnsignedShort();
-            AnnotationDesc[] annotations = new AnnotationDesc[numAnnotations];
-            for (int i = 0; i < numAnnotations; i++) {
+        public static ParameterAnnotations read(final DataInputStream in) throws IOException {
+
+            AnnotationDesc[] annotations = new AnnotationDesc[in.readUnsignedShort()];
+
+            for (int i = 0; i < annotations.length; i++) {
                 annotations[i] = AnnotationDesc.read(in);
             }
+
             return new ParameterAnnotations(annotations);
         }
 
-        public void write(DataOutputStream out) throws IOException {
+        public void write(final DataOutputStream out) throws IOException {
             out.writeShort(this.annotations.length);
-            for (AnnotationDesc annotation : this.annotations) {
+            for (final AnnotationDesc annotation : this.annotations) {
                 annotation.write(out);
             }
         }
@@ -30,18 +33,18 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
     private final int attributeNameIndex;
     private final ParameterAnnotations[] parameterAnnotations;
 
-    RuntimeParameterAnnotations(int attributeNameIndex, ParameterAnnotations[] parameterAnnotations) {
+    RuntimeParameterAnnotations(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
         this.attributeNameIndex = attributeNameIndex;
         this.parameterAnnotations = parameterAnnotations;
     }
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public ParameterAnnotations[] getParameters() {
-        return parameterAnnotations;
+        return this.parameterAnnotations;
     }
 
     public abstract boolean isRuntimeVisible();
@@ -49,9 +52,9 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
     @Override
     public int getDataLength() {
         int length = 1;
-        for (ParameterAnnotations parameter : this.parameterAnnotations) {
+        for (final ParameterAnnotations parameter : this.parameterAnnotations) {
             length += 2;
-            for (AnnotationDesc annotation : parameter.annotations) {
+            for (final AnnotationDesc annotation : parameter.annotations) {
                 length += annotation.getDataLength();
             }
         }
@@ -59,10 +62,10 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeInt(this.getDataLength());
         out.writeByte(this.parameterAnnotations.length);
-        for (ParameterAnnotations parameter : this.parameterAnnotations) {
+        for (final ParameterAnnotations parameter : this.parameterAnnotations) {
             parameter.write(out);
         }
     }

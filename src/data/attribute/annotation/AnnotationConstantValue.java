@@ -8,24 +8,24 @@ public final class AnnotationConstantValue extends ElementValue {
 
     private int constValueIndex;
 
-    public AnnotationConstantValue(int tag) {
+    public AnnotationConstantValue(final int tag) {
         super(tag);
     }
 
-    public void setTag(int tag) {
+    public void setTag(final int tag) {
         this.tag = tag;
     }
 
     public int getConstValueIndex() {
-        return constValueIndex;
+        return this.constValueIndex;
     }
 
-    public void setConstValueIndex(int constValueIndex) {
+    public void setConstValueIndex(final int constValueIndex) {
         this.constValueIndex = constValueIndex;
     }
 
     @Override
-    ElementValue readInternal(DataInputStream in) throws IOException {
+    ElementValue readInternal(final DataInputStream in) throws IOException {
         this.constValueIndex = in.readUnsignedShort();
         return this;
     }
@@ -36,7 +36,7 @@ public final class AnnotationConstantValue extends ElementValue {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.tag);
         out.writeShort(this.constValueIndex);
     }

@@ -3,6 +3,7 @@ package data.attribute;
 import data.AttributeDesc;
 import data.AttributeName;
 import data.attribute.annotation.ElementValue;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -34,13 +35,13 @@ public class AnnotationDefaultAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return 2 + defaultValue.getDataLength();
+        return 2 + this.defaultValue.getDataLength();
     }
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
-        out.writeInt(getDataLength());
+        out.writeInt(this.getDataLength());
         this.defaultValue.write(out);
     }
 }

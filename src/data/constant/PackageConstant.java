@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -9,7 +10,7 @@ public class PackageConstant implements ConstantDesc {
 
     private final int utf8Index;
 
-    public PackageConstant(int ref) {
+    public PackageConstant(final int ref) {
         this.utf8Index = ref;
     }
 
@@ -23,8 +24,8 @@ public class PackageConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
-        return ref.getConstandDesc(this.utf8Index) instanceof UTF8Constant; //TODO check if valid package name?
+    public boolean isValid(final ClassFile ref) {
+        return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant; //TODO check if valid package name?
     }
 
     @Override
@@ -33,7 +34,7 @@ public class PackageConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeShort(this.utf8Index);
     }

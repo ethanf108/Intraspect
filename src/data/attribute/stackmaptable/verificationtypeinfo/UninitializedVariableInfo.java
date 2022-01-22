@@ -20,10 +20,14 @@ public final class UninitializedVariableInfo extends VerificationTypeInfo {
         return this;
     }
 
+    public int getOffset() {
+        return this.offset;
+    }
+
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        out.writeByte(tag);
-        out.writeShort(offset);
+        out.writeByte(this.tag);
+        out.writeShort(this.offset);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class ClassFiles {
         };
     }
 
-    public static String getFromDescriptor(String desc) {
+    public static String getFromDescriptor(final String desc) {
         Objects.requireNonNull(desc);
         final String baseType = desc.substring(desc.lastIndexOf("[") + 1);
         String ret = switch (baseType) {
@@ -74,25 +74,30 @@ public class ClassFiles {
                 if (!baseType.startsWith("L") || !baseType.endsWith(";")) {
                     throw new IllegalArgumentException("Invalid Descriptor");
                 }
+
+                final String className = baseType.substring(1, baseType.length() - 1).replaceAll("/", ".");
                 try {
-                    yield Class.forName(baseType.substring(1, baseType.length() - 1).replaceAll("/", ".")).getCanonicalName();
+                    yield Class.forName(className).getCanonicalName();
                 } catch (ClassNotFoundException ex) {
-                    yield baseType.substring(1, baseType.length() - 1).replaceAll("/", ".");
+                    yield className;
                 }
             }
         };
+
         int numArrays = desc.lastIndexOf("[") + 1;
-        while (numArrays-- > 0) {
-            ret += "[]";
+
+        if (numArrays > 255) {
+            throw new IllegalArgumentException("Array dimensions may not be greater than 255");
         }
-        return ret;
+
+        return ret + "[]".repeat(numArrays);
     }
 
-    public static String[] getFromMethodDescriptor(String desc) {
+    public static String[] getFromMethodDescriptor(final String desc) {
         if (!desc.startsWith("(")) {
             throw new IllegalArgumentException("Invalid Method Descriptor format");
         }
-        List<String> args = new ArrayList<>();
+        final List<String> args = new ArrayList<>();
         int index = 1;
         int numArrays = 0;
         boolean argMode = true;
@@ -104,7 +109,11 @@ public class ClassFiles {
                     index++;
                 }
                 case '[' -> {
-                    numArrays++;
+
+                    if (numArrays++ == 255) {
+                        throw new IllegalArgumentException("Array dimensions may not be greater than 255");
+                    }
+
                     index++;
                 }
                 default -> {
@@ -119,9 +128,9 @@ public class ClassFiles {
                         className = getFromDescriptor(String.valueOf(desc.charAt(index)));
                         index++;
                     }
-                    while (numArrays-- > 0) {
-                        className += "[]";
-                    }
+
+                    className += "[]".repeat(numArrays);
+
                     if (argMode) {
                         args.add(className);
                     } else {
@@ -134,17 +143,16 @@ public class ClassFiles {
         if (index != desc.length()) {
             throw new IllegalArgumentException("Method Descriptor has invalid length");
         }
-        String[] ret = new String[args.size()];
-        args.toArray(ret);
-        return ret;
+
+        return args.toArray(new String[0]);
     }
 
-    public static String fieldSimpleString(FieldDesc fd, ClassFile cf) {
-        final String name = cf.getConstandDesc(fd.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+    public static String fieldSimpleString(final FieldDesc fd, final ClassFile cf) {
+        final String name = cf.getConstantDesc(fd.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (name == null) {
             throw new IllegalStateException("Field Name Index must point to a UTF 8 Constant");
         }
-        final String descriptor = cf.getConstandDesc(fd.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String descriptor = cf.getConstantDesc(fd.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (descriptor == null) {
             throw new IllegalStateException("Field Descriptor Index must point to a UTF 8 Constant");
         }
@@ -182,12 +190,12 @@ public class ClassFiles {
         return ret.toString();
     }
 
-    public static String methodSimpleString(MethodDesc md, ClassFile cf) {
-        final String name = cf.getConstandDesc(md.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+    public static String methodSimpleString(final MethodDesc md, final ClassFile cf) {
+        final String name = cf.getConstantDesc(md.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (name == null) {
             throw new IllegalStateException("Field Name Index must point to a UTF 8 Constant");
         }
-        final String descriptor = cf.getConstandDesc(md.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
+        final String descriptor = cf.getConstantDesc(md.getDescriptorIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (descriptor == null) {
             throw new IllegalStateException("Field Descriptor Index must point to a UTF 8 Constant");
         }

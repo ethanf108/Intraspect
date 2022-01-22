@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,32 +13,35 @@ public class ExceptionsAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final int[] exceptionIndexTable;
 
-    private ExceptionsAttribute(int ani, int[] eit) {
+    private ExceptionsAttribute(final int ani, final int[] eit) {
         this.attributeNameIndex = ani;
         this.exceptionIndexTable = eit;
     }
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public int[] getExceptionIndexTable() {
-        return exceptionIndexTable;
+        return this.exceptionIndexTable;
     }
 
-    public static ExceptionsAttribute read(int ani, DataInputStream in) throws IOException {
-        final int length = in.readInt();
-        final int numExceptions = in.readUnsignedShort();
-        final int[] exceptions = new int[numExceptions];
-        for (int i = 0; i < numExceptions; i++) {
+    public static ExceptionsAttribute read(final int ani, final DataInputStream in) throws IOException {
+
+        in.readInt();   // Ignore
+
+        final int[] exceptions = new int[in.readUnsignedShort()];
+
+        for (int i = 0; i < exceptions.length; i++) {
             exceptions[i] = in.readUnsignedShort();
         }
+
         return new ExceptionsAttribute(ani, exceptions);
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.exceptionIndexTable.length);

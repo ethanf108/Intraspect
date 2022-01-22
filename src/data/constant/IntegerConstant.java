@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +11,7 @@ public class IntegerConstant implements ConstantDesc {
 
     private final int value;
 
-    private IntegerConstant(int val) {
+    private IntegerConstant(final int val) {
         this.value = val;
     }
 
@@ -23,7 +24,7 @@ public class IntegerConstant implements ConstantDesc {
         return this.value;
     }
 
-    public static IntegerConstant read(DataInputStream in) throws IOException {
+    public static IntegerConstant read(final DataInputStream in) throws IOException {
         int val = 0;
         for (byte b : in.readNBytes(4)) {
             val <<= 8;
@@ -43,7 +44,7 @@ public class IntegerConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeInt(this.value);
     }

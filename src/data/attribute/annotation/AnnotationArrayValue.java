@@ -13,18 +13,17 @@ public final class AnnotationArrayValue extends ElementValue {
     }
 
     public ElementValue[] getValues() {
-        return values;
+        return this.values;
     }
 
-    public void setValues(ElementValue[] values) {
+    public void setValues(final ElementValue[] values) {
         this.values = values;
     }
 
     @Override
-    ElementValue readInternal(DataInputStream in) throws IOException {
-        final int numValues = in.readUnsignedShort();
-        this.values = new ElementValue[numValues];
-        for (int i = 0; i < numValues; i++) {
+    ElementValue readInternal(final DataInputStream in) throws IOException {
+        this.values = new ElementValue[in.readUnsignedShort()];
+        for (int i = 0; i < this.values.length; i++) {
             this.values[i] = ElementValue.read(in);
         }
         return this;
@@ -40,12 +39,11 @@ public final class AnnotationArrayValue extends ElementValue {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.tag);
         out.writeShort(this.values.length);
-        for (ElementValue elementValue : this.values) {
+        for (final ElementValue elementValue : this.values) {
             elementValue.write(out);
         }
     }
-
 }

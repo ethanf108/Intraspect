@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -47,10 +48,10 @@ public class NestMembersAttribute implements AttributeDesc {
     @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
-        out.writeInt(getDataLength());
-        out.writeShort(getNumberOfClasses());
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.getNumberOfClasses());
 
-        for (int aClass : this.classes) {
+        for (final int aClass : this.classes) {
             out.writeShort(aClass);
         }
     }

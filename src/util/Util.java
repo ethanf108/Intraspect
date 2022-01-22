@@ -7,9 +7,11 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public enum Util {
-    ;
-    private static Class<?> getClass(String className, String packageName) {
+public class Util {
+
+    private Util() {}
+
+    private static Class<?> getClass(final String className, final String packageName) {
         try {
             return Class.forName(packageName + "."
                     + className.substring(0, className.lastIndexOf('.')));
@@ -18,7 +20,7 @@ public enum Util {
         }
     }
 
-    public static Set<Class<?>> findClassesInPackage(String packageName) {
+    public static Set<Class<?>> findClassesInPackage(final String packageName) {
         final InputStream stream = ClassLoader.getSystemClassLoader()
                 .getResourceAsStream(packageName.replaceAll("[.]", "/"));
 

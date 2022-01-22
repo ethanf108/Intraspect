@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,8 +22,7 @@ public class InnerClassesAttribute implements AttributeDesc {
         in.readInt();    // Discard attribute length
 
         final InnerClassesTableEntry[] arr = new InnerClassesTableEntry[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = new InnerClassesTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
-            ;
+        for (int i = 0; i < arr.length; arr[i++] = InnerClassesTableEntry.read(in)) ;
 
         return new InnerClassesAttribute(ani, arr);
     }
@@ -51,16 +51,23 @@ public class InnerClassesAttribute implements AttributeDesc {
         out.writeInt(this.getDataLength());
         out.writeShort(getInnerClassesTableLength());
 
-        for (final InnerClassesTableEntry entry : innerClassesTable) {
-            out.writeShort(entry.innerClassInfoIndex);
-            out.writeShort(entry.outerClassInfoIndex);
-            out.writeShort(entry.innerNameIndex);
-            out.writeShort(entry.innerClassAccessFlags);
+        for (final InnerClassesTableEntry entry : this.innerClassesTable) {
+            entry.write(out);
         }
     }
 
     public record InnerClassesTableEntry(int innerClassInfoIndex, int outerClassInfoIndex, int innerNameIndex,
-            int innerClassAccessFlags) {
+                                         int innerClassAccessFlags) {
 
+        public void write(final DataOutputStream out) throws IOException {
+            out.writeShort(this.innerClassInfoIndex);
+            out.writeShort(this.outerClassInfoIndex);
+            out.writeShort(this.innerNameIndex);
+            out.writeShort(this.innerClassAccessFlags);
+        }
+
+        public static InnerClassesTableEntry read(final DataInputStream in) throws IOException {
+            return new InnerClassesTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
+        }
     }
 }
