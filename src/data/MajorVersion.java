@@ -6,7 +6,7 @@ public class MajorVersion {
 
     private final int majorVersion;
 
-    public MajorVersion(int mv) {
+    public MajorVersion(final int mv) {
         this.majorVersion = mv;
     }
 
