@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -9,7 +10,7 @@ public class ModuleConstant implements ConstantDesc {
 
     private final int moduleNameIndex;
 
-    public ModuleConstant(int ref) {
+    public ModuleConstant(final int ref) {
         this.moduleNameIndex = ref;
     }
 
@@ -23,7 +24,7 @@ public class ModuleConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.moduleNameIndex) instanceof UTF8Constant;
     }
 
@@ -33,7 +34,7 @@ public class ModuleConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeShort(this.moduleNameIndex);
     }

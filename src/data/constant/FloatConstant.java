@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +11,7 @@ public class FloatConstant implements ConstantDesc {
 
     private final float value;
 
-    private FloatConstant(float val) {
+    private FloatConstant(final float val) {
         this.value = val;
     }
 
@@ -28,7 +29,7 @@ public class FloatConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 
@@ -38,7 +39,7 @@ public class FloatConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeInt(Float.floatToRawIntBits(this.value));
     }

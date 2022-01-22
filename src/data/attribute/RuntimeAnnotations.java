@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ public sealed abstract class RuntimeAnnotations implements AttributeDesc permits
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public AnnotationDesc[] getAnnotations() {
@@ -40,7 +41,8 @@ public sealed abstract class RuntimeAnnotations implements AttributeDesc permits
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.annotations.length);
-        for (AnnotationDesc annotation : annotations) {
+
+        for (final AnnotationDesc annotation : this.annotations) {
             annotation.write(out);
         }
     }

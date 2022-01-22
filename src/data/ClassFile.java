@@ -1,6 +1,7 @@
 package data;
 
 import data.constant.*;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -50,14 +51,14 @@ public class ClassFile {
     }
 
     public FieldDesc[] getFields() {
-        return fields;
+        return this.fields;
     }
 
     public MethodDesc[] getMethods() {
-        return methods;
+        return this.methods;
     }
 
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.write(MAGIC);
         out.writeShort(this.minorVersion);
         out.writeShort(this.majorVersion.getMajorVersion());
@@ -72,70 +73,52 @@ public class ClassFile {
         out.writeShort(this.superClass);
 
         out.writeShort(this.interfaces.length);
-        for (int s : this.interfaces) {
+        for (final int s : this.interfaces) {
             out.writeShort(s);
         }
 
         out.writeShort(this.fields.length);
-        for (FieldDesc field : this.fields) {
+        for (final FieldDesc field : this.fields) {
             field.write(out);
         }
 
         out.writeShort(this.methods.length);
-        for (MethodDesc method : this.methods) {
+        for (final MethodDesc method : this.methods) {
             method.write(out);
         }
 
         out.writeShort(this.attributes.length);
-        for (AttributeDesc attr : this.attributes) {
+        for (final AttributeDesc attr : this.attributes) {
             attr.write(out);
         }
         out.flush();
     }
 
-    private static ConstantDesc readConstant(DataInputStream in) throws IOException {
+    private static ConstantDesc readConstant(final DataInputStream in) throws IOException {
         final int tag = in.readUnsignedByte();
         return switch (tag) {
-            case 1 ->
-                UTF8Constant.read(in);
-            case 3 ->
-                IntegerConstant.read(in);
-            case 4 ->
-                FloatConstant.read(in);
-            case 5 ->
-                LongConstant.read(in);
-            case 6 ->
-                DoubleConstant.read(in);
-            case 7 ->
-                new ClassConstant(in.readUnsignedShort());
-            case 8 ->
-                new StringConstant(in.readUnsignedShort());
-            case 9 ->
-                new FieldRefConstant(in.readUnsignedShort(), in.readUnsignedShort());
-            case 10 ->
-                new MethodRefConstant(in.readUnsignedShort(), in.readUnsignedShort());
-            case 11 ->
-                new InterfaceMethodRefConstant(in.readUnsignedShort(), in.readUnsignedShort());
-            case 12 ->
-                new NameAndTypeConstant(in.readUnsignedShort(), in.readUnsignedShort());
-            case 15 ->
-                new MethodHandleConstant(in.readUnsignedByte(), in.readUnsignedShort());
-            case 16 ->
-                new MethodTypeConstant(in.readUnsignedShort());
-            case 17 ->
-                new DynamicConstant(in.readUnsignedShort(), in.readUnsignedShort());
-            case 18 ->
-                new InvokeDynamicConstant(in.readUnsignedShort(), in.readUnsignedShort());
-            case 19 ->
-                new ModuleConstant(in.readUnsignedShort());
-            case 20 ->
-                new PackageConstant(in.readUnsignedShort());
-            default ->
-                throw new IllegalArgumentException("Invalid Tag: " + tag);
+            case 1 -> UTF8Constant.read(in);
+            case 3 -> IntegerConstant.read(in);
+            case 4 -> FloatConstant.read(in);
+            case 5 -> LongConstant.read(in);
+            case 6 -> DoubleConstant.read(in);
+            case 7 -> new ClassConstant(in.readUnsignedShort());
+            case 8 -> new StringConstant(in.readUnsignedShort());
+            case 9 -> new FieldRefConstant(in.readUnsignedShort(), in.readUnsignedShort());
+            case 10 -> new MethodRefConstant(in.readUnsignedShort(), in.readUnsignedShort());
+            case 11 -> new InterfaceMethodRefConstant(in.readUnsignedShort(), in.readUnsignedShort());
+            case 12 -> new NameAndTypeConstant(in.readUnsignedShort(), in.readUnsignedShort());
+            case 15 -> new MethodHandleConstant(in.readUnsignedByte(), in.readUnsignedShort());
+            case 16 -> new MethodTypeConstant(in.readUnsignedShort());
+            case 17 -> new DynamicConstant(in.readUnsignedShort(), in.readUnsignedShort());
+            case 18 -> new InvokeDynamicConstant(in.readUnsignedShort(), in.readUnsignedShort());
+            case 19 -> new ModuleConstant(in.readUnsignedShort());
+            case 20 -> new PackageConstant(in.readUnsignedShort());
+            default -> throw new IllegalArgumentException("Invalid Tag: " + tag);
         };
     }
 
-    public static ClassFile readClassFile(DataInputStream in) throws IOException {
+    public static ClassFile readClassFile(final DataInputStream in) throws IOException {
         final ClassFile ret = new ClassFile();
         if (!Arrays.equals(MAGIC, in.readNBytes(4))) {
             throw new IllegalArgumentException("Not a Java Class file");
@@ -184,6 +167,7 @@ public class ClassFile {
         if (in.read() != -1) {
             throw new RuntimeException("End of file not reached");
         }
+
         return ret;
     }
 }

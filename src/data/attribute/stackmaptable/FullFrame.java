@@ -1,33 +1,44 @@
 package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 public final class FullFrame extends StackMapFrame {
 
+    public int getOffsetDelta() {
+        return this.offsetDelta;
+    }
+
+    public VerificationTypeInfo[] getLocals() {
+        return this.locals;
+    }
+
+    public VerificationTypeInfo[] getStack() {
+        return this.stack;
+    }
+
     private int offsetDelta;
     private VerificationTypeInfo[] locals;
     private VerificationTypeInfo[] stack;
 
-    public FullFrame(int tag) {
+    public FullFrame(final int tag) {
         super(tag);
     }
 
     @Override
     StackMapFrame readInternal(final DataInputStream in) throws IOException {
 
-        offsetDelta = in.readUnsignedShort();
+        this.offsetDelta = in.readUnsignedShort();
 
-        final int numberOfLocals = in.readUnsignedShort();
-        locals = new VerificationTypeInfo[numberOfLocals];
-        for (int i = 0; i < locals.length; i++) {
+        this.locals = new VerificationTypeInfo[in.readUnsignedShort()];
+        for (int i = 0; i < this.locals.length; i++) {
             locals[i] = VerificationTypeInfo.read(in);
         }
 
-        final int numberOfStackItems = in.readUnsignedShort();
-        stack = new VerificationTypeInfo[numberOfStackItems];
+        this.stack = new VerificationTypeInfo[in.readUnsignedShort()];
         for (int i = 0; i < stack.length; i++) {
             stack[i] = VerificationTypeInfo.read(in);
         }
@@ -37,19 +48,19 @@ public final class FullFrame extends StackMapFrame {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        out.writeByte(tag);
+        out.writeByte(this.tag);
 
-        out.writeShort(offsetDelta);
+        out.writeShort(this.offsetDelta);
 
-        out.writeShort(locals.length);
+        out.writeShort(this.locals.length);
 
-        for (VerificationTypeInfo local : locals) {
+        for (final VerificationTypeInfo local : this.locals) {
             local.write(out);
         }
 
-        out.writeShort(stack.length);
+        out.writeShort(this.stack.length);
 
-        for (VerificationTypeInfo verificationTypeInfo : stack) {
+        for (final VerificationTypeInfo verificationTypeInfo : this.stack) {
             verificationTypeInfo.write(out);
         }
     }
@@ -58,11 +69,11 @@ public final class FullFrame extends StackMapFrame {
     public int getDataLength() {
         int dataLength = 7;
 
-        for (VerificationTypeInfo local : locals) {
+        for (final VerificationTypeInfo local : locals) {
             dataLength += local.getDataLength();
         }
 
-        for (VerificationTypeInfo verificationTypeInfo : stack) {
+        for (final VerificationTypeInfo verificationTypeInfo : this.stack) {
             dataLength += verificationTypeInfo.getDataLength();
         }
 

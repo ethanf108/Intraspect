@@ -4,6 +4,7 @@ import data.AttributeDesc;
 import data.AttributeName;
 import data.AttributeReader;
 import data.ClassFile;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class CodeAttribute implements AttributeDesc {
     private final ExceptionDesc[] exceptionTable;
     private final AttributeDesc[] attributes;
 
-    public CodeAttribute(int attributeNameIndex, int maxStack, int maxLocals, byte[] code, ExceptionDesc[] exceptionTable, AttributeDesc[] attributes) {
+    public CodeAttribute(final int attributeNameIndex, final int maxStack, final int maxLocals, final byte[] code, final ExceptionDesc[] exceptionTable, final AttributeDesc[] attributes) {
         this.attributeNameIndex = attributeNameIndex;
         this.maxStack = maxStack;
         this.maxLocals = maxLocals;
@@ -42,75 +43,77 @@ public class CodeAttribute implements AttributeDesc {
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public int getMaxStack() {
-        return maxStack;
+        return this.maxStack;
     }
 
     public int getMaxLocals() {
-        return maxLocals;
+        return this.maxLocals;
     }
 
     public byte[] getCode() {
-        return code;
+        return this.code;
     }
 
     public ExceptionDesc[] getExceptionTable() {
-        return exceptionTable;
+        return this.exceptionTable;
     }
 
     public AttributeDesc[] getAttributes() {
-        return attributes;
+        return this.attributes;
     }
 
-    public static CodeAttribute read(int ani, DataInputStream in, ClassFile ref) throws IOException {
+    public static CodeAttribute read(final int ani, final DataInputStream in, final ClassFile ref) throws IOException {
         in.readInt();   // Ignore
 
         final int maxStack = in.readUnsignedShort();
         final int maxLocals = in.readUnsignedShort();
-        final int codeLength = in.readInt();
-        final byte[] code = new byte[codeLength];
+
+        final byte[] code = new byte[in.readInt()];
 
         in.read(code);
 
-        final int exceptionTableLength = in.readUnsignedShort();
-        final ExceptionDesc[] exceptions = new ExceptionDesc[exceptionTableLength];
-        for (int i = 0; i < exceptionTableLength; i++) {
+        final ExceptionDesc[] exceptions = new ExceptionDesc[in.readUnsignedShort()];
+        for (int i = 0; i < exceptions.length; i++) {
             exceptions[i] = ExceptionDesc.read(in);
         }
-        final int attributesCount = in.readUnsignedShort();
-        final AttributeDesc[] attributes = new AttributeDesc[attributesCount];
-        for (int i = 0; i < attributesCount; i++) {
+
+        final AttributeDesc[] attributes = new AttributeDesc[in.readUnsignedShort()];
+        for (int i = 0; i < attributes.length; i++) {
             attributes[i] = AttributeReader.read(in, ref);
         }
+
         return new CodeAttribute(ani, maxStack, maxLocals, code, exceptions, attributes);
     }
 
     @Override
     public int getDataLength() {
         int attributeLength = 0;
-        for (AttributeDesc ad : this.attributes) {
+        for (final AttributeDesc ad : this.attributes) {
             attributeLength += ad.getDataLength() + 6;
         }
         return 12 + this.code.length + 8 * this.exceptionTable.length + attributeLength;
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.maxStack);
         out.writeShort(this.maxLocals);
         out.writeInt(this.code.length);
         out.write(this.code);
+
         out.writeShort(this.exceptionTable.length);
-        for (ExceptionDesc ed : this.exceptionTable) {
+        for (final ExceptionDesc ed : this.exceptionTable) {
             ed.write(out);
         }
+
         out.writeShort(this.attributes.length);
-        for (AttributeDesc ad : this.attributes) {
+        for (final AttributeDesc ad : this.attributes) {
             ad.write(out);
         }
     }

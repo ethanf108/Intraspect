@@ -1,13 +1,14 @@
 package data.attribute;
 
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 
 @AttributeName("RuntimeVisibleParameterAnnotations")
 public final class RuntimeVisibleParameterAnnotationsAttribute extends RuntimeParameterAnnotations {
 
-    public RuntimeVisibleParameterAnnotationsAttribute(int attributeNameIndex, ParameterAnnotations[] parameterAnnotations) {
+    public RuntimeVisibleParameterAnnotationsAttribute(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
         super(attributeNameIndex, parameterAnnotations);
     }
 
@@ -17,12 +18,13 @@ public final class RuntimeVisibleParameterAnnotationsAttribute extends RuntimePa
     }
 
     public static RuntimeVisibleParameterAnnotationsAttribute read(int ani, DataInputStream in) throws IOException {
-        final int length = in.readInt();
-        final int numParameters = in.readUnsignedByte();
-        final ParameterAnnotations[] parameters = new ParameterAnnotations[numParameters];
-        for (int i = 0; i < numParameters; i++) {
+        in.readInt();   // Ignore
+
+        final ParameterAnnotations[] parameters = new ParameterAnnotations[in.readUnsignedByte()];
+        for (int i = 0; i < parameters.length; i++) {
             parameters[i] = ParameterAnnotations.read(in);
         }
+
         return new RuntimeVisibleParameterAnnotationsAttribute(ani, parameters);
     }
 

@@ -12,21 +12,21 @@ public class ConstantValueAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final int constantValueIndex;
 
-    private ConstantValueAttribute(int attributeNameIndex, int constantValueIndex) {
+    private ConstantValueAttribute(final int attributeNameIndex, final int constantValueIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.constantValueIndex = constantValueIndex;
     }
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public int getConstantValueIndex() {
-        return constantValueIndex;
+        return this.constantValueIndex;
     }
 
-    public static ConstantValueAttribute read(int ani, DataInputStream in) throws IOException {
+    public static ConstantValueAttribute read(final int ani, final DataInputStream in) throws IOException {
         if (in.readInt() != 2) {
             throw new IllegalArgumentException("Constant Value Attribute length must be 2");
         }
@@ -34,7 +34,7 @@ public class ConstantValueAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.constantValueIndex);

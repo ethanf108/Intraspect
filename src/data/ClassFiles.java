@@ -1,36 +1,29 @@
 package data;
 
 import data.constant.UTF8Constant;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ClassFiles {
 
-    private ClassFiles() {}
+    private ClassFiles() {
+    }
 
-    public static String getFromDescriptor(String desc) {
+    public static String getFromDescriptor(final String desc) {
         Objects.requireNonNull(desc);
         final String baseType = desc.substring(desc.lastIndexOf("[") + 1);
         String ret = switch (baseType) {
-            case "I" ->
-                int.class.getCanonicalName();
-            case "B" ->
-                byte.class.getCanonicalName();
-            case "C" ->
-                char.class.getCanonicalName();
-            case "Z" ->
-                boolean.class.getCanonicalName();
-            case "S" ->
-                short.class.getCanonicalName();
-            case "J" ->
-                long.class.getCanonicalName();
-            case "F" ->
-                float.class.getCanonicalName();
-            case "D" ->
-                double.class.getCanonicalName();
-            case "V" ->
-                void.class.getCanonicalName();
+            case "I" -> int.class.getCanonicalName();
+            case "B" -> byte.class.getCanonicalName();
+            case "C" -> char.class.getCanonicalName();
+            case "Z" -> boolean.class.getCanonicalName();
+            case "S" -> short.class.getCanonicalName();
+            case "J" -> long.class.getCanonicalName();
+            case "F" -> float.class.getCanonicalName();
+            case "D" -> double.class.getCanonicalName();
+            case "V" -> void.class.getCanonicalName();
             default -> {
                 if (!baseType.startsWith("L") || !baseType.endsWith(";")) {
                     throw new IllegalArgumentException("Invalid Descriptor");
@@ -54,7 +47,7 @@ public class ClassFiles {
         return ret + "[]".repeat(numArrays);
     }
 
-    public static String[] getFromMethodDescriptor(String desc) {
+    public static String[] getFromMethodDescriptor(final String desc) {
         if (!desc.startsWith("(")) {
             throw new IllegalArgumentException("Invalid Method Descriptor format");
         }
@@ -108,7 +101,7 @@ public class ClassFiles {
         return args.toArray(new String[0]);
     }
 
-    public static String fieldSimpleString(FieldDesc fd, ClassFile cf) {
+    public static String fieldSimpleString(final FieldDesc fd, final ClassFile cf) {
         final String name = cf.getConstantDesc(fd.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (name == null) {
             throw new IllegalStateException("Field Name Index must point to a UTF 8 Constant");
@@ -151,7 +144,7 @@ public class ClassFiles {
         return ret.toString();
     }
 
-    public static String methodSimpleString(MethodDesc md, ClassFile cf) {
+    public static String methodSimpleString(final MethodDesc md, final ClassFile cf) {
         final String name = cf.getConstantDesc(md.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (name == null) {
             throw new IllegalStateException("Field Name Index must point to a UTF 8 Constant");

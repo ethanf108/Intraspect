@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -56,16 +57,16 @@ public class InnerClassesAttribute implements AttributeDesc {
     }
 
     public record InnerClassesTableEntry(int innerClassInfoIndex, int outerClassInfoIndex, int innerNameIndex,
-            int innerClassAccessFlags) {
+                                         int innerClassAccessFlags) {
 
-        public void write(DataOutputStream out) throws IOException {
+        public void write(final DataOutputStream out) throws IOException {
             out.writeShort(this.innerClassInfoIndex);
             out.writeShort(this.outerClassInfoIndex);
             out.writeShort(this.innerNameIndex);
             out.writeShort(this.innerClassAccessFlags);
         }
 
-        public static InnerClassesTableEntry read(DataInputStream in) throws IOException {
+        public static InnerClassesTableEntry read(final DataInputStream in) throws IOException {
             return new InnerClassesTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
         }
     }

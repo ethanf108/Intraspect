@@ -2,6 +2,7 @@ package data.constant;
 
 import data.ClassFile;
 import data.ConstantDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -11,7 +12,7 @@ public class MethodHandleConstant implements ConstantDesc {
 
     private final int referenceIndex;
 
-    public MethodHandleConstant(int kind, int ref) {
+    public MethodHandleConstant(final int kind, final int ref) {
         this.kind = kind;
         this.referenceIndex = ref;
     }
@@ -30,22 +31,17 @@ public class MethodHandleConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         String methodName = null;
         final boolean first = switch (kind) {
-            case 1, 2, 3, 4 ->
-                ref.getConstantDesc(this.referenceIndex) instanceof FieldRefConstant;
-            case 5, 8 ->
-                ref.getConstantDesc(this.referenceIndex) instanceof MethodRefConstant;
-            case 6, 7 ->
-                ref.getConstantDesc(this.referenceIndex) instanceof MethodRefConstant || (ref.getMajorVersion().getMajorVersion() < 52 && ref.getConstantDesc(this.referenceIndex) instanceof InterfaceMethodRefConstant);
-            case 9 ->
-                ref.getConstantDesc(this.referenceIndex) instanceof InterfaceMethodRefConstant;
-            default ->
-                false;
+            case 1, 2, 3, 4 -> ref.getConstantDesc(this.referenceIndex) instanceof FieldRefConstant;
+            case 5, 8 -> ref.getConstantDesc(this.referenceIndex) instanceof MethodRefConstant;
+            case 6, 7 -> ref.getConstantDesc(this.referenceIndex) instanceof MethodRefConstant || (ref.getMajorVersion().getMajorVersion() < 52 && ref.getConstantDesc(this.referenceIndex) instanceof InterfaceMethodRefConstant);
+            case 9 -> ref.getConstantDesc(this.referenceIndex) instanceof InterfaceMethodRefConstant;
+            default -> false;
         };
         return first && switch (kind) {
-            case 5,6,7,9:
+            case 5, 6, 7, 9:
                 if (ref.getConstantDesc(this.referenceIndex) instanceof InterfaceMethodRefConstant imrc) {
                     if (ref.getConstantDesc(imrc.getNameAndTypeIndex()) instanceof NameAndTypeConstant natc
                             && ref.getConstantDesc(natc.getNameIndex()) instanceof UTF8Constant u) {
@@ -71,7 +67,7 @@ public class MethodHandleConstant implements ConstantDesc {
                 } else {
                     yield !methodName.equals("<init>") && !methodName.equals("<clinit>");
                 }
-            case 1,2,3,4:
+            case 1, 2, 3, 4:
                 yield true;
             default:
                 yield false;
@@ -84,7 +80,7 @@ public class MethodHandleConstant implements ConstantDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeByte(this.kind);
         out.writeShort(this.referenceIndex);

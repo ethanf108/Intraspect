@@ -7,6 +7,14 @@ import java.io.IOException;
 
 public final class AppendFrame extends StackMapFrame {
 
+    public int getOffsetDelta() {
+        return this.offsetDelta;
+    }
+
+    public VerificationTypeInfo[] getLocals() {
+        return this.locals;
+    }
+
     private int offsetDelta;
     private VerificationTypeInfo[] locals;
 
@@ -17,23 +25,23 @@ public final class AppendFrame extends StackMapFrame {
     @Override
     StackMapFrame readInternal(final DataInputStream in) throws IOException {
 
-        offsetDelta = in.readUnsignedShort();
+        this.offsetDelta = in.readUnsignedShort();
 
-        locals = new VerificationTypeInfo[this.tag - 251];
+        this.locals = new VerificationTypeInfo[this.tag - 251];
 
-        for (int i = 0; i < locals.length; i++) {
-            locals[i] = VerificationTypeInfo.read(in);
+        for (int i = 0; i < this.locals.length; i++) {
+            this.locals[i] = VerificationTypeInfo.read(in);
         }
 
         return this;
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(tag);
-        out.writeShort(offsetDelta);
+        out.writeShort(this.offsetDelta);
 
-        for (VerificationTypeInfo local : locals) {
+        for (final VerificationTypeInfo local : this.locals) {
             local.write(out);
         }
 
@@ -43,7 +51,7 @@ public final class AppendFrame extends StackMapFrame {
     public int getDataLength() {
         int dataLength = 3;
 
-        for (VerificationTypeInfo local : locals) {
+        for (final VerificationTypeInfo local : this.locals) {
             dataLength += local.getDataLength();
         }
 

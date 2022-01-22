@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,14 +13,14 @@ public class SourceDebugExtensionAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final byte[] debugExtension;
 
-    public SourceDebugExtensionAttribute(int attributeNameIndex, byte[] debugExtension) {
+    public SourceDebugExtensionAttribute(final int attributeNameIndex, final byte[] debugExtension) {
         this.attributeNameIndex = attributeNameIndex;
         this.debugExtension = debugExtension;
     }
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     @Override
@@ -28,18 +29,17 @@ public class SourceDebugExtensionAttribute implements AttributeDesc {
     }
 
     public byte[] getDebugExtension() {
-        return debugExtension;
+        return this.debugExtension;
     }
 
-    public static SourceDebugExtensionAttribute read(int ani, DataInputStream in) throws IOException {
-        final int length = in.readInt();
-        final byte[] data = new byte[length];
+    public static SourceDebugExtensionAttribute read(final int ani, final DataInputStream in) throws IOException {
+        final byte[] data = new byte[in.readInt()];
         in.read(data);
         return new SourceDebugExtensionAttribute(ani, data);
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.debugExtension.length);
         out.write(this.debugExtension);

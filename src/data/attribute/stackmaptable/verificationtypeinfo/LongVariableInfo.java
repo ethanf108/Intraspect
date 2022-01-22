@@ -17,7 +17,7 @@ public final class LongVariableInfo extends VerificationTypeInfo {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        out.writeByte(tag);
+        out.writeByte(this.tag);
     }
 
     @Override

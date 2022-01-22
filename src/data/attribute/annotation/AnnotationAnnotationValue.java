@@ -8,7 +8,7 @@ public final class AnnotationAnnotationValue extends ElementValue {
 
     private AnnotationDesc annotationValue;
 
-    public AnnotationAnnotationValue(int tag) {
+    public AnnotationAnnotationValue(final int tag) {
         super(tag);
     }
 
@@ -16,7 +16,7 @@ public final class AnnotationAnnotationValue extends ElementValue {
         return annotationValue;
     }
 
-    public void setAnnotationValue(AnnotationDesc annotationValue) {
+    public void setAnnotationValue(final AnnotationDesc annotationValue) {
         this.annotationValue = annotationValue;
     }
 
@@ -32,7 +32,7 @@ public final class AnnotationAnnotationValue extends ElementValue {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.tag);
         this.annotationValue.write(out);
     }

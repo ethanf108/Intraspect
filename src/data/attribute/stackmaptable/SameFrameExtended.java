@@ -6,24 +6,28 @@ import java.io.IOException;
 
 public final class SameFrameExtended extends StackMapFrame {
 
+    public int getOffsetDelta() {
+        return this.offsetDelta;
+    }
+
     private int offsetDelta;
 
-    public SameFrameExtended(int tag) {
+    public SameFrameExtended(final int tag) {
         super(tag);
     }
 
     @Override
-    StackMapFrame readInternal(DataInputStream in) throws IOException {
+    StackMapFrame readInternal(final DataInputStream in) throws IOException {
 
-        offsetDelta = in.readUnsignedShort();
+        this.offsetDelta = in.readUnsignedShort();
 
         return this;
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
-        out.writeByte(tag);
-        out.writeShort(offsetDelta);
+    public void write(final DataOutputStream out) throws IOException {
+        out.writeByte(this.tag);
+        out.writeShort(this.offsetDelta);
     }
 
     @Override

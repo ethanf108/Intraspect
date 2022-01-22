@@ -26,7 +26,7 @@ public final class ObjectVariableInfo extends VerificationTypeInfo {
 
     @Override
     public void write(final DataOutputStream out) throws IOException {
-        out.writeByte(tag);
+        out.writeByte(this.tag);
         out.writeShort(this.cpoolIndex);
 
     }

@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,18 +17,18 @@ public class MethodParametersAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final Parameter[] parameters;
 
-    public MethodParametersAttribute(int attributeNameIndex, Parameter[] parameters) {
+    public MethodParametersAttribute(final int attributeNameIndex, final Parameter[] parameters) {
         this.attributeNameIndex = attributeNameIndex;
         this.parameters = parameters;
     }
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public Parameter[] getParameters() {
-        return parameters;
+        return this.parameters;
     }
 
     @Override
@@ -35,22 +36,23 @@ public class MethodParametersAttribute implements AttributeDesc {
         return 1 + 4 * this.parameters.length;
     }
 
-    public static MethodParametersAttribute read(int ani, DataInputStream in) throws IOException {
+    public static MethodParametersAttribute read(final int ani, final DataInputStream in) throws IOException {
         in.readInt();    // Ignore
-        final int numParameters = in.readUnsignedByte();
-        final Parameter[] params = new Parameter[numParameters];
-        for (int i = 0; i < numParameters; i++) {
+
+        final Parameter[] params = new Parameter[in.readUnsignedByte()];
+        for (int i = 0; i < params.length; i++) {
             params[i] = new Parameter(in.readUnsignedShort(), in.readUnsignedShort());
         }
+
         return new MethodParametersAttribute(ani, params);
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeByte(this.parameters.length);
-        for (Parameter p : this.parameters) {
+        for (final Parameter p : this.parameters) {
             out.writeShort(p.nameIndex);
             out.writeShort(p.accessFlags);
         }

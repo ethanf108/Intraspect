@@ -2,6 +2,7 @@ package data;
 
 import data.attribute.UnknownAttribute;
 import data.constant.UTF8Constant;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -9,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import util.Util;
 
 public class AttributeReader {
@@ -30,7 +32,7 @@ public class AttributeReader {
 
     }
 
-    public static void submitAttribute(Class<? extends AttributeDesc> clazz) {
+    public static void submitAttribute(final Class<? extends AttributeDesc> clazz) {
         Objects.requireNonNull(clazz);
         if (!AttributeDesc.class.isAssignableFrom(clazz) || !clazz.isAnnotationPresent(AttributeName.class)) {
             throw new IllegalArgumentException("Class does not meet requirements to be submitted");
@@ -42,7 +44,7 @@ public class AttributeReader {
         attributeClasses.put(name.value(), clazz.asSubclass(AttributeDesc.class));
     }
 
-    public static AttributeDesc read(DataInputStream in, ClassFile ref) throws IOException {
+    public static AttributeDesc read(final DataInputStream in, final ClassFile ref) throws IOException {
         final int attributeNameIndex = in.readUnsignedShort();
         final String attributeName = ref.getConstantDesc(attributeNameIndex) instanceof UTF8Constant u ? u.getValue() : null;
         if (attributeName == null) {

@@ -2,6 +2,7 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,14 +22,14 @@ public class ModuleAttribute implements AttributeDesc {
     private final ProvidesEntry[] provides;
 
     public ModuleAttribute(final int attributeNameIndex,
-            final int moduleNameIndex,
-            final int moduleFlags,
-            final int moduleVersionIndex,
-            final RequiresEntry[] requires,
-            final ExportsEntry[] exports,
-            final OpensEntry[] opens,
-            final int[] usesIndex,
-            final ProvidesEntry[] provides) {
+                           final int moduleNameIndex,
+                           final int moduleFlags,
+                           final int moduleVersionIndex,
+                           final RequiresEntry[] requires,
+                           final ExportsEntry[] exports,
+                           final OpensEntry[] opens,
+                           final int[] usesIndex,
+                           final ProvidesEntry[] provides) {
         this.attributeNameIndex = attributeNameIndex;
         this.moduleNameIndex = moduleNameIndex;
         this.moduleFlags = moduleFlags;
@@ -53,42 +54,43 @@ public class ModuleAttribute implements AttributeDesc {
     @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
+
         out.writeInt(this.getDataLength());
 
-        out.writeShort(moduleNameIndex);
+        out.writeShort(this.moduleNameIndex);
 
-        out.writeShort(moduleFlags);
+        out.writeShort(this.moduleFlags);
 
-        out.writeShort(moduleVersionIndex);
+        out.writeShort(this.moduleVersionIndex);
 
-        out.writeShort(requires.length);
+        out.writeShort(this.requires.length);
 
         // Requires write
-        for (RequiresEntry entry : requires) {
+        for (final RequiresEntry entry : this.requires) {
             entry.write(out);
         }
 
-        out.writeShort(exports.length);
+        out.writeShort(this.exports.length);
 
         // Exports write
-        for (ExportsEntry entry : exports) {
+        for (final ExportsEntry entry : this.exports) {
             entry.write(out);
         }
 
         // Opens write
-        out.writeShort(opens.length);
-        for (OpensEntry entry : opens) {
+        out.writeShort(this.opens.length);
+        for (final OpensEntry entry : opens) {
             entry.write(out);
         }
 
-        out.writeShort(usesIndex.length);
-        for (int index : usesIndex) {
+        out.writeShort(this.usesIndex.length);
+        for (final int index : usesIndex) {
             out.writeShort(index);
         }
 
         // Provides write
-        out.writeShort(provides.length);
-        for (ProvidesEntry entry : provides) {
+        out.writeShort(this.provides.length);
+        for (final ProvidesEntry entry : provides) {
             entry.write(out);
         }
     }
@@ -145,12 +147,11 @@ public class ModuleAttribute implements AttributeDesc {
             return new RequiresEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
         }
 
-        public void write(DataOutputStream out) throws IOException {
+        public void write(final DataOutputStream out) throws IOException {
             out.writeShort(this.requiresIndex);
             out.writeShort(this.requiresFlags);
             out.writeShort(this.requiresVersionIndex);
         }
-
 
 
     }
@@ -169,7 +170,7 @@ public class ModuleAttribute implements AttributeDesc {
             return new ExportsEntry(exportsIndex, exportsFlags, exportsToIndex);
         }
 
-        public void write(DataOutputStream out) throws IOException {
+        public void write(final DataOutputStream out) throws IOException {
             out.writeShort(this.exportsIndex);
             out.writeShort(this.exportsFlags);
             out.writeShort(this.exportsToIndex.length);
@@ -195,7 +196,7 @@ public class ModuleAttribute implements AttributeDesc {
             return new OpensEntry(opensIndex, opensFlags, opensToIndex);
         }
 
-        public void write(DataOutputStream out) throws IOException {
+        public void write(final DataOutputStream out) throws IOException {
             out.writeShort(this.opensIndex);
             out.writeShort(this.opensFlags);
             out.writeShort(this.opensToIndex.length);
@@ -230,6 +231,5 @@ public class ModuleAttribute implements AttributeDesc {
                 out.writeShort(provides);
             }
         }
-
     }
 }
