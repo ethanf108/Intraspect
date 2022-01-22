@@ -12,7 +12,16 @@ import java.io.IOException;
 public class CodeAttribute implements AttributeDesc {
 
     public static record ExceptionDesc(int startPc, int endPc, int handlerPc, int catchType) {
+        public void write(final DataOutputStream out) throws IOException {
+            out.writeShort(this.startPc);
+            out.writeShort(this.endPc);
+            out.writeShort(this.handlerPc);
+            out.writeShort(this.catchType);
+        }
 
+        public static ExceptionDesc read(DataInputStream in) throws IOException {
+            return new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
+        }
     }
 
     private final int attributeNameIndex;
@@ -69,7 +78,7 @@ public class CodeAttribute implements AttributeDesc {
         final int exceptionTableLength = in.readUnsignedShort();
         final ExceptionDesc[] exceptions = new ExceptionDesc[exceptionTableLength];
         for (int i = 0; i < exceptionTableLength; i++) {
-            exceptions[i] = new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
+            exceptions[i] = ExceptionDesc.read(in);
         }
         final int attributesCount = in.readUnsignedShort();
         final AttributeDesc[] attributes = new AttributeDesc[attributesCount];
@@ -98,10 +107,7 @@ public class CodeAttribute implements AttributeDesc {
         out.write(this.code);
         out.writeShort(this.exceptionTable.length);
         for (ExceptionDesc ed : this.exceptionTable) {
-            out.writeShort(ed.startPc);
-            out.writeShort(ed.endPc);
-            out.writeShort(ed.handlerPc);
-            out.writeShort(ed.catchType);
+            ed.write(out);
         }
         out.writeShort(this.attributes.length);
         for (AttributeDesc ad : this.attributes) {
