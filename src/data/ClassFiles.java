@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public enum ClassFiles {
-    ;
+public class ClassFiles {
+
+    private ClassFiles() {}
 
     public static String getFromDescriptor(String desc) {
         Objects.requireNonNull(desc);
@@ -34,25 +35,30 @@ public enum ClassFiles {
                 if (!baseType.startsWith("L") || !baseType.endsWith(";")) {
                     throw new IllegalArgumentException("Invalid Descriptor");
                 }
+
+                final String className = baseType.substring(1, baseType.length() - 1).replaceAll("/", ".");
                 try {
-                    yield Class.forName(baseType.substring(1, baseType.length() - 1).replaceAll("/", ".")).getCanonicalName();
+                    yield Class.forName(className).getCanonicalName();
                 } catch (ClassNotFoundException ex) {
-                    yield baseType.substring(1, baseType.length() - 1).replaceAll("/", ".");
+                    yield className;
                 }
             }
         };
+
         int numArrays = desc.lastIndexOf("[") + 1;
-        while (numArrays-- > 0) {
-            ret += "[]";
+
+        if (numArrays > 255) {
+            throw new IllegalArgumentException("Array dimensions may not be greater than 255");
         }
-        return ret;
+
+        return ret + "[]".repeat(numArrays);
     }
 
     public static String[] getFromMethodDescriptor(String desc) {
         if (!desc.startsWith("(")) {
             throw new IllegalArgumentException("Invalid Method Descriptor format");
         }
-        List<String> args = new ArrayList<>();
+        final List<String> args = new ArrayList<>();
         int index = 1;
         int numArrays = 0;
         boolean argMode = true;
@@ -64,7 +70,11 @@ public enum ClassFiles {
                     index++;
                 }
                 case '[' -> {
-                    numArrays++;
+
+                    if (numArrays++ == 255) {
+                        throw new IllegalArgumentException("Array dimensions may not be greater than 255");
+                    }
+
                     index++;
                 }
                 default -> {
@@ -79,9 +89,9 @@ public enum ClassFiles {
                         className = getFromDescriptor(String.valueOf(desc.charAt(index)));
                         index++;
                     }
-                    while (numArrays-- > 0) {
-                        className += "[]";
-                    }
+
+                    className += "[]".repeat(numArrays);
+
                     if (argMode) {
                         args.add(className);
                     } else {
@@ -94,9 +104,8 @@ public enum ClassFiles {
         if (index != desc.length()) {
             throw new IllegalArgumentException("Method Descriptor has invalid length");
         }
-        String[] ret = new String[args.size()];
-        args.toArray(ret);
-        return ret;
+
+        return args.toArray(new String[0]);
     }
 
     public static String fieldSimpleString(FieldDesc fd, ClassFile cf) {
