@@ -6,7 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-@AttributeName("RuntimeVisibleTypeAnnotations_")
+@AttributeName("RuntimeVisibleTypeAnnotations")
 public final class RuntimeVisibleTypeAnnotationsAttribute extends RuntimeTypeAnnotations {
 
     public RuntimeVisibleTypeAnnotationsAttribute(final int attributeNameIndex, final TypeAnnotation[] annotations) {
