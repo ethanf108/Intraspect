@@ -6,17 +6,17 @@ import java.io.IOException;
 
 public final class DoubleVariableInfo extends VerificationTypeInfo {
 
-    public DoubleVariableInfo(int tag) {
+    public DoubleVariableInfo(final int tag) {
         super(tag);
     }
 
     @Override
-    VerificationTypeInfo readInternal(DataInputStream in) throws IOException {
+    VerificationTypeInfo readInternal(final DataInputStream in) throws IOException {
         return this;
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(tag);
     }
 

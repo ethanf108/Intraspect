@@ -11,7 +11,7 @@ public class SyntheticAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
 
-    private SyntheticAttribute(int ani) {
+    private SyntheticAttribute(final int ani) {
         this.attributeNameIndex = ani;
     }
 
@@ -25,7 +25,7 @@ public class SyntheticAttribute implements AttributeDesc {
         return 0;
     }
 
-    public static SyntheticAttribute read(int ani, DataInputStream in) throws IOException {
+    public static SyntheticAttribute read(final int ani, final DataInputStream in) throws IOException {
         if (in.readInt() != 0) {
             throw new IllegalArgumentException("Synthetic Attribute Length must be 0");
         }
@@ -33,7 +33,7 @@ public class SyntheticAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
     }

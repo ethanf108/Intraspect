@@ -13,7 +13,7 @@ public class StackMapTableAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final StackMapFrame[] entries;
 
-    private StackMapTableAttribute(int attributeNameIndex, StackMapFrame[] entries) {
+    private StackMapTableAttribute(final int attributeNameIndex, final StackMapFrame[] entries) {
         this.attributeNameIndex = attributeNameIndex;
         this.entries = entries;
     }

@@ -12,13 +12,13 @@ public abstract sealed class VerificationTypeInfo permits TopVariableInfo, Integ
         this.tag = tag;
     }
 
-    abstract VerificationTypeInfo readInternal(DataInputStream in) throws IOException;
+    abstract VerificationTypeInfo readInternal(final DataInputStream in) throws IOException;
 
-    public abstract void write(DataOutputStream out) throws IOException;
+    public abstract void write(final DataOutputStream out) throws IOException;
 
     public abstract int getDataLength();
 
-    public static VerificationTypeInfo read(DataInputStream in) throws IOException {
+    public static VerificationTypeInfo read(final DataInputStream in) throws IOException {
         final int tag = in.readUnsignedByte();
         return switch (tag) {
             case 0 ->

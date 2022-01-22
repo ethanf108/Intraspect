@@ -34,7 +34,7 @@ public class SourceDebugExtensionAttribute implements AttributeDesc {
     public static SourceDebugExtensionAttribute read(int ani, DataInputStream in) throws IOException {
         final int length = in.readInt();
         final byte[] data = new byte[length];
-        in.read(data, 0, length);
+        in.read(data);
         return new SourceDebugExtensionAttribute(ani, data);
     }
 
