@@ -8,7 +8,7 @@ import java.io.IOException;
 @AttributeName("RuntimeInvisibleParameterAnnotationsAttribute")
 public final class RuntimeInvisibleParameterAnnotationsAttribute extends RuntimeParameterAnnotations {
 
-    public RuntimeInvisibleParameterAnnotationsAttribute(int attributeNameIndex, ParameterAnnotations[] parameterAnnotations) {
+    public RuntimeInvisibleParameterAnnotationsAttribute(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
         super(attributeNameIndex, parameterAnnotations);
     }
 

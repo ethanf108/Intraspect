@@ -18,7 +18,7 @@ public class SyntheticAttribute implements AttributeDesc {
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     @Override

@@ -18,19 +18,18 @@ public class DeprecatedAttribute implements AttributeDesc {
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public static DeprecatedAttribute read(int ani, DataInputStream in) throws IOException {
-        final int length = in.readInt();
-        if (length != 0) {
+        if (in.readInt() != 0) {
             throw new IllegalArgumentException("Deprecated Attribute Length must be 0");
         }
         return new DeprecatedAttribute(ani);
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
     }

@@ -52,10 +52,10 @@ public class MethodParametersAttribute implements AttributeDesc {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeByte(this.parameters.length);
+
         for (final Parameter p : this.parameters) {
             out.writeShort(p.nameIndex);
             out.writeShort(p.accessFlags);
         }
     }
-
 }

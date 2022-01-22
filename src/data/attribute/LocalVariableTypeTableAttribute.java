@@ -37,7 +37,7 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return getLocalVariableTypeTableLength() * 10 + 2;
+        return this.getLocalVariableTypeTableLength() * 10 + 2;
     }
 
     public LocalVariableTypeTableEntry[] getLocalVariableTypeTable() {
@@ -48,7 +48,7 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
-        out.writeShort(getLocalVariableTypeTableLength());
+        out.writeShort(this.getLocalVariableTypeTableLength());
 
         for (final LocalVariableTypeTableEntry entry : localVariableTypeTable) {
             out.writeShort(entry.startPc);
@@ -61,6 +61,5 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
 
     public static record LocalVariableTypeTableEntry(int startPc, int length, int nameIndex,
             int signatureIndex, int index) {
-
     }
 }

@@ -41,7 +41,7 @@ public class AnnotationDefaultAttribute implements AttributeDesc {
     @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
-        out.writeInt(getDataLength());
+        out.writeInt(this.getDataLength());
         this.defaultValue.write(out);
     }
 }

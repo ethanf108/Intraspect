@@ -24,7 +24,7 @@ public class ModulePackagesAttribute implements AttributeDesc {
     }
 
     public int[] getPackageIndex() {
-        return packageIndex;
+        return this.packageIndex;
     }
 
     public static ModulePackagesAttribute read(final int ani, final DataInputStream in) throws IOException {
@@ -44,7 +44,7 @@ public class ModulePackagesAttribute implements AttributeDesc {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.packageIndex.length);
-        for (int s : this.packageIndex) {
+        for (final int s : this.packageIndex) {
             out.writeShort(s);
         }
     }

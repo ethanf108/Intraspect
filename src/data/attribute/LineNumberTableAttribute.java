@@ -45,7 +45,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
-        out.writeShort(getLineNumberTableLength());
+        out.writeShort(this.getLineNumberTableLength());
 
         for (final LineNumberTableEntry entry : lineNumberTable) {
             out.writeShort(entry.startPc);
@@ -55,7 +55,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return getLineNumberTableLength() * 4 + 2;
+        return this.getLineNumberTableLength() * 4 + 2;
     }
 
     public static record LineNumberTableEntry(int startPc, int lineNumber) {

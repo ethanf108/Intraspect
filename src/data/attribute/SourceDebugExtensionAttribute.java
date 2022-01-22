@@ -44,5 +44,4 @@ public class SourceDebugExtensionAttribute implements AttributeDesc {
         out.writeInt(this.debugExtension.length);
         out.write(this.debugExtension);
     }
-
 }

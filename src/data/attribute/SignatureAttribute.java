@@ -33,12 +33,11 @@ public class SignatureAttribute implements AttributeDesc {
     }
 
     public static SignatureAttribute read(final int ani, final DataInputStream in) throws IOException {
-        final int length = in.readInt();
-        if (length != 2) {
+        if (in.readInt() != 2) {
             throw new IllegalArgumentException("Signature Attribute Length must be 2");
         }
-        final int signatureIndex = in.readUnsignedShort();
-        return new SignatureAttribute(ani, signatureIndex);
+
+        return new SignatureAttribute(ani, in.readUnsignedShort());
     }
 
     @Override

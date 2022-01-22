@@ -48,7 +48,7 @@ public class ModuleAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return 14 + requires.length * 6 + exports.length * 8 + opens.length * 8 + provides.length * 6 + usesIndex.length * 2;
+        return 14 + this.requires.length * 6 + this.exports.length * 8 + this.opens.length * 8 + this.provides.length * 6 + this.usesIndex.length * 2;
     }
 
     @Override
@@ -79,18 +79,18 @@ public class ModuleAttribute implements AttributeDesc {
 
         // Opens write
         out.writeShort(this.opens.length);
-        for (final OpensEntry entry : opens) {
+        for (final OpensEntry entry : this.opens) {
             entry.write(out);
         }
 
         out.writeShort(this.usesIndex.length);
-        for (final int index : usesIndex) {
+        for (final int index : this.usesIndex) {
             out.writeShort(index);
         }
 
         // Provides write
         out.writeShort(this.provides.length);
-        for (final ProvidesEntry entry : provides) {
+        for (final ProvidesEntry entry : this.provides) {
             entry.write(out);
         }
     }
@@ -105,35 +105,30 @@ public class ModuleAttribute implements AttributeDesc {
         final int moduleVersionIndex = in.readUnsignedShort();
 
         // Requires Entry
-        final int requiresCount = in.readUnsignedShort();
-        final RequiresEntry[] requires = new RequiresEntry[requiresCount];
+        final RequiresEntry[] requires = new RequiresEntry[in.readUnsignedShort()];
         for (int i = 0; i < requires.length; i++) {
             requires[i] = RequiresEntry.read(in);
         }
 
         // Exports Entry
-        final int exportsCount = in.readUnsignedShort();
-        final ExportsEntry[] exports = new ExportsEntry[exportsCount];
+        final ExportsEntry[] exports = new ExportsEntry[in.readUnsignedShort()];
         for (int i = 0; i < exports.length; i++) {
             exports[i] = ExportsEntry.read(in);
         }
 
         // Opens Entry
-        final int opensCount = in.readUnsignedShort();
-        final OpensEntry[] opens = new OpensEntry[opensCount];
+        final OpensEntry[] opens = new OpensEntry[in.readUnsignedShort()];
         for (int i = 0; i < opens.length; i++) {
             opens[i] = OpensEntry.read(in);
         }
 
-        final int usesCount = in.readUnsignedShort();
-        final int[] usesIndex = new int[usesCount];
+        final int[] usesIndex = new int[in.readUnsignedShort()];
         for (int i = 0; i < usesIndex.length; i++) {
             usesIndex[i] = in.readUnsignedShort();
         }
 
         // Provides Entry
-        final int providesCount = in.readUnsignedShort();
-        final ProvidesEntry[] provides = new ProvidesEntry[providesCount];
+        final ProvidesEntry[] provides = new ProvidesEntry[in.readUnsignedShort()];
         for (int i = 0; i < provides.length; i++) {
             provides[i] = ProvidesEntry.read(in);
         }
@@ -152,8 +147,6 @@ public class ModuleAttribute implements AttributeDesc {
             out.writeShort(this.requiresFlags);
             out.writeShort(this.requiresVersionIndex);
         }
-
-
     }
 
     private static record ExportsEntry(int exportsIndex, int exportsFlags, int[] exportsToIndex) {
@@ -161,9 +154,8 @@ public class ModuleAttribute implements AttributeDesc {
         public static ExportsEntry read(final DataInputStream in) throws IOException {
             final int exportsIndex = in.readUnsignedShort();
             final int exportsFlags = in.readUnsignedShort();
-            final int exportsToCount = in.readUnsignedShort();
 
-            final int[] exportsToIndex = new int[exportsToCount];
+            final int[] exportsToIndex = new int[in.readUnsignedShort()];
             for (int j = 0; j < exportsToIndex.length; j++) {
                 exportsToIndex[j] = in.readUnsignedShort();
             }
@@ -205,17 +197,14 @@ public class ModuleAttribute implements AttributeDesc {
                 out.writeShort(export);
             }
         }
-
     }
 
     private static record ProvidesEntry(int providesIndex, int[] providesWithIndex) {
 
-
         public static ProvidesEntry read(final DataInputStream in) throws IOException {
             final int providesIndex = in.readUnsignedShort();
-            final int providesWithCount = in.readUnsignedShort();
 
-            final int[] providesWithIndex = new int[providesWithCount];
+            final int[] providesWithIndex = new int[in.readUnsignedShort()];
             for (int j = 0; j < providesWithIndex.length; j++) {
                 providesWithIndex[j] = in.readUnsignedShort();
             }
@@ -227,7 +216,7 @@ public class ModuleAttribute implements AttributeDesc {
             out.writeShort(this.providesIndex);
             out.writeShort(this.providesWithIndex.length);
 
-            for (int provides : this.providesWithIndex) {
+            for (final int provides : this.providesWithIndex) {
                 out.writeShort(provides);
             }
         }

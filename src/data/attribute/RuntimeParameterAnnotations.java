@@ -40,11 +40,11 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public ParameterAnnotations[] getParameters() {
-        return parameterAnnotations;
+        return this.parameterAnnotations;
     }
 
     public abstract boolean isRuntimeVisible();
@@ -52,7 +52,7 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
     @Override
     public int getDataLength() {
         int length = 1;
-        for (ParameterAnnotations parameter : this.parameterAnnotations) {
+        for (final ParameterAnnotations parameter : this.parameterAnnotations) {
             length += 2;
             for (final AnnotationDesc annotation : parameter.annotations) {
                 length += annotation.getDataLength();

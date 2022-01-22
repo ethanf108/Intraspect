@@ -20,16 +20,16 @@ public class NestHostAttribute implements AttributeDesc {
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public int getHostClassIndex() {
-        return hostClassIndex;
+        return this.hostClassIndex;
     }
 
     public static NestHostAttribute read(final int ani, final DataInputStream in) throws IOException {
-        final int length = in.readInt();    // Ignore
-        if (length != 2) {
+
+        if (in.readInt() != 2) {
             throw new IllegalArgumentException("Nest Host Attribute Length must be 2");
         }
 

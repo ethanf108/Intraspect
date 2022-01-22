@@ -37,7 +37,7 @@ public class SourceFileAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return ATTRIBUTE_LENGTH;
+        return SourceFileAttribute.ATTRIBUTE_LENGTH;
     }
 
     @Override

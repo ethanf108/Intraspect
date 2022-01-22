@@ -11,7 +11,7 @@ public sealed abstract class RuntimeAnnotations implements AttributeDesc permits
     private final int attributeNameIndex;
     private final AnnotationDesc[] annotations;
 
-    RuntimeAnnotations(int attributeNameIndex, AnnotationDesc[] annotations) {
+    RuntimeAnnotations(final int attributeNameIndex, final AnnotationDesc[] annotations) {
         this.attributeNameIndex = attributeNameIndex;
         this.annotations = annotations;
     }
@@ -22,7 +22,7 @@ public sealed abstract class RuntimeAnnotations implements AttributeDesc permits
     }
 
     public AnnotationDesc[] getAnnotations() {
-        return annotations;
+        return this.annotations;
     }
 
     public abstract boolean isRuntimeVisible();
@@ -30,14 +30,14 @@ public sealed abstract class RuntimeAnnotations implements AttributeDesc permits
     @Override
     public int getDataLength() {
         int length = 2;
-        for (AnnotationDesc annotation : this.annotations) {
+        for (final AnnotationDesc annotation : this.annotations) {
             length += annotation.getDataLength();
         }
         return length;
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.annotations.length);

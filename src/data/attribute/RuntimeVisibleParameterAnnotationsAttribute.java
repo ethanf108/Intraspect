@@ -17,7 +17,7 @@ public final class RuntimeVisibleParameterAnnotationsAttribute extends RuntimePa
         return false;
     }
 
-    public static RuntimeVisibleParameterAnnotationsAttribute read(int ani, DataInputStream in) throws IOException {
+    public static RuntimeVisibleParameterAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
         in.readInt();   // Ignore
 
         final ParameterAnnotations[] parameters = new ParameterAnnotations[in.readUnsignedByte()];

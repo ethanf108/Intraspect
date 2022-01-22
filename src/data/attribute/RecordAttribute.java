@@ -64,7 +64,7 @@ public class RecordAttribute implements AttributeDesc {
 
     public static record RecordComponentInfo(int nameIndex, int descriptorIndex, AttributeDesc[] attributes) {
 
-        public static RecordComponentInfo read(final DataInputStream in, ClassFile ref) throws IOException {
+        public static RecordComponentInfo read(final DataInputStream in, final ClassFile ref) throws IOException {
             final int nameIndex = in.readUnsignedShort();
             final int descriptorIndex = in.readUnsignedShort();
             final int attributesCount = in.readUnsignedShort();

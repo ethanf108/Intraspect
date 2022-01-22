@@ -51,7 +51,7 @@ public class InnerClassesAttribute implements AttributeDesc {
         out.writeInt(this.getDataLength());
         out.writeShort(getInnerClassesTableLength());
 
-        for (final InnerClassesTableEntry entry : innerClassesTable) {
+        for (final InnerClassesTableEntry entry : this.innerClassesTable) {
             entry.write(out);
         }
     }

@@ -18,7 +18,7 @@ public class UnknownAttribute implements AttributeDesc {
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     @Override
@@ -27,14 +27,13 @@ public class UnknownAttribute implements AttributeDesc {
     }
 
     public byte[] getData() {
-        byte[] ret = new byte[this.data.length];
+        final byte[] ret = new byte[this.data.length];
         System.arraycopy(this.data, 0, ret, 0, this.data.length);
         return ret;
     }
 
     public static UnknownAttribute read(final int attributeNameIndex, final DataInputStream in) throws IOException {
-        final int length = in.readInt();
-        return new UnknownAttribute(attributeNameIndex, in.readNBytes(length));
+        return new UnknownAttribute(attributeNameIndex, in.readNBytes(in.readInt()));
     }
 
     @Override

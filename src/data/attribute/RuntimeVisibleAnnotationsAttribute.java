@@ -13,7 +13,7 @@ public final class RuntimeVisibleAnnotationsAttribute extends RuntimeAnnotations
         super(attributeNameIndex, annotations);
     }
 
-    public static RuntimeVisibleAnnotationsAttribute read(int ani, DataInputStream in) throws IOException {
+    public static RuntimeVisibleAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
         in.readInt();   // Ignore
 
         final AnnotationDesc[] annotations = new AnnotationDesc[in.readUnsignedShort()];

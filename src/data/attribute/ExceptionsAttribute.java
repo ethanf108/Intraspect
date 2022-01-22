@@ -20,11 +20,11 @@ public class ExceptionsAttribute implements AttributeDesc {
 
     @Override
     public int getAttributeNameIndex() {
-        return attributeNameIndex;
+        return this.attributeNameIndex;
     }
 
     public int[] getExceptionIndexTable() {
-        return exceptionIndexTable;
+        return this.exceptionIndexTable;
     }
 
     public static ExceptionsAttribute read(final int ani, final DataInputStream in) throws IOException {
