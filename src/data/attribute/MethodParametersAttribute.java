@@ -15,6 +15,7 @@ public class MethodParametersAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final Parameter[] parameters;
+
     public MethodParametersAttribute(final int attributeNameIndex, final Parameter[] parameters) {
         this.attributeNameIndex = attributeNameIndex;
         this.parameters = parameters;

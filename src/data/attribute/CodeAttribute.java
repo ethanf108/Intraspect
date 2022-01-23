@@ -21,6 +21,7 @@ public class CodeAttribute implements AttributeDesc {
     private final byte[] code;
     private final ExceptionDesc[] exceptionTable;
     private final AttributeDesc[] attributes;
+
     public CodeAttribute(final int attributeNameIndex, final int maxStack, final int maxLocals, final byte[] code, final ExceptionDesc[] exceptionTable, final AttributeDesc[] attributes) {
         this.attributeNameIndex = attributeNameIndex;
         this.maxStack = maxStack;

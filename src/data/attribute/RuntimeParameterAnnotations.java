@@ -14,6 +14,7 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
 
     private final int attributeNameIndex;
     private final ParameterAnnotations[] parameterAnnotations;
+
     protected RuntimeParameterAnnotations(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
         this.attributeNameIndex = attributeNameIndex;
         this.parameterAnnotations = parameterAnnotations;

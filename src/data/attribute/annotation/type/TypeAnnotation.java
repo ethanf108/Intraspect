@@ -84,16 +84,16 @@ public class TypeAnnotation {
         }
     }
 
-}
+    public static record TypePath(int typePathKind, int typeArgumentIndex) {
 
-record TypePath(int typePathKind, int typeArgumentIndex) {
+        public static TypePath read(final DataInputStream in) throws IOException {
+            return new TypePath(in.readUnsignedByte(), in.readUnsignedByte());
+        }
 
-    public static TypePath read(final DataInputStream in) throws IOException {
-        return new TypePath(in.readUnsignedByte(), in.readUnsignedByte());
+        public void write(final DataOutputStream out) throws IOException {
+            out.writeByte(this.typePathKind);
+            out.writeByte(this.typeArgumentIndex);
+        }
     }
 
-    public void write(final DataOutputStream out) throws IOException {
-        out.writeByte(this.typePathKind);
-        out.writeByte(this.typeArgumentIndex);
-    }
 }
