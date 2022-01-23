@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The LocalVariableTable attribute.
+ */
 @AttributeName("LocalVariableTable")
 public class LocalVariableTableAttribute implements AttributeDesc {
 

@@ -2,18 +2,39 @@ package data;
 
 import java.util.Optional;
 
+/**
+ * This class represents the major version of a class file.
+ */
 public class MajorVersion {
 
+    /**
+     * The major version.
+     */
     private final int majorVersion;
 
+    /**
+     * Constructs a new MajorVersion object.
+     *
+     * @param mv The major version number.
+     */
     public MajorVersion(final int mv) {
         this.majorVersion = mv;
     }
 
+    /**
+     * Returns the major version number.
+     *
+     * @return The major version number.
+     */
     public int getMajorVersion() {
         return this.majorVersion;
     }
 
+    /**
+     * Returns the major version number as a string.
+     *
+     * @return The major version number as a string.
+     */
     public Optional<String> getJavaVersionString() {
         return Optional.ofNullable(switch (this.majorVersion) {
             case 45 -> "Java 1.0.2 / 1.1";

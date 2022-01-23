@@ -8,6 +8,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The StackMapTable attribute.
+ */
 @AttributeName("StackMapTable")
 public class StackMapTableAttribute implements AttributeDesc {
 

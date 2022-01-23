@@ -7,12 +7,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for Double constants.
+ */
 public class DoubleConstant implements ConstantDesc {
 
     private final double value;
 
     private DoubleConstant(final double val) {
         this.value = val;
+    }
+
+    public static DoubleConstant read(final DataInputStream in) throws IOException {
+        return new DoubleConstant(Double.longBitsToDouble(LongConstant.read(in).getValue()));
     }
 
     public double getValue() {
@@ -38,9 +45,5 @@ public class DoubleConstant implements ConstantDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeByte(getTag());
         out.writeLong(Double.doubleToRawLongBits(this.value));
-    }
-
-    public static DoubleConstant read(final DataInputStream in) throws IOException {
-        return new DoubleConstant(Double.longBitsToDouble(LongConstant.read(in).getValue()));
     }
 }

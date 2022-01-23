@@ -6,6 +6,9 @@ import data.attribute.annotation.AnnotationDesc;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+/**
+ * The RuntimeInvisibleAnnotations attribute.
+ */
 @AttributeName("RuntimeInvisibleAnnotations")
 public final class RuntimeInvisibleAnnotationsAttribute extends RuntimeAnnotations {
 

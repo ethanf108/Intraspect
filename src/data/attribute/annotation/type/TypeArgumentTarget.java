@@ -9,16 +9,16 @@ public final class TypeArgumentTarget extends TargetInfo {
     private int offset;
     private int typeArgumentIndex;
 
+    public TypeArgumentTarget(final int targetType) {
+        super(targetType);
+    }
+
     public int getOffset() {
         return this.offset;
     }
 
     public int getTypeArgumentIndex() {
         return this.typeArgumentIndex;
-    }
-
-    public TypeArgumentTarget(final int targetType) {
-        super(targetType);
     }
 
     @Override

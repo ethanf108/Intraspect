@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The IntegerVariableInfo verification type.
+ */
 public final class IntegerVariableInfo extends VerificationTypeInfo {
 
     public IntegerVariableInfo(final int tag) {

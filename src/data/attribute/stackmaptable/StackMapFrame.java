@@ -1,9 +1,12 @@
 package data.attribute.stackmaptable;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
+/**
+ * Acts as a superclass for all stack map frames.
+ */
 public abstract sealed class StackMapFrame permits SameFrame, SameLocals1StackItemFrame, SameLocals1StackItemFrameExtended, ChopFrame, SameFrameExtended, AppendFrame, FullFrame {
 
     protected final int tag;
@@ -11,16 +14,6 @@ public abstract sealed class StackMapFrame permits SameFrame, SameLocals1StackIt
     public StackMapFrame(final int tag) {
         this.tag = tag;
     }
-
-    public int getTag() {
-        return this.tag;
-    }
-
-    abstract StackMapFrame readInternal(final DataInputStream in) throws IOException;
-
-    public abstract void write(final DataOutputStream out) throws IOException;
-
-    public abstract int getDataLength();
 
     public static StackMapFrame read(final DataInputStream in) throws IOException {
         final int tag = in.readUnsignedByte();  // Made this an int on purpose
@@ -55,4 +48,14 @@ public abstract sealed class StackMapFrame permits SameFrame, SameLocals1StackIt
 
         throw new IllegalArgumentException("Invalid tag for Stack Map Frame");
     }
+
+    public int getTag() {
+        return this.tag;
+    }
+
+    abstract StackMapFrame readInternal(final DataInputStream in) throws IOException;
+
+    public abstract void write(final DataOutputStream out) throws IOException;
+
+    public abstract int getDataLength();
 }

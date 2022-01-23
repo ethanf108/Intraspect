@@ -2,10 +2,14 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The ModuleMainClass attribute.
+ */
 @AttributeName("ModuleMainClass")
 public class ModuleMainClassAttribute implements AttributeDesc {
 

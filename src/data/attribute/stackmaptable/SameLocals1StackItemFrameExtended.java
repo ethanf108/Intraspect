@@ -6,9 +6,17 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The SameLocals1StackItemFrameExtended stack map frame type.
+ */
 public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
 
     private int offsetDelta;
+    private VerificationTypeInfo stack;
+
+    public SameLocals1StackItemFrameExtended(final int tag) {
+        super(tag);
+    }
 
     public int getOffsetDelta() {
         return this.offsetDelta;
@@ -16,12 +24,6 @@ public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
 
     public VerificationTypeInfo getStack() {
         return this.stack;
-    }
-
-    private VerificationTypeInfo stack;
-
-    public SameLocals1StackItemFrameExtended(final int tag) {
-        super(tag);
     }
 
     @Override

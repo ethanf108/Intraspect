@@ -7,12 +7,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for Float constants.
+ */
 public class FloatConstant implements ConstantDesc {
 
     private final float value;
 
     private FloatConstant(final float val) {
         this.value = val;
+    }
+
+    public static FloatConstant read(DataInputStream in) throws IOException {
+        return new FloatConstant(Float.intBitsToFloat(IntegerConstant.read(in).getValue()));
     }
 
     @Override
@@ -22,10 +29,6 @@ public class FloatConstant implements ConstantDesc {
 
     public float getValue() {
         return this.value;
-    }
-
-    public static FloatConstant read(DataInputStream in) throws IOException {
-        return new FloatConstant(Float.intBitsToFloat(IntegerConstant.read(in).getValue()));
     }
 
     @Override

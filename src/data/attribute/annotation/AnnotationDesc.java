@@ -14,6 +14,17 @@ public class AnnotationDesc {
         this.elementValuePairs = elementValuePairs;
     }
 
+    public static AnnotationDesc read(final DataInputStream in) throws IOException {
+        final int typeIndex = in.readUnsignedShort();
+
+        final ElementValue.ElementValuePair[] elementValuePairs = new ElementValue.ElementValuePair[in.readUnsignedShort()];
+        for (int i = 0; i < elementValuePairs.length; i++) {
+            elementValuePairs[i] = ElementValue.ElementValuePair.read(in);
+        }
+
+        return new AnnotationDesc(typeIndex, elementValuePairs);
+    }
+
     public int getTypeIndex() {
         return this.typeIndex;
     }
@@ -28,17 +39,6 @@ public class AnnotationDesc {
             length += elementValuePair.getDataLength();
         }
         return length;
-    }
-
-    public static AnnotationDesc read(final DataInputStream in) throws IOException {
-        final int typeIndex = in.readUnsignedShort();
-
-        final ElementValue.ElementValuePair[] elementValuePairs = new ElementValue.ElementValuePair[in.readUnsignedShort()];
-        for (int i = 0; i < elementValuePairs.length; i++) {
-            elementValuePairs[i] = ElementValue.ElementValuePair.read(in);
-        }
-
-        return new AnnotationDesc(typeIndex, elementValuePairs);
     }
 
     public void write(final DataOutputStream out) throws IOException {

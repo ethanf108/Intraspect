@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The NestHost attribute.
+ */
 @AttributeName("NestHost")
 public class NestHostAttribute implements AttributeDesc {
 
@@ -18,15 +21,6 @@ public class NestHostAttribute implements AttributeDesc {
         this.hostClassIndex = hostClassIndex;
     }
 
-    @Override
-    public int getAttributeNameIndex() {
-        return this.attributeNameIndex;
-    }
-
-    public int getHostClassIndex() {
-        return this.hostClassIndex;
-    }
-
     public static NestHostAttribute read(final int ani, final DataInputStream in) throws IOException {
 
         if (in.readInt() != 2) {
@@ -34,6 +28,15 @@ public class NestHostAttribute implements AttributeDesc {
         }
 
         return new NestHostAttribute(ani, in.readUnsignedShort());
+    }
+
+    @Override
+    public int getAttributeNameIndex() {
+        return this.attributeNameIndex;
+    }
+
+    public int getHostClassIndex() {
+        return this.hostClassIndex;
     }
 
     @Override

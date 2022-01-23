@@ -6,6 +6,9 @@ import data.attribute.annotation.AnnotationDesc;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+/**
+ * The RuntimeVisibleAnnotations attribute.
+ */
 @AttributeName("RuntimeVisibleAnnotations")
 public final class RuntimeVisibleAnnotationsAttribute extends RuntimeAnnotations {
 

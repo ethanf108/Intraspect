@@ -6,6 +6,9 @@ import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for FieldRef constants.
+ */
 public class FieldRefConstant implements ConstantDesc {
 
     private final int classIndex;

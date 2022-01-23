@@ -4,16 +4,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The ChopFrame stack map frame type.
+ */
 public final class ChopFrame extends StackMapFrame {
-
-    public int getOffsetDelta() {
-        return this.offsetDelta;
-    }
 
     private int offsetDelta;
 
     public ChopFrame(final int tag) {
         super(tag);
+    }
+
+    public int getOffsetDelta() {
+        return this.offsetDelta;
     }
 
     @Override

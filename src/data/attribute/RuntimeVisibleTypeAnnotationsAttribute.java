@@ -2,10 +2,14 @@ package data.attribute;
 
 import data.AttributeName;
 import data.attribute.annotation.type.TypeAnnotation;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The RuntimeVisibleTypeAnnotations attribute.
+ */
 @AttributeName("RuntimeVisibleTypeAnnotations")
 public final class RuntimeVisibleTypeAnnotationsAttribute extends RuntimeTypeAnnotations {
 

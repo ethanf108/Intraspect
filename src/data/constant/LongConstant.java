@@ -7,21 +7,15 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for long constants.
+ */
 public class LongConstant implements ConstantDesc {
 
     private final long value;
 
     private LongConstant(final long val) {
         this.value = val;
-    }
-
-    @Override
-    public int getTag() {
-        return 5;
-    }
-
-    public long getValue() {
-        return value;
     }
 
     public static LongConstant read(final DataInputStream in) throws IOException {
@@ -31,6 +25,15 @@ public class LongConstant implements ConstantDesc {
             val |= b;
         }
         return new LongConstant(val);
+    }
+
+    @Override
+    public int getTag() {
+        return 5;
+    }
+
+    public long getValue() {
+        return value;
     }
 
     @Override

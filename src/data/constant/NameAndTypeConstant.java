@@ -6,6 +6,9 @@ import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for NameAndType constants.
+ */
 public class NameAndTypeConstant implements ConstantDesc {
 
     private final int nameIndex;

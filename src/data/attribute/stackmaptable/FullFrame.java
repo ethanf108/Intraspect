@@ -6,7 +6,18 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The FullFrame stack map frame type.
+ */
 public final class FullFrame extends StackMapFrame {
+
+    private int offsetDelta;
+    private VerificationTypeInfo[] locals;
+    private VerificationTypeInfo[] stack;
+
+    public FullFrame(final int tag) {
+        super(tag);
+    }
 
     public int getOffsetDelta() {
         return this.offsetDelta;
@@ -18,14 +29,6 @@ public final class FullFrame extends StackMapFrame {
 
     public VerificationTypeInfo[] getStack() {
         return this.stack;
-    }
-
-    private int offsetDelta;
-    private VerificationTypeInfo[] locals;
-    private VerificationTypeInfo[] stack;
-
-    public FullFrame(final int tag) {
-        super(tag);
     }
 
     @Override

@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The NullVariableInfo verification type.
+ */
 public final class NullVariableInfo extends VerificationTypeInfo {
 
     public NullVariableInfo(final int tag) {

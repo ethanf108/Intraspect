@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The SameFrame stack map frame type.
+ */
 public final class SameFrame extends StackMapFrame {
 
     public SameFrame(final int tag) {

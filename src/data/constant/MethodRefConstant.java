@@ -8,6 +8,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * A ConstantDescriptor for MethodRefConstant constants.
+ */
 public class MethodRefConstant implements ConstantDesc {
 
     private final int classIndex;

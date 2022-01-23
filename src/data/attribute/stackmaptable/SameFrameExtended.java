@@ -4,16 +4,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The SameFrameExtended stack map frame type.
+ */
 public final class SameFrameExtended extends StackMapFrame {
-
-    public int getOffsetDelta() {
-        return this.offsetDelta;
-    }
 
     private int offsetDelta;
 
     public SameFrameExtended(final int tag) {
         super(tag);
+    }
+
+    public int getOffsetDelta() {
+        return this.offsetDelta;
     }
 
     @Override

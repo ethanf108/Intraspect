@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The UninitializedThisVariableInfo verification type.
+ */
 public final class UninitializedThisVariableInfo extends VerificationTypeInfo {
 
     public UninitializedThisVariableInfo(final int tag) {

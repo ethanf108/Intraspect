@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The NestMembers attribute.
+ */
 @AttributeName("NestMembers")
 public class NestMembersAttribute implements AttributeDesc {
 

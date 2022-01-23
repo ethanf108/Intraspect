@@ -7,21 +7,15 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for Integer constants.
+ */
 public class IntegerConstant implements ConstantDesc {
 
     private final int value;
 
     private IntegerConstant(final int val) {
         this.value = val;
-    }
-
-    @Override
-    public int getTag() {
-        return 3;
-    }
-
-    public int getValue() {
-        return this.value;
     }
 
     public static IntegerConstant read(final DataInputStream in) throws IOException {
@@ -31,6 +25,15 @@ public class IntegerConstant implements ConstantDesc {
             val |= b;
         }
         return new IntegerConstant(val);
+    }
+
+    @Override
+    public int getTag() {
+        return 3;
+    }
+
+    public int getValue() {
+        return this.value;
     }
 
     @Override

@@ -1,11 +1,22 @@
 package data.attribute.stackmaptable;
 
 import data.attribute.stackmaptable.verificationtypeinfo.VerificationTypeInfo;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The AppendFrame stack map frame type.
+ */
 public final class AppendFrame extends StackMapFrame {
+
+    private int offsetDelta;
+    private VerificationTypeInfo[] locals;
+
+    public AppendFrame(int tag) {
+        super(tag);
+    }
 
     public int getOffsetDelta() {
         return this.offsetDelta;
@@ -13,13 +24,6 @@ public final class AppendFrame extends StackMapFrame {
 
     public VerificationTypeInfo[] getLocals() {
         return this.locals;
-    }
-
-    private int offsetDelta;
-    private VerificationTypeInfo[] locals;
-
-    public AppendFrame(int tag) {
-        super(tag);
     }
 
     @Override

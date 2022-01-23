@@ -7,19 +7,28 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The MethodParameters attribute.
+ */
 @AttributeName("MethodParameters")
 public class MethodParametersAttribute implements AttributeDesc {
 
-    public static record Parameter(int nameIndex, int accessFlags) {
-
-    }
-
     private final int attributeNameIndex;
     private final Parameter[] parameters;
-
     public MethodParametersAttribute(final int attributeNameIndex, final Parameter[] parameters) {
         this.attributeNameIndex = attributeNameIndex;
         this.parameters = parameters;
+    }
+
+    public static MethodParametersAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();    // Ignore
+
+        final Parameter[] params = new Parameter[in.readUnsignedByte()];
+        for (int i = 0; i < params.length; i++) {
+            params[i] = new Parameter(in.readUnsignedShort(), in.readUnsignedShort());
+        }
+
+        return new MethodParametersAttribute(ani, params);
     }
 
     @Override
@@ -36,17 +45,6 @@ public class MethodParametersAttribute implements AttributeDesc {
         return 1 + 4 * this.parameters.length;
     }
 
-    public static MethodParametersAttribute read(final int ani, final DataInputStream in) throws IOException {
-        in.readInt();    // Ignore
-
-        final Parameter[] params = new Parameter[in.readUnsignedByte()];
-        for (int i = 0; i < params.length; i++) {
-            params[i] = new Parameter(in.readUnsignedShort(), in.readUnsignedShort());
-        }
-
-        return new MethodParametersAttribute(ani, params);
-    }
-
     @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
@@ -57,5 +55,9 @@ public class MethodParametersAttribute implements AttributeDesc {
             out.writeShort(p.nameIndex);
             out.writeShort(p.accessFlags);
         }
+    }
+
+    public static record Parameter(int nameIndex, int accessFlags) {
+
     }
 }

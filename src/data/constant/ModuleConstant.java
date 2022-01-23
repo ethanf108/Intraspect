@@ -6,6 +6,9 @@ import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for a Module constants.
+ */
 public class ModuleConstant implements ConstantDesc {
 
     private final int moduleNameIndex;

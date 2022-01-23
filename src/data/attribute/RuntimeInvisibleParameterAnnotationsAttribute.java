@@ -5,16 +5,14 @@ import data.AttributeName;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+/**
+ * The RuntimeInvisibleParameterAnnotations attribute.
+ */
 @AttributeName("RuntimeInvisibleParameterAnnotationsAttribute")
 public final class RuntimeInvisibleParameterAnnotationsAttribute extends RuntimeParameterAnnotations {
 
     public RuntimeInvisibleParameterAnnotationsAttribute(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
         super(attributeNameIndex, parameterAnnotations);
-    }
-
-    @Override
-    public boolean isRuntimeVisible() {
-        return false;
     }
 
     public static RuntimeInvisibleParameterAnnotationsAttribute read(final int ani, final DataInputStream in) throws IOException {
@@ -26,5 +24,10 @@ public final class RuntimeInvisibleParameterAnnotationsAttribute extends Runtime
         }
 
         return new RuntimeInvisibleParameterAnnotationsAttribute(ani, parameters);
+    }
+
+    @Override
+    public boolean isRuntimeVisible() {
+        return false;
     }
 }

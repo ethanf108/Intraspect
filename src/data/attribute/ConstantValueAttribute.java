@@ -2,10 +2,14 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The ConstantValue attribute.
+ */
 @AttributeName("ConstantValue")
 public class ConstantValueAttribute implements AttributeDesc {
 
@@ -17,6 +21,13 @@ public class ConstantValueAttribute implements AttributeDesc {
         this.constantValueIndex = constantValueIndex;
     }
 
+    public static ConstantValueAttribute read(final int ani, final DataInputStream in) throws IOException {
+        if (in.readInt() != 2) {
+            throw new IllegalArgumentException("Constant Value Attribute length must be 2");
+        }
+        return new ConstantValueAttribute(ani, in.readUnsignedShort());
+    }
+
     @Override
     public int getAttributeNameIndex() {
         return this.attributeNameIndex;
@@ -24,13 +35,6 @@ public class ConstantValueAttribute implements AttributeDesc {
 
     public int getConstantValueIndex() {
         return this.constantValueIndex;
-    }
-
-    public static ConstantValueAttribute read(final int ani, final DataInputStream in) throws IOException {
-        if (in.readInt() != 2) {
-            throw new IllegalArgumentException("Constant Value Attribute length must be 2");
-        }
-        return new ConstantValueAttribute(ani, in.readUnsignedShort());
     }
 
     @Override

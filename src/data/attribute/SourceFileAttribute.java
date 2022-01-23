@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The SourceFile attribute.
+ */
 @AttributeName("SourceFile")
 public class SourceFileAttribute implements AttributeDesc {
 

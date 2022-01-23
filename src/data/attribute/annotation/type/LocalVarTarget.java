@@ -6,27 +6,14 @@ import java.io.IOException;
 
 public final class LocalVarTarget extends TargetInfo {
 
-    public static record TableEntry(int startPc, int length, int index) {
-
-        public static TableEntry read(final DataInputStream in) throws IOException {
-            return new TableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
-        }
-
-        public void write(final DataOutputStream out) throws IOException {
-            out.writeShort(this.startPc);
-            out.writeShort(this.length);
-            out.writeShort(this.index);
-        }
-    }
-
     private TableEntry[] table;
-
-    public TableEntry[] getTable() {
-        return this.table;
-    }
 
     public LocalVarTarget(final int targetType) {
         super(targetType);
+    }
+
+    public TableEntry[] getTable() {
+        return this.table;
     }
 
     @Override
@@ -59,5 +46,18 @@ public final class LocalVarTarget extends TargetInfo {
         }
 
         return this;
+    }
+
+    public static record TableEntry(int startPc, int length, int index) {
+
+        public static TableEntry read(final DataInputStream in) throws IOException {
+            return new TableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
+        }
+
+        public void write(final DataOutputStream out) throws IOException {
+            out.writeShort(this.startPc);
+            out.writeShort(this.length);
+            out.writeShort(this.index);
+        }
     }
 }

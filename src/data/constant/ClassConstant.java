@@ -3,10 +3,14 @@ package data.constant;
 import data.ClassFile;
 import data.ClassFiles;
 import data.ConstantDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * A ConstantDescriptor for Class constants.
+ */
 public class ClassConstant implements ConstantDesc {
 
     private final int utf8Index;

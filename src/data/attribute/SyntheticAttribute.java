@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The Synthetic attribute.
+ */
 @AttributeName("Synthetic")
 public class SyntheticAttribute implements AttributeDesc {
 
@@ -14,6 +17,13 @@ public class SyntheticAttribute implements AttributeDesc {
 
     private SyntheticAttribute(final int ani) {
         this.attributeNameIndex = ani;
+    }
+
+    public static SyntheticAttribute read(final int ani, final DataInputStream in) throws IOException {
+        if (in.readInt() != 0) {
+            throw new IllegalArgumentException("Synthetic Attribute Length must be 0");
+        }
+        return new SyntheticAttribute(ani);
     }
 
     @Override
@@ -24,13 +34,6 @@ public class SyntheticAttribute implements AttributeDesc {
     @Override
     public int getDataLength() {
         return 0;
-    }
-
-    public static SyntheticAttribute read(final int ani, final DataInputStream in) throws IOException {
-        if (in.readInt() != 0) {
-            throw new IllegalArgumentException("Synthetic Attribute Length must be 0");
-        }
-        return new SyntheticAttribute(ani);
     }
 
     @Override

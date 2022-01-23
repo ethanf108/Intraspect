@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The ModulePackages attribute.
+ */
 @AttributeName("ModulePackages")
 public class ModulePackagesAttribute implements AttributeDesc {
 
@@ -16,15 +19,6 @@ public class ModulePackagesAttribute implements AttributeDesc {
     public ModulePackagesAttribute(final int attributeNameIndex, final int[] packageIndex) {
         this.attributeNameIndex = attributeNameIndex;
         this.packageIndex = packageIndex;
-    }
-
-    @Override
-    public int getAttributeNameIndex() {
-        return this.attributeNameIndex;
-    }
-
-    public int[] getPackageIndex() {
-        return this.packageIndex;
     }
 
     public static ModulePackagesAttribute read(final int ani, final DataInputStream in) throws IOException {
@@ -37,6 +31,15 @@ public class ModulePackagesAttribute implements AttributeDesc {
         }
 
         return new ModulePackagesAttribute(ani, packageIndex);
+    }
+
+    @Override
+    public int getAttributeNameIndex() {
+        return this.attributeNameIndex;
+    }
+
+    public int[] getPackageIndex() {
+        return this.packageIndex;
     }
 
     @Override

@@ -6,6 +6,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The Unknown attribute, used to represent all unknown attributes.
+ */
 public class UnknownAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
@@ -14,6 +17,10 @@ public class UnknownAttribute implements AttributeDesc {
     private UnknownAttribute(final int ani, final byte[] data) {
         this.attributeNameIndex = ani;
         this.data = data;
+    }
+
+    public static UnknownAttribute read(final int attributeNameIndex, final DataInputStream in) throws IOException {
+        return new UnknownAttribute(attributeNameIndex, in.readNBytes(in.readInt()));
     }
 
     @Override
@@ -30,10 +37,6 @@ public class UnknownAttribute implements AttributeDesc {
         final byte[] ret = new byte[this.data.length];
         System.arraycopy(this.data, 0, ret, 0, this.data.length);
         return ret;
-    }
-
-    public static UnknownAttribute read(final int attributeNameIndex, final DataInputStream in) throws IOException {
-        return new UnknownAttribute(attributeNameIndex, in.readNBytes(in.readInt()));
     }
 
     @Override

@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The EnclosingMethod attribute.
+ */
 @AttributeName("EnclosingMethod")
 public class EnclosingMethodAttribute implements AttributeDesc {
 

@@ -6,6 +6,9 @@ import data.attribute.annotation.type.TypeAnnotation;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * Acts as a super class for all runtime type annotations.
+ */
 public sealed abstract class RuntimeTypeAnnotations implements AttributeDesc permits RuntimeVisibleTypeAnnotationsAttribute, RuntimeInvisibleTypeAnnotationsAttribute {
 
     protected final int attributeNameIndex;

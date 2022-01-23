@@ -8,12 +8,12 @@ public final class OffsetTarget extends TargetInfo {
 
     private int offset;
 
-    public int getOffset() {
-        return this.offset;
-    }
-
     public OffsetTarget(final int targetType) {
         super(targetType);
+    }
+
+    public int getOffset() {
+        return this.offset;
     }
 
     @Override

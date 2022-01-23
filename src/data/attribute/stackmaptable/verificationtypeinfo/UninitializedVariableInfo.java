@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The UninitializedVariableInfo verification type.
+ */
 public final class UninitializedVariableInfo extends VerificationTypeInfo {
 
     private int offset;

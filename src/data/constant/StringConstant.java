@@ -6,6 +6,9 @@ import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for String constants.
+ */
 public class StringConstant implements ConstantDesc {
 
     private final int utf8Index;

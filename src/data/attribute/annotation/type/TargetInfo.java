@@ -14,12 +14,6 @@ public sealed abstract class TargetInfo permits TypeParameterTarget, SuperTypeTa
         this.targetType = targetType;
     }
 
-    public abstract void write(final DataOutputStream out) throws IOException;
-
-    public abstract int getDataLength();
-
-    protected abstract TargetInfo readInternal(final DataInputStream in) throws IOException;
-
     public static TargetInfo read(final DataInputStream in) throws IOException {
 
         final int targetType = in.readUnsignedByte();
@@ -49,6 +43,12 @@ public sealed abstract class TargetInfo permits TypeParameterTarget, SuperTypeTa
             default -> throw new IllegalArgumentException("Invalid target type: " + targetType);
         };
     }
+
+    public abstract void write(final DataOutputStream out) throws IOException;
+
+    public abstract int getDataLength();
+
+    protected abstract TargetInfo readInternal(final DataInputStream in) throws IOException;
 
     public int getTargetType() {
         return this.targetType;

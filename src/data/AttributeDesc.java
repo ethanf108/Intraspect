@@ -1,8 +1,11 @@
 package data;
 
-import java.io.IOException;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
+/**
+ * Describes an attribute of a class.
+ */
 public interface AttributeDesc {
 
     int getAttributeNameIndex();

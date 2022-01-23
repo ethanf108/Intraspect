@@ -3,6 +3,9 @@ package data;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * An interface representing a constant descriptor.
+ */
 public interface ConstantDesc {
 
     int getTag();
@@ -11,5 +14,11 @@ public interface ConstantDesc {
 
     boolean isWide();
 
-    void write(final DataOutputStream out) throws IOException;
+    /**
+     * Writes the constant descriptor to the given output stream.
+     *
+     * @param out the output stream to write to
+     * @throws IOException if an I/O error occurs
+     */
+    void write(DataOutputStream out) throws IOException;
 }

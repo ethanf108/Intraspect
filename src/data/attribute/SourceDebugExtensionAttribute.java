@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The SourceDebugExtension attribute.
+ */
 @AttributeName("SourceDebugExtension")
 public class SourceDebugExtensionAttribute implements AttributeDesc {
 
@@ -16,6 +19,12 @@ public class SourceDebugExtensionAttribute implements AttributeDesc {
     public SourceDebugExtensionAttribute(final int attributeNameIndex, final byte[] debugExtension) {
         this.attributeNameIndex = attributeNameIndex;
         this.debugExtension = debugExtension;
+    }
+
+    public static SourceDebugExtensionAttribute read(final int ani, final DataInputStream in) throws IOException {
+        final byte[] data = new byte[in.readInt()];
+        in.read(data);
+        return new SourceDebugExtensionAttribute(ani, data);
     }
 
     @Override
@@ -30,12 +39,6 @@ public class SourceDebugExtensionAttribute implements AttributeDesc {
 
     public byte[] getDebugExtension() {
         return this.debugExtension;
-    }
-
-    public static SourceDebugExtensionAttribute read(final int ani, final DataInputStream in) throws IOException {
-        final byte[] data = new byte[in.readInt()];
-        in.read(data);
-        return new SourceDebugExtensionAttribute(ani, data);
     }
 
     @Override

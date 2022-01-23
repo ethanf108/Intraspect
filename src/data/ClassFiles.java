@@ -1,27 +1,37 @@
 package data;
 
 import data.constant.UTF8Constant;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ClassFiles {
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private ClassFiles() {
     }
 
-    public static boolean isValidUnqualifiedName(String name) {
+    /**
+     * Determine if the given name is a valid unqualified name.
+     *
+     * @param name The name to check.
+     * @return True if the name is valid, false otherwise.
+     */
+    public static boolean isValidUnqualifiedName(final String name) {
         if (Objects.requireNonNull(name).isBlank()) {
             return false;
         }
         return !(name.contains(".") || name.contains(";") || name.contains("[") || name.contains("/"));
     }
 
-    public static boolean isValidQualifiedName(String name) {
+    public static boolean isValidQualifiedName(final String name) {
         if (Objects.requireNonNull(name).isBlank()) {
             return false;
         }
-        for (String unqualifiedName : name.split("/")) {
+        for (final String unqualifiedName : name.split("/")) {
             if (!isValidUnqualifiedName(unqualifiedName)) {
                 return false;
             }
@@ -29,13 +39,18 @@ public class ClassFiles {
         return true;
     }
 
+    /**
+     * Determine if the given name is a valid class descriptor name.
+     *
+     * @param descriptor The name to check.
+     * @return True if the name is valid, false otherwise.
+     */
     public static boolean isValidClassDescriptor(String descriptor) {
         while (descriptor.startsWith("[")) {
             descriptor = descriptor.substring(descriptor.lastIndexOf('[') + 1);
         }
         return switch (descriptor.charAt(0)) {
-            case 'I','B','C','Z','S','J','F','D','V' ->
-                descriptor.length() == 1;
+            case 'I', 'B', 'C', 'Z', 'S', 'J', 'F', 'D', 'V' -> descriptor.length() == 1;
             case 'L' -> {
                 if (!descriptor.endsWith(";")) {
                     yield false;
@@ -43,8 +58,7 @@ public class ClassFiles {
                 descriptor = descriptor.substring(1, descriptor.length() - 1);
                 yield isValidQualifiedName(descriptor);
             }
-            default ->
-                false;
+            default -> false;
         };
     }
 
@@ -52,24 +66,15 @@ public class ClassFiles {
         Objects.requireNonNull(desc);
         final String baseType = desc.substring(desc.lastIndexOf("[") + 1);
         String ret = switch (baseType) {
-            case "I" ->
-                int.class.getCanonicalName();
-            case "B" ->
-                byte.class.getCanonicalName();
-            case "C" ->
-                char.class.getCanonicalName();
-            case "Z" ->
-                boolean.class.getCanonicalName();
-            case "S" ->
-                short.class.getCanonicalName();
-            case "J" ->
-                long.class.getCanonicalName();
-            case "F" ->
-                float.class.getCanonicalName();
-            case "D" ->
-                double.class.getCanonicalName();
-            case "V" ->
-                void.class.getCanonicalName();
+            case "I" -> int.class.getCanonicalName();
+            case "B" -> byte.class.getCanonicalName();
+            case "C" -> char.class.getCanonicalName();
+            case "Z" -> boolean.class.getCanonicalName();
+            case "S" -> short.class.getCanonicalName();
+            case "J" -> long.class.getCanonicalName();
+            case "F" -> float.class.getCanonicalName();
+            case "D" -> double.class.getCanonicalName();
+            case "V" -> void.class.getCanonicalName();
             default -> {
                 if (!baseType.startsWith("L") || !baseType.endsWith(";")) {
                     throw new IllegalArgumentException("Invalid Descriptor");

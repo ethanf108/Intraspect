@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The LineNumberTable attribute.
+ */
 @AttributeName("LineNumberTable")
 public class LineNumberTableAttribute implements AttributeDesc {
 

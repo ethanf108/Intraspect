@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The Exceptions attribute.
+ */
 @AttributeName("Exceptions")
 public class ExceptionsAttribute implements AttributeDesc {
 
@@ -16,15 +19,6 @@ public class ExceptionsAttribute implements AttributeDesc {
     private ExceptionsAttribute(final int ani, final int[] eit) {
         this.attributeNameIndex = ani;
         this.exceptionIndexTable = eit;
-    }
-
-    @Override
-    public int getAttributeNameIndex() {
-        return this.attributeNameIndex;
-    }
-
-    public int[] getExceptionIndexTable() {
-        return this.exceptionIndexTable;
     }
 
     public static ExceptionsAttribute read(final int ani, final DataInputStream in) throws IOException {
@@ -38,6 +32,15 @@ public class ExceptionsAttribute implements AttributeDesc {
         }
 
         return new ExceptionsAttribute(ani, exceptions);
+    }
+
+    @Override
+    public int getAttributeNameIndex() {
+        return this.attributeNameIndex;
+    }
+
+    public int[] getExceptionIndexTable() {
+        return this.exceptionIndexTable;
     }
 
     @Override

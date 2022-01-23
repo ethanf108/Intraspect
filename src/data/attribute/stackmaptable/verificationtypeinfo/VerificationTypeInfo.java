@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * Acts as a superclass for all verification type info structures.
+ */
 public abstract sealed class VerificationTypeInfo permits TopVariableInfo, IntegerVariableInfo, FloatVariableInfo, LongVariableInfo, DoubleVariableInfo, NullVariableInfo, UninitializedThisVariableInfo, ObjectVariableInfo, UninitializedVariableInfo {
 
     protected final int tag;
@@ -11,12 +14,6 @@ public abstract sealed class VerificationTypeInfo permits TopVariableInfo, Integ
     protected VerificationTypeInfo(final int tag) {
         this.tag = tag;
     }
-
-    abstract VerificationTypeInfo readInternal(final DataInputStream in) throws IOException;
-
-    public abstract void write(final DataOutputStream out) throws IOException;
-
-    public abstract int getDataLength();
 
     public static VerificationTypeInfo read(final DataInputStream in) throws IOException {
         final int tag = in.readUnsignedByte();
@@ -37,4 +34,10 @@ public abstract sealed class VerificationTypeInfo permits TopVariableInfo, Integ
             default -> throw new IllegalArgumentException("Invalid tag for Verification Type Info");
         };
     }
+
+    abstract VerificationTypeInfo readInternal(final DataInputStream in) throws IOException;
+
+    public abstract void write(final DataOutputStream out) throws IOException;
+
+    public abstract int getDataLength();
 }

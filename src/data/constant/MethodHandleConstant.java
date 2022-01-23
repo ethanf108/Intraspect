@@ -6,6 +6,9 @@ import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for MethodHandle constants.
+ */
 public class MethodHandleConstant implements ConstantDesc {
 
     private final int kind;

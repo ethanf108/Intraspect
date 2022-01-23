@@ -4,13 +4,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The UninitializedObjectInfo verification type.
+ */
 public final class ObjectVariableInfo extends VerificationTypeInfo {
+
+    private int cpoolIndex;
 
     public ObjectVariableInfo(final int tag) {
         super(tag);
     }
-
-    private int cpoolIndex;
 
     public int getCpoolIndex() {
         return this.cpoolIndex;

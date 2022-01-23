@@ -2,9 +2,13 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.attribute.annotation.AnnotationDesc;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * This class acts as a superclass for all runtime annotations.
+ */
 public sealed abstract class RuntimeAnnotations implements AttributeDesc permits RuntimeVisibleAnnotationsAttribute, RuntimeInvisibleAnnotationsAttribute {
 
     private final int attributeNameIndex;

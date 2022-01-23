@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The PermittedSubclasses attribute.
+ */
 @AttributeName("PermittedSubclasses")
 public class PermittedSubclassesAttribute implements AttributeDesc {
 

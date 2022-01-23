@@ -8,12 +8,12 @@ public final class CatchTarget extends TargetInfo {
 
     private int exceptionTableIndex;
 
-    public int getExceptionTableIndex() {
-        return this.exceptionTableIndex;
-    }
-
     public CatchTarget(final int targetType) {
         super(targetType);
+    }
+
+    public int getExceptionTableIndex() {
+        return this.exceptionTableIndex;
     }
 
     @Override

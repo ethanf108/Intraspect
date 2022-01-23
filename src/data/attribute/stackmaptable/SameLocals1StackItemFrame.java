@@ -6,16 +6,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The SameLocals1StackItemFrame stack map frame type.
+ */
 public final class SameLocals1StackItemFrame extends StackMapFrame {
-
-    public VerificationTypeInfo getStack() {
-        return this.stack;
-    }
 
     private VerificationTypeInfo stack;
 
     public SameLocals1StackItemFrame(final int tag) {
         super(tag);
+    }
+
+    public VerificationTypeInfo getStack() {
+        return this.stack;
     }
 
     @Override

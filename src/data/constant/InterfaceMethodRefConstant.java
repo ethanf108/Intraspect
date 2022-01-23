@@ -7,6 +7,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * A ConstantDescriptor for InterfaceMethodRef constants.
+ */
 public class InterfaceMethodRefConstant implements ConstantDesc {
 
     private final int classIndex;

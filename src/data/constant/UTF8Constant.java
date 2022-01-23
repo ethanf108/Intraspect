@@ -7,12 +7,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for UTF8 constants.
+ */
 public class UTF8Constant implements ConstantDesc {
 
     private final String value;
 
     private UTF8Constant(final String val) {
         this.value = val;
+    }
+
+    public static UTF8Constant read(final DataInputStream in) throws IOException {
+        return new UTF8Constant(new String(in.readNBytes(in.readUnsignedShort())));
     }
 
     @Override
@@ -22,10 +29,6 @@ public class UTF8Constant implements ConstantDesc {
 
     public String getValue() {
         return this.value;
-    }
-
-    public static UTF8Constant read(final DataInputStream in) throws IOException {
-        return new UTF8Constant(new String(in.readNBytes(in.readUnsignedShort())));
     }
 
     @Override

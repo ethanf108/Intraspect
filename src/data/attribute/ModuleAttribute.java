@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The Module attribute.
+ */
 @AttributeName("Module")
 public class ModuleAttribute implements AttributeDesc {
 
@@ -39,6 +42,37 @@ public class ModuleAttribute implements AttributeDesc {
         this.opens = opens;
         this.usesIndex = usesIndex;
         this.provides = provides;
+    }
+
+    public static ModuleAttribute read(final int ani, final DataInputStream in) throws IOException {
+        in.readInt();   // Ignore
+
+        final int moduleNameIndex = in.readUnsignedShort();
+
+        final int moduleFlags = in.readUnsignedShort();
+
+        final int moduleVersionIndex = in.readUnsignedShort();
+
+        // Requires Entry
+        final RequiresEntry[] requires = new RequiresEntry[in.readUnsignedShort()];
+        for (int i = 0; i < requires.length; requires[i++] = RequiresEntry.read(in)) ;
+
+        // Exports Entry
+        final ExportsEntry[] exports = new ExportsEntry[in.readUnsignedShort()];
+        for (int i = 0; i < exports.length; exports[i++] = ExportsEntry.read(in)) ;
+
+        // Opens Entry
+        final OpensEntry[] opens = new OpensEntry[in.readUnsignedShort()];
+        for (int i = 0; i < opens.length; opens[i++] = OpensEntry.read(in)) ;
+
+        final int[] usesIndex = new int[in.readUnsignedShort()];
+        for (int i = 0; i < usesIndex.length; usesIndex[i++] = in.readUnsignedShort()) ;
+
+        // Provides Entry
+        final ProvidesEntry[] provides = new ProvidesEntry[in.readUnsignedShort()];
+        for (int i = 0; i < provides.length; provides[i++] = ProvidesEntry.read(in)) ;
+
+        return new ModuleAttribute(ani, moduleNameIndex, moduleFlags, moduleVersionIndex, requires, exports, opens, usesIndex, provides);
     }
 
     @Override
@@ -93,37 +127,6 @@ public class ModuleAttribute implements AttributeDesc {
         for (final ProvidesEntry entry : this.provides) {
             entry.write(out);
         }
-    }
-
-    public static ModuleAttribute read(final int ani, final DataInputStream in) throws IOException {
-        in.readInt();   // Ignore
-
-        final int moduleNameIndex = in.readUnsignedShort();
-
-        final int moduleFlags = in.readUnsignedShort();
-
-        final int moduleVersionIndex = in.readUnsignedShort();
-
-        // Requires Entry
-        final RequiresEntry[] requires = new RequiresEntry[in.readUnsignedShort()];
-        for (int i = 0; i < requires.length; requires[i++] = RequiresEntry.read(in)) ;
-
-        // Exports Entry
-        final ExportsEntry[] exports = new ExportsEntry[in.readUnsignedShort()];
-        for (int i = 0; i < exports.length; exports[i++] = ExportsEntry.read(in)) ;
-
-        // Opens Entry
-        final OpensEntry[] opens = new OpensEntry[in.readUnsignedShort()];
-        for (int i = 0; i < opens.length; opens[i++] = OpensEntry.read(in)) ;
-
-        final int[] usesIndex = new int[in.readUnsignedShort()];
-        for (int i = 0; i < usesIndex.length; usesIndex[i++] = in.readUnsignedShort()) ;
-
-        // Provides Entry
-        final ProvidesEntry[] provides = new ProvidesEntry[in.readUnsignedShort()];
-        for (int i = 0; i < provides.length; provides[i++] = ProvidesEntry.read(in)) ;
-
-        return new ModuleAttribute(ani, moduleNameIndex, moduleFlags, moduleVersionIndex, requires, exports, opens, usesIndex, provides);
     }
 
     private static record RequiresEntry(int requiresIndex, int requiresFlags, int requiresVersionIndex) {

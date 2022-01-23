@@ -1,6 +1,7 @@
 package data.attribute.annotation.type;
 
 import data.attribute.annotation.ElementValue;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -17,6 +18,27 @@ public class TypeAnnotation {
         this.targetPath = targetPath;
         this.typeIndex = typeIndex;
         this.elementValuePairs = elementValuePairs;
+    }
+
+    public static TypeAnnotation read(final DataInputStream in) throws IOException {
+
+        final TargetInfo targetInfo = TargetInfo.read(in);
+
+        final int typePathLength = in.readUnsignedByte();
+        final TypePath[] targetPath = new TypePath[typePathLength];
+        for (int i = 0; i < targetPath.length; i++) {
+            targetPath[i] = TypePath.read(in);
+        }
+
+        final int typeIndex = in.readUnsignedShort();
+
+        final int numElementValuePairs = in.readUnsignedShort();
+        final ElementValue.ElementValuePair[] elementValuePairs = new ElementValue.ElementValuePair[numElementValuePairs];
+        for (int i = 0; i < elementValuePairs.length; i++) {
+            elementValuePairs[i] = ElementValue.ElementValuePair.read(in);
+        }
+
+        return new TypeAnnotation(targetInfo, targetPath, typeIndex, elementValuePairs);
     }
 
     public TargetInfo getTargetInfo() {
@@ -62,37 +84,16 @@ public class TypeAnnotation {
         }
     }
 
-    public static TypeAnnotation read(final DataInputStream in) throws IOException {
-
-        final TargetInfo targetInfo = TargetInfo.read(in);
-
-        final int typePathLength = in.readUnsignedByte();
-        final TypePath[] targetPath = new TypePath[typePathLength];
-        for (int i = 0; i < targetPath.length; i++) {
-            targetPath[i] = TypePath.read(in);
-        }
-
-        final int typeIndex = in.readUnsignedShort();
-
-        final int numElementValuePairs = in.readUnsignedShort();
-        final ElementValue.ElementValuePair[] elementValuePairs = new ElementValue.ElementValuePair[numElementValuePairs];
-        for (int i = 0; i < elementValuePairs.length; i++) {
-            elementValuePairs[i] = ElementValue.ElementValuePair.read(in);
-        }
-
-        return new TypeAnnotation(targetInfo, targetPath, typeIndex, elementValuePairs);
-    }
-
 }
 
 record TypePath(int typePathKind, int typeArgumentIndex) {
 
+    public static TypePath read(final DataInputStream in) throws IOException {
+        return new TypePath(in.readUnsignedByte(), in.readUnsignedByte());
+    }
+
     public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.typePathKind);
         out.writeByte(this.typeArgumentIndex);
-    }
-
-    public static TypePath read(final DataInputStream in) throws IOException {
-        return new TypePath(in.readUnsignedByte(), in.readUnsignedByte());
     }
 }

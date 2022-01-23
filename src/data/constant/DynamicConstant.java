@@ -6,6 +6,9 @@ import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for Dynamic constants.
+ */
 public class DynamicConstant implements ConstantDesc {
 
     private final int bootstrapMethodAttributeIndex;

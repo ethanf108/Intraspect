@@ -2,6 +2,7 @@ package data;
 
 import data.attribute.UnknownAttribute;
 import data.constant.UTF8Constant;
+import util.Util;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -11,8 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import util.Util;
-
+/**
+ * Represents the attributes of a class file.
+ */
 public class AttributeReader {
 
     private static final Map<String, Class<? extends AttributeDesc>> attributeClasses;
@@ -28,6 +30,9 @@ public class AttributeReader {
         }
     }
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private AttributeReader() {
 
     }
@@ -44,6 +49,14 @@ public class AttributeReader {
         attributeClasses.put(name.value(), clazz.asSubclass(AttributeDesc.class));
     }
 
+    /**
+     * Reads the attributes of a class file from the given data input stream.
+     *
+     * @param in  the data input stream to read from
+     * @param ref the containing class file to reference
+     * @return an AttributeDesc containing the attributes of the class file
+     * @throws IOException if an I/O error occurs
+     */
     public static AttributeDesc read(final DataInputStream in, final ClassFile ref) throws IOException {
         final int attributeNameIndex = in.readUnsignedShort();
         final String attributeName = ref.getConstantDesc(attributeNameIndex) instanceof UTF8Constant u ? u.getValue() : null;

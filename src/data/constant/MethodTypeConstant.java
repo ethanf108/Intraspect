@@ -6,6 +6,9 @@ import data.ConstantDesc;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * A ConstantDescriptor for MethodType constants.
+ */
 public class MethodTypeConstant implements ConstantDesc {
 
     private final int descriptorIndex;

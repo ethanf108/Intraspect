@@ -9,6 +9,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The RecordAttribute attribute.
+ */
 @AttributeName("Record")
 public class RecordAttribute implements AttributeDesc {
 
@@ -18,6 +21,17 @@ public class RecordAttribute implements AttributeDesc {
     private RecordAttribute(final int attributeNameIndex, final RecordComponentInfo[] components) {
         this.attributeNameIndex = attributeNameIndex;
         this.components = components;
+    }
+
+    public static RecordAttribute read(final int ani, final DataInputStream in, final ClassFile ref) throws IOException {
+        in.readInt();    // Ignore
+
+        final RecordComponentInfo[] components = new RecordComponentInfo[in.readUnsignedShort()];
+        for (int i = 0; i < components.length; i++) {
+            components[i] = RecordComponentInfo.read(in, ref);
+        }
+
+        return new RecordAttribute(ani, components);
     }
 
     @Override
@@ -49,17 +63,6 @@ public class RecordAttribute implements AttributeDesc {
         for (final RecordComponentInfo component : this.components) {
             component.write(out);
         }
-    }
-
-    public static RecordAttribute read(final int ani, final DataInputStream in, final ClassFile ref) throws IOException {
-        in.readInt();    // Ignore
-
-        final RecordComponentInfo[] components = new RecordComponentInfo[in.readUnsignedShort()];
-        for (int i = 0; i < components.length; i++) {
-            components[i] = RecordComponentInfo.read(in, ref);
-        }
-
-        return new RecordAttribute(ani, components);
     }
 
     public static record RecordComponentInfo(int nameIndex, int descriptorIndex, AttributeDesc[] attributes) {

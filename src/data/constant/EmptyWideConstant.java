@@ -42,5 +42,4 @@ public class EmptyWideConstant implements ConstantDesc {
     @Override
     public void write(final DataOutputStream out) throws IOException {
     }
-
 }

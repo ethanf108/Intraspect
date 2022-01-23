@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The LongVariableInfo verification type.
+ */
 public final class LongVariableInfo extends VerificationTypeInfo {
 
     public LongVariableInfo(final int tag) {

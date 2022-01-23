@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The DoubleVariableInfo verification type.
+ */
 public final class DoubleVariableInfo extends VerificationTypeInfo {
 
     public DoubleVariableInfo(final int tag) {

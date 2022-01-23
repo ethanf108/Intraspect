@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * Describes a field in a class.
+ */
 public class FieldDesc {
 
     private final int accessFlags;
@@ -11,6 +14,14 @@ public class FieldDesc {
     private final int descriptorIndex;
     private final AttributeDesc[] attributes;
 
+    /**
+     * Constructs a new FieldDesc.
+     *
+     * @param accessFlags     the access flags for this field
+     * @param nameIndex       the name index for this field
+     * @param descriptorIndex the descriptor index for this field
+     * @param attributes      the attributes of this field
+     */
     public FieldDesc(final int accessFlags, final int nameIndex, final int descriptorIndex, final AttributeDesc[] attributes) {
         this.accessFlags = accessFlags;
         this.nameIndex = nameIndex;
@@ -18,22 +29,14 @@ public class FieldDesc {
         this.attributes = attributes;
     }
 
-    public int getAccessFlags() {
-        return this.accessFlags;
-    }
-
-    public int getNameIndex() {
-        return this.nameIndex;
-    }
-
-    public int getDescriptorIndex() {
-        return this.descriptorIndex;
-    }
-
-    public AttributeDesc[] getAttributes() {
-        return this.attributes;
-    }
-
+    /**
+     * Reads and constructs a new FieldDesc from a DataInputStream.
+     *
+     * @param in  the DataInputStream to read from
+     * @param ref the ConstantPool to use for reading
+     * @return the new FieldDesc
+     * @throws IOException if an I/O error occurs
+     */
     public static FieldDesc parse(final DataInputStream in, final ClassFile ref) throws IOException {
         final int accessFlags = in.readUnsignedShort();
         final int nameIndex = in.readUnsignedShort();
@@ -46,6 +49,48 @@ public class FieldDesc {
         return new FieldDesc(accessFlags, nameIndex, descIndex, attributes);
     }
 
+    /**
+     * Returns the access flags for this field.
+     *
+     * @return the access flags for this field
+     */
+    public int getAccessFlags() {
+        return this.accessFlags;
+    }
+
+    /**
+     * Returns the name index of this field.
+     *
+     * @return the name index of this field
+     */
+    public int getNameIndex() {
+        return this.nameIndex;
+    }
+
+    /**
+     * Returns the descriptor index of this field.
+     *
+     * @return the descriptor index of this field
+     */
+    public int getDescriptorIndex() {
+        return this.descriptorIndex;
+    }
+
+    /**
+     * Returns the attributes of this field.
+     *
+     * @return the attributes of this field
+     */
+    public AttributeDesc[] getAttributes() {
+        return this.attributes;
+    }
+
+    /**
+     * Writes this FieldDesc to a DataOutputStream.
+     *
+     * @param out the DataOutputStream to write to
+     * @throws IOException if an I/O error occurs
+     */
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.accessFlags);
         out.writeShort(this.nameIndex);

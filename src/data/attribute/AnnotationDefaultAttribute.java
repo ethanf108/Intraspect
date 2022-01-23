@@ -8,6 +8,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The annotation default attribute.
+ */
 @AttributeName("AnnotationDefault")
 public class AnnotationDefaultAttribute implements AttributeDesc {
 

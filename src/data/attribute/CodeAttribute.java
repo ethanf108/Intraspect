@@ -9,21 +9,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The Code attribute.
+ */
 @AttributeName("Code")
 public class CodeAttribute implements AttributeDesc {
-
-    public static record ExceptionDesc(int startPc, int endPc, int handlerPc, int catchType) {
-        public void write(final DataOutputStream out) throws IOException {
-            out.writeShort(this.startPc);
-            out.writeShort(this.endPc);
-            out.writeShort(this.handlerPc);
-            out.writeShort(this.catchType);
-        }
-
-        public static ExceptionDesc read(DataInputStream in) throws IOException {
-            return new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
-        }
-    }
 
     private final int attributeNameIndex;
     private final int maxStack;
@@ -31,7 +21,6 @@ public class CodeAttribute implements AttributeDesc {
     private final byte[] code;
     private final ExceptionDesc[] exceptionTable;
     private final AttributeDesc[] attributes;
-
     public CodeAttribute(final int attributeNameIndex, final int maxStack, final int maxLocals, final byte[] code, final ExceptionDesc[] exceptionTable, final AttributeDesc[] attributes) {
         this.attributeNameIndex = attributeNameIndex;
         this.maxStack = maxStack;
@@ -39,6 +28,29 @@ public class CodeAttribute implements AttributeDesc {
         this.code = code;
         this.exceptionTable = exceptionTable;
         this.attributes = attributes;
+    }
+
+    public static CodeAttribute read(final int ani, final DataInputStream in, final ClassFile ref) throws IOException {
+        in.readInt();   // Ignore
+
+        final int maxStack = in.readUnsignedShort();
+        final int maxLocals = in.readUnsignedShort();
+
+        final byte[] code = new byte[in.readInt()];
+
+        in.read(code);
+
+        final ExceptionDesc[] exceptions = new ExceptionDesc[in.readUnsignedShort()];
+        for (int i = 0; i < exceptions.length; i++) {
+            exceptions[i] = ExceptionDesc.read(in);
+        }
+
+        final AttributeDesc[] attributes = new AttributeDesc[in.readUnsignedShort()];
+        for (int i = 0; i < attributes.length; i++) {
+            attributes[i] = AttributeReader.read(in, ref);
+        }
+
+        return new CodeAttribute(ani, maxStack, maxLocals, code, exceptions, attributes);
     }
 
     @Override
@@ -64,29 +76,6 @@ public class CodeAttribute implements AttributeDesc {
 
     public AttributeDesc[] getAttributes() {
         return this.attributes;
-    }
-
-    public static CodeAttribute read(final int ani, final DataInputStream in, final ClassFile ref) throws IOException {
-        in.readInt();   // Ignore
-
-        final int maxStack = in.readUnsignedShort();
-        final int maxLocals = in.readUnsignedShort();
-
-        final byte[] code = new byte[in.readInt()];
-
-        in.read(code);
-
-        final ExceptionDesc[] exceptions = new ExceptionDesc[in.readUnsignedShort()];
-        for (int i = 0; i < exceptions.length; i++) {
-            exceptions[i] = ExceptionDesc.read(in);
-        }
-
-        final AttributeDesc[] attributes = new AttributeDesc[in.readUnsignedShort()];
-        for (int i = 0; i < attributes.length; i++) {
-            attributes[i] = AttributeReader.read(in, ref);
-        }
-
-        return new CodeAttribute(ani, maxStack, maxLocals, code, exceptions, attributes);
     }
 
     @Override
@@ -115,6 +104,19 @@ public class CodeAttribute implements AttributeDesc {
         out.writeShort(this.attributes.length);
         for (final AttributeDesc ad : this.attributes) {
             ad.write(out);
+        }
+    }
+
+    public static record ExceptionDesc(int startPc, int endPc, int handlerPc, int catchType) {
+        public static ExceptionDesc read(DataInputStream in) throws IOException {
+            return new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
+        }
+
+        public void write(final DataOutputStream out) throws IOException {
+            out.writeShort(this.startPc);
+            out.writeShort(this.endPc);
+            out.writeShort(this.handlerPc);
+            out.writeShort(this.catchType);
         }
     }
 }

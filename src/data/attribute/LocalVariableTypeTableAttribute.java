@@ -2,10 +2,14 @@ package data.attribute;
 
 import data.AttributeDesc;
 import data.AttributeName;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * The LocalVariableTypeTable attribute.
+ */
 @AttributeName("LocalVariableTypeTable")
 public class LocalVariableTypeTableAttribute implements AttributeDesc {
 
@@ -21,7 +25,8 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
         in.readInt();   // Discard attribute length
 
         final LocalVariableTypeTableEntry[] arr = new LocalVariableTypeTableEntry[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTypeTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort())) ;
+        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTypeTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
+            ;
 
         return new LocalVariableTypeTableAttribute(ani, arr);
     }
@@ -60,6 +65,6 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
     }
 
     public static record LocalVariableTypeTableEntry(int startPc, int length, int nameIndex,
-            int signatureIndex, int index) {
+                                                     int signatureIndex, int index) {
     }
 }
