@@ -4,7 +4,7 @@ import data.ClassFile;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public sealed abstract class Instruction permits NopInstruction, ConversionInstruction {
+public sealed abstract class Instruction permits NopInstruction, ConversionInstruction, InvokeInstruction {
 
     private transient int opcodeCache = -1;
     private transient String mnemonicCache = null;
