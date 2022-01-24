@@ -1,5 +1,6 @@
 package data.instruction;
 
+import data.ClassFile;
 import data.instruction.conversion.DoubleToFloatInstruction;
 import data.instruction.conversion.DoubleToIntInstruction;
 import data.instruction.conversion.DoubleToLongInstruction;
@@ -45,7 +46,7 @@ public sealed abstract class ConversionInstruction extends Instruction permits
     }
 
     @Override
-    public final boolean isValid() {
+    public final boolean isValid(ClassFile ref) {
         return true;
     }
 

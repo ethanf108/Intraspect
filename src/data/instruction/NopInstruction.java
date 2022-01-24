@@ -1,5 +1,6 @@
 package data.instruction;
 
+import data.ClassFile;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -20,7 +21,7 @@ public final class NopInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isValid(ClassFile ref) {
         return true;
     }
 

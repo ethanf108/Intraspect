@@ -1,5 +1,6 @@
 package data.instruction;
 
+import data.ClassFile;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -42,7 +43,11 @@ public sealed abstract class Instruction permits NopInstruction, ConversionInstr
 
     public abstract int[] getOperands();
 
-    public abstract boolean isValid();
+    public abstract boolean isValid(ClassFile ref);
 
     public abstract void write(DataOutputStream out) throws IOException;
+
+    public int getDataLength() {
+        return 1 + this.getNumOperands();
+    }
 }
