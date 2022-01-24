@@ -3,7 +3,7 @@ package data.instruction;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public sealed abstract class Instruction permits ConversionInstruction {
+public sealed abstract class Instruction permits NopInstruction, ConversionInstruction {
 
     private transient int opcodeCache = -1;
     private transient String mnemonicCache = null;
