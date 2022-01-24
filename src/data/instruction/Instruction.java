@@ -45,7 +45,12 @@ public sealed abstract class Instruction permits NopInstruction, ConversionInstr
 
     public abstract boolean isValid(ClassFile ref);
 
-    public abstract void write(DataOutputStream out) throws IOException;
+    public final void write(DataOutputStream out) throws IOException {
+        out.writeByte(this.getOpcode());
+        for (int i : this.getOperands()) {
+            out.writeByte(i);
+        }
+    }
 
     public int getDataLength() {
         return 1 + this.getNumOperands();

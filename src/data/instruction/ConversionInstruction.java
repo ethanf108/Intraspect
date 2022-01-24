@@ -16,8 +16,6 @@ import data.instruction.conversion.IntToShortInstruction;
 import data.instruction.conversion.LongToDoubleInstruction;
 import data.instruction.conversion.LongToFloatInstruction;
 import data.instruction.conversion.LongToIntInstruction;
-import java.io.DataOutputStream;
-import java.io.IOException;
 
 public sealed abstract class ConversionInstruction extends Instruction permits
         IntToLongInstruction, IntToFloatInstruction, IntToDoubleInstruction,
@@ -38,11 +36,6 @@ public sealed abstract class ConversionInstruction extends Instruction permits
     @Override
     public final int[] getOperands() {
         return new int[0];
-    }
-
-    @Override
-    public final void write(DataOutputStream out) throws IOException {
-        out.writeByte(this.getOpcode());
     }
 
     @Override
