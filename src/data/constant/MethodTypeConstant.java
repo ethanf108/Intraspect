@@ -1,6 +1,7 @@
 package data.constant;
 
 import data.ClassFile;
+import data.ClassFiles;
 import data.ConstantDesc;
 
 import java.io.DataOutputStream;
@@ -28,7 +29,7 @@ public class MethodTypeConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(final ClassFile ref) {
-        return ref.getConstantDesc(this.descriptorIndex) instanceof UTF8Constant; //TODO check if valid method descriptor??
+        return ref.getConstantDesc(this.descriptorIndex) instanceof UTF8Constant u && ClassFiles.isValidMethodDescriptor(u.getValue());
     }
 
     @Override

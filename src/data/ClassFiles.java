@@ -62,6 +62,40 @@ public class ClassFiles {
         };
     }
 
+    public static boolean isValidMethodDescriptor(String descriptor) {
+        if (!Objects.requireNonNull(descriptor).startsWith("(")) {
+            return false;
+        }
+        int numArrays = 0;
+        boolean retMode = false;
+        for (int i = 1; i < descriptor.length(); i++) {
+            if (descriptor.charAt(i) == '[') {
+                if (numArrays++ >= 255) {
+                    return false;
+                }
+                continue;
+            } else if (descriptor.charAt(i) == 'L') {
+                if (!descriptor.contains(";") || !isValidClassDescriptor(descriptor.substring(i, descriptor.indexOf(";", i) + 1))) {
+                    return false;
+                }
+                i = descriptor.indexOf(";", i);
+                if (retMode) {
+                    return true;
+                }
+            } else if (descriptor.charAt(i) == ')') {
+                retMode = true;
+            } else if ("IBCZSJFD".contains(String.valueOf(descriptor.charAt(i))) || (retMode && descriptor.charAt(i) == 'V')) {
+                if (retMode) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+            numArrays = 0;
+        }
+        return false;
+    }
+
     public static String getFromDescriptor(final String desc) {
         Objects.requireNonNull(desc);
         final String baseType = desc.substring(desc.lastIndexOf("[") + 1);
