@@ -129,7 +129,7 @@ public class ModuleAttribute implements AttributeDesc {
         }
     }
 
-    private static record RequiresEntry(int requiresIndex, int requiresFlags, int requiresVersionIndex) {
+    public record RequiresEntry(int requiresIndex, int requiresFlags, int requiresVersionIndex) {
 
         public static RequiresEntry read(final DataInputStream in) throws IOException {
             return new RequiresEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
@@ -142,7 +142,7 @@ public class ModuleAttribute implements AttributeDesc {
         }
     }
 
-    private static record ExportsEntry(int exportsIndex, int exportsFlags, int[] exportsToIndex) {
+    public record ExportsEntry(int exportsIndex, int exportsFlags, int[] exportsToIndex) {
 
         public static ExportsEntry read(final DataInputStream in) throws IOException {
             final int exportsIndex = in.readUnsignedShort();
@@ -167,7 +167,7 @@ public class ModuleAttribute implements AttributeDesc {
 
     }
 
-    private static record OpensEntry(int opensIndex, int opensFlags, int[] opensToIndex) {
+    public record OpensEntry(int opensIndex, int opensFlags, int[] opensToIndex) {
 
         public static OpensEntry read(final DataInputStream in) throws IOException {
             final int opensIndex = in.readUnsignedShort();
@@ -192,7 +192,7 @@ public class ModuleAttribute implements AttributeDesc {
         }
     }
 
-    private static record ProvidesEntry(int providesIndex, int[] providesWithIndex) {
+    public record ProvidesEntry(int providesIndex, int[] providesWithIndex) {
 
         public static ProvidesEntry read(final DataInputStream in) throws IOException {
             final int providesIndex = in.readUnsignedShort();

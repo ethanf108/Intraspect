@@ -39,6 +39,10 @@ public class ClassFiles {
         return true;
     }
 
+    public static boolean isValidClassNameInternalForm(String name) {
+        return name.startsWith("[") ? isValidClassDescriptor(name) : isValidQualifiedName(name);
+    }
+
     /**
      * Determine if the given name is a valid class descriptor name.
      *
@@ -84,7 +88,7 @@ public class ClassFiles {
                 }
             } else if (descriptor.charAt(i) == ')') {
                 retMode = true;
-            } else if ("IBCZSJFD".contains(String.valueOf(descriptor.charAt(i))) || (retMode && descriptor.charAt(i) == 'V')) {
+            } else if ("IBCZSJFD".contains(String.valueOf(descriptor.charAt(i))) || (retMode && descriptor.charAt(i) == 'V' && numArrays == 0)) {
                 if (retMode) {
                     return true;
                 }
@@ -164,12 +168,14 @@ public class ClassFiles {
                         if (desc.charAt(index) == 'V' && argMode) {
                             throw new IllegalArgumentException("Argument cannot be of type void");
                         }
+                        if (desc.charAt(index) == 'V' && numArrays > 0) {
+                            throw new IllegalArgumentException("Cannot have a void array");
+                        }
                         className = getFromDescriptor(String.valueOf(desc.charAt(index)));
                         index++;
                     }
-
                     className += "[]".repeat(numArrays);
-
+                    numArrays = 0;
                     if (argMode) {
                         args.add(className);
                     } else {

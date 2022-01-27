@@ -30,7 +30,7 @@ public class ClassConstant implements ConstantDesc {
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant u && ClassFiles.isValidQualifiedName(u.getValue());
+        return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant u && ClassFiles.isValidClassNameInternalForm(u.getValue());
     }
 
     @Override
