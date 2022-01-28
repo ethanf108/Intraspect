@@ -21,10 +21,7 @@ public class ClassFiles {
      * @return True if the name is valid, false otherwise.
      */
     public static boolean isValidUnqualifiedName(final String name) {
-        if (Objects.requireNonNull(name).isBlank()) {
-            return false;
-        }
-        return !(name.contains(".") || name.contains(";") || name.contains("[") || name.contains("/"));
+        return !(Objects.requireNonNull(name).isBlank() || name.contains(".") || name.contains(";") || name.contains("[") || name.contains("/"));
     }
 
     public static boolean isValidQualifiedName(final String name) {
