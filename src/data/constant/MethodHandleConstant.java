@@ -36,14 +36,13 @@ public class MethodHandleConstant implements ConstantDesc {
     @Override
     public boolean isValid(final ClassFile ref) {
         String methodName = null;
-        final boolean first = switch (kind) {
+        return switch (kind) {
             case 1, 2, 3, 4 -> ref.getConstantDesc(this.referenceIndex) instanceof FieldRefConstant;
             case 5, 8 -> ref.getConstantDesc(this.referenceIndex) instanceof MethodRefConstant;
             case 6, 7 -> ref.getConstantDesc(this.referenceIndex) instanceof MethodRefConstant || (ref.getMajorVersion().getMajorVersion() < 52 && ref.getConstantDesc(this.referenceIndex) instanceof InterfaceMethodRefConstant);
             case 9 -> ref.getConstantDesc(this.referenceIndex) instanceof InterfaceMethodRefConstant;
             default -> false;
-        };
-        return first && switch (kind) {
+        } && switch (kind) {
             case 5, 6, 7, 9:
                 if (ref.getConstantDesc(this.referenceIndex) instanceof InterfaceMethodRefConstant imrc) {
                     if (ref.getConstantDesc(imrc.getNameAndTypeIndex()) instanceof NameAndTypeConstant natc
