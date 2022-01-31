@@ -47,7 +47,10 @@ public class ClassFiles {
      * @return True if the name is valid, false otherwise.
      */
     public static boolean isValidClassDescriptor(String descriptor) {
-        while (descriptor.startsWith("[")) {
+        if (descriptor.startsWith("[")) {
+            if (!"[".repeat(descriptor.lastIndexOf('[') + 1).equals(descriptor.substring(0, descriptor.lastIndexOf('[') + 1))) {
+                return false;
+            }
             descriptor = descriptor.substring(descriptor.lastIndexOf('[') + 1);
         }
         return switch (descriptor.charAt(0)) {
