@@ -4,6 +4,9 @@ import data.ClassFile;
 import data.constant.DynamicConstant;
 import data.instruction.InvokeInstruction;
 import data.instruction.Opcode;
+
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 @Opcode(opcode = 0xBA, mnemonic = "invokedynamic")
@@ -11,6 +14,10 @@ public final class InvokeDynamicInstruction extends InvokeInstruction {
 
     public InvokeDynamicInstruction(int methodIndex) {
         super(methodIndex);
+    }
+
+    public static InvokeDynamicInstruction read(DataInputStream in) throws IOException {
+        return new InvokeDynamicInstruction(in.readUnsignedShort());
     }
 
     @Override
@@ -32,5 +39,4 @@ public final class InvokeDynamicInstruction extends InvokeInstruction {
     public boolean isValid(ClassFile ref) {
         return ref.getConstantDesc(this.methodIndex) instanceof DynamicConstant;
     }
-
 }

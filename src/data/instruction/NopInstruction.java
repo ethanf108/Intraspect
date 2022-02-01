@@ -2,10 +2,17 @@ package data.instruction;
 
 import data.ClassFile;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 @Opcode(opcode = 0x00, mnemonic = "nop")
 public final class NopInstruction extends Instruction {
 
     public NopInstruction() {
+    }
+
+    public static NopInstruction read(DataInputStream in) throws IOException {
+        return new NopInstruction();
     }
 
     @Override
@@ -22,5 +29,4 @@ public final class NopInstruction extends Instruction {
     public boolean isValid(ClassFile ref) {
         return true;
     }
-
 }

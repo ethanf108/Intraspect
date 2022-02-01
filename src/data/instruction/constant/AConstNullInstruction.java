@@ -2,7 +2,14 @@ package data.instruction.constant;
 
 import data.instruction.ConstantInstruction;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 public final class AConstNullInstruction extends ConstantInstruction {
+    public static AConstNullInstruction read(DataInputStream in) throws IOException {
+        return new AConstNullInstruction();
+    }
+
     @Override
     public Class<?> getConstantType() {
         return Object.class;

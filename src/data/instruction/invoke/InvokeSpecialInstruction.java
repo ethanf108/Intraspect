@@ -4,6 +4,9 @@ import data.ClassFile;
 import data.constant.MethodRefConstant;
 import data.instruction.InvokeInstruction;
 import data.instruction.Opcode;
+
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 @Opcode(opcode = 0xB7, mnemonic = "invokespecial")
@@ -11,6 +14,10 @@ public final class InvokeSpecialInstruction extends InvokeInstruction {
 
     public InvokeSpecialInstruction(int methodIndex) {
         super(methodIndex);
+    }
+
+    public static InvokeSpecialInstruction read(DataInputStream in) throws IOException {
+        return new InvokeSpecialInstruction(in.readUnsignedShort());
     }
 
     @Override
@@ -32,5 +39,4 @@ public final class InvokeSpecialInstruction extends InvokeInstruction {
     public boolean isValid(ClassFile ref) {
         return ref.getConstantDesc(this.methodIndex) instanceof MethodRefConstant;
     }
-
 }
