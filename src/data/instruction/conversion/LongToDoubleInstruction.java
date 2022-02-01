@@ -3,7 +3,7 @@ package data.instruction.conversion;
 import data.instruction.ConversionInstruction;
 import data.instruction.Opcode;
 
-@Opcode(opcode = 0x8A, mnemonic = ";2d")
+@Opcode(opcode = 0x8A, mnemonic = "l2d")
 public final class LongToDoubleInstruction extends ConversionInstruction {
 
     public LongToDoubleInstruction() {
