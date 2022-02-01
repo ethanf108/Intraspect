@@ -3,7 +3,7 @@ package data.instruction.constant;
 import data.ClassFile;
 import data.instruction.ConstantInstruction;
 
-public abstract sealed class IConstInstruction extends ConstantInstruction permits IConst_M1Constant, IConst_0Instruction, IConst_1Instruction, IConst_2Instruction, IConst_3Instruction, IConst_4Instruction, IConst_5Instruction {
+public sealed abstract class DConstInstruction extends ConstantInstruction permits DConst_0Instruction, DConst_1Instruction {
 
     @Override
     public final int getNumOperands() {
@@ -22,9 +22,9 @@ public abstract sealed class IConstInstruction extends ConstantInstruction permi
 
     @Override
     public final Class<?> getConstantType() {
-        return int.class;
+        return double.class;
     }
 
     @Override
-    public abstract Integer getValue();
+    public abstract Double getValue();
 }

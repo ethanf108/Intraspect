@@ -1,10 +1,9 @@
 package data.instruction;
 
 import data.ClassFile;
-import data.instruction.constant.AConstNullInstruction;
-import data.instruction.constant.IConstInstruction;
+import data.instruction.constant.*;
 
-public abstract sealed class ConstantInstruction extends Instruction permits AConstNullInstruction, IConstInstruction {
+public abstract sealed class ConstantInstruction extends Instruction permits AConstNullInstruction, IConstInstruction, FConstInstruction, DConstInstruction, LConstInstruction {
 
     public abstract Class<?> getConstantType();
 
