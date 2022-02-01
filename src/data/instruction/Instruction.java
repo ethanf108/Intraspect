@@ -4,9 +4,11 @@ import data.ClassFile;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 public sealed abstract class Instruction permits NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction {
 
+    private transient String toStringCache = null;
     private transient int opcodeCache = -1;
     private transient String mnemonicCache = null;
 
@@ -55,5 +57,26 @@ public sealed abstract class Instruction permits NopInstruction, ConversionInstr
 
     public int getDataLength() {
         return 1 + this.getNumOperands();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Instruction other && this.getOpcode() == other.getOpcode() && Arrays.equals(this.getOperands(), other.getOperands());
+    }
+
+    @Override
+    public String toString() {
+        if (this.toStringCache == null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(this.getMnemonic());
+            for (int i : this.getOperands()) {
+                sb
+                        .append(" ")
+                        .append("0x")
+                        .append(Integer.toHexString(i));
+            }
+            this.toStringCache = sb.toString();
+        }
+        return this.toStringCache;
     }
 }
