@@ -1,12 +1,9 @@
 package data.instruction;
 
 import data.ClassFile;
-import data.instruction.load.DLoadInstruction;
-import data.instruction.load.FLoadInstruction;
-import data.instruction.load.ILoadInstruction;
-import data.instruction.load.LLoadInstruction;
+import data.instruction.load.*;
 
-public sealed abstract class LoadInstruction extends Instruction permits ILoadInstruction, FLoadInstruction, DLoadInstruction, LLoadInstruction {
+public sealed abstract class LoadInstruction extends Instruction permits ILoadInstruction, FLoadInstruction, DLoadInstruction, LLoadInstruction, ALoadInstruction {
 
     protected final int localVariableIndex;
 
