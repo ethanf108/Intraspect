@@ -55,7 +55,7 @@ public class ClassFiles {
         }
         return switch (descriptor.charAt(0)) {
             case 'I', 'B', 'C', 'Z', 'S', 'J', 'F', 'D', 'V' -> descriptor.length() == 1;
-            case 'L' -> !descriptor.endsWith(";") && isValidQualifiedName(descriptor.substring(1, descriptor.length() - 1));
+            case 'L' -> descriptor.endsWith(";") && isValidQualifiedName(descriptor.substring(1, descriptor.length() - 1));
             default -> false;
         };
     }
