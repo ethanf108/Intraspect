@@ -8,7 +8,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 @Opcode(opcode = 0x17, mnemonic = "fload")
-public final class FLoadInstruction extends LoadInstruction {
+public sealed class FLoadInstruction extends LoadInstruction permits FLoad_0Instruction, FLoad_1Instruction, FLoad_2Instruction, FLoad_3Instruction {
 
     public FLoadInstruction(int lvi) {
         super(lvi);
