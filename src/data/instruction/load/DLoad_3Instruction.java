@@ -1,7 +1,6 @@
-package data.instruction.t;
+package data.instruction.load;
 
 import data.instruction.Opcode;
-import data.instruction.load.DLoadInstruction;
 
 import java.io.DataInputStream;
 import java.io.IOException;

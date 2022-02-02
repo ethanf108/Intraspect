@@ -3,10 +3,6 @@ package data.instruction.load;
 import data.ClassFile;
 import data.instruction.LoadInstruction;
 import data.instruction.Opcode;
-import data.instruction.t.DLoad_0Instruction;
-import data.instruction.t.DLoad_1Instruction;
-import data.instruction.t.DLoad_2Instruction;
-import data.instruction.t.DLoad_3Instruction;
 
 import java.io.DataInputStream;
 import java.io.IOException;
