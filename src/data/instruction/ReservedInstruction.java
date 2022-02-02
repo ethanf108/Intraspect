@@ -19,6 +19,6 @@ public sealed abstract class ReservedInstruction extends Instruction permits Bre
 
     @Override
     public boolean isValid(ClassFile ref) {
-        return true;
+        return false;
     }
 }
