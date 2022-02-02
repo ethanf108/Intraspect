@@ -2,7 +2,6 @@ package data.instruction.load;
 
 import data.ClassFile;
 import data.instruction.Instruction;
-import data.instruction.t.*;
 
 public sealed abstract class ArrayLoadInstruction extends Instruction permits
         IALoadInstruction, LALoadInstruction, FALoadInstruction, DALoadInstruction,
