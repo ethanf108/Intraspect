@@ -1,12 +1,13 @@
 package data.instruction;
 
 import data.ClassFile;
+import data.instruction.load.ArrayLoadInstruction;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-public sealed abstract class Instruction permits NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction, ReservedInstruction, LoadInstruction {
+public sealed abstract class Instruction permits NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction, ReservedInstruction, LoadInstruction, ArrayLoadInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;

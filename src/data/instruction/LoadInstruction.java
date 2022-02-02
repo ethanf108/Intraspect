@@ -11,7 +11,7 @@ public sealed abstract class LoadInstruction extends Instruction permits ILoadIn
         this.localVariableIndex = lvi;
     }
 
-    public int getLocalVariableIndex() {
+    public final int getLocalVariableIndex() {
         return this.localVariableIndex;
     }
 
