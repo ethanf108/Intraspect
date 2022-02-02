@@ -6,7 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-public sealed abstract class Instruction permits NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction, ReservedInstruction {
+public sealed abstract class Instruction permits NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction, ReservedInstruction, LoadInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
