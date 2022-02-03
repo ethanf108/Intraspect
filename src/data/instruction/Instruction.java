@@ -1,6 +1,7 @@
 package data.instruction;
 
 import data.ClassFile;
+import data.instruction.control.ReturnInstruction;
 import data.instruction.load.ArrayLoadInstruction;
 import data.instruction.store.ArrayStoreInstruction;
 
@@ -11,7 +12,7 @@ import java.util.Arrays;
 public sealed abstract class Instruction permits
         NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction,
         ReservedInstruction, LoadInstruction, ArrayLoadInstruction, StoreInstruction,
-        ArrayStoreInstruction, StackInstruction {
+        ArrayStoreInstruction, StackInstruction, ReturnInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
