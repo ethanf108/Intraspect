@@ -8,7 +8,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-public sealed abstract class Instruction permits NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction, ReservedInstruction, LoadInstruction, ArrayLoadInstruction, StoreInstruction, ArrayStoreInstruction {
+public sealed abstract class Instruction permits
+        NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction,
+        ReservedInstruction, LoadInstruction, ArrayLoadInstruction, StoreInstruction,
+        ArrayStoreInstruction, StackInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
@@ -57,7 +60,7 @@ public sealed abstract class Instruction permits NopInstruction, ConversionInstr
         }
     }
 
-    public int getDataLength() {
+    public final int getDataLength() {
         return 1 + this.getNumOperands();
     }
 
