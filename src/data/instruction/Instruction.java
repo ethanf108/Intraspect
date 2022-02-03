@@ -12,7 +12,7 @@ import java.util.Arrays;
 public sealed abstract class Instruction permits
         NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction,
         ReservedInstruction, LoadInstruction, ArrayLoadInstruction, StoreInstruction,
-        ArrayStoreInstruction, StackInstruction, ReturnInstruction {
+        ArrayStoreInstruction, StackInstruction, ReturnInstruction, UnknownInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
@@ -34,14 +34,14 @@ public sealed abstract class Instruction permits
         this.mnemonicCache = opcode.mnemonic();
     }
 
-    public final int getOpcode() {
+    public int getOpcode() {
         if (this.opcodeCache == -1) {
             this.cacheOpcodeValues();
         }
         return this.opcodeCache;
     }
 
-    public final String getMnemonic() {
+    public String getMnemonic() {
         if (this.mnemonicCache == null) {
             this.cacheOpcodeValues();
         }
