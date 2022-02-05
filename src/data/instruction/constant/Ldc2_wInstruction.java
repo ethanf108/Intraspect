@@ -5,10 +5,12 @@ import data.ConstantDesc;
 import data.constant.DoubleConstant;
 import data.constant.LongConstant;
 import data.instruction.LoadConstantInstruction;
+import data.instruction.Opcode;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 
+@Opcode(opcode = 0x14, mnemonic = "ldc2_w")
 public final class Ldc2_wInstruction extends LoadConstantInstruction {
 
     public Ldc2_wInstruction(int constantPoolIndex) {
