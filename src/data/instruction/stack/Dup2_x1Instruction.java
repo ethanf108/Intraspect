@@ -5,7 +5,7 @@ import data.instruction.StackInstruction;
 
 import java.util.Stack;
 
-@Opcode(opcode = 0x5D, mnemonic = "dup2_x2")
+@Opcode(opcode = 0x5D, mnemonic = "dup2_x1")
 public final class Dup2_x1Instruction extends StackInstruction {
 
     public Dup2_x1Instruction() {

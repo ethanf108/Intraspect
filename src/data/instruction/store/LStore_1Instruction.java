@@ -5,7 +5,7 @@ import data.instruction.Opcode;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-@Opcode(opcode = 0x41, mnemonic = "lstore_1")
+@Opcode(opcode = 0x40, mnemonic = "lstore_1")
 public final class LStore_1Instruction extends LStoreInstruction {
 
     public LStore_1Instruction() {

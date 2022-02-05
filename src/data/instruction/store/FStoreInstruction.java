@@ -7,7 +7,7 @@ import data.instruction.StoreInstruction;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-@Opcode(opcode = 0x17, mnemonic = "fstore")
+@Opcode(opcode = 0x38, mnemonic = "fstore")
 public sealed class FStoreInstruction extends StoreInstruction permits FStore_0Instruction, FStore_1Instruction, FStore_2Instruction, FStore_3Instruction {
 
     public FStoreInstruction(int lvi) {

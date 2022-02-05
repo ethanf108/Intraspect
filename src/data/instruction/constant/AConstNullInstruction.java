@@ -1,11 +1,14 @@
 package data.instruction.constant;
 
 import data.instruction.ConstantInstruction;
+import data.instruction.Opcode;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 
+@Opcode(opcode = 0x01, mnemonic = "aconst_null")
 public final class AConstNullInstruction extends ConstantInstruction {
+
     public static AConstNullInstruction read(DataInputStream in) throws IOException {
         return new AConstNullInstruction();
     }

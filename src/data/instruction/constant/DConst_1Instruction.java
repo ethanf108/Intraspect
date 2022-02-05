@@ -5,7 +5,7 @@ import data.instruction.Opcode;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-@Opcode(opcode = 0x0F, mnemonic = "dconst_0")
+@Opcode(opcode = 0x0F, mnemonic = "dconst_1")
 public final class DConst_1Instruction extends DConstInstruction {
 
     public DConst_1Instruction() {

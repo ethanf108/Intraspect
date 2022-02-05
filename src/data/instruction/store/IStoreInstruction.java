@@ -7,7 +7,7 @@ import data.instruction.StoreInstruction;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-@Opcode(opcode = 0x15, mnemonic = "istore")
+@Opcode(opcode = 0x36, mnemonic = "istore")
 public sealed class IStoreInstruction extends StoreInstruction permits IStore_0Instruction, IStore_1Instruction, IStore_2Instruction, IStore_3Instruction {
 
     public IStoreInstruction(int lvi) {

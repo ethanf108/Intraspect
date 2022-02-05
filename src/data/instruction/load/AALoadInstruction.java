@@ -5,7 +5,7 @@ import data.instruction.Opcode;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-@Opcode(opcode = 0x33, mnemonic = "aaload")
+@Opcode(opcode = 0x32, mnemonic = "aaload")
 public final class AALoadInstruction extends ArrayLoadInstruction {
 
     public AALoadInstruction() {
