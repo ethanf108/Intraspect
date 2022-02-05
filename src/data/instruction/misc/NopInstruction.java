@@ -1,6 +1,8 @@
-package data.instruction;
+package data.instruction.misc;
 
 import data.ClassFile;
+import data.instruction.Instruction;
+import data.instruction.Opcode;
 
 import java.io.DataInputStream;
 import java.io.IOException;

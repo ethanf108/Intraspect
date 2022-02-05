@@ -3,6 +3,7 @@ package data.instruction;
 import data.ClassFile;
 import data.instruction.control.ReturnInstruction;
 import data.instruction.load.ArrayLoadInstruction;
+import data.instruction.misc.NopInstruction;
 import data.instruction.store.ArrayStoreInstruction;
 
 import java.io.DataOutputStream;
