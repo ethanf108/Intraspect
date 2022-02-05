@@ -12,7 +12,8 @@ import java.util.Arrays;
 public sealed abstract class Instruction permits
         NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction,
         ReservedInstruction, LoadInstruction, ArrayLoadInstruction, StoreInstruction,
-        ArrayStoreInstruction, StackInstruction, ReturnInstruction, UnknownInstruction {
+        ArrayStoreInstruction, StackInstruction, ReturnInstruction, UnknownInstruction,
+        CompareInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
