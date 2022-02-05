@@ -5,6 +5,8 @@ import data.constant.ClassConstant;
 import data.instruction.Instruction;
 import data.instruction.Opcode;
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 @Opcode(opcode = 0xC1, mnemonic = "instanceof")
@@ -14,6 +16,10 @@ public final class InstanceofInstruction extends Instruction {
 
     public InstanceofInstruction(int classIndex) {
         this.classIndex = classIndex;
+    }
+
+    public static InstanceofInstruction read(DataInputStream in) throws IOException {
+        return new InstanceofInstruction(in.readUnsignedShort());
     }
 
     public int getClassIndex() {
