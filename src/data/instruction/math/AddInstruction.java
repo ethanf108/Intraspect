@@ -1,12 +1,16 @@
 package data.instruction.math;
 
 import data.instruction.MathInstruction;
+import data.instruction.math.add.DAddInstruction;
+import data.instruction.math.add.FAddInstruction;
+import data.instruction.math.add.IAddInstruction;
+import data.instruction.math.add.LAddInstruction;
 
-public sealed abstract class AddInstruction<T extends Number> extends MathInstruction<T> permits IAdd {
+public sealed abstract class AddInstruction<T extends Number> extends MathInstruction<T> permits DAddInstruction, FAddInstruction, IAddInstruction, LAddInstruction {
 
     @Override
     @SuppressWarnings("unchecked")
-    public T apply(final T a, final T b) {
+    public final T apply(final T a, final T b) {
 
         if (a instanceof Integer)
             return (T) (Integer) (a.intValue() + b.intValue());
