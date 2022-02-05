@@ -1,10 +1,12 @@
 package data.instruction.compare;
 
 import data.instruction.CompareInstruction;
+import data.instruction.Opcode;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 
+@Opcode(opcode = 0x97, mnemonic = "dcmpl")
 public final class DcmplInstruction extends CompareInstruction<Double> {
 
     public DcmplInstruction() {
