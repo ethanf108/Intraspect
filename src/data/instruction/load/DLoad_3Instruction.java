@@ -15,4 +15,14 @@ public final class DLoad_3Instruction extends DLoadInstruction {
     public static DLoad_3Instruction read(DataInputStream in) throws IOException {
         return new DLoad_3Instruction();
     }
+
+    @Override
+    public int getNumOperands() {
+        return 0;
+    }
+
+    @Override
+    public int[] getOperands() {
+        return new int[0];
+    }
 }

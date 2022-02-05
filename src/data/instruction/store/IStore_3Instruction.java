@@ -15,4 +15,14 @@ public final class IStore_3Instruction extends IStoreInstruction {
     public static IStore_3Instruction read(DataInputStream in) throws IOException {
         return new IStore_3Instruction();
     }
+
+    @Override
+    public int getNumOperands() {
+        return 0;
+    }
+
+    @Override
+    public int[] getOperands() {
+        return new int[0];
+    }
 }

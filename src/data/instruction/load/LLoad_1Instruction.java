@@ -15,4 +15,14 @@ public final class LLoad_1Instruction extends LLoadInstruction {
     public static LLoad_1Instruction read(DataInputStream in) throws IOException {
         return new LLoad_1Instruction();
     }
+
+    @Override
+    public int getNumOperands() {
+        return 0;
+    }
+
+    @Override
+    public int[] getOperands() {
+        return new int[0];
+    }
 }

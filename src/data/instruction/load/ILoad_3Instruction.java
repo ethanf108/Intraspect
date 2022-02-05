@@ -15,4 +15,14 @@ public final class ILoad_3Instruction extends ILoadInstruction {
     public static ILoad_3Instruction read(DataInputStream in) throws IOException {
         return new ILoad_3Instruction();
     }
+
+    @Override
+    public int getNumOperands() {
+        return 0;
+    }
+
+    @Override
+    public int[] getOperands() {
+        return new int[0];
+    }
 }

@@ -15,4 +15,14 @@ public final class FLoad_1Instruction extends FLoadInstruction {
     public static FLoad_1Instruction read(DataInputStream in) throws IOException {
         return new FLoad_1Instruction();
     }
+
+    @Override
+    public int getNumOperands() {
+        return 0;
+    }
+
+    @Override
+    public int[] getOperands() {
+        return new int[0];
+    }
 }

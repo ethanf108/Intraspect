@@ -15,4 +15,14 @@ public final class DStore_0Instruction extends DStoreInstruction {
     public static DStore_0Instruction read(DataInputStream in) throws IOException {
         return new DStore_0Instruction();
     }
+
+    @Override
+    public int getNumOperands() {
+        return 0;
+    }
+
+    @Override
+    public int[] getOperands() {
+        return new int[0];
+    }
 }

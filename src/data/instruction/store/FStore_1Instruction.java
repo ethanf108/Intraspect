@@ -15,4 +15,14 @@ public final class FStore_1Instruction extends FStoreInstruction {
     public static FStore_1Instruction read(DataInputStream in) throws IOException {
         return new FStore_1Instruction();
     }
+
+    @Override
+    public int getNumOperands() {
+        return 0;
+    }
+
+    @Override
+    public int[] getOperands() {
+        return new int[0];
+    }
 }
