@@ -9,12 +9,12 @@ import java.io.IOException;
 @Opcode(opcode = 0x9D, mnemonic = "ifgt")
 public final class IfgtInstruction extends IfInstruction {
 
-    public IfgtInstruction() {
-
+    public IfgtInstruction(int branchTarget) {
+        super(branchTarget);
     }
 
     public static IfgtInstruction read(DataInputStream in) throws IOException {
-        return new IfgtInstruction();
+        return new IfgtInstruction(in.readUnsignedShort());
     }
 
     @Override

@@ -9,12 +9,12 @@ import java.io.IOException;
 @Opcode(opcode = 0x99, mnemonic = "ifeq")
 public final class IfeqInstruction extends IfInstruction {
 
-    public IfeqInstruction() {
-
+    public IfeqInstruction(int branchTarget) {
+        super(branchTarget);
     }
 
     public static IfeqInstruction read(DataInputStream in) throws IOException {
-        return new IfeqInstruction();
+        return new IfeqInstruction(in.readUnsignedShort());
     }
 
     @Override

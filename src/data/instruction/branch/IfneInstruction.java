@@ -9,12 +9,12 @@ import java.io.IOException;
 @Opcode(opcode = 0x9A, mnemonic = "ifne")
 public final class IfneInstruction extends IfInstruction {
 
-    public IfneInstruction() {
-
+    public IfneInstruction(int branchTarget) {
+        super(branchTarget);
     }
 
     public static IfneInstruction read(DataInputStream in) throws IOException {
-        return new IfneInstruction();
+        return new IfneInstruction(in.readUnsignedShort());
     }
 
     @Override

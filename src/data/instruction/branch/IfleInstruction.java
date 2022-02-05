@@ -9,12 +9,12 @@ import java.io.IOException;
 @Opcode(opcode = 0x9E, mnemonic = "ifle")
 public final class IfleInstruction extends IfInstruction {
 
-    public IfleInstruction() {
-
+    public IfleInstruction(int branchTarget) {
+        super(branchTarget);
     }
 
     public static IfleInstruction read(DataInputStream in) throws IOException {
-        return new IfleInstruction();
+        return new IfleInstruction(in.readUnsignedShort());
     }
 
     @Override

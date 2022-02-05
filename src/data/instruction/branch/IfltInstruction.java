@@ -9,12 +9,12 @@ import java.io.IOException;
 @Opcode(opcode = 0x9B, mnemonic = "iflt")
 public final class IfltInstruction extends IfInstruction {
 
-    public IfltInstruction() {
-
+    public IfltInstruction(int branchTarget) {
+        super(branchTarget);
     }
 
     public static IfltInstruction read(DataInputStream in) throws IOException {
-        return new IfltInstruction();
+        return new IfltInstruction(in.readUnsignedShort());
     }
 
     @Override
