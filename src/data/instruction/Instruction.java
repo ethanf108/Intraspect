@@ -4,6 +4,7 @@ import data.ClassFile;
 import data.instruction.control.ReturnInstruction;
 import data.instruction.load.ArrayLoadInstruction;
 import data.instruction.math.NegInstruction;
+import data.instruction.misc.AThrowInstruction;
 import data.instruction.misc.CheckCastInstruction;
 import data.instruction.misc.IincInstruction;
 import data.instruction.misc.NopInstruction;
@@ -19,7 +20,7 @@ public sealed abstract class Instruction permits
         ArrayStoreInstruction, StackInstruction, ReturnInstruction, UnknownInstruction,
         CompareInstruction, IfInstruction, IfCompareInstruction, IfObjectInstruction,
         MathInstruction, IincInstruction, LoadConstantInstruction, NegInstruction,
-        CheckCastInstruction {
+        CheckCastInstruction, AThrowInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
