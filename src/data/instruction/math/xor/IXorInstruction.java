@@ -6,13 +6,13 @@ import data.instruction.math.XorInstruction;
 import java.io.DataInputStream;
 
 @Opcode(opcode = 0x82, mnemonic = "ixor")
-public final class IXor extends XorInstruction<Integer> {
+public final class IXorInstruction extends XorInstruction<Integer> {
 
-    public IXor() {
+    public IXorInstruction() {
 
     }
 
-    public IXor read(final DataInputStream in) {
-        return new IXor();
+    public IXorInstruction read(final DataInputStream in) {
+        return new IXorInstruction();
     }
 }

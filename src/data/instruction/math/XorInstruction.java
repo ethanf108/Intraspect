@@ -1,10 +1,10 @@
 package data.instruction.math;
 
 import data.instruction.MathInstruction;
-import data.instruction.math.xor.IXor;
+import data.instruction.math.xor.IXorInstruction;
 import data.instruction.math.xor.LXorInstruction;
 
-public sealed abstract class XorInstruction<T extends Number> extends MathInstruction<T> permits IXor, LXorInstruction {
+public sealed abstract class XorInstruction<T extends Number> extends MathInstruction<T> permits IXorInstruction, LXorInstruction {
 
     @Override
     @SuppressWarnings("unchecked")
