@@ -13,14 +13,13 @@ public sealed abstract class Instruction permits
         NopInstruction, ConversionInstruction, InvokeInstruction, ConstantInstruction,
         ReservedInstruction, LoadInstruction, ArrayLoadInstruction, StoreInstruction,
         ArrayStoreInstruction, StackInstruction, ReturnInstruction, UnknownInstruction,
-        CompareInstruction, IfInstruction {
+        CompareInstruction, IfInstruction, MathInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
     private transient String mnemonicCache = null;
 
     protected Instruction() {
-
     }
 
     private void cacheOpcodeValues() {
