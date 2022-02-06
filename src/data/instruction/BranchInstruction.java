@@ -1,8 +1,9 @@
 package data.instruction;
 
 import data.instruction.branch.GotoInstruction;
+import data.instruction.branch.JsrInstruction;
 
-public sealed abstract class BranchInstruction extends Instruction permits IfInstruction, IfCompareInstruction, IfObjectInstruction, GotoInstruction {
+public sealed abstract class BranchInstruction extends Instruction permits IfInstruction, IfCompareInstruction, IfObjectInstruction, GotoInstruction, JsrInstruction {
 
     protected final int branchTarget;
 
