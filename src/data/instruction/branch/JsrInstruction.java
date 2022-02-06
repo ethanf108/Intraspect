@@ -10,7 +10,7 @@ import java.io.IOException;
 @Opcode(opcode = 0xA8, mnemonic = "jsr")
 public final class JsrInstruction extends BranchInstruction {
 
-    protected JsrInstruction(int branchTarget) {
+    public JsrInstruction(int branchTarget) {
         super(branchTarget);
     }
 
