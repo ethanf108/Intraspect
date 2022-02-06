@@ -1,21 +1,7 @@
 package data.instruction;
 
 import data.ClassFile;
-import data.instruction.conversion.DoubleToFloatInstruction;
-import data.instruction.conversion.DoubleToIntInstruction;
-import data.instruction.conversion.DoubleToLongInstruction;
-import data.instruction.conversion.FloatToDoubleInstruction;
-import data.instruction.conversion.FloatToIntInstruction;
-import data.instruction.conversion.FloatToLongInstruction;
-import data.instruction.conversion.IntToByteInstruction;
-import data.instruction.conversion.IntToCharInstruction;
-import data.instruction.conversion.IntToDoubleInstruction;
-import data.instruction.conversion.IntToFloatInstruction;
-import data.instruction.conversion.IntToLongInstruction;
-import data.instruction.conversion.IntToShortInstruction;
-import data.instruction.conversion.LongToDoubleInstruction;
-import data.instruction.conversion.LongToFloatInstruction;
-import data.instruction.conversion.LongToIntInstruction;
+import data.instruction.conversion.*;
 
 public sealed abstract class ConversionInstruction extends Instruction permits
         IntToLongInstruction, IntToFloatInstruction, IntToDoubleInstruction,

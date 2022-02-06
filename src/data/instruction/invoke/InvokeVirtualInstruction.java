@@ -4,6 +4,7 @@ import data.ClassFile;
 import data.constant.MethodRefConstant;
 import data.instruction.InvokeInstruction;
 import data.instruction.Opcode;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Optional;
@@ -13,6 +14,10 @@ public final class InvokeVirtualInstruction extends InvokeInstruction {
 
     public InvokeVirtualInstruction(int methodIndex) {
         super(methodIndex);
+    }
+
+    public static InvokeVirtualInstruction read(DataInputStream in) throws IOException {
+        return new InvokeVirtualInstruction(in.readUnsignedShort());
     }
 
     @Override
@@ -33,10 +38,6 @@ public final class InvokeVirtualInstruction extends InvokeInstruction {
     @Override
     public boolean isValid(ClassFile ref) {
         return ref.getConstantDesc(this.methodIndex) instanceof MethodRefConstant;
-    }
-
-    public static InvokeVirtualInstruction read(DataInputStream in) throws IOException {
-        return new InvokeVirtualInstruction(in.readUnsignedShort());
     }
 
 }
