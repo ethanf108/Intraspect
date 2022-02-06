@@ -10,7 +10,7 @@ import java.io.IOException;
 @Opcode(opcode = 0xA7, mnemonic = "goto")
 public final class GotoInstruction extends BranchInstruction {
 
-    protected GotoInstruction(int branchTarget) {
+    public GotoInstruction(int branchTarget) {
         super(branchTarget);
     }
 
