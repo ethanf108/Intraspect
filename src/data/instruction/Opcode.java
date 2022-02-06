@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Opcode {
 
-    public int opcode();
+    int opcode();
 
-    public String mnemonic();
+    String mnemonic();
 
 }
