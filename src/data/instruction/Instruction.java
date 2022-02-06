@@ -17,7 +17,7 @@ public sealed abstract class Instruction permits
         ArrayStoreInstruction, StackInstruction, ReturnInstruction, UnknownInstruction,
         CompareInstruction, BranchInstruction, MathInstruction, IincInstruction,
         LoadConstantInstruction, NegInstruction, CheckCastInstruction, AThrowInstruction,
-        InstanceofInstruction {
+        InstanceofInstruction, FieldInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
