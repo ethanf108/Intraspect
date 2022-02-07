@@ -2,6 +2,7 @@ package data.instruction;
 
 import data.ClassFile;
 import data.instruction.branch.RetInstruction;
+import data.instruction.branch.TableSwitchInstruction;
 import data.instruction.control.ReturnInstruction;
 import data.instruction.load.ArrayLoadInstruction;
 import data.instruction.math.NegInstruction;
@@ -24,7 +25,7 @@ public sealed abstract class Instruction permits
         CompareInstruction, BranchInstruction, MathInstruction, IincInstruction,
         LoadConstantInstruction, NegInstruction, AThrowInstruction, ObjectInstruction,
         FieldInstruction, ArrayLengthInstruction, RetInstruction, MonitorInstruction,
-        MultiANewArrayInstruction, NewArrayInstruction, BranchWideInstruction {
+        MultiANewArrayInstruction, NewArrayInstruction, BranchWideInstruction, TableSwitchInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
