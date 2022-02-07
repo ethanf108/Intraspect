@@ -49,7 +49,7 @@ public class CodeAttribute implements AttributeDesc {
         List<Instruction> instructions = new ArrayList<>();
 
         while (instructionBytes > 0) {
-            final Instruction instruction = InstructionCache.read(in, (instructionByteCache - instructionBytes - 1) % 4);
+            final Instruction instruction = InstructionCache.read(in, 3 - (instructionByteCache - instructionBytes) % 4);
             instructionBytes -= instruction.getDataLength();
             instructions.add(instruction);
         }
