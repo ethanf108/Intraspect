@@ -3,6 +3,9 @@ package data.instruction.constant;
 import data.instruction.ConstantInstruction;
 import data.instruction.Opcode;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 @Opcode(opcode = 0x11, mnemonic = "sipush")
 public final class SipushInstruction extends ConstantInstruction {
 
@@ -10,6 +13,10 @@ public final class SipushInstruction extends ConstantInstruction {
 
     public SipushInstruction(short shortValue) {
         this.shortValue = shortValue;
+    }
+
+    public static SipushInstruction read(DataInputStream in) throws IOException {
+        return new SipushInstruction(in.readShort());
     }
 
     @Override

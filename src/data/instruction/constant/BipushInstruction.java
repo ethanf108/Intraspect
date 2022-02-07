@@ -3,6 +3,9 @@ package data.instruction.constant;
 import data.instruction.ConstantInstruction;
 import data.instruction.Opcode;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 @Opcode(opcode = 0x10, mnemonic = "bipush")
 public final class BipushInstruction extends ConstantInstruction {
 
@@ -10,6 +13,10 @@ public final class BipushInstruction extends ConstantInstruction {
 
     public BipushInstruction(byte byteValue) {
         this.byteValue = byteValue;
+    }
+
+    public static BipushInstruction read(DataInputStream in) throws IOException {
+        return new BipushInstruction(in.readByte());
     }
 
     @Override

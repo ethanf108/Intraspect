@@ -3,6 +3,8 @@ package data.instruction.stack;
 import data.instruction.Opcode;
 import data.instruction.StackInstruction;
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.Stack;
 
 @Opcode(opcode = 0x5E, mnemonic = "dup2_x2")
@@ -10,6 +12,10 @@ public final class Dup2_x2Instruction extends StackInstruction {
 
     public Dup2_x2Instruction() {
 
+    }
+
+    public static Dup2_x2Instruction read(DataInputStream in) throws IOException {
+        return new Dup2_x2Instruction();
     }
 
     @Override
