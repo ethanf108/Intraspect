@@ -4,6 +4,9 @@ import data.ClassFile;
 import data.instruction.Instruction;
 import data.instruction.Opcode;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 @Opcode(opcode = 0x84, mnemonic = "iinc")
 public final class IincInstruction extends Instruction {
 
@@ -13,6 +16,10 @@ public final class IincInstruction extends Instruction {
     public IincInstruction(int localVariableIndex, int constant) {
         this.localVariableIndex = localVariableIndex;
         this.constant = constant;
+    }
+
+    public static IincInstruction read(DataInputStream in) throws IOException {
+        return new IincInstruction(in.readUnsignedByte(), in.readUnsignedByte());
     }
 
     @Override

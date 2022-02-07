@@ -17,7 +17,10 @@ public final class InvokeDynamicInstruction extends InvokeInstruction {
     }
 
     public static InvokeDynamicInstruction read(DataInputStream in) throws IOException {
-        return new InvokeDynamicInstruction(in.readUnsignedShort());
+        final InvokeDynamicInstruction ret = new InvokeDynamicInstruction(in.readUnsignedShort());
+        in.read();
+        in.read();
+        return ret;
     }
 
     @Override
