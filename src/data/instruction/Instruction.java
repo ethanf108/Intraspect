@@ -24,7 +24,7 @@ public sealed abstract class Instruction permits
         CompareInstruction, BranchInstruction, MathInstruction, IincInstruction,
         LoadConstantInstruction, NegInstruction, AThrowInstruction, ObjectInstruction,
         FieldInstruction, ArrayLengthInstruction, RetInstruction, MonitorInstruction,
-        MultiANewArrayInstruction, NewArrayInstruction {
+        MultiANewArrayInstruction, NewArrayInstruction, BranchWideInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
