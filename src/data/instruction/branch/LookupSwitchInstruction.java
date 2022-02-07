@@ -80,6 +80,11 @@ public final class LookupSwitchInstruction extends Instruction {
         return false;
     }
 
+    @Override
+    public boolean isPadded() {
+        return true;
+    }
+
     public record MatchOffsetPair(int match, int offset) {
 
         public static MatchOffsetPair read(DataInputStream in) throws IOException {

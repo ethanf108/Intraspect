@@ -66,9 +66,15 @@ public final class TableSwitchInstruction extends Instruction {
     }
 
     @Override
+    public boolean isPadded() {
+        return true;
+    }
+
+    @Override
     public int getNumOperands() {
         return 12 + 4 * this.jumpOffsets.length + this.padBytes;
     }
+
 
     @Override
     public int[] getOperands() {

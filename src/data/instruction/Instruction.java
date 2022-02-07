@@ -63,6 +63,10 @@ public sealed abstract class Instruction permits
         return this.mnemonicCache;
     }
 
+    public boolean isPadded() {
+        return false;
+    }
+
     public abstract int getNumOperands();
 
     public abstract int[] getOperands();
