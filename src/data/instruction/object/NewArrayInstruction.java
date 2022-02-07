@@ -2,11 +2,13 @@ package data.instruction.object;
 
 import data.ClassFile;
 import data.instruction.Instruction;
+import data.instruction.Opcode;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Optional;
 
+@Opcode(opcode = 0xBC, mnemonic = "newarray")
 public final class NewArrayInstruction extends Instruction {
 
     private final int aType;
