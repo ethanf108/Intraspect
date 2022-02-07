@@ -12,7 +12,7 @@ public final class IAndInstruction extends AndInstruction<Integer> {
 
     }
 
-    public IAndInstruction read(final DataInputStream in) {
+    public static IAndInstruction read(final DataInputStream in) {
         return new IAndInstruction();
     }
 }
