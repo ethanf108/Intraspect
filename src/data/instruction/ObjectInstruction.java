@@ -1,25 +1,20 @@
-package data.instruction.misc;
+package data.instruction;
 
 import data.ClassFile;
 import data.constant.ClassConstant;
-import data.instruction.Instruction;
-import data.instruction.Opcode;
+import data.instruction.object.ANewArrayInstruction;
+import data.instruction.object.CheckCastInstruction;
+import data.instruction.object.InstanceofInstruction;
+import data.instruction.object.NewInstruction;
 
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.util.Optional;
 
-@Opcode(opcode = 0xC1, mnemonic = "instanceof")
-public final class InstanceofInstruction extends Instruction {
+public sealed abstract class ObjectInstruction extends Instruction permits InstanceofInstruction, CheckCastInstruction, NewInstruction, ANewArrayInstruction {
 
-    private final int classIndex;
+    protected final int classIndex;
 
-    public InstanceofInstruction(int classIndex) {
+    protected ObjectInstruction(int classIndex) {
         this.classIndex = classIndex;
-    }
-
-    public static InstanceofInstruction read(DataInputStream in) throws IOException {
-        return new InstanceofInstruction(in.readUnsignedShort());
     }
 
     public int getClassIndex() {
@@ -27,12 +22,12 @@ public final class InstanceofInstruction extends Instruction {
     }
 
     @Override
-    public int getNumOperands() {
+    public final int getNumOperands() {
         return 2;
     }
 
     @Override
-    public int[] getOperands() {
+    public final int[] getOperands() {
         return new int[]{(this.classIndex & 0xFF00) >> 8, this.classIndex & 0xFF};
     }
 
