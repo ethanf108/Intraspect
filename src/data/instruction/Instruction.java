@@ -13,6 +13,7 @@ import data.instruction.misc.NopInstruction;
 import data.instruction.object.MultiANewArrayInstruction;
 import data.instruction.object.NewArrayInstruction;
 import data.instruction.store.ArrayStoreInstruction;
+import data.instruction.wide.WideInstruction;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -25,7 +26,8 @@ public sealed abstract class Instruction permits
         CompareInstruction, BranchInstruction, MathInstruction, IincInstruction,
         LoadConstantInstruction, NegInstruction, AThrowInstruction, ObjectInstruction,
         FieldInstruction, ArrayLengthInstruction, RetInstruction, MonitorInstruction,
-        MultiANewArrayInstruction, NewArrayInstruction, BranchWideInstruction, TableSwitchInstruction {
+        MultiANewArrayInstruction, NewArrayInstruction, BranchWideInstruction, TableSwitchInstruction,
+        WideInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
