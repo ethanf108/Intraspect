@@ -4,10 +4,14 @@ import data.AttributeDesc;
 import data.AttributeName;
 import data.AttributeReader;
 import data.ClassFile;
+import data.instruction.Instruction;
+import data.instruction.InstructionCache;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Code attribute.
@@ -18,11 +22,13 @@ public class CodeAttribute implements AttributeDesc {
     private final int attributeNameIndex;
     private final int maxStack;
     private final int maxLocals;
-    private final byte[] code;
+    private final Instruction[] code;
     private final ExceptionDesc[] exceptionTable;
     private final AttributeDesc[] attributes;
 
-    public CodeAttribute(final int attributeNameIndex, final int maxStack, final int maxLocals, final byte[] code, final ExceptionDesc[] exceptionTable, final AttributeDesc[] attributes) {
+    private transient int instructionByteLengthCache;
+
+    public CodeAttribute(final int attributeNameIndex, final int maxStack, final int maxLocals, final Instruction[] code, final ExceptionDesc[] exceptionTable, final AttributeDesc[] attributes) {
         this.attributeNameIndex = attributeNameIndex;
         this.maxStack = maxStack;
         this.maxLocals = maxLocals;
@@ -37,9 +43,17 @@ public class CodeAttribute implements AttributeDesc {
         final int maxStack = in.readUnsignedShort();
         final int maxLocals = in.readUnsignedShort();
 
-        final byte[] code = new byte[in.readInt()];
+        int instructionBytes = in.readInt();
+        final int instructionByteCache = instructionBytes;
 
-        in.read(code);
+        List<Instruction> instructions = new ArrayList<>();
+
+        while (instructionBytes > 0) {
+            final Instruction instruction = InstructionCache.read(in);
+            instructionBytes -= instruction.getDataLength();
+            instructions.add(instruction);
+        }
+        System.out.println();
 
         final ExceptionDesc[] exceptions = new ExceptionDesc[in.readUnsignedShort()];
         for (int i = 0; i < exceptions.length; i++) {
@@ -51,7 +65,9 @@ public class CodeAttribute implements AttributeDesc {
             attributes[i] = AttributeReader.read(in, ref);
         }
 
-        return new CodeAttribute(ani, maxStack, maxLocals, code, exceptions, attributes);
+        CodeAttribute ret = new CodeAttribute(ani, maxStack, maxLocals, instructions.toArray(new Instruction[0]), exceptions, attributes);
+        ret.instructionByteLengthCache = instructionByteCache;
+        return ret;
     }
 
     @Override
@@ -67,7 +83,7 @@ public class CodeAttribute implements AttributeDesc {
         return this.maxLocals;
     }
 
-    public byte[] getCode() {
+    public Instruction[] getCode() {
         return this.code;
     }
 
@@ -85,7 +101,7 @@ public class CodeAttribute implements AttributeDesc {
         for (final AttributeDesc ad : this.attributes) {
             attributeLength += ad.getDataLength() + 6;
         }
-        return 12 + this.code.length + 8 * this.exceptionTable.length + attributeLength;
+        return 12 + this.instructionByteLengthCache + 8 * this.exceptionTable.length + attributeLength;
     }
 
     @Override
@@ -94,8 +110,11 @@ public class CodeAttribute implements AttributeDesc {
         out.writeInt(this.getDataLength());
         out.writeShort(this.maxStack);
         out.writeShort(this.maxLocals);
-        out.writeInt(this.code.length);
-        out.write(this.code);
+
+        out.writeInt(this.instructionByteLengthCache);
+        for (Instruction instruction : this.code) {
+            instruction.write(out);
+        }
 
         out.writeShort(this.exceptionTable.length);
         for (final ExceptionDesc ed : this.exceptionTable) {
@@ -108,7 +127,8 @@ public class CodeAttribute implements AttributeDesc {
         }
     }
 
-    public static record ExceptionDesc(int startPc, int endPc, int handlerPc, int catchType) {
+    public record ExceptionDesc(int startPc, int endPc, int handlerPc, int catchType) {
+
         public static ExceptionDesc read(DataInputStream in) throws IOException {
             return new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
         }
