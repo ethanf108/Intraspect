@@ -9,6 +9,8 @@ import data.instruction.misc.AThrowInstruction;
 import data.instruction.misc.ArrayLengthInstruction;
 import data.instruction.misc.IincInstruction;
 import data.instruction.misc.NopInstruction;
+import data.instruction.object.MultiANewArrayInstruction;
+import data.instruction.object.NewArrayInstruction;
 import data.instruction.store.ArrayStoreInstruction;
 
 import java.io.DataOutputStream;
@@ -21,7 +23,8 @@ public sealed abstract class Instruction permits
         ArrayStoreInstruction, StackInstruction, ReturnInstruction, UnknownInstruction,
         CompareInstruction, BranchInstruction, MathInstruction, IincInstruction,
         LoadConstantInstruction, NegInstruction, AThrowInstruction, ObjectInstruction,
-        FieldInstruction, ArrayLengthInstruction, RetInstruction, MonitorInstruction {
+        FieldInstruction, ArrayLengthInstruction, RetInstruction, MonitorInstruction,
+        MultiANewArrayInstruction, NewArrayInstruction {
 
     private transient String toStringCache = null;
     private transient int opcodeCache = -1;
