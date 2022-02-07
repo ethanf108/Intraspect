@@ -76,9 +76,6 @@ public final class InstructionCache {
             throw new RuntimeException(e.getTargetException());
         } catch (IllegalAccessException e) {
             throw new IllegalStateException("read method is not able to be accessed");
-        } catch (NullPointerException npe) {
-            System.out.println("NPE: " + clazz.getName());
-            throw npe;
         }
     }
 

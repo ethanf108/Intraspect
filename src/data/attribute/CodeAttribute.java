@@ -53,7 +53,6 @@ public class CodeAttribute implements AttributeDesc {
             instructionBytes -= instruction.getDataLength();
             instructions.add(instruction);
         }
-        System.out.println();
 
         final ExceptionDesc[] exceptions = new ExceptionDesc[in.readUnsignedShort()];
         for (int i = 0; i < exceptions.length; i++) {
