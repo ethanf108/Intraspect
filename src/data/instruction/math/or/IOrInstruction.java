@@ -12,7 +12,7 @@ public final class IOrInstruction extends OrInstruction<Integer> {
 
     }
 
-    public IOrInstruction read(final DataInputStream in) {
+    public static IOrInstruction read(final DataInputStream in) {
         return new IOrInstruction();
     }
 }

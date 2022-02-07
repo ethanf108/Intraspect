@@ -12,7 +12,7 @@ public final class ISubInstruction extends SubInstruction<Integer> {
 
     }
 
-    public ISubInstruction read(final DataInputStream in) {
+    public static ISubInstruction read(final DataInputStream in) {
         return new ISubInstruction();
     }
 }

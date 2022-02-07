@@ -12,7 +12,7 @@ public final class LShlInstruction extends ShlInstruction<Long> {
 
     }
 
-    public LShlInstruction read(final DataInputStream in) {
+    public static LShlInstruction read(final DataInputStream in) {
         return new LShlInstruction();
     }
 }

@@ -12,7 +12,7 @@ public final class IAddInstruction extends AddInstruction<Integer> {
 
     }
 
-    public IAddInstruction read(final DataInputStream in) {
+    public static IAddInstruction read(final DataInputStream in) {
         return new IAddInstruction();
     }
 }

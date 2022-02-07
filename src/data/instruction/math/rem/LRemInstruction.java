@@ -12,7 +12,7 @@ public final class LRemInstruction extends RemInstruction<Long> {
 
     }
 
-    public LRemInstruction read(final DataInputStream in) {
+    public static LRemInstruction read(final DataInputStream in) {
         return new LRemInstruction();
     }
 }

@@ -12,7 +12,7 @@ public final class FAddInstruction extends AddInstruction<Float> {
 
     }
 
-    public FAddInstruction read(final DataInputStream in) {
+    public static FAddInstruction read(final DataInputStream in) {
         return new FAddInstruction();
     }
 }

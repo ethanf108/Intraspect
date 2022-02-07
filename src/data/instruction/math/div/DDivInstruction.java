@@ -12,7 +12,7 @@ public final class DDivInstruction extends DivInstruction<Double> {
 
     }
 
-    public DDivInstruction read(final DataInputStream in) {
+    public static DDivInstruction read(final DataInputStream in) {
         return new DDivInstruction();
     }
 }

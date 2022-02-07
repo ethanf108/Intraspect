@@ -12,7 +12,7 @@ public final class LMulInstruction extends MulInstruction<Long> {
 
     }
 
-    public LMulInstruction read(final DataInputStream in) {
+    public static LMulInstruction read(final DataInputStream in) {
         return new LMulInstruction();
     }
 }

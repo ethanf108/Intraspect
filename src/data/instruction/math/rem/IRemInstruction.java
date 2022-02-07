@@ -12,7 +12,7 @@ public final class IRemInstruction extends RemInstruction<Integer> {
 
     }
 
-    public IRemInstruction read(final DataInputStream in) {
+    public static IRemInstruction read(final DataInputStream in) {
         return new IRemInstruction();
     }
 }

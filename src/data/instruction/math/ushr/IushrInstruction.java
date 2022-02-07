@@ -12,7 +12,7 @@ public final class IushrInstruction extends UshrInstruction<Integer> {
 
     }
 
-    public IushrInstruction read(final DataInputStream in) {
+    public static IushrInstruction read(final DataInputStream in) {
         return new IushrInstruction();
     }
 }

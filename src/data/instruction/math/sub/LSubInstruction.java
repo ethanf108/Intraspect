@@ -12,7 +12,7 @@ public final class LSubInstruction extends SubInstruction<Long> {
 
     }
 
-    public LSubInstruction read(final DataInputStream in) {
+    public static LSubInstruction read(final DataInputStream in) {
         return new LSubInstruction();
     }
 }

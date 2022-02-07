@@ -12,7 +12,7 @@ public final class DSubInstruction extends SubInstruction<Double> {
 
     }
 
-    public DSubInstruction read(final DataInputStream in) {
+    public static DSubInstruction read(final DataInputStream in) {
         return new DSubInstruction();
     }
 }

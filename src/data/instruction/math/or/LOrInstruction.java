@@ -12,7 +12,7 @@ public final class LOrInstruction extends OrInstruction<Long> {
 
     }
 
-    public LOrInstruction read(final DataInputStream in) {
+    public static LOrInstruction read(final DataInputStream in) {
         return new LOrInstruction();
     }
 }

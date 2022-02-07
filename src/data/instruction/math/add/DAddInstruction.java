@@ -12,7 +12,7 @@ public final class DAddInstruction extends AddInstruction<Double> {
 
     }
 
-    public DAddInstruction read(final DataInputStream in) {
+    public static DAddInstruction read(final DataInputStream in) {
         return new DAddInstruction();
     }
 }

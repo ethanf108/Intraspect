@@ -12,7 +12,7 @@ public final class DMulInstruction extends MulInstruction<Double> {
 
     }
 
-    public DMulInstruction read(final DataInputStream in) {
+    public static DMulInstruction read(final DataInputStream in) {
         return new DMulInstruction();
     }
 }

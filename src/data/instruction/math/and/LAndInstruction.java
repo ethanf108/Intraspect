@@ -12,7 +12,7 @@ public final class LAndInstruction extends AndInstruction<Long> {
 
     }
 
-    public LAndInstruction read(final DataInputStream in) {
+    public static LAndInstruction read(final DataInputStream in) {
         return new LAndInstruction();
     }
 }

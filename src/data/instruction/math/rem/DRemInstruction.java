@@ -12,7 +12,7 @@ public final class DRemInstruction extends RemInstruction<Double> {
 
     }
 
-    public DRemInstruction read(final DataInputStream in) {
+    public static DRemInstruction read(final DataInputStream in) {
         return new DRemInstruction();
     }
 }

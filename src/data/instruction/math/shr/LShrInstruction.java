@@ -12,7 +12,7 @@ public final class LShrInstruction extends ShrInstruction<Long> {
 
     }
 
-    public LShrInstruction read(final DataInputStream in) {
+    public static LShrInstruction read(final DataInputStream in) {
         return new LShrInstruction();
     }
 }

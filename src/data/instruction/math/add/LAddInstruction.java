@@ -12,7 +12,7 @@ public final class LAddInstruction extends AddInstruction<Long> {
 
     }
 
-    public LAddInstruction read(final DataInputStream in) {
+    public static LAddInstruction read(final DataInputStream in) {
         return new LAddInstruction();
     }
 }

@@ -12,7 +12,7 @@ public final class FDivInstruction extends DivInstruction<Float> {
 
     }
 
-    public FDivInstruction read(final DataInputStream in) {
+    public static FDivInstruction read(final DataInputStream in) {
         return new FDivInstruction();
     }
 }

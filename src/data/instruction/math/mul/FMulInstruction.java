@@ -12,7 +12,7 @@ public final class FMulInstruction extends MulInstruction<Float> {
 
     }
 
-    public FMulInstruction read(final DataInputStream in) {
+    public static FMulInstruction read(final DataInputStream in) {
         return new FMulInstruction();
     }
 }

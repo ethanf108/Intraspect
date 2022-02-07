@@ -12,7 +12,7 @@ public final class FSubInstruction extends SubInstruction<Float> {
 
     }
 
-    public FSubInstruction read(final DataInputStream in) {
+    public static FSubInstruction read(final DataInputStream in) {
         return new FSubInstruction();
     }
 }

@@ -12,7 +12,7 @@ public final class IMulInstruction extends MulInstruction<Integer> {
 
     }
 
-    public IMulInstruction read(final DataInputStream in) {
+    public static IMulInstruction read(final DataInputStream in) {
         return new IMulInstruction();
     }
 }

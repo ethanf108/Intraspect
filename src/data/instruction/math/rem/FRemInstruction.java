@@ -12,7 +12,7 @@ public final class FRemInstruction extends RemInstruction<Float> {
 
     }
 
-    public FRemInstruction read(final DataInputStream in) {
+    public static FRemInstruction read(final DataInputStream in) {
         return new FRemInstruction();
     }
 }

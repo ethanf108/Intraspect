@@ -12,7 +12,7 @@ public final class IShlInstruction extends ShlInstruction<Integer> {
 
     }
 
-    public IShlInstruction read(final DataInputStream in) {
+    public static IShlInstruction read(final DataInputStream in) {
         return new IShlInstruction();
     }
 }

@@ -12,7 +12,12 @@ public final class IDivInstruction extends DivInstruction<Integer> {
 
     }
 
-    public IDivInstruction read(final DataInputStream in) {
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    IDivInstruction read(final DataInputStream in) {
         return new IDivInstruction();
     }
 }

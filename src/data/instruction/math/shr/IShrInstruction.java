@@ -12,7 +12,7 @@ public final class IShrInstruction extends ShrInstruction<Integer> {
 
     }
 
-    public IShrInstruction read(final DataInputStream in) {
+    public static IShrInstruction read(final DataInputStream in) {
         return new IShrInstruction();
     }
 }

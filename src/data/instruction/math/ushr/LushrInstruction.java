@@ -12,7 +12,7 @@ public final class LushrInstruction extends UshrInstruction<Long> {
 
     }
 
-    public LushrInstruction read(final DataInputStream in) {
+    public static LushrInstruction read(final DataInputStream in) {
         return new LushrInstruction();
     }
 }

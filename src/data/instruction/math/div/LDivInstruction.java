@@ -12,7 +12,7 @@ public final class LDivInstruction extends DivInstruction<Long> {
 
     }
 
-    public LDivInstruction read(final DataInputStream in) {
+    public static LDivInstruction read(final DataInputStream in) {
         return new LDivInstruction();
     }
 }
