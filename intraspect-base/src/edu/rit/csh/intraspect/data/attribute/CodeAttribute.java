@@ -97,7 +97,7 @@ public class CodeAttribute implements AttributeDesc {
         for (final AttributeDesc ad : this.attributes) {
             attributeLength += ad.getDataLength() + 6;
         }
-        return 12 + this.instructionByteLengthCache + 8 * this.exceptionTable.length + attributeLength;
+        return 12 + this.instructionByteLengthCache + (this.exceptionTable.length << 3) + attributeLength;
     }
 
     @Override

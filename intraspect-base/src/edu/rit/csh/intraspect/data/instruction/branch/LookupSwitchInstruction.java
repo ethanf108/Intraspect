@@ -44,7 +44,7 @@ public final class LookupSwitchInstruction extends Instruction {
 
     @Override
     public int getNumOperands() {
-        return 8 + this.padBytes + 8 * this.matchOffsetPairs.length;
+        return 8 + this.padBytes + (this.matchOffsetPairs.length << 3);
     }
 
     @Override

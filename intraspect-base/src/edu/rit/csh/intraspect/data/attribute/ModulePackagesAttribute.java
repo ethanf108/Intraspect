@@ -51,6 +51,6 @@ public class ModulePackagesAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return this.packageIndex.length * 2 + 2;
+        return (this.packageIndex.length << 1) + 2;
     }
 }

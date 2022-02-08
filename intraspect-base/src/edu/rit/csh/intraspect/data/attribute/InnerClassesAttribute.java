@@ -34,7 +34,7 @@ public class InnerClassesAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return 2 + getInnerClassesTableLength() * 8;
+        return 2 + (getInnerClassesTableLength() << 3);
     }
 
     public int getInnerClassesTableLength() {

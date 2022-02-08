@@ -79,7 +79,11 @@ public class ModuleAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return 14 + this.requires.length * 6 + this.exports.length * 8 + this.opens.length * 8 + this.provides.length * 6 + this.usesIndex.length * 2;
+        return 14 + this.requires.length * 6
+                + (this.exports.length << 3)
+                + (this.opens.length << 3)
+                + this.provides.length * 6
+                + (this.usesIndex.length << 1);
     }
 
     @Override
