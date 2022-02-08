@@ -9,7 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0xC6, mnemonic = "ifnull")
 public final class IfNullInstruction extends IfObjectInstruction {
 
-    protected IfNullInstruction(final int branchTarget) {
+    public IfNullInstruction(final int branchTarget) {
         super(branchTarget);
     }
 
