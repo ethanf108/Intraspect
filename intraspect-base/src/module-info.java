@@ -1,4 +1,4 @@
-module ClassFileViewer {
+module intraspect.base {
     requires java.base;
 
     exports edu.rit.csh.intraspect.data;
