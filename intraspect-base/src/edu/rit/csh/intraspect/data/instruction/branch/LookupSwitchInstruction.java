@@ -24,7 +24,6 @@ public final class LookupSwitchInstruction extends Instruction {
     }
 
     public static LookupSwitchInstruction read(final DataInputStream in, final int padBytes) throws IOException {
-        System.out.println("PAD: " + padBytes);
         for (int i = 0; i < padBytes; i++) {
             in.readByte();
         }
@@ -33,7 +32,6 @@ public final class LookupSwitchInstruction extends Instruction {
 
         final int numPairs = in.readInt();
 
-        System.out.println(defaultOffset + " " + numPairs);
         MatchOffsetPair[] mops = new MatchOffsetPair[numPairs];
 
         for (int i = 0; i < numPairs; i++) {
