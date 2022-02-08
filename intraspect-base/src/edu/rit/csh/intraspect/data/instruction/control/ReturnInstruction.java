@@ -32,7 +32,7 @@ public sealed class ReturnInstruction extends Instruction permits IReturnInstruc
     @Override
     public boolean isValid(final ClassFile ref) {
         //TODO check return type
-        return false;
+        return true;
     }
 
     public Class<?> getReturnType() {
