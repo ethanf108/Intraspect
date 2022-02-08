@@ -14,7 +14,7 @@ public sealed abstract class IfCompareInstruction<T> extends BranchInstruction i
 
     @Override
     public final boolean isValid(final ClassFile ref) {
-        return false;
+        return true;
     }
 
     @Override

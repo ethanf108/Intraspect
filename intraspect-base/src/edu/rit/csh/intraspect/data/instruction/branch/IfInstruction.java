@@ -12,7 +12,7 @@ public sealed abstract class IfInstruction extends BranchInstruction implements 
 
     @Override
     public final boolean isValid(final ClassFile ref) {
-        return false;
+        return true;
     }
 
     @Override

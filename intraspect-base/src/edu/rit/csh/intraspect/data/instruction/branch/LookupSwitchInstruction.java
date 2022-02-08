@@ -75,7 +75,7 @@ public final class LookupSwitchInstruction extends Instruction {
 
     @Override
     public boolean isValid(final ClassFile ref) {
-        return false;
+        return true;
     }
 
     @Override

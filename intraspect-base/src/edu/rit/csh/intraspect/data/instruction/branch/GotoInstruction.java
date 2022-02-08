@@ -19,6 +19,6 @@ public final class GotoInstruction extends BranchInstruction {
 
     @Override
     public boolean isValid(final ClassFile ref) {
-        return false;
+        return true;
     }
 }

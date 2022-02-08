@@ -2,6 +2,7 @@ package edu.rit.csh.intraspect.data.instruction.invoke;
 
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.DynamicConstant;
+import edu.rit.csh.intraspect.data.constant.InvokeDynamicConstant;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
 
 import java.io.DataInputStream;
@@ -39,6 +40,6 @@ public final class InvokeDynamicInstruction extends InvokeInstruction {
 
     @Override
     public boolean isValid(final ClassFile ref) {
-        return ref.getConstantDesc(this.methodIndex) instanceof DynamicConstant;
+        return ref.getConstantDesc(this.methodIndex) instanceof DynamicConstant || ref.getConstantDesc(this.methodIndex) instanceof InvokeDynamicConstant;
     }
 }
