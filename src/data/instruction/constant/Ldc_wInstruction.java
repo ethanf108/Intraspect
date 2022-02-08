@@ -9,11 +9,11 @@ import java.io.IOException;
 @Opcode(opcode = 0x13, mnemonic = "ldc_w")
 public final class Ldc_wInstruction extends LoadConstantInstruction {
 
-    public Ldc_wInstruction(int constantPoolIndex) {
+    public Ldc_wInstruction(final int constantPoolIndex) {
         super(constantPoolIndex);
     }
 
-    public static Ldc_wInstruction read(DataInputStream in) throws IOException {
+    public static Ldc_wInstruction read(final DataInputStream in) throws IOException {
         return new Ldc_wInstruction(in.readUnsignedShort());
     }
 

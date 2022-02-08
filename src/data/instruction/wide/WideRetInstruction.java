@@ -2,7 +2,7 @@ package data.instruction.wide;
 
 public final class WideRetInstruction extends WideInstruction {
 
-    public WideRetInstruction(int subOpcode, int localVariableIndex) {
+    public WideRetInstruction(final int subOpcode, final int localVariableIndex) {
         super(subOpcode, localVariableIndex);
     }
 

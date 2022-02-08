@@ -10,7 +10,7 @@ public sealed abstract class InvokeInstruction extends Instruction permits Invok
 
     protected final int methodIndex;
 
-    protected InvokeInstruction(int methodIndex) {
+    protected InvokeInstruction(final int methodIndex) {
         this.methodIndex = methodIndex;
     }
 
@@ -18,5 +18,5 @@ public sealed abstract class InvokeInstruction extends Instruction permits Invok
         return this.methodIndex;
     }
 
-    public abstract Optional<? extends ConstantDesc> getMethodRef(ClassFile ref);
+    public abstract Optional<? extends ConstantDesc> getMethodRef(final ClassFile ref);
 }

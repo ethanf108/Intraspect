@@ -13,7 +13,7 @@ public final class NopInstruction extends Instruction {
     public NopInstruction() {
     }
 
-    public static NopInstruction read(DataInputStream in) throws IOException {
+    public static NopInstruction read(final DataInputStream in) throws IOException {
         return new NopInstruction();
     }
 
@@ -28,7 +28,7 @@ public final class NopInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 }

@@ -11,7 +11,7 @@ public final class CAStoreInstruction extends ArrayStoreInstruction {
     public CAStoreInstruction() {
     }
 
-    public static CAStoreInstruction read(DataInputStream in) throws IOException {
+    public static CAStoreInstruction read(final DataInputStream in) throws IOException {
         return new CAStoreInstruction();
     }
 

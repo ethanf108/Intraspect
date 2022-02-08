@@ -13,12 +13,12 @@ public final class IincInstruction extends Instruction {
     private final int localVariableIndex;
     private final int constant;
 
-    public IincInstruction(int localVariableIndex, int constant) {
+    public IincInstruction(final int localVariableIndex, final int constant) {
         this.localVariableIndex = localVariableIndex;
         this.constant = constant;
     }
 
-    public static IincInstruction read(DataInputStream in) throws IOException {
+    public static IincInstruction read(final DataInputStream in) throws IOException {
         return new IincInstruction(in.readUnsignedByte(), in.readUnsignedByte());
     }
 
@@ -33,7 +33,7 @@ public final class IincInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO check for local variable bounds
         return true;
     }

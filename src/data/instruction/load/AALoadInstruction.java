@@ -12,7 +12,7 @@ public final class AALoadInstruction extends ArrayLoadInstruction {
 
     }
 
-    public static AALoadInstruction read(DataInputStream in) throws IOException {
+    public static AALoadInstruction read(final DataInputStream in) throws IOException {
         return new AALoadInstruction();
     }
 

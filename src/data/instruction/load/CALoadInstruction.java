@@ -11,7 +11,7 @@ public final class CALoadInstruction extends ArrayLoadInstruction {
     public CALoadInstruction() {
     }
 
-    public static CALoadInstruction read(DataInputStream in) throws IOException {
+    public static CALoadInstruction read(final DataInputStream in) throws IOException {
         return new CALoadInstruction();
     }
 

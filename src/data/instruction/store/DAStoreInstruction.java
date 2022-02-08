@@ -12,7 +12,7 @@ public final class DAStoreInstruction extends ArrayStoreInstruction {
 
     }
 
-    public static DAStoreInstruction read(DataInputStream in) throws IOException {
+    public static DAStoreInstruction read(final DataInputStream in) throws IOException {
         return new DAStoreInstruction();
     }
 

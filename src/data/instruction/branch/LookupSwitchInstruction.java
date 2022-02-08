@@ -17,13 +17,13 @@ public final class LookupSwitchInstruction extends Instruction {
 
     private final MatchOffsetPair[] matchOffsetPairs;
 
-    public LookupSwitchInstruction(int padBytes, int defaultOffset, MatchOffsetPair[] matchOffsetPairs) {
+    public LookupSwitchInstruction(final int padBytes, final int defaultOffset, final MatchOffsetPair[] matchOffsetPairs) {
         this.padBytes = padBytes;
         this.defaultOffset = defaultOffset;
         this.matchOffsetPairs = matchOffsetPairs;
     }
 
-    public static LookupSwitchInstruction read(DataInputStream in, int padBytes) throws IOException {
+    public static LookupSwitchInstruction read(final DataInputStream in, final int padBytes) throws IOException {
         System.out.println("PAD: " + padBytes);
         for (int i = 0; i < padBytes; i++) {
             in.readByte();
@@ -76,7 +76,7 @@ public final class LookupSwitchInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return false;
     }
 

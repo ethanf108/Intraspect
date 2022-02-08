@@ -10,16 +10,16 @@ import java.io.IOException;
 @Opcode(opcode = 0x38, mnemonic = "fstore")
 public sealed class FStoreInstruction extends StoreInstruction permits FStore_0Instruction, FStore_1Instruction, FStore_2Instruction, FStore_3Instruction {
 
-    public FStoreInstruction(int lvi) {
+    public FStoreInstruction(final int lvi) {
         super(lvi);
     }
 
-    public static FStoreInstruction read(DataInputStream in) throws IOException {
+    public static FStoreInstruction read(final DataInputStream in) throws IOException {
         return new FStoreInstruction(in.readUnsignedByte());
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO Check if local variable is of int type
         return super.isValid(ref);
     }

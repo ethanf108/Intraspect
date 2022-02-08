@@ -12,7 +12,7 @@ public final class DNegInstruction extends NegInstruction<Double> {
     public DNegInstruction() {
     }
 
-    public static DNegInstruction read(DataInputStream in) throws IOException {
+    public static DNegInstruction read(final DataInputStream in) throws IOException {
         return new DNegInstruction();
     }
 

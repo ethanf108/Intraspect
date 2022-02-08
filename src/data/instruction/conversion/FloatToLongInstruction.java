@@ -12,7 +12,7 @@ public final class FloatToLongInstruction extends ConversionInstruction {
     public FloatToLongInstruction() {
     }
 
-    public static FloatToLongInstruction read(DataInputStream in) throws IOException {
+    public static FloatToLongInstruction read(final DataInputStream in) throws IOException {
         return new FloatToLongInstruction();
     }
 

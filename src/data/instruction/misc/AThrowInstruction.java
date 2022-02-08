@@ -14,7 +14,7 @@ public final class AThrowInstruction extends Instruction {
 
     }
 
-    public static AThrowInstruction read(DataInputStream in) throws IOException {
+    public static AThrowInstruction read(final DataInputStream in) throws IOException {
         return new AThrowInstruction();
     }
 
@@ -29,7 +29,7 @@ public final class AThrowInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 }

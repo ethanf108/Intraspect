@@ -11,7 +11,7 @@ public final class FReturnInstruction extends ReturnInstruction {
     public FReturnInstruction() {
     }
 
-    public static FReturnInstruction read(DataInputStream in) throws IOException {
+    public static FReturnInstruction read(final DataInputStream in) throws IOException {
         return new FReturnInstruction();
     }
 

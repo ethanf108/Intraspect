@@ -12,7 +12,7 @@ public final class LLoad_2Instruction extends LLoadInstruction {
         super(2);
     }
 
-    public static LLoad_2Instruction read(DataInputStream in) throws IOException {
+    public static LLoad_2Instruction read(final DataInputStream in) throws IOException {
         return new LLoad_2Instruction();
     }
 

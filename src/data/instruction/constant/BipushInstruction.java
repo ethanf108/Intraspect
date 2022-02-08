@@ -11,11 +11,11 @@ public final class BipushInstruction extends ConstantInstruction {
 
     private final byte byteValue;
 
-    public BipushInstruction(byte byteValue) {
+    public BipushInstruction(final byte byteValue) {
         this.byteValue = byteValue;
     }
 
-    public static BipushInstruction read(DataInputStream in) throws IOException {
+    public static BipushInstruction read(final DataInputStream in) throws IOException {
         return new BipushInstruction(in.readByte());
     }
 

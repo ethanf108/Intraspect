@@ -71,9 +71,9 @@ public sealed abstract class Instruction permits
 
     public abstract int[] getOperands();
 
-    public abstract boolean isValid(ClassFile ref);
+    public abstract boolean isValid(final ClassFile ref);
 
-    public final void write(DataOutputStream out) throws IOException {
+    public final void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getOpcode());
         for (int i : this.getOperands()) {
             out.writeByte(i);
@@ -85,7 +85,7 @@ public sealed abstract class Instruction permits
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         return obj instanceof Instruction other && this.getOpcode() == other.getOpcode() && Arrays.equals(this.getOperands(), other.getOperands());
     }
 

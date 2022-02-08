@@ -13,7 +13,7 @@ public final class MonitorEnterInstruction extends MonitorInstruction {
 
     }
 
-    public static MonitorEnterInstruction read(DataInputStream in) throws IOException {
+    public static MonitorEnterInstruction read(final DataInputStream in) throws IOException {
         return new MonitorEnterInstruction();
     }
 }

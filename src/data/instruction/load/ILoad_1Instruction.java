@@ -12,7 +12,7 @@ public final class ILoad_1Instruction extends ILoadInstruction {
         super(1);
     }
 
-    public static ILoad_1Instruction read(DataInputStream in) throws IOException {
+    public static ILoad_1Instruction read(final DataInputStream in) throws IOException {
         return new ILoad_1Instruction();
     }
 

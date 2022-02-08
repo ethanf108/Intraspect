@@ -12,7 +12,7 @@ public final class IntToByteInstruction extends ConversionInstruction {
     public IntToByteInstruction() {
     }
 
-    public static IntToByteInstruction read(DataInputStream in) throws IOException {
+    public static IntToByteInstruction read(final DataInputStream in) throws IOException {
         return new IntToByteInstruction();
     }
 

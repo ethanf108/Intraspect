@@ -25,7 +25,7 @@ public sealed abstract class ConversionInstruction extends Instruction permits
     }
 
     @Override
-    public final boolean isValid(ClassFile ref) {
+    public final boolean isValid(final ClassFile ref) {
         return true;
     }
 

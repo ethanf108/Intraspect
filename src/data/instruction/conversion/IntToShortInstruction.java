@@ -12,7 +12,7 @@ public final class IntToShortInstruction extends ConversionInstruction {
     public IntToShortInstruction() {
     }
 
-    public static IntToShortInstruction read(DataInputStream in) throws IOException {
+    public static IntToShortInstruction read(final DataInputStream in) throws IOException {
         return new IntToShortInstruction();
     }
 

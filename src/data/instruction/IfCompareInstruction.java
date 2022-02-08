@@ -9,16 +9,16 @@ public sealed abstract class IfCompareInstruction<T> extends BranchInstruction i
         If_icmpeqInstruction, If_icmpneInstruction, If_icmpltInstruction, If_icmpgeInstruction,
         If_icmpgtInstruction, If_icmpleInstruction, If_acmpeqInstruction, If_acmpneInstruction {
 
-    protected IfCompareInstruction(int branchTarget) {
+    protected IfCompareInstruction(final int branchTarget) {
         super(branchTarget);
     }
 
     @Override
-    public final boolean isValid(ClassFile ref) {
+    public final boolean isValid(final ClassFile ref) {
         return false;
     }
 
     @Override
-    public abstract boolean test(T a, T b);
+    public abstract boolean test(final T a, final T b);
 
 }

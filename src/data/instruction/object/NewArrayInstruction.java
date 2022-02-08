@@ -13,11 +13,11 @@ public final class NewArrayInstruction extends Instruction {
 
     private final int aType;
 
-    public NewArrayInstruction(int aType) {
+    public NewArrayInstruction(final int aType) {
         this.aType = aType;
     }
 
-    public static NewArrayInstruction read(DataInputStream in) throws IOException {
+    public static NewArrayInstruction read(final DataInputStream in) throws IOException {
         return new NewArrayInstruction(in.readUnsignedByte());
     }
 
@@ -50,7 +50,7 @@ public final class NewArrayInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return this.getClassType().isPresent();
     }
 }

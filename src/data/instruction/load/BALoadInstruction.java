@@ -12,7 +12,7 @@ public final class BALoadInstruction extends ArrayLoadInstruction {
 
     }
 
-    public static BALoadInstruction read(DataInputStream in) throws IOException {
+    public static BALoadInstruction read(final DataInputStream in) throws IOException {
         return new BALoadInstruction();
     }
 

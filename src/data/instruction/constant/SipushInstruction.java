@@ -11,11 +11,11 @@ public final class SipushInstruction extends ConstantInstruction {
 
     private final short shortValue;
 
-    public SipushInstruction(short shortValue) {
+    public SipushInstruction(final short shortValue) {
         this.shortValue = shortValue;
     }
 
-    public static SipushInstruction read(DataInputStream in) throws IOException {
+    public static SipushInstruction read(final DataInputStream in) throws IOException {
         return new SipushInstruction(in.readShort());
     }
 

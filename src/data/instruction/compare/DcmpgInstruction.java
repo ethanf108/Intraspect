@@ -13,12 +13,12 @@ public final class DcmpgInstruction extends CompareInstruction<Double> {
 
     }
 
-    public static DcmpgInstruction read(DataInputStream in) throws IOException {
+    public static DcmpgInstruction read(final DataInputStream in) throws IOException {
         return new DcmpgInstruction();
     }
 
     @Override
-    public int compare(Double a, Double b) {
+    public int compare(final Double a, final Double b) {
         if (a > b) {
             return 1;
         } else if (a.equals(b)) {

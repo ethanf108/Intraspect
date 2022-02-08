@@ -12,7 +12,7 @@ public final class IConst_1Instruction extends IConstInstruction {
 
     }
 
-    public static IConst_1Instruction read(DataInputStream in) throws IOException {
+    public static IConst_1Instruction read(final DataInputStream in) throws IOException {
         return new IConst_1Instruction();
     }
 

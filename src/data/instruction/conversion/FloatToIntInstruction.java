@@ -12,7 +12,7 @@ public final class FloatToIntInstruction extends ConversionInstruction {
     public FloatToIntInstruction() {
     }
 
-    public static FloatToIntInstruction read(DataInputStream in) throws IOException {
+    public static FloatToIntInstruction read(final DataInputStream in) throws IOException {
         return new FloatToIntInstruction();
     }
 

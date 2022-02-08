@@ -7,7 +7,7 @@ public sealed abstract class BranchInstruction extends Instruction permits IfIns
 
     protected final int branchTarget;
 
-    protected BranchInstruction(int branchTarget) {
+    protected BranchInstruction(final int branchTarget) {
         this.branchTarget = branchTarget;
     }
 

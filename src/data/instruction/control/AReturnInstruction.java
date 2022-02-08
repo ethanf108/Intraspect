@@ -11,7 +11,7 @@ public final class AReturnInstruction extends ReturnInstruction {
     public AReturnInstruction() {
     }
 
-    public static AReturnInstruction read(DataInputStream in) throws IOException {
+    public static AReturnInstruction read(final DataInputStream in) throws IOException {
         return new AReturnInstruction();
     }
 

@@ -12,7 +12,7 @@ public final class LNegInstruction extends NegInstruction<Long> {
     public LNegInstruction() {
     }
 
-    public static LNegInstruction read(DataInputStream in) throws IOException {
+    public static LNegInstruction read(final DataInputStream in) throws IOException {
         return new LNegInstruction();
     }
 

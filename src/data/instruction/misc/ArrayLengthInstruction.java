@@ -14,7 +14,7 @@ public final class ArrayLengthInstruction extends Instruction {
 
     }
 
-    public static ArrayLengthInstruction read(DataInputStream in) throws IOException {
+    public static ArrayLengthInstruction read(final DataInputStream in) throws IOException {
         return new ArrayLengthInstruction();
     }
 
@@ -29,7 +29,7 @@ public final class ArrayLengthInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 }

@@ -12,7 +12,7 @@ public final class DALoadInstruction extends ArrayLoadInstruction {
 
     }
 
-    public static DALoadInstruction read(DataInputStream in) throws IOException {
+    public static DALoadInstruction read(final DataInputStream in) throws IOException {
         return new DALoadInstruction();
     }
 

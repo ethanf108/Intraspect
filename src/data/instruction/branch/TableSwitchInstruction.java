@@ -18,7 +18,7 @@ public final class TableSwitchInstruction extends Instruction {
 
     private final transient int padBytes;
 
-    public TableSwitchInstruction(int padBytes, int defaultOffset, int high, int low, int[] jumpOffsets) {
+    public TableSwitchInstruction(final int padBytes, final int defaultOffset, final int high, final int low, final int[] jumpOffsets) {
         this.defaultOffset = defaultOffset;
         this.high = high;
         this.low = low;
@@ -26,7 +26,7 @@ public final class TableSwitchInstruction extends Instruction {
         this.padBytes = padBytes;
     }
 
-    public static TableSwitchInstruction read(DataInputStream in, int padBytes) throws IOException {
+    public static TableSwitchInstruction read(final DataInputStream in, final int padBytes) throws IOException {
         for (int i = 0; i < padBytes; i++) {
             in.readByte();
         }
@@ -103,7 +103,7 @@ public final class TableSwitchInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO implement
         return true;
     }

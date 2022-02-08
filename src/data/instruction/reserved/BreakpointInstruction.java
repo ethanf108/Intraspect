@@ -13,7 +13,7 @@ public final class BreakpointInstruction extends ReservedInstruction {
 
     }
 
-    public static BreakpointInstruction read(DataInputStream in) throws IOException {
+    public static BreakpointInstruction read(final DataInputStream in) throws IOException {
         return new BreakpointInstruction();
     }
 }

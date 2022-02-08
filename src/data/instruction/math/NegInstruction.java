@@ -22,10 +22,11 @@ public sealed abstract class NegInstruction<T extends Number> extends Instructio
     }
 
     @Override
-    public final boolean isValid(ClassFile ref) {
+    public final boolean isValid(final ClassFile ref) {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public final T apply(T value) {
         if (value instanceof Integer) {

@@ -23,7 +23,7 @@ public final class InstructionCache {
 
     }
 
-    private static void recurseInstructions(Class<? extends Instruction> base) {
+    private static void recurseInstructions(final Class<? extends Instruction> base) {
         if (!Instruction.class.isAssignableFrom(base)) {
             return;
         }
@@ -54,15 +54,15 @@ public final class InstructionCache {
         }
     }
 
-    public static Class<? extends Instruction> getByMnemonic(String mnemonic) {
+    public static Class<? extends Instruction> getByMnemonic(final String mnemonic) {
         return mnemonicCache.get(mnemonic);
     }
 
-    public static Class<? extends Instruction> getByOpcode(int opcode) {
+    public static Class<? extends Instruction> getByOpcode(final int opcode) {
         return opcodeCache.get(opcode);
     }
 
-    private static byte[] intArrayToByteArray(int[] arr) {
+    private static byte[] intArrayToByteArray(final int[] arr) {
         ByteBuffer buf = ByteBuffer.allocate(arr.length);
         for (int i : arr) {
             buf.put((byte) (i & 0xFF));
@@ -70,7 +70,7 @@ public final class InstructionCache {
         return buf.array();
     }
 
-    private static <T extends Instruction> T instructionRead(Class<T> clazz, DataInputStream in, int padBytes_bruh_switch_cringe) throws IOException {
+    private static <T extends Instruction> T instructionRead(final Class<T> clazz, DataInputStream in, final int padBytes_bruh_switch_cringe) throws IOException {
         try {
             try {
                 final Method read = clazz.getDeclaredMethod("read", DataInputStream.class);
@@ -95,7 +95,7 @@ public final class InstructionCache {
         }
     }
 
-    public static Instruction read(DataInputStream in, int bruh_offset) throws IOException {
+    public static Instruction read(final DataInputStream in, final int bruh_offset) throws IOException {
         final int opcode = in.readUnsignedByte();
         if (!opcodeCache.containsKey(opcode)) {
             return new UnknownInstruction(opcode);

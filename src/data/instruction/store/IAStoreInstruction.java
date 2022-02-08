@@ -12,7 +12,7 @@ public final class IAStoreInstruction extends ArrayStoreInstruction {
 
     }
 
-    public static IAStoreInstruction read(DataInputStream in) throws IOException {
+    public static IAStoreInstruction read(final DataInputStream in) throws IOException {
         return new IAStoreInstruction();
     }
 

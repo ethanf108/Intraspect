@@ -14,12 +14,12 @@ public final class PopInstruction extends StackInstruction {
 
     }
 
-    public static PopInstruction read(DataInputStream in) throws IOException {
+    public static PopInstruction read(final DataInputStream in) throws IOException {
         return new PopInstruction();
     }
 
     @Override
-    public <T> void apply(Stack<T> stack) {
+    public <T> void apply(final Stack<T> stack) {
         stack.pop();
     }
 }

@@ -4,12 +4,12 @@ import data.ClassFile;
 
 public final class WideUnknownInstruction extends WideInstruction {
 
-    WideUnknownInstruction(int subOpcode) {
+    WideUnknownInstruction(final int subOpcode) {
         super(subOpcode, -1);
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return false;
     }
 

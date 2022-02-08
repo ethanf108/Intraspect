@@ -13,12 +13,12 @@ public final class LcmpInstruction extends CompareInstruction<Long> {
 
     }
 
-    public static LcmpInstruction read(DataInputStream in) throws IOException {
+    public static LcmpInstruction read(final DataInputStream in) throws IOException {
         return new LcmpInstruction();
     }
 
     @Override
-    public int compare(Long a, Long b) {
+    public int compare(final Long a, final Long b) {
         if (a > b) {
             return 1;
         } else if (a.equals(b)) {

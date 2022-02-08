@@ -21,7 +21,7 @@ public sealed abstract class MonitorInstruction extends Instruction permits Moni
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 }

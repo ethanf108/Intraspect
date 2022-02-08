@@ -9,11 +9,11 @@ import java.io.IOException;
 @Opcode(opcode = 0xBB, mnemonic = "new")
 public final class NewInstruction extends ObjectInstruction {
 
-    public NewInstruction(int classIndex) {
+    public NewInstruction(final int classIndex) {
         super(classIndex);
     }
 
-    public static NewInstruction read(DataInputStream in) throws IOException {
+    public static NewInstruction read(final DataInputStream in) throws IOException {
         return new NewInstruction(in.readUnsignedShort());
     }
 }

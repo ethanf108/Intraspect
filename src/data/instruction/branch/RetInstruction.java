@@ -12,11 +12,11 @@ public final class RetInstruction extends Instruction {
 
     private final int localVariableIndex;
 
-    public RetInstruction(int localVariableIndex) {
+    public RetInstruction(final int localVariableIndex) {
         this.localVariableIndex = localVariableIndex;
     }
 
-    public static RetInstruction read(DataInputStream in) throws IOException {
+    public static RetInstruction read(final DataInputStream in) throws IOException {
         return new RetInstruction(in.readUnsignedByte());
     }
 
@@ -35,7 +35,7 @@ public final class RetInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO Add method local variable size checking
         return true;
     }

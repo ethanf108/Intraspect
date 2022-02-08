@@ -11,7 +11,7 @@ public final class FALoadInstruction extends ArrayLoadInstruction {
     public FALoadInstruction() {
     }
 
-    public static FALoadInstruction read(DataInputStream in) throws IOException {
+    public static FALoadInstruction read(final DataInputStream in) throws IOException {
         return new FALoadInstruction();
     }
 

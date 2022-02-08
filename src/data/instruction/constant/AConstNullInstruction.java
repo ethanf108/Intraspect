@@ -9,7 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0x01, mnemonic = "aconst_null")
 public final class AConstNullInstruction extends ConstantInstruction {
 
-    public static AConstNullInstruction read(DataInputStream in) throws IOException {
+    public static AConstNullInstruction read(final DataInputStream in) throws IOException {
         return new AConstNullInstruction();
     }
 

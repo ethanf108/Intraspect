@@ -13,7 +13,7 @@ public final class ImpDep2Instruction extends ReservedInstruction {
 
     }
 
-    public static ImpDep2Instruction read(DataInputStream in) throws IOException {
+    public static ImpDep2Instruction read(final DataInputStream in) throws IOException {
         return new ImpDep2Instruction();
     }
 }

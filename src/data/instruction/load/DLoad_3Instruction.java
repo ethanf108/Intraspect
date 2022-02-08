@@ -12,7 +12,7 @@ public final class DLoad_3Instruction extends DLoadInstruction {
         super(3);
     }
 
-    public static DLoad_3Instruction read(DataInputStream in) throws IOException {
+    public static DLoad_3Instruction read(final DataInputStream in) throws IOException {
         return new DLoad_3Instruction();
     }
 

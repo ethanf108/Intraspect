@@ -13,12 +13,12 @@ public final class FcmplInstruction extends CompareInstruction<Float> {
 
     }
 
-    public static FcmplInstruction read(DataInputStream in) throws IOException {
+    public static FcmplInstruction read(final DataInputStream in) throws IOException {
         return new FcmplInstruction();
     }
 
     @Override
-    public int compare(Float a, Float b) {
+    public int compare(final Float a, final Float b) {
         if (a > b) {
             return 1;
         } else if (a.equals(b)) {

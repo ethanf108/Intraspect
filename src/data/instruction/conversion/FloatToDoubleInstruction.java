@@ -12,7 +12,7 @@ public final class FloatToDoubleInstruction extends ConversionInstruction {
     public FloatToDoubleInstruction() {
     }
 
-    public static FloatToDoubleInstruction read(DataInputStream in) throws IOException {
+    public static FloatToDoubleInstruction read(final DataInputStream in) throws IOException {
         return new FloatToDoubleInstruction();
     }
 

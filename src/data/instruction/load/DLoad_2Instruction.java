@@ -12,7 +12,7 @@ public final class DLoad_2Instruction extends DLoadInstruction {
         super(2);
     }
 
-    public static DLoad_2Instruction read(DataInputStream in) throws IOException {
+    public static DLoad_2Instruction read(final DataInputStream in) throws IOException {
         return new DLoad_2Instruction();
     }
 

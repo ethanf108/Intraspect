@@ -12,7 +12,7 @@ public final class ALoad_2Instruction extends ALoadInstruction {
         super(2);
     }
 
-    public static ALoad_2Instruction read(DataInputStream in) throws IOException {
+    public static ALoad_2Instruction read(final DataInputStream in) throws IOException {
         return new ALoad_2Instruction();
     }
 

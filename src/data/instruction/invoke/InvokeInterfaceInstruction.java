@@ -14,12 +14,12 @@ public final class InvokeInterfaceInstruction extends InvokeInstruction {
 
     private final int count;
 
-    public InvokeInterfaceInstruction(int methodIndex, int count) {
+    public InvokeInterfaceInstruction(final int methodIndex, final int count) {
         super(methodIndex);
         this.count = count;
     }
 
-    public static InvokeInterfaceInstruction read(DataInputStream in) throws IOException {
+    public static InvokeInterfaceInstruction read(final DataInputStream in) throws IOException {
         final int methodIndex = in.readUnsignedShort();
         final int count = in.readUnsignedByte();
         in.readByte(); //Unused by spec
@@ -41,12 +41,12 @@ public final class InvokeInterfaceInstruction extends InvokeInstruction {
     }
 
     @Override
-    public Optional<InterfaceMethodRefConstant> getMethodRef(ClassFile ref) {
+    public Optional<InterfaceMethodRefConstant> getMethodRef(final ClassFile ref) {
         return Optional.ofNullable(ref.getConstantDesc(this.methodIndex) instanceof InterfaceMethodRefConstant imrc ? imrc : null);
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.methodIndex) instanceof InterfaceMethodRefConstant;
     }
 }

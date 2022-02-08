@@ -11,7 +11,7 @@ public final class LAStoreInstruction extends ArrayStoreInstruction {
     public LAStoreInstruction() {
     }
 
-    public static LAStoreInstruction read(DataInputStream in) throws IOException {
+    public static LAStoreInstruction read(final DataInputStream in) throws IOException {
         return new LAStoreInstruction();
     }
 

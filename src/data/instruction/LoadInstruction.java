@@ -7,7 +7,7 @@ public sealed abstract class LoadInstruction extends Instruction permits ILoadIn
 
     protected final int localVariableIndex;
 
-    protected LoadInstruction(int lvi) {
+    protected LoadInstruction(final int lvi) {
         this.localVariableIndex = lvi;
     }
 
@@ -26,7 +26,7 @@ public sealed abstract class LoadInstruction extends Instruction permits ILoadIn
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO implements local variable index checking
         return true;
     }

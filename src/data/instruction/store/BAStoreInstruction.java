@@ -12,7 +12,7 @@ public final class BAStoreInstruction extends ArrayStoreInstruction {
 
     }
 
-    public static BAStoreInstruction read(DataInputStream in) throws IOException {
+    public static BAStoreInstruction read(final DataInputStream in) throws IOException {
         return new BAStoreInstruction();
     }
 

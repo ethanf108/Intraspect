@@ -11,7 +11,7 @@ public sealed abstract class FieldInstruction extends Instruction permits GetSta
 
     protected final int refIndex;
 
-    public FieldInstruction(int refIndex) {
+    public FieldInstruction(final int refIndex) {
         this.refIndex = refIndex;
     }
 
@@ -30,7 +30,7 @@ public sealed abstract class FieldInstruction extends Instruction permits GetSta
     }
 
     @Override
-    public final boolean isValid(ClassFile ref) {
+    public final boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.refIndex) instanceof FieldRefConstant;
     }
 }

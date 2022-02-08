@@ -4,16 +4,16 @@ import data.ClassFile;
 
 public final class WideAStoreInstruction extends WideStoreInstruction {
 
-    WideAStoreInstruction(int subOpcode, int localVariableIndex) {
+    WideAStoreInstruction(final int subOpcode, final int localVariableIndex) {
         super(subOpcode, localVariableIndex);
     }
 
-    public WideAStoreInstruction(int localVariableIndex) {
+    public WideAStoreInstruction(final int localVariableIndex) {
         this(0x3A, localVariableIndex);
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return super.isValid(ref) && this.subOpcode == 0x3A;
     }
 

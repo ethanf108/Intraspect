@@ -11,7 +11,7 @@ public final class LALoadInstruction extends ArrayLoadInstruction {
     public LALoadInstruction() {
     }
 
-    public static LALoadInstruction read(DataInputStream in) throws IOException {
+    public static LALoadInstruction read(final DataInputStream in) throws IOException {
         return new LALoadInstruction();
     }
 

@@ -14,12 +14,12 @@ public final class Dup_x1Instruction extends StackInstruction {
 
     }
 
-    public static Dup_x1Instruction read(DataInputStream in) throws IOException {
+    public static Dup_x1Instruction read(final DataInputStream in) throws IOException {
         return new Dup_x1Instruction();
     }
 
     @Override
-    public <T> void apply(Stack<T> stack) {
+    public <T> void apply(final Stack<T> stack) {
         stack.add(stack.size() - 2, stack.peek());
     }
 }

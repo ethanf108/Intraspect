@@ -12,7 +12,7 @@ public final class DoubleToIntInstruction extends ConversionInstruction {
     public DoubleToIntInstruction() {
     }
 
-    public static DoubleToIntInstruction read(DataInputStream in) throws IOException {
+    public static DoubleToIntInstruction read(final DataInputStream in) throws IOException {
         return new DoubleToIntInstruction();
     }
 

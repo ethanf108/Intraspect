@@ -4,16 +4,16 @@ import data.ClassFile;
 
 public final class WideDLoadInstruction extends WideLoadInstruction {
 
-    WideDLoadInstruction(int subOpcode, int localVariableIndex) {
+    WideDLoadInstruction(final int subOpcode, final int localVariableIndex) {
         super(subOpcode, localVariableIndex);
     }
 
-    public WideDLoadInstruction(int localVariableIndex) {
+    public WideDLoadInstruction(final int localVariableIndex) {
         this(0x18, localVariableIndex);
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return super.isValid(ref) && this.subOpcode == 0x18;
     }
 

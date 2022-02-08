@@ -13,7 +13,7 @@ public final class IntToFloatInstruction extends ConversionInstruction {
 
     }
 
-    public static IntToFloatInstruction read(DataInputStream in) throws IOException {
+    public static IntToFloatInstruction read(final DataInputStream in) throws IOException {
         return new IntToFloatInstruction();
     }
 

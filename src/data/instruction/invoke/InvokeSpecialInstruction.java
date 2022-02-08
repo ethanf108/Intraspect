@@ -12,11 +12,11 @@ import java.util.Optional;
 @Opcode(opcode = 0xB7, mnemonic = "invokespecial")
 public final class InvokeSpecialInstruction extends InvokeInstruction {
 
-    public InvokeSpecialInstruction(int methodIndex) {
+    public InvokeSpecialInstruction(final int methodIndex) {
         super(methodIndex);
     }
 
-    public static InvokeSpecialInstruction read(DataInputStream in) throws IOException {
+    public static InvokeSpecialInstruction read(final DataInputStream in) throws IOException {
         return new InvokeSpecialInstruction(in.readUnsignedShort());
     }
 
@@ -31,12 +31,12 @@ public final class InvokeSpecialInstruction extends InvokeInstruction {
     }
 
     @Override
-    public Optional<MethodRefConstant> getMethodRef(ClassFile ref) {
+    public Optional<MethodRefConstant> getMethodRef(final ClassFile ref) {
         return Optional.ofNullable(ref.getConstantDesc(this.methodIndex) instanceof MethodRefConstant mrc ? mrc : null);
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.methodIndex) instanceof MethodRefConstant;
     }
 }

@@ -12,7 +12,7 @@ public final class FStore_2Instruction extends FStoreInstruction {
         super(2);
     }
 
-    public static FStore_2Instruction read(DataInputStream in) throws IOException {
+    public static FStore_2Instruction read(final DataInputStream in) throws IOException {
         return new FStore_2Instruction();
     }
 

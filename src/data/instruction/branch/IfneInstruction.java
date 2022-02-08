@@ -13,12 +13,12 @@ public final class IfneInstruction extends IfInstruction {
         super(branchTarget);
     }
 
-    public static IfneInstruction read(DataInputStream in) throws IOException {
+    public static IfneInstruction read(final DataInputStream in) throws IOException {
         return new IfneInstruction(in.readUnsignedShort());
     }
 
     @Override
-    public boolean test(int value) {
+    public boolean test(final int value) {
         return value != 0;
     }
 

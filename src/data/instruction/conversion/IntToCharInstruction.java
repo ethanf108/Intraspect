@@ -12,7 +12,7 @@ public final class IntToCharInstruction extends ConversionInstruction {
     public IntToCharInstruction() {
     }
 
-    public static IntToCharInstruction read(DataInputStream in) throws IOException {
+    public static IntToCharInstruction read(final DataInputStream in) throws IOException {
         return new IntToCharInstruction();
     }
 

@@ -9,16 +9,16 @@ import java.io.IOException;
 @Opcode(opcode = 0xC6, mnemonic = "ifnull")
 public final class IfNullInstruction extends IfObjectInstruction {
 
-    protected IfNullInstruction(int branchTarget) {
+    protected IfNullInstruction(final int branchTarget) {
         super(branchTarget);
     }
 
-    public static IfNullInstruction read(DataInputStream in) throws IOException {
+    public static IfNullInstruction read(final DataInputStream in) throws IOException {
         return new IfNullInstruction(in.readUnsignedShort());
     }
 
     @Override
-    public boolean test(Object value) {
+    public boolean test(final Object value) {
         return value == null;
     }
 

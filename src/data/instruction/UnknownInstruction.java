@@ -8,7 +8,7 @@ public final class UnknownInstruction extends Instruction {
 
     private final int opcode;
 
-    public UnknownInstruction(int opcode) {
+    public UnknownInstruction(final int opcode) {
         this.opcode = opcode;
     }
 
@@ -23,7 +23,7 @@ public final class UnknownInstruction extends Instruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return false;
     }
 

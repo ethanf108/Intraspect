@@ -9,16 +9,16 @@ import java.io.IOException;
 @Opcode(opcode = 0xA3, mnemonic = "if_icmpgt")
 public final class If_icmpgtInstruction extends IfCompareInstruction<Integer> {
 
-    protected If_icmpgtInstruction(int branchTarget) {
+    protected If_icmpgtInstruction(final int branchTarget) {
         super(branchTarget);
     }
 
-    public static If_icmpgtInstruction read(DataInputStream in) throws IOException {
+    public static If_icmpgtInstruction read(final DataInputStream in) throws IOException {
         return new If_icmpgtInstruction(in.readUnsignedShort());
     }
 
     @Override
-    public boolean test(Integer a, Integer b) {
+    public boolean test(final Integer a, final Integer b) {
         return a > b;
     }
 

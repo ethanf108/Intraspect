@@ -8,11 +8,11 @@ import java.io.IOException;
 public sealed abstract class WideLoadInstruction extends WideInstruction permits WideILoadInstruction, WideFLoadInstruction, WideALoadInstruction, WideLLoadInstruction, WideDLoadInstruction {
 
 
-    protected WideLoadInstruction(int subOpcode, int localVariableIndex) {
+    protected WideLoadInstruction(final int subOpcode, final int localVariableIndex) {
         super(subOpcode, localVariableIndex);
     }
 
-    public static WideLoadInstruction read(DataInputStream in, int subOpcode) throws IOException {
+    public static WideLoadInstruction read(final DataInputStream in, final int subOpcode) throws IOException {
         return switch (subOpcode) {
             case 0x15 -> new WideILoadInstruction(subOpcode, in.readUnsignedShort());
             case 0x16 -> new WideLLoadInstruction(subOpcode, in.readUnsignedShort());

@@ -9,16 +9,16 @@ import java.io.IOException;
 @Opcode(opcode = 0x9D, mnemonic = "ifgt")
 public final class IfgtInstruction extends IfInstruction {
 
-    public IfgtInstruction(int branchTarget) {
+    public IfgtInstruction(final int branchTarget) {
         super(branchTarget);
     }
 
-    public static IfgtInstruction read(DataInputStream in) throws IOException {
+    public static IfgtInstruction read(final DataInputStream in) throws IOException {
         return new IfgtInstruction(in.readUnsignedShort());
     }
 
     @Override
-    public boolean test(int value) {
+    public boolean test(final int value) {
         return value > 0;
     }
 

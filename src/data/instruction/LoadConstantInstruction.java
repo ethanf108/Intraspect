@@ -15,7 +15,7 @@ public sealed abstract class LoadConstantInstruction extends Instruction permits
 
     protected final int constantPoolIndex;
 
-    public LoadConstantInstruction(int constantPoolIndex) {
+    public LoadConstantInstruction(final int constantPoolIndex) {
         this.constantPoolIndex = constantPoolIndex;
     }
 
@@ -24,13 +24,13 @@ public sealed abstract class LoadConstantInstruction extends Instruction permits
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO Check Dynamic Constants for illegal Wides
         final ConstantDesc cd = ref.getConstantDesc(this.constantPoolIndex);
         return this.constantPoolIndex > 0 && !(cd instanceof LongConstant || cd instanceof DoubleConstant || cd instanceof EmptyWideConstant);
     }
 
-    public final Optional<? extends ConstantDesc> getConstant(ClassFile ref) {
+    public final Optional<? extends ConstantDesc> getConstant(final ClassFile ref) {
         if (this.constantPoolIndex == 0 || ref.getConstantDesc(this.constantPoolIndex) instanceof EmptyWideConstant) {
             return Optional.empty();
         }

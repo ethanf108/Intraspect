@@ -12,7 +12,7 @@ public final class FNegInstruction extends NegInstruction<Float> {
     public FNegInstruction() {
     }
 
-    public static FNegInstruction read(DataInputStream in) throws IOException {
+    public static FNegInstruction read(final DataInputStream in) throws IOException {
         return new FNegInstruction();
     }
 

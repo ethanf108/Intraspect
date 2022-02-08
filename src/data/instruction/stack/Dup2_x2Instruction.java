@@ -14,12 +14,12 @@ public final class Dup2_x2Instruction extends StackInstruction {
 
     }
 
-    public static Dup2_x2Instruction read(DataInputStream in) throws IOException {
+    public static Dup2_x2Instruction read(final DataInputStream in) throws IOException {
         return new Dup2_x2Instruction();
     }
 
     @Override
-    public <T> void apply(Stack<T> stack) {
+    public <T> void apply(final Stack<T> stack) {
         final T first = stack.peek();
         final T second = stack.get(stack.size() - 2);
         stack.add(stack.size() - 4, second);

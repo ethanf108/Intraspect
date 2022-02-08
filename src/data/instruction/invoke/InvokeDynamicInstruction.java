@@ -12,11 +12,11 @@ import java.util.Optional;
 @Opcode(opcode = 0xBA, mnemonic = "invokedynamic")
 public final class InvokeDynamicInstruction extends InvokeInstruction {
 
-    public InvokeDynamicInstruction(int methodIndex) {
+    public InvokeDynamicInstruction(final int methodIndex) {
         super(methodIndex);
     }
 
-    public static InvokeDynamicInstruction read(DataInputStream in) throws IOException {
+    public static InvokeDynamicInstruction read(final DataInputStream in) throws IOException {
         final InvokeDynamicInstruction ret = new InvokeDynamicInstruction(in.readUnsignedShort());
         in.read();
         in.read();
@@ -34,12 +34,12 @@ public final class InvokeDynamicInstruction extends InvokeInstruction {
     }
 
     @Override
-    public Optional<DynamicConstant> getMethodRef(ClassFile ref) {
+    public Optional<DynamicConstant> getMethodRef(final ClassFile ref) {
         return Optional.ofNullable(ref.getConstantDesc(this.methodIndex) instanceof DynamicConstant dc ? dc : null);
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.methodIndex) instanceof DynamicConstant;
     }
 }

@@ -24,9 +24,9 @@ public sealed abstract class StackInstruction extends Instruction permits
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 
-    public abstract <T> void apply(Stack<T> stack);
+    public abstract <T> void apply(final Stack<T> stack);
 }

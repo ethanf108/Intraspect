@@ -9,11 +9,11 @@ import java.io.IOException;
 @Opcode(opcode = 0xB2, mnemonic = "getstatic")
 public final class GetStaticInstruction extends FieldInstruction {
 
-    public GetStaticInstruction(int refIndex) {
+    public GetStaticInstruction(final int refIndex) {
         super(refIndex);
     }
 
-    public static GetStaticInstruction read(DataInputStream in) throws IOException {
+    public static GetStaticInstruction read(final DataInputStream in) throws IOException {
         return new GetStaticInstruction(in.readUnsignedShort());
     }
 

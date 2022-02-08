@@ -12,7 +12,7 @@ public final class AStore_0Instruction extends AStoreInstruction {
         super(0);
     }
 
-    public static AStore_0Instruction read(DataInputStream in) throws IOException {
+    public static AStore_0Instruction read(final DataInputStream in) throws IOException {
         return new AStore_0Instruction();
     }
 

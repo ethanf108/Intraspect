@@ -11,7 +11,7 @@ public final class SALoadInstruction extends ArrayLoadInstruction {
     public SALoadInstruction() {
     }
 
-    public static SALoadInstruction read(DataInputStream in) throws IOException {
+    public static SALoadInstruction read(final DataInputStream in) throws IOException {
         return new SALoadInstruction();
     }
 

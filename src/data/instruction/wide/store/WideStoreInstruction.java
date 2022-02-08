@@ -7,11 +7,11 @@ import java.io.IOException;
 
 public sealed abstract class WideStoreInstruction extends WideInstruction permits WideIStoreInstruction, WideFStoreInstruction, WideAStoreInstruction, WideLStoreInstruction, WideDStoreInstruction {
 
-    protected WideStoreInstruction(int subOpcode, int localVariableIndex) {
+    protected WideStoreInstruction(final int subOpcode, final int localVariableIndex) {
         super(subOpcode, localVariableIndex);
     }
 
-    public static WideStoreInstruction read(DataInputStream in, int subOpcode) throws IOException {
+    public static WideStoreInstruction read(final DataInputStream in, final int subOpcode) throws IOException {
         return switch (subOpcode) {
             case 0x36 -> new WideIStoreInstruction(subOpcode, in.readUnsignedShort());
             case 0x37 -> new WideLStoreInstruction(subOpcode, in.readUnsignedShort());

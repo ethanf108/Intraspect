@@ -16,7 +16,7 @@ public sealed abstract class DConstInstruction extends ConstantInstruction permi
     }
 
     @Override
-    public final boolean isValid(ClassFile ref) {
+    public final boolean isValid(final ClassFile ref) {
         return true;
     }
 

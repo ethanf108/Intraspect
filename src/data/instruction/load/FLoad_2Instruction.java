@@ -12,7 +12,7 @@ public final class FLoad_2Instruction extends FLoadInstruction {
         super(2);
     }
 
-    public static FLoad_2Instruction read(DataInputStream in) throws IOException {
+    public static FLoad_2Instruction read(final DataInputStream in) throws IOException {
         return new FLoad_2Instruction();
     }
 

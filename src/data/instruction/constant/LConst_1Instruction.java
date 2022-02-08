@@ -11,7 +11,7 @@ public final class LConst_1Instruction extends LConstInstruction {
     public LConst_1Instruction() {
     }
 
-    public static LConst_1Instruction read(DataInputStream in) throws IOException {
+    public static LConst_1Instruction read(final DataInputStream in) throws IOException {
         return new LConst_1Instruction();
     }
 

@@ -7,7 +7,7 @@ public sealed abstract class StoreInstruction extends Instruction permits IStore
 
     protected final int localVariableIndex;
 
-    protected StoreInstruction(int lvi) {
+    protected StoreInstruction(final int lvi) {
         this.localVariableIndex = lvi;
     }
 
@@ -26,7 +26,7 @@ public sealed abstract class StoreInstruction extends Instruction permits IStore
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO implements local variable index checking
         return true;
     }

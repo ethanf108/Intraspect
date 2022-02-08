@@ -14,12 +14,12 @@ public final class DupInstruction extends StackInstruction {
 
     }
 
-    public static DupInstruction read(DataInputStream in) throws IOException {
+    public static DupInstruction read(final DataInputStream in) throws IOException {
         return new DupInstruction();
     }
 
     @Override
-    public <T> void apply(Stack<T> stack) {
+    public <T> void apply(final Stack<T> stack) {
         stack.push(stack.peek());
     }
 }

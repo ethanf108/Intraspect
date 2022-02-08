@@ -12,7 +12,7 @@ public final class FConst_1Instruction extends FConstInstruction {
 
     }
 
-    public FConst_1Instruction read(DataInputStream in) throws IOException {
+    public FConst_1Instruction read(final DataInputStream in) throws IOException {
         return new FConst_1Instruction();
     }
 

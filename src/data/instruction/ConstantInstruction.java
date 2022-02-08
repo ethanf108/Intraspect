@@ -12,7 +12,7 @@ public abstract sealed class ConstantInstruction extends Instruction permits
     public abstract Object getValue();
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 }

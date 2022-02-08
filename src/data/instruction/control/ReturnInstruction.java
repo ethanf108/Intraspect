@@ -15,7 +15,7 @@ public sealed class ReturnInstruction extends Instruction permits IReturnInstruc
 
     }
 
-    public static ReturnInstruction read(DataInputStream in) throws IOException {
+    public static ReturnInstruction read(final DataInputStream in) throws IOException {
         return new ReturnInstruction();
     }
 
@@ -30,7 +30,7 @@ public sealed class ReturnInstruction extends Instruction permits IReturnInstruc
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO check return type
         return false;
     }

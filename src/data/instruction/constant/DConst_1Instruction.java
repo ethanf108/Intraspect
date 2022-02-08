@@ -11,7 +11,7 @@ public final class DConst_1Instruction extends DConstInstruction {
     public DConst_1Instruction() {
     }
 
-    public static DConst_1Instruction read(DataInputStream in) throws IOException {
+    public static DConst_1Instruction read(final DataInputStream in) throws IOException {
         return new DConst_1Instruction();
     }
 

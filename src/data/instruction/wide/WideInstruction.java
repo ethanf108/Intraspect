@@ -15,12 +15,12 @@ public sealed abstract class WideInstruction extends Instruction permits WideIin
     protected final int subOpcode;
     protected final int localVariableIndex;
 
-    protected WideInstruction(int subOpcode, int localVariableIndex) {
+    protected WideInstruction(final int subOpcode, final int localVariableIndex) {
         this.subOpcode = subOpcode;
         this.localVariableIndex = localVariableIndex;
     }
 
-    public static WideInstruction read(DataInputStream in) throws IOException {
+    public static WideInstruction read(final DataInputStream in) throws IOException {
         final int subOpcode = in.readUnsignedByte();
         return switch (subOpcode) {
             case 0x15, 0x16, 0x17, 0x18, 0x19 -> WideLoadInstruction.read(in, subOpcode);
@@ -52,7 +52,7 @@ public sealed abstract class WideInstruction extends Instruction permits WideIin
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO check local variable index
         return true;
     }

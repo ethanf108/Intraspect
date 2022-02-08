@@ -8,7 +8,7 @@ public sealed abstract class BranchWideInstruction extends Instruction permits G
 
     protected final long branchIndex;
 
-    public BranchWideInstruction(long branchIndex) {
+    public BranchWideInstruction(final long branchIndex) {
         this.branchIndex = branchIndex;
     }
 
@@ -32,7 +32,7 @@ public sealed abstract class BranchWideInstruction extends Instruction permits G
     }
 
     @Override
-    public final boolean isValid(ClassFile ref) {
+    public final boolean isValid(final ClassFile ref) {
         return true;
     }
 }

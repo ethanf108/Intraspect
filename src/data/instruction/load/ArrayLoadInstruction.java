@@ -21,7 +21,7 @@ public sealed abstract class ArrayLoadInstruction extends Instruction permits
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         //TODO Maybe more checking?
         return true;
     }

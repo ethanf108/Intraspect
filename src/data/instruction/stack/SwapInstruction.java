@@ -14,12 +14,12 @@ public final class SwapInstruction extends StackInstruction {
 
     }
 
-    public static SwapInstruction read(DataInputStream in) throws IOException {
+    public static SwapInstruction read(final DataInputStream in) throws IOException {
         return new SwapInstruction();
     }
 
     @Override
-    public <T> void apply(Stack<T> stack) {
+    public <T> void apply(final Stack<T> stack) {
         stack.add(stack.size() - 1, stack.pop());
     }
 }

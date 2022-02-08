@@ -9,16 +9,16 @@ import java.io.IOException;
 @Opcode(opcode = 0xA5, mnemonic = "if_acmpeq")
 public final class If_acmpeqInstruction extends IfCompareInstruction<Object> {
 
-    protected If_acmpeqInstruction(int branchTarget) {
+    protected If_acmpeqInstruction(final int branchTarget) {
         super(branchTarget);
     }
 
-    public static If_acmpeqInstruction read(DataInputStream in) throws IOException {
+    public static If_acmpeqInstruction read(final DataInputStream in) throws IOException {
         return new If_acmpeqInstruction(in.readUnsignedShort());
     }
 
     @Override
-    public boolean test(Object a, Object b) {
+    public boolean test(final Object a, final Object b) {
         return a == b;
     }
 

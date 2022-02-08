@@ -12,7 +12,7 @@ public final class IntToLongInstruction extends ConversionInstruction {
     public IntToLongInstruction() {
     }
 
-    public static IntToLongInstruction read(DataInputStream in) throws IOException {
+    public static IntToLongInstruction read(final DataInputStream in) throws IOException {
         return new IntToLongInstruction();
     }
 

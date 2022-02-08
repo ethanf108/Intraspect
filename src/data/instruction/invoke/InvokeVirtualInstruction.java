@@ -12,11 +12,11 @@ import java.util.Optional;
 @Opcode(opcode = 0xB6, mnemonic = "invokevirtual")
 public final class InvokeVirtualInstruction extends InvokeInstruction {
 
-    public InvokeVirtualInstruction(int methodIndex) {
+    public InvokeVirtualInstruction(final int methodIndex) {
         super(methodIndex);
     }
 
-    public static InvokeVirtualInstruction read(DataInputStream in) throws IOException {
+    public static InvokeVirtualInstruction read(final DataInputStream in) throws IOException {
         return new InvokeVirtualInstruction(in.readUnsignedShort());
     }
 
@@ -31,12 +31,12 @@ public final class InvokeVirtualInstruction extends InvokeInstruction {
     }
 
     @Override
-    public Optional<MethodRefConstant> getMethodRef(ClassFile ref) {
+    public Optional<MethodRefConstant> getMethodRef(final ClassFile ref) {
         return Optional.ofNullable(ref.getConstantDesc(this.methodIndex) instanceof MethodRefConstant mrc ? mrc : null);
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.methodIndex) instanceof MethodRefConstant;
     }
 

@@ -9,11 +9,11 @@ import java.io.IOException;
 @Opcode(opcode = 0xBD, mnemonic = "anewarray")
 public final class ANewArrayInstruction extends ObjectInstruction {
 
-    public ANewArrayInstruction(int classIndex) {
+    public ANewArrayInstruction(final int classIndex) {
         super(classIndex);
     }
 
-    public static ANewArrayInstruction read(DataInputStream in) throws IOException {
+    public static ANewArrayInstruction read(final DataInputStream in) throws IOException {
         return new ANewArrayInstruction(in.readUnsignedShort());
     }
 }

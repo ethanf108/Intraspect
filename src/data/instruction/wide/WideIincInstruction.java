@@ -6,7 +6,7 @@ public final class WideIincInstruction extends WideInstruction {
 
     private final int constValue;
 
-    public WideIincInstruction(int subOpcode, int localVariableIndex, int constValue) {
+    public WideIincInstruction(final int subOpcode, final int localVariableIndex, final int constValue) {
         super(subOpcode, localVariableIndex);
         this.constValue = constValue;
     }
@@ -31,7 +31,7 @@ public final class WideIincInstruction extends WideInstruction {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return super.isValid(ref) && this.subOpcode == 0x84;
     }
 }

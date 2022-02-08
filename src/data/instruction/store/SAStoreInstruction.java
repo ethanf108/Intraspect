@@ -11,7 +11,7 @@ public final class SAStoreInstruction extends ArrayStoreInstruction {
     public SAStoreInstruction() {
     }
 
-    public static SAStoreInstruction read(DataInputStream in) throws IOException {
+    public static SAStoreInstruction read(final DataInputStream in) throws IOException {
         return new SAStoreInstruction();
     }
 

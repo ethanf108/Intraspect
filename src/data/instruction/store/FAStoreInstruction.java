@@ -11,7 +11,7 @@ public final class FAStoreInstruction extends ArrayStoreInstruction {
     public FAStoreInstruction() {
     }
 
-    public static FAStoreInstruction read(DataInputStream in) throws IOException {
+    public static FAStoreInstruction read(final DataInputStream in) throws IOException {
         return new FAStoreInstruction();
     }
 

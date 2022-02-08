@@ -9,16 +9,16 @@ import java.io.IOException;
 @Opcode(opcode = 0x99, mnemonic = "ifeq")
 public final class IfeqInstruction extends IfInstruction {
 
-    public IfeqInstruction(int branchTarget) {
+    public IfeqInstruction(final int branchTarget) {
         super(branchTarget);
     }
 
-    public static IfeqInstruction read(DataInputStream in) throws IOException {
+    public static IfeqInstruction read(final DataInputStream in) throws IOException {
         return new IfeqInstruction(in.readUnsignedShort());
     }
 
     @Override
-    public boolean test(int value) {
+    public boolean test(final int value) {
         return value == 0;
     }
 }

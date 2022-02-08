@@ -13,7 +13,7 @@ public sealed abstract class ObjectInstruction extends Instruction permits Insta
 
     protected final int classIndex;
 
-    protected ObjectInstruction(int classIndex) {
+    protected ObjectInstruction(final int classIndex) {
         this.classIndex = classIndex;
     }
 
@@ -32,11 +32,11 @@ public sealed abstract class ObjectInstruction extends Instruction permits Insta
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.classIndex) instanceof ClassConstant;
     }
 
-    public Optional<ClassConstant> getCastType(ClassFile ref) {
+    public Optional<ClassConstant> getCastType(final ClassFile ref) {
         if (this.classIndex == 0) {
             return Optional.empty();
         }
