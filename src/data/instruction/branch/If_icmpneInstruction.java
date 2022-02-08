@@ -9,7 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0xA0, mnemonic = "if_icmpne")
 public final class If_icmpneInstruction extends IfCompareInstruction<Integer> {
 
-    protected If_icmpneInstruction(final int branchTarget) {
+    public If_icmpneInstruction(final int branchTarget) {
         super(branchTarget);
     }
 
