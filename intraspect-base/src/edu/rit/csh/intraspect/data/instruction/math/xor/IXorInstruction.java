@@ -11,7 +11,7 @@ public final class IXorInstruction extends XorInstruction<Integer> {
 
     }
 
-    public IXorInstruction read(final DataInputStream in) {
+    public static IXorInstruction read(final DataInputStream in) {
         return new IXorInstruction();
     }
 }
