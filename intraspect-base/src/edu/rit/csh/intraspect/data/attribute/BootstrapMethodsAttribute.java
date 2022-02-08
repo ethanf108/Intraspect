@@ -63,7 +63,7 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     public int getDataLength() {
         int entryLengthSum = 2;
         for (final BootstrapMethodsTableEntry entry : this.bootstrapMethodsTable) {
-            entryLengthSum += 4 + (entry.numBootstrapArguments << 1);
+            entryLengthSum += 4 + 2 * entry.numBootstrapArguments;
         }
         return entryLengthSum;
     }

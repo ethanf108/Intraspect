@@ -55,7 +55,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return (this.getLineNumberTableLength() << 2) + 2;
+        return this.getLineNumberTableLength() * 4 + 2;
     }
 
     public static record LineNumberTableEntry(int startPc, int lineNumber) {

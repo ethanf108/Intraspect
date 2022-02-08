@@ -58,7 +58,7 @@ public class TypeAnnotation {
     }
 
     public int getDataLength() {
-        int dataLength = 6 + targetInfo.getDataLength() + (targetPath.length << 1);
+        int dataLength = 6 + targetInfo.getDataLength() + targetPath.length * 2;
 
         for (final ElementValue.ElementValuePair elementValuePair : this.elementValuePairs) {
             dataLength += elementValuePair.getDataLength();

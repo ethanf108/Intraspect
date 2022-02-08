@@ -34,7 +34,7 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return (getNumberOfClasses() << 1) + 2;
+        return getNumberOfClasses() * 2 + 2;
     }
 
     public int getNumberOfClasses() {

@@ -52,6 +52,6 @@ public class ExceptionsAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return (this.exceptionIndexTable.length << 1) + 2;
+        return this.exceptionIndexTable.length * 2 + 2;
     }
 }

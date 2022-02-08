@@ -71,7 +71,7 @@ public final class TableSwitchInstruction extends Instruction {
 
     @Override
     public int getNumOperands() {
-        return 12 + (this.jumpOffsets.length << 2) + this.padBytes;
+        return 12 + 4 * this.jumpOffsets.length + this.padBytes;
     }
 
 

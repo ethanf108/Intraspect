@@ -40,7 +40,7 @@ public class MethodParametersAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return 1 + (this.parameters.length << 2);
+        return 1 + 4 * this.parameters.length;
     }
 
     @Override
