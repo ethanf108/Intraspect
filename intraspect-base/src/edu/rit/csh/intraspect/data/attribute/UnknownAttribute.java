@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.attribute;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * The Unknown attribute, used to represent all unknown attributes.
@@ -32,9 +33,7 @@ public class UnknownAttribute implements AttributeDesc {
     }
 
     public byte[] getData() {
-        final byte[] ret = new byte[this.data.length];
-        System.arraycopy(this.data, 0, ret, 0, this.data.length);
-        return ret;
+        return Arrays.copyOf(this.data, this.data.length);
     }
 
     @Override
