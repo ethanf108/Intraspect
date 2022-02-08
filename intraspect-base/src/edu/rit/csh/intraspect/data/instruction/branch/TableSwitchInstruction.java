@@ -89,11 +89,11 @@ public final class TableSwitchInstruction extends Instruction {
         ret[6] = (this.low & 0xFF00) >> 8;
         ret[7] = this.low & 0xFF;
 
-        for (int i = 0; i < this.jumpOffsets.length; i++) {
-            ret[8 + i * 4] = (this.jumpOffsets[i] & 0xFF000000) >> 24;
-            ret[8 + i * 4] = (this.jumpOffsets[i] & 0xFF0000) >> 16;
-            ret[8 + i * 4] = (this.jumpOffsets[i] & 0xFF00) >> 8;
-            ret[8 + i * 4] = this.jumpOffsets[i] & 0xFF;
+        for (int i = 0, i4 = 0; i < this.jumpOffsets.length; i++, i4 = i << 2) {
+            ret[8 + i4] = (this.jumpOffsets[i] & 0xFF000000) >> 24;
+            ret[9 + i4] = (this.jumpOffsets[i] & 0xFF0000) >> 16;
+            ret[10 + i4] = (this.jumpOffsets[i] & 0xFF00) >> 8;
+            ret[11 + i4] = this.jumpOffsets[i] & 0xFF;
         }
 
         int[] actualRet = new int[ret.length + this.padBytes];
