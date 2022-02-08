@@ -6,6 +6,7 @@ import edu.rit.csh.intraspect.data.instruction.Opcode;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 @Opcode(opcode = 0xAA, mnemonic = "tableswitch")
 public final class TableSwitchInstruction extends Instruction {
@@ -60,9 +61,7 @@ public final class TableSwitchInstruction extends Instruction {
     }
 
     public int[] getJumpOffsets() {
-        int[] ret = new int[this.jumpOffsets.length];
-        System.arraycopy(this.jumpOffsets, 0, ret, 0, this.jumpOffsets.length);
-        return ret;
+        return Arrays.copyOf(this.jumpOffsets, this.jumpOffsets.length);
     }
 
     @Override
@@ -91,10 +90,10 @@ public final class TableSwitchInstruction extends Instruction {
         ret[7] = this.low & 0xFF;
 
         for (int i = 0; i < this.jumpOffsets.length; i++) {
-            ret[8 + 4 * i] = (this.jumpOffsets[i] & 0xFF000000) >> 24;
-            ret[8 + 4 * i] = (this.jumpOffsets[i] & 0xFF0000) >> 16;
-            ret[8 + 4 * i] = (this.jumpOffsets[i] & 0xFF00) >> 8;
-            ret[8 + 4 * i] = this.jumpOffsets[i] & 0xFF;
+            ret[8 + i * 4] = (this.jumpOffsets[i] & 0xFF000000) >> 24;
+            ret[8 + i * 4] = (this.jumpOffsets[i] & 0xFF0000) >> 16;
+            ret[8 + i * 4] = (this.jumpOffsets[i] & 0xFF00) >> 8;
+            ret[8 + i * 4] = this.jumpOffsets[i] & 0xFF;
         }
 
         int[] actualRet = new int[ret.length + this.padBytes];
