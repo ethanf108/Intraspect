@@ -1,5 +1,6 @@
 package edu.rit.csh.intraspect.data;
 
+import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 
 import java.util.ArrayList;
@@ -285,5 +286,65 @@ public class ClassFiles {
         }
         ret.append(");");
         return ret.toString();
+    }
+
+    public static String classSimpleString(ClassFile cf) {
+        StringBuilder sb = new StringBuilder();
+        if ((cf.getAccessFlags() & 0x0001) > 0) {
+            sb.append("public ");
+        }
+        if ((cf.getAccessFlags() & 0x0010) > 0) {
+            sb.append("final ");
+        }
+        if ((cf.getAccessFlags() & 0x1000) > 0) {
+            sb.append("synthetic ");
+        }
+        if ((cf.getAccessFlags() & 0x8000) > 0) {
+            sb.append("module ");
+        } else if ((cf.getAccessFlags() & 0x0200) > 0) {
+            if ((cf.getAccessFlags() & 0x2000) > 0) {
+                sb.append("@");
+            }
+            sb.append("interface ");
+        } else if ((cf.getAccessFlags() & 0x4000) > 0) {
+            sb.append("enum ");
+        } else {
+            if ((cf.getAccessFlags() & 0x0400) > 0) {
+                sb.append("abstract ");
+            }
+            sb.append("class ");
+        }
+
+        final ClassConstant thisClass = cf.getConstantDesc(cf.getThisClassIndex()) instanceof ClassConstant cc ? cc : null;
+        final String className = cf.getConstantDesc(thisClass.getUTF8Index()) instanceof UTF8Constant u ? u.getValue() : "???";
+
+        sb.append(className).append(" ");
+
+        if (cf.getSuperClassIndex() != 0) {
+
+            final ClassConstant superClass = cf.getConstantDesc(cf.getSuperClassIndex()) instanceof ClassConstant cc ? cc : null;
+            final String superClassName = cf.getConstantDesc(superClass.getUTF8Index()) instanceof UTF8Constant u ? u.getValue() : "???";
+
+            sb.append("extends ").append(superClassName).append(" ");
+        }
+
+        boolean first = true;
+        if (cf.getInterfaces().length > 0) {
+            sb.append("implements");
+            for (int interfaceIndex : cf.getInterfaces()) {
+
+                final ClassConstant interfaceClass = cf.getConstantDesc(interfaceIndex) instanceof ClassConstant cc ? cc : null;
+                final String interfaceClassName = cf.getConstantDesc(interfaceClass.getUTF8Index()) instanceof UTF8Constant u ? u.getValue() : "???";
+
+                if (!first) {
+                    sb.append(",");
+                }
+                first = false;
+                sb.append("\n\t").append(interfaceClassName);
+            }
+        }
+        sb.append(";");
+
+        return sb.toString();
     }
 }
