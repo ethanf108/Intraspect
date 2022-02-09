@@ -16,7 +16,7 @@ public class ClassFile {
      * The magic number present in the first 4 bytes of all valid class files.
      */
     private static final byte[] MAGIC = {(byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE};
-    public int accessFlags;
+    private int accessFlags;
     private int minorVersion;
     private MajorVersion majorVersion;
     private ConstantDesc[] constantPool;
@@ -155,6 +155,20 @@ public class ClassFile {
      */
     public MethodDesc[] getMethods() {
         return this.methods;
+    }
+
+    public int getAccessFlags() {
+        return this.accessFlags;
+    }
+
+    public int getSuperClassIndex() {
+        return this.superClass;
+    }
+
+    public int[] getInterfaces() {
+        int[] ret = new int[this.interfaces.length];
+        System.arraycopy(this.interfaces, 0, ret, 0, this.interfaces.length);
+        return ret;
     }
 
     /**
