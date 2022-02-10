@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction;
 
 import edu.rit.csh.intraspect.data.instruction.misc.UnknownInstruction;
+import edu.rit.csh.intraspect.util.OffsetInputStream;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -38,15 +39,6 @@ public final class InstructionCache {
                     mnemonicCache.put(info.mnemonic(), base);
                 }
             } catch (NoSuchMethodException e) {
-                try {
-                    final Method mm = base.getDeclaredMethod("read", DataInputStream.class, int.class);
-                    if ((mm.getModifiers() & 8) > 0) {
-                        opcodeCache.put(info.opcode(), base);
-                        mnemonicCache.put(info.mnemonic(), base);
-                    }
-                } catch (NoSuchMethodException ex) {
-                    ex.printStackTrace();
-                }
             }
         }
         if (base.isSealed()) {
@@ -72,21 +64,13 @@ public final class InstructionCache {
         return buf.array();
     }
 
-    private static <T extends Instruction> T instructionRead(final Class<T> clazz, DataInputStream in, final int padBytes_bruh_switch_cringe) throws IOException {
+    private static <T extends Instruction> T instructionRead(final Class<T> clazz, OffsetInputStream in) throws IOException {
         try {
-            try {
-                final Method read = clazz.getDeclaredMethod("read", DataInputStream.class);
-                read.setAccessible(true);
-                return clazz.cast(read.invoke(null, in));
-            } catch (NoSuchMethodException e) {
-                try {
-                    final Method read = clazz.getDeclaredMethod("read", DataInputStream.class, int.class);
-                    read.setAccessible(true);
-                    return clazz.cast(read.invoke(null, in, padBytes_bruh_switch_cringe));
-                } catch (NoSuchMethodException ex) {
-                    throw new IllegalStateException("Instruction Class " + clazz.getCanonicalName() + " has no valid read method");
-                }
-            }
+            final Method read = clazz.getDeclaredMethod("read", DataInputStream.class);
+            read.setAccessible(true);
+            return clazz.cast(read.invoke(null, in));
+        } catch (NoSuchMethodException e) {
+            throw new IllegalStateException("Read method not present", e);
         } catch (InvocationTargetException e) {
             if (e.getTargetException() instanceof IOException ioe) {
                 throw ioe;
@@ -97,12 +81,12 @@ public final class InstructionCache {
         }
     }
 
-    public static Instruction read(final DataInputStream in, final int bruh_offset) throws IOException {
+    public static Instruction read(final OffsetInputStream in) throws IOException {
         final int opcode = in.readUnsignedByte();
         if (!opcodeCache.containsKey(opcode)) {
             return new UnknownInstruction(opcode);
         }
-        return instructionRead(opcodeCache.get(opcode), in, bruh_offset);
+        return instructionRead(opcodeCache.get(opcode), in);
     }
 
 }

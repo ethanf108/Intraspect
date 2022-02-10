@@ -4,10 +4,11 @@ import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.attribute.AttributeReader;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
+import edu.rit.csh.intraspect.util.OffsetInputStream;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 public class ClassFile {
@@ -37,12 +38,14 @@ public class ClassFile {
     /**
      * Reads a class file from the given data input stream.
      *
-     * @param in the data input stream to read from
+     * @param source the data input stream to read from
      * @return the class file read from the data input stream
      * @throws IOException if an I/O error occurs
      */
-    public static ClassFile readClassFile(final DataInputStream in) throws IOException {
+    public static ClassFile readClassFile(final InputStream source) throws IOException {
+        final OffsetInputStream in = new OffsetInputStream(source);
         final ClassFile ret = new ClassFile();
+
         if (!Arrays.equals(MAGIC, in.readNBytes(4))) {
             throw new IllegalArgumentException("Not a Java Class file");
         }

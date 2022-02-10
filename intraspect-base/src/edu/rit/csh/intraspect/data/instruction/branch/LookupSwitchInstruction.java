@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.instruction.branch;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.util.OffsetInputStream;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -11,19 +12,18 @@ import java.nio.ByteBuffer;
 @Opcode(opcode = 0xAB, mnemonic = "lookupswitch")
 public final class LookupSwitchInstruction extends Instruction {
 
-    private final transient int padBytes;
-
     private final int defaultOffset;
-
     private final MatchOffsetPair[] matchOffsetPairs;
+    private transient int padBytes;
 
-    public LookupSwitchInstruction(final int padBytes, final int defaultOffset, final MatchOffsetPair[] matchOffsetPairs) {
-        this.padBytes = padBytes;
+    public LookupSwitchInstruction(final int defaultOffset, final MatchOffsetPair[] matchOffsetPairs) {
         this.defaultOffset = defaultOffset;
         this.matchOffsetPairs = matchOffsetPairs;
     }
 
-    public static LookupSwitchInstruction read(final DataInputStream in, final int padBytes) throws IOException {
+    public static LookupSwitchInstruction read(final DataInputStream in_) throws IOException {
+        final OffsetInputStream in = (OffsetInputStream) in_;
+        final int padBytes = (int) (4 - (in.getCounter() % 4));
         for (int i = 0; i < padBytes; i++) {
             in.readByte();
         }
@@ -38,7 +38,9 @@ public final class LookupSwitchInstruction extends Instruction {
             mops[i] = MatchOffsetPair.read(in);
         }
 
-        return new LookupSwitchInstruction(padBytes, defaultOffset, mops);
+        final LookupSwitchInstruction ret = new LookupSwitchInstruction(defaultOffset, mops);
+        ret.padBytes = padBytes;
+        return ret;
     }
 
 

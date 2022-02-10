@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.instruction.branch;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.util.OffsetInputStream;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -17,17 +18,18 @@ public final class TableSwitchInstruction extends Instruction {
 
     private final int[] jumpOffsets;
 
-    private final transient int padBytes;
+    private transient int padBytes = -1;
 
-    public TableSwitchInstruction(final int padBytes, final int defaultOffset, final int high, final int low, final int[] jumpOffsets) {
+    public TableSwitchInstruction(final int defaultOffset, final int high, final int low, final int[] jumpOffsets) {
         this.defaultOffset = defaultOffset;
         this.high = high;
         this.low = low;
         this.jumpOffsets = jumpOffsets;
-        this.padBytes = padBytes;
     }
 
-    public static TableSwitchInstruction read(final DataInputStream in, final int padBytes) throws IOException {
+    public static TableSwitchInstruction read(final DataInputStream in_) throws IOException {
+        final OffsetInputStream in = (OffsetInputStream) in_;
+        final int padBytes = (int) (4 - (in.getCounter() % 4));
         for (int i = 0; i < padBytes; i++) {
             in.readByte();
         }
@@ -41,7 +43,9 @@ public final class TableSwitchInstruction extends Instruction {
             jumps[i] = in.readInt();
         }
 
-        return new TableSwitchInstruction(padBytes, defaultOffset, high, low, jumps);
+        final TableSwitchInstruction ret = new TableSwitchInstruction(defaultOffset, high, low, jumps);
+        ret.padBytes = padBytes;
+        return ret;
     }
 
     public int getPadBytes() {

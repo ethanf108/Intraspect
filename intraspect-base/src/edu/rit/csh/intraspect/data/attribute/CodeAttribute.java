@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.attribute;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.InstructionCache;
+import edu.rit.csh.intraspect.util.OffsetInputStream;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -34,7 +35,8 @@ public class CodeAttribute implements AttributeDesc {
         this.attributes = attributes;
     }
 
-    public static CodeAttribute read(final int ani, final DataInputStream in, final ClassFile ref) throws IOException {
+    public static CodeAttribute read(final int ani, final DataInputStream in_, final ClassFile ref) throws IOException {
+        OffsetInputStream in = (OffsetInputStream) in_;
         in.readInt();   // Ignore
 
         final int maxStack = in.readUnsignedShort();
@@ -45,8 +47,9 @@ public class CodeAttribute implements AttributeDesc {
 
         List<Instruction> instructions = new ArrayList<>();
 
+        in.resetCounter();
         while (instructionBytes > 0) {
-            final Instruction instruction = InstructionCache.read(in, 3 - (instructionByteCache - instructionBytes) % 4);
+            final Instruction instruction = InstructionCache.read(in);
             instructionBytes -= instruction.getDataLength();
             instructions.add(instruction);
         }
