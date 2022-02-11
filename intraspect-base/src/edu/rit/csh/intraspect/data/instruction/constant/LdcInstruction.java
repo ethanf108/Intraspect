@@ -1,7 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.constant;
 
-import edu.rit.csh.intraspect.data.instruction.load.LoadConstantInstruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.data.instruction.load.LoadConstantInstruction;
 
 import java.io.DataInputStream;
 import java.io.IOException;

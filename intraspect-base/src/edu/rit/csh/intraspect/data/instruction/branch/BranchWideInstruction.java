@@ -2,8 +2,6 @@ package edu.rit.csh.intraspect.data.instruction.branch;
 
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
-import edu.rit.csh.intraspect.data.instruction.branch.Goto_wInstruction;
-import edu.rit.csh.intraspect.data.instruction.branch.Jsr_wInstruction;
 
 public sealed abstract class BranchWideInstruction extends Instruction permits Goto_wInstruction, Jsr_wInstruction {
 
