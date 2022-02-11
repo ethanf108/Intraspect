@@ -1,11 +1,13 @@
 package edu.rit.csh.intraspect.gui.intraspectgui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.data.ClassFiles;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -17,7 +19,31 @@ import java.util.Objects;
 public class IntraspectController {
 
     @FXML
+    private TextField classFileField;
+
+    @FXML
+    private TextField majorVersionField;
+
+    @FXML
+    private TextField minorVersionField;
+
+    @FXML
     private TabPane tabPane;
+
+    @FXML
+    private void classFileFieldChanged() {
+
+    }
+
+    @FXML
+    private void majorVersionFieldChanged() {
+
+    }
+
+    @FXML
+    private void minorVersionFieldChanged() {
+
+    }
 
     private static final FileChooser chooser = new FileChooser();
     static {
@@ -61,6 +87,8 @@ public class IntraspectController {
 
         tabPane.setDisable(false);
 
+        classFileField.setText(ClassFiles.classSimpleString(this.classFile));
+        majorVersionField.setText(this.classFile.getMajorVersion().getMajorVersion() + "");
     }
 
     private static final Alert exitConfirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
