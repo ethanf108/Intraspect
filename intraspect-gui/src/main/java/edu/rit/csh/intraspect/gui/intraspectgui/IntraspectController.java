@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -22,11 +23,8 @@ public class IntraspectController {
     private static final Alert exitConfirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
 
     static {
-        final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Class files (*.class)", "*.class");
-        final FileChooser.ExtensionFilter allFilter = new FileChooser.ExtensionFilter("All Files", "*");
-
-        chooser.getExtensionFilters().add(extFilter);
-        chooser.getExtensionFilters().add(allFilter);
+        chooser.getExtensionFilters().add(new ExtensionFilter("Class files (*.class)", "*.class"));
+        chooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*"));
     }
 
     static {
@@ -79,6 +77,8 @@ public class IntraspectController {
 
         // Constant pool tab
         GridPane gridPane = new GridPane();
+        gridPane.setVgap(5);
+        gridPane.setHgap(10);
         constantPoolTab.setContent(gridPane);
 
         int index = 0;

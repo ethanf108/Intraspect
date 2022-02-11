@@ -34,13 +34,13 @@ public class IntraspectApplication extends Application {
         fxmlLoader.setController(new IntraspectController(window));
 
         // Prevent the window from being resized
-        window.setResizable(false);
+        //window.setResizable(false);
 
         // Set the title
         window.setTitle("Intraspect GUI");
 
         // Make and add the scene
-        window.setScene(new Scene(fxmlLoader.load(), 500, 400));
+        window.setScene(new Scene(fxmlLoader.load(), 600, 425));
 
         // Show the window
         window.show();
