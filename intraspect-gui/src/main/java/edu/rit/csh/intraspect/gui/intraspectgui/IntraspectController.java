@@ -23,7 +23,10 @@ public class IntraspectController {
 
     static {
         final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Class files (*.class)", "*.class");
+        final FileChooser.ExtensionFilter allFilter = new FileChooser.ExtensionFilter("All Files", "*");
+
         chooser.getExtensionFilters().add(extFilter);
+        chooser.getExtensionFilters().add(allFilter);
     }
 
     static {
