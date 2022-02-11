@@ -2,12 +2,14 @@ package edu.rit.csh.intraspect.gui.intraspectgui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.ClassFiles;
+import edu.rit.csh.intraspect.data.constant.ConstantDesc;
+import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -19,7 +21,10 @@ import java.util.Objects;
 public class IntraspectController {
 
     @FXML
-    private TextField classFileField;
+    private ScrollPane constantPoolTab;
+
+    @FXML
+    private TextField classNameField;
 
     @FXML
     private TextField majorVersionField;
@@ -31,7 +36,7 @@ public class IntraspectController {
     private TabPane tabPane;
 
     @FXML
-    private void classFileFieldChanged() {
+    private void classNameFieldChanged() {
 
     }
 
@@ -46,6 +51,7 @@ public class IntraspectController {
     }
 
     private static final FileChooser chooser = new FileChooser();
+
     static {
         final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Class files (*.class)", "*.class");
         chooser.getExtensionFilters().add(extFilter);
@@ -87,11 +93,32 @@ public class IntraspectController {
 
         tabPane.setDisable(false);
 
-        classFileField.setText(ClassFiles.classSimpleString(this.classFile));
+        classNameField.setText(ClassFiles.classSimpleString(this.classFile));
         majorVersionField.setText(this.classFile.getMajorVersion().getMajorVersion() + "");
+        minorVersionField.setText("Minor version");
+
+        // Constant pool tab
+        GridPane gridPane = new GridPane();
+        constantPoolTab.setContent(gridPane);
+
+        int index = 0;
+
+        for (ConstantDesc cd : classFile.getConstants()) {
+            index++;
+            if (cd instanceof EmptyWideConstant) {
+                continue;
+            }
+            String className = cd.getClass().getSimpleName();
+            className = className.substring(0, className.indexOf("Constant"));
+
+            gridPane.add(new Label(className), 0, index);
+            gridPane.add(new TextField(cd instanceof UTF8Constant u ? u.getValue() : ""), 1, index);
+        }
+
     }
 
     private static final Alert exitConfirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+
     static {
         exitConfirmationAlert.setTitle("Exit Confirmation");
         exitConfirmationAlert.setHeaderText("Are you sure you want to exit?");

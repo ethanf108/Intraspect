@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +14,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <center>
@@ -34,10 +34,10 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Class File" />
+                              <Label text="Class Name" />
                               <Label text="Major Version" GridPane.rowIndex="1" />
                               <Label text="Minor Version" GridPane.rowIndex="2" />
-                              <TextField fx:id="classFileField" onAction="#classFileFieldChanged" GridPane.columnIndex="1" />
+                              <TextField fx:id="classNameField" onAction="#classNameFieldChanged" GridPane.columnIndex="1" />
                               <TextField fx:id="majorVersionField" onAction="#majorVersionFieldChanged" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="minorVersionField" onAction="#minorVersionFieldChanged" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
@@ -50,9 +50,9 @@
                </content>
             </Tab>
           <Tab text="Constant Pool">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+               <content>
+                  <ScrollPane fx:id="constantPoolTab" prefHeight="200.0" prefWidth="200.0" />
+               </content>
           </Tab>
             <Tab text="Fields">
                <content>
