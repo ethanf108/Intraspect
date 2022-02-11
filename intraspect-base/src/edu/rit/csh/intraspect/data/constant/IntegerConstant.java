@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantValue;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,6 +12,7 @@ import java.io.IOException;
  */
 public class IntegerConstant implements ConstantDesc {
 
+    @ConstantValue(int.class)
     private final int value;
 
     private IntegerConstant(final int val) {

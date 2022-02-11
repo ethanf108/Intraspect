@@ -2,6 +2,7 @@ package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.ClassFiles;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.Optional;
  */
 public class ClassConstant implements ConstantDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int utf8Index;
 
     public ClassConstant(final int utf8) {

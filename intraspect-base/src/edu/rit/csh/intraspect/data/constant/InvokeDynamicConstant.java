@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,6 +10,8 @@ import java.io.IOException;
 public class InvokeDynamicConstant implements ConstantDesc {
 
     private final int bootstrapMethodAttributeIndex;
+
+    @ConstantPoolIndex(NameAndTypeConstant.class)
     private final int nameAndTypeIndex;
 
     public InvokeDynamicConstant(final int bootstrapMethodAttributeIndex, final int nameAndTypeIndex) {

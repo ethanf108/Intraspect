@@ -42,5 +42,7 @@ module intraspect.base {
     exports edu.rit.csh.intraspect.data.instruction.wide.load;
     exports edu.rit.csh.intraspect.data.instruction.wide.store;
 
+    exports edu.rit.csh.intraspect.edit;
+
     exports edu.rit.csh.intraspect.util;
 }
