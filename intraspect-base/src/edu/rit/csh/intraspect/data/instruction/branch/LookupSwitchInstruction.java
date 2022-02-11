@@ -4,8 +4,10 @@ import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
+import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
@@ -49,6 +51,12 @@ public final class LookupSwitchInstruction extends Instruction {
         return 8 + this.padBytes + 8 * this.matchOffsetPairs.length;
     }
 
+    /**
+     * Warning: please call write with a proper OffsetOutputStream first.
+     * We have no way of calculating the padBytes without this.
+     *
+     * @return an int array representing the unsigned bytes of the operands of this method
+     */
     @Override
     public int[] getOperands() {
         ByteBuffer buf = ByteBuffer.allocate(this.getNumOperands());
@@ -73,6 +81,17 @@ public final class LookupSwitchInstruction extends Instruction {
         }
 
         return ret;
+    }
+
+    @Override
+    public void write(DataOutputStream stream) throws IOException {
+        final OffsetOutputStream out = (OffsetOutputStream) stream;
+        out.writeByte(this.getOpcode());
+        this.padBytes = (int) (3 - (out.getCounter() % 4));
+        int[] ops = this.getOperands();
+        for (int i : ops) {
+            out.writeByte(i);
+        }
     }
 
     @Override

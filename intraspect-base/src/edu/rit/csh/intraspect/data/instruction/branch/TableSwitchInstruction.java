@@ -4,9 +4,12 @@ import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
+import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 @Opcode(opcode = 0xAA, mnemonic = "tableswitch")
@@ -78,31 +81,45 @@ public final class TableSwitchInstruction extends Instruction {
         return 12 + 4 * this.jumpOffsets.length + this.padBytes;
     }
 
-
+    /**
+     * Warning: please call write with a proper OffsetOutputStream first.
+     * We have no way of calculating the padBytes without this.
+     *
+     * @return an int array representing the unsigned bytes of the operands of this method
+     */
     @Override
     public int[] getOperands() {
-        int[] ret = new int[this.getNumOperands()];
+        ByteBuffer buf = ByteBuffer.allocate(this.getNumOperands());
 
-        ret[0] = (this.high & 0xFF000000) >> 24;
-        ret[1] = (this.high & 0xFF0000) >> 16;
-        ret[2] = (this.high & 0xFF00) >> 8;
-        ret[3] = this.high & 0xFF;
-
-        ret[4] = (this.low & 0xFF000000) >> 24;
-        ret[5] = (this.low & 0xFF0000) >> 16;
-        ret[6] = (this.low & 0xFF00) >> 8;
-        ret[7] = this.low & 0xFF;
-
-        for (int i = 0, i4 = 0; i < this.jumpOffsets.length; i++, i4 = i << 2) {
-            ret[8 + i4] = (this.jumpOffsets[i] & 0xFF000000) >> 24;
-            ret[9 + i4] = (this.jumpOffsets[i] & 0xFF0000) >> 16;
-            ret[10 + i4] = (this.jumpOffsets[i] & 0xFF00) >> 8;
-            ret[11 + i4] = this.jumpOffsets[i] & 0xFF;
+        for (int i = 0; i < this.padBytes; i++) {
+            buf.put((byte) 0);
         }
 
-        int[] actualRet = new int[ret.length + this.padBytes];
-        System.arraycopy(ret, 0, actualRet, this.padBytes, ret.length);
-        return actualRet;
+        buf.putInt(this.defaultOffset);
+        buf.putInt(this.low);
+        buf.putInt(this.high);
+        for (int jump : this.jumpOffsets) {
+            buf.putInt(jump);
+        }
+
+        byte[] b = buf.array();
+        int[] ret = new int[b.length];
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = b[i];
+        }
+        return ret;
+
+    }
+
+    @Override
+    public void write(DataOutputStream stream) throws IOException {
+        final OffsetOutputStream out = (OffsetOutputStream) stream;
+        out.writeByte(this.getOpcode());
+        this.padBytes = (int) (3 - (out.getCounter() % 4));
+        int[] ops = this.getOperands();
+        for (int i : ops) {
+            out.writeByte(i);
+        }
     }
 
     @Override

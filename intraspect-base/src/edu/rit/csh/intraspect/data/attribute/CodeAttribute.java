@@ -4,6 +4,7 @@ import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.InstructionCache;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
+import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -104,13 +105,16 @@ public class CodeAttribute implements AttributeDesc {
     }
 
     @Override
-    public void write(final DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out_) throws IOException {
+        final OffsetOutputStream out = (OffsetOutputStream) out_;
+
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.maxStack);
         out.writeShort(this.maxLocals);
 
         out.writeInt(this.instructionByteLengthCache);
+        out.resetCount();
         for (Instruction instruction : this.code) {
             instruction.write(out);
         }

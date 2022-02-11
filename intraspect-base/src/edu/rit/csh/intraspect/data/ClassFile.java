@@ -5,10 +5,11 @@ import edu.rit.csh.intraspect.data.attribute.AttributeReader;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
+import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 
 public class ClassFile {
@@ -177,10 +178,12 @@ public class ClassFile {
     /**
      * Writes the class file to the given data output stream.
      *
-     * @param out the data output stream to write to
+     * @param stream the data output stream to write to
      * @throws IOException if an I/O error occurs
      */
-    public void write(final DataOutputStream out) throws IOException {
+    public void write(final OutputStream stream) throws IOException {
+        final OffsetOutputStream out = new OffsetOutputStream(stream);
+
         out.write(MAGIC);
         out.writeShort(this.minorVersion);
         out.writeShort(this.majorVersion.getMajorVersion());

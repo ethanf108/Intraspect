@@ -81,7 +81,7 @@ public sealed abstract class Instruction permits
 
     public abstract boolean isValid(final ClassFile ref);
 
-    public final void write(final DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getOpcode());
         for (int i : this.getOperands()) {
             out.writeByte(i);
