@@ -1,14 +1,12 @@
 package edu.rit.csh.intraspect.gui.intraspectgui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
-import edu.rit.csh.intraspect.data.ClassFiles;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -20,44 +18,29 @@ import java.util.Objects;
 
 public class IntraspectController {
 
-    @FXML
-    private ScrollPane constantPoolTab;
-
-    @FXML
-    private TextField classNameField;
-
-    @FXML
-    private TextField majorVersionField;
-
-    @FXML
-    private TextField minorVersionField;
-
-    @FXML
-    private TabPane tabPane;
-
-    @FXML
-    private void classNameFieldChanged() {
-
-    }
-
-    @FXML
-    private void majorVersionFieldChanged() {
-
-    }
-
-    @FXML
-    private void minorVersionFieldChanged() {
-
-    }
-
     private static final FileChooser chooser = new FileChooser();
+    private static final Alert exitConfirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
 
     static {
         final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Class files (*.class)", "*.class");
         chooser.getExtensionFilters().add(extFilter);
     }
 
+    static {
+        exitConfirmationAlert.setTitle("Exit Confirmation");
+        exitConfirmationAlert.setHeaderText("Are you sure you want to exit?");
+        exitConfirmationAlert.setContentText(null);
+    }
+
     private final Stage window;
+
+    private ClassFile classFile;
+
+    @FXML
+    private ScrollPane constantPoolTab;
+
+    @FXML
+    private TabPane tabPane;
 
     public IntraspectController(final Stage window) {
         this.window = window;
@@ -66,8 +49,6 @@ public class IntraspectController {
             closeApplication();
         });
     }
-
-    private ClassFile classFile;
 
     @FXML
     private void openFile() {
@@ -93,10 +74,6 @@ public class IntraspectController {
 
         tabPane.setDisable(false);
 
-        classNameField.setText(ClassFiles.classSimpleString(this.classFile));
-        majorVersionField.setText(this.classFile.getMajorVersion().getMajorVersion() + "");
-        minorVersionField.setText("Minor version");
-
         // Constant pool tab
         GridPane gridPane = new GridPane();
         constantPoolTab.setContent(gridPane);
@@ -114,15 +91,6 @@ public class IntraspectController {
             gridPane.add(new Label(className), 0, index);
             gridPane.add(new TextField(cd instanceof UTF8Constant u ? u.getValue() : ""), 1, index);
         }
-
-    }
-
-    private static final Alert exitConfirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-
-    static {
-        exitConfirmationAlert.setTitle("Exit Confirmation");
-        exitConfirmationAlert.setHeaderText("Are you sure you want to exit?");
-        exitConfirmationAlert.setContentText(null);
     }
 
     @FXML

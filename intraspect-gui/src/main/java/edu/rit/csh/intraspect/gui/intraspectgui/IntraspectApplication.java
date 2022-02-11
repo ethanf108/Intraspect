@@ -1,6 +1,5 @@
 package edu.rit.csh.intraspect.gui.intraspectgui;
 
-import edu.rit.csh.intraspect.data.ClassFile;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,25 +9,40 @@ import java.io.IOException;
 
 public class IntraspectApplication extends Application {
 
+    /**
+     * Main method of the program. Launches the GUI application.
+     *
+     * @param args The arguments passed to the application
+     */
+    public static void main(final String[] args) {
+        launch(args);
+    }
+
+    /**
+     * JavaFX start method. Constructs and displays the application window.
+     *
+     * @param window The application window (A.K.A. the stage)
+     * @throws IOException If the fxml file couldn't be loaded
+     */
     @Override
     public void start(final Stage window) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "intraspect-view.fxml"));
+        // Load the fxml file
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("intraspect-view.fxml"));
 
-        IntraspectController controller = new IntraspectController(window);
-        fxmlLoader.setController(controller);
+        // Specify the controller
+        fxmlLoader.setController(new IntraspectController(window));
 
-        final Scene scene = new Scene(fxmlLoader.load(), 500, 400);
-
+        // Prevent the window from being resized
         window.setResizable(false);
 
+        // Set the title
         window.setTitle("Intraspect GUI");
-        window.setScene(scene);
-        window.show();
-    }
 
-    public static void main(String[] args) {
-        launch(args);
+        // Make and add the scene
+        window.setScene(new Scene(fxmlLoader.load(), 500, 400));
+
+        // Show the window
+        window.show();
     }
 }
