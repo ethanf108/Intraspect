@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * A ConstantDescriptor for MethodRefConstant constants.
  */
-public class MethodRefConstant implements ConstantDesc {
+public final class MethodRefConstant implements ConstantDesc {
 
     @ConstantPoolIndex(ClassConstant.class)
     private final int classIndex;

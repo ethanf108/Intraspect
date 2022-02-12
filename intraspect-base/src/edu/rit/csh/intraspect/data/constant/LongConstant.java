@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for long constants.
  */
-public class LongConstant implements ConstantDesc {
+public final class LongConstant implements ConstantDesc {
 
     @ConstantValue(long.class)
     private final long value;

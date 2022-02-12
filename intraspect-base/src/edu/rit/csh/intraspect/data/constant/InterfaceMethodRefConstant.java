@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * A ConstantDescriptor for InterfaceMethodRef constants.
  */
-public class InterfaceMethodRefConstant implements ConstantDesc {
+public final class InterfaceMethodRefConstant implements ConstantDesc {
 
     @ConstantPoolIndex(ClassConstant.class)
     private final int classIndex;

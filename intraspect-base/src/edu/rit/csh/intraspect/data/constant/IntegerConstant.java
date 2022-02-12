@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for Integer constants.
  */
-public class IntegerConstant implements ConstantDesc {
+public final class IntegerConstant implements ConstantDesc {
 
     @ConstantValue(int.class)
     private final int value;

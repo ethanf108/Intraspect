@@ -10,7 +10,7 @@ import java.io.IOException;
  * The StackMapTable attribute.
  */
 @AttributeName("StackMapTable")
-public class StackMapTableAttribute implements AttributeDesc {
+public final class StackMapTableAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final StackMapFrame[] entries;
@@ -56,7 +56,7 @@ public class StackMapTableAttribute implements AttributeDesc {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
         out.writeShort(this.entries.length);
-        for (final StackMapFrame entry : entries) {
+        for (final StackMapFrame entry : this.entries) {
             entry.write(out);
         }
     }

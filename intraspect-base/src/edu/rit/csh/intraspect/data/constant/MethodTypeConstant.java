@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for MethodType constants.
  */
-public class MethodTypeConstant implements ConstantDesc {
+public final class MethodTypeConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
     private final int descriptorIndex;

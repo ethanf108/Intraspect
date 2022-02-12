@@ -8,7 +8,7 @@ import java.io.IOException;
  * The NestMembers attribute.
  */
 @AttributeName("NestMembers")
-public class NestMembersAttribute implements AttributeDesc {
+public final class NestMembersAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final int[] classes;
@@ -22,7 +22,9 @@ public class NestMembersAttribute implements AttributeDesc {
         in.readInt();    // Discard attribute length
 
         final int[] arr = new int[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = in.readUnsignedShort()) ;
+        for (int i = 0; i < arr.length; arr[i++] = in.readUnsignedShort()) {
+            ;
+        }
 
         return new NestMembersAttribute(ani, arr);
     }
@@ -34,7 +36,7 @@ public class NestMembersAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return getNumberOfClasses() * 2 + 2;
+        return this.getNumberOfClasses() * 2 + 2;
     }
 
     public int getNumberOfClasses() {

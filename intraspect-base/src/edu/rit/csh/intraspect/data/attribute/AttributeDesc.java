@@ -10,7 +10,15 @@ import java.util.Optional;
 /**
  * Describes an attribute of a class.
  */
-public interface AttributeDesc {
+public sealed interface AttributeDesc permits
+        AnnotationDefaultAttribute, BootstrapMethodsAttribute, CodeAttribute, ConstantValueAttribute,
+        CustomAttribute, DeprecatedAttribute, EnclosingMethodAttribute, ExceptionsAttribute,
+        InnerClassesAttribute, LineNumberTableAttribute, LocalVariableTableAttribute, LocalVariableTypeTableAttribute,
+        MethodParametersAttribute, ModuleAttribute, ModuleMainClassAttribute, ModulePackagesAttribute,
+        NestHostAttribute, NestMembersAttribute, PermittedSubclassesAttribute, RecordAttribute,
+        RuntimeAnnotations, RuntimeParameterAnnotations, RuntimeTypeAnnotations, SignatureAttribute,
+        SourceDebugExtensionAttribute, SourceFileAttribute, StackMapTableAttribute, SyntheticAttribute,
+        UnknownAttribute {
 
     int getAttributeNameIndex();
 

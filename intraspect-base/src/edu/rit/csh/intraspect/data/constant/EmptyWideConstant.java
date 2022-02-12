@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author ethan
  */
-public class EmptyWideConstant implements ConstantDesc {
+public final class EmptyWideConstant implements ConstantDesc {
 
     @Override
     public int getTag() {

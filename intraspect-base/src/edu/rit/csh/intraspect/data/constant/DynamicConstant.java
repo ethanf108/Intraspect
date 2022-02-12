@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for Dynamic constants.
  */
-public class DynamicConstant implements ConstantDesc {
+public final class DynamicConstant implements ConstantDesc {
 
     private final int bootstrapMethodAttributeIndex;
 
