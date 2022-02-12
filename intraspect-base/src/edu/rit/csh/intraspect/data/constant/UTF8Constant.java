@@ -15,7 +15,7 @@ public final class UTF8Constant implements ConstantDesc {
     @ConstantValue(String.class)
     private String value;
 
-    private UTF8Constant(final String val) {
+    public UTF8Constant(final String val) {
         this.value = val;
     }
 
