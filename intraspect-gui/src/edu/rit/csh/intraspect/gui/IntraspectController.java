@@ -4,7 +4,6 @@ import edu.rit.csh.intraspect.data.ClassFile;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -39,7 +38,7 @@ public class IntraspectController {
             });
         }
 
-        aboutAlert.getDialogPane().setContent(new VBox(new Label("Intraspect is a tool for reading, analyzing, and editing Java class files."), hyperlink));
+        aboutAlert.getDialogPane().setContent(hyperlink);
     }
 
     static {
@@ -57,45 +56,34 @@ public class IntraspectController {
      * The stage that this controller is associated with.
      */
     private final Stage window;
-
+    // ---------------------------------
+    // ----- Application Tab Panes -----
+    // ---------------------------------
+    @FXML
+    TabPane tabPane;
     /**
      * The class file that is currently being analyzed.
      */
     private ClassFile classFile;
-
     // -----------------------------
     // ----- File Menu Options -----
     // -----------------------------
-
     @FXML
     private MenuItem saveFileMenuOption;
-
     @FXML
     private MenuItem closeFileMenuOption;
-
-
-    // ---------------------------------
-    // ----- Application Tab Panes -----
-    // ---------------------------------
-
     @FXML
     private ScrollPane overviewTab;
-
     @FXML
     private ScrollPane constantPoolTab;
-
     @FXML
     private ScrollPane fieldsTab;
-
     @FXML
     private ScrollPane methodsTab;
-
     @FXML
     private ScrollPane attributesTab;
-
     @FXML
-    private TabPane tabPane;
-
+    private ScrollPane inheritanceTab;
 
     /**
      * Sole constructor which takes the application window as an argument
@@ -175,7 +163,7 @@ public class IntraspectController {
         final boolean isFileOpen = Objects.nonNull(this.classFile);
 
         // Update tabs
-        this.overviewTab.setContent(isFileOpen ? ViewBuilders.buildOverviewTab(this.classFile) : null);
+        this.overviewTab.setContent(isFileOpen ? ViewBuilders.buildOverviewTab(this.classFile, this) : null);
         this.constantPoolTab.setContent(isFileOpen ? ViewBuilders.buildConstantPoolTab(this.classFile) : null);
         this.fieldsTab.setContent(isFileOpen ? ViewBuilders.buildFieldsTab(this.classFile) : null);
         this.methodsTab.setContent(isFileOpen ? ViewBuilders.buildMethodsTab(this.classFile) : null);

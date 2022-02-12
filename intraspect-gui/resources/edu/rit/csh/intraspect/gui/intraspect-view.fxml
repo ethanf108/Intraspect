@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17">
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <center>
-        <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                 prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="Overview">
                     <content>
                         <ScrollPane fx:id="overviewTab" fitToHeight="true" fitToWidth="true">
                             <padding>
-                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                             </padding>
                         </ScrollPane>
                     </content>
@@ -21,7 +26,7 @@
                     <content>
                         <ScrollPane fx:id="constantPoolTab" fitToHeight="true" fitToWidth="true">
                             <padding>
-                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                             </padding>
                         </ScrollPane>
                     </content>
@@ -30,7 +35,7 @@
                     <content>
                         <ScrollPane fx:id="fieldsTab" fitToHeight="true" fitToWidth="true">
                             <padding>
-                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                             </padding>
                         </ScrollPane>
                     </content>
@@ -39,7 +44,7 @@
                     <content>
                         <ScrollPane fx:id="methodsTab" fitToHeight="true" fitToWidth="true">
                             <padding>
-                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                             </padding>
                         </ScrollPane>
                     </content>
@@ -48,11 +53,20 @@
                     <content>
                         <ScrollPane fx:id="attributesTab" fitToHeight="true" fitToWidth="true">
                             <padding>
-                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                             </padding>
                         </ScrollPane>
                     </content>
                 </Tab>
+            <Tab text="Inheritance">
+               <content>
+                  <ScrollPane fx:id="InheritanceTab" fitToHeight="true" fitToWidth="true">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                  </ScrollPane>
+               </content>
+            </Tab>
             </tabs>
         </TabPane>
     </center>
@@ -61,22 +75,20 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open File"/>
-                        <MenuItem fx:id="saveFileMenuOption" mnemonicParsing="false" onAction="#saveFile"
-                                  text="Save File"/>
-                        <MenuItem fx:id="closeFileMenuOption" mnemonicParsing="false" onAction="#closeFile"
-                                  text="Close File"/>
-                        <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Exit"/>
+                        <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open File" />
+                        <MenuItem fx:id="saveFileMenuOption" mnemonicParsing="false" onAction="#saveFile" text="Save File" />
+                        <MenuItem fx:id="closeFileMenuOption" mnemonicParsing="false" onAction="#closeFile" text="Close File" />
+                        <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Exit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showAboutAlert" text="About"/>
+                        <MenuItem mnemonicParsing="false" onAction="#showAboutAlert" text="About" />
                     </items>
                 </Menu>
             </menus>
