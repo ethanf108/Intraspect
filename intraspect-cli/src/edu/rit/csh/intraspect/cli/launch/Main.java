@@ -39,7 +39,16 @@ public class Main {
         final String fileName = args[args.length - 1];
 
         final Arguments flags = new Arguments();
-        flags.parse(args);
+
+        for (int i = 0; i < args.length - 1; i++) {
+            try {
+                flags.parse(args[i]);
+            } catch (IllegalArgumentException iae) {
+                System.out.println(iae.getMessage());
+                printHelp();
+                System.exit(1);
+            }
+        }
 
         File readFile = new File(fileName);
         if (!readFile.exists() && !readFile.getName().endsWith(".class")) {
@@ -52,8 +61,8 @@ public class Main {
 
         ClassInfoPrinter cip = new ClassInfoPrinter(
                 flags.contains("decompile"),
-                flags.contains("constants"),
-                flags.contains("attributes"),
+                flags.contains("show-constants"),
+                flags.contains("show-attributes"),
                 flags.contains("verify")
         );
         cip.printClass(cf, System.out);

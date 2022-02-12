@@ -41,14 +41,21 @@ public class Arguments {
         this.arguments = new HashSet<>();
     }
 
-    public boolean parse(String... args) {
-        for (String arg : args) {
-            if (!argCache.containsKey(arg)) {
-                return false;
-            }
-            this.arguments.add(argCache.get(arg).name());
+    public void parse(String arg) {
+        if (!arg.startsWith("-")) {
+            throw new IllegalArgumentException("Unknown Argument: " + arg);
         }
-        return true;
+        if (arg.startsWith("--") || arg.length() == 2) {
+            final String argValue = arg.substring(arg.startsWith("--") ? 2 : 1);
+            if (!argCache.containsKey(argValue)) {
+                throw new IllegalArgumentException("Unknown Argument: " + arg);
+            }
+            this.arguments.add(argCache.get(argValue).name());
+        } else {
+            for (char c : arg.substring(1).toCharArray()) {
+                this.parse("-" + c);
+            }
+        }
     }
 
     public boolean contains(String name) {
