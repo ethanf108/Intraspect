@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Set;
 
 public class ClassFile {
 
@@ -240,7 +242,17 @@ public class ClassFile {
     }
 
     public boolean hasFlag(AccessFlag flag) {
-        return this.accessFlags & flag.mask > 0;
+        return (this.accessFlags & flag.mask) > 0;
+    }
+
+    public Set<AccessFlag> getFlags() {
+        EnumSet<AccessFlag> ret = EnumSet.noneOf(AccessFlag.class);
+        for (AccessFlag flag : AccessFlag.values()) {
+            if (this.hasFlag(flag)) {
+                ret.add(flag);
+            }
+        }
+        return ret;
     }
 
     public enum AccessFlag {
