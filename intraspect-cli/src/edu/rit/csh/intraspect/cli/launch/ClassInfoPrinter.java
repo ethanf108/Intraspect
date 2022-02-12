@@ -66,7 +66,9 @@ public class ClassInfoPrinter {
             out.println(ClassFiles.methodSimpleString(md, cf));
             for (AttributeDesc ad : md.getAttributes()) {
                 if (ad instanceof CodeAttribute cd) {
-                    out.println("\tCode");
+                    if (this.decompile || this.showAttributes) {
+                        out.println("\tCode");
+                    }
                     if (this.decompile) {
                         for (Instruction in : cd.getCode()) {
                             if (this.verify && !in.isValid(cf)) {
@@ -91,12 +93,13 @@ public class ClassInfoPrinter {
             out.println();
         }
 
-
-        out.println("\nClass Attributes:");
-        for (AttributeDesc ad : cf.getAttributes()) {
-            out.println("\t" + ad.getAttributeName(cf).orElse(ad.getClass().getSimpleName()));
+        if (this.showAttributes) {
+            out.println();
+            out.println("Class Attributes:");
+            for (AttributeDesc ad : cf.getAttributes()) {
+                out.println("\t" + ad.getAttributeName(cf).orElse(ad.getClass().getSimpleName()));
+            }
         }
-
         out.println();
     }
 }
