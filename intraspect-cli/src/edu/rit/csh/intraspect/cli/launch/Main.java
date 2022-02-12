@@ -41,6 +41,9 @@ public class Main {
         final Arguments flags = new Arguments();
 
         for (int i = 0; i < args.length - 1; i++) {
+            if (args[i].isBlank()) {
+                continue;
+            }
             try {
                 flags.parse(args[i]);
             } catch (IllegalArgumentException iae) {
