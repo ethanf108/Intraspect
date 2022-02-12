@@ -1,12 +1,17 @@
 package edu.rit.csh.intraspect.data.attribute.annotation;
 
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class AnnotationDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int typeIndex;
+
     private final ElementValue.ElementValuePair[] elementValuePairs;
 
     public AnnotationDesc(final int typeIndex, final ElementValue.ElementValuePair[] elementValuePairs) {

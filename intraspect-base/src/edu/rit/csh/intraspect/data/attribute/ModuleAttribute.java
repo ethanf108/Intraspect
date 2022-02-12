@@ -1,5 +1,11 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.ClassConstant;
+import edu.rit.csh.intraspect.data.constant.ModuleConstant;
+import edu.rit.csh.intraspect.data.constant.PackageConstant;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,15 +16,23 @@ import java.io.IOException;
 @AttributeName("Module")
 public final class ModuleAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
 
+    @ConstantPoolIndex(ModuleConstant.class)
     private final int moduleNameIndex;
     private final int moduleFlags;
+
+    @ConstantPoolIndex(value = UTF8Constant.class, nullable = true)
     private final int moduleVersionIndex;
+
     private final RequiresEntry[] requires;
     private final ExportsEntry[] exports;
     private final OpensEntry[] opens;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private final int[] usesIndex;
+
     private final ProvidesEntry[] provides;
 
     public ModuleAttribute(final int attributeNameIndex,
@@ -53,30 +67,30 @@ public final class ModuleAttribute implements AttributeDesc {
         // Requires Entry
         final RequiresEntry[] requires = new RequiresEntry[in.readUnsignedShort()];
         for (int i = 0; i < requires.length; requires[i++] = RequiresEntry.read(in)) {
-            ;
+
         }
 
         // Exports Entry
         final ExportsEntry[] exports = new ExportsEntry[in.readUnsignedShort()];
         for (int i = 0; i < exports.length; exports[i++] = ExportsEntry.read(in)) {
-            ;
+
         }
 
         // Opens Entry
         final OpensEntry[] opens = new OpensEntry[in.readUnsignedShort()];
         for (int i = 0; i < opens.length; opens[i++] = OpensEntry.read(in)) {
-            ;
+
         }
 
         final int[] usesIndex = new int[in.readUnsignedShort()];
         for (int i = 0; i < usesIndex.length; usesIndex[i++] = in.readUnsignedShort()) {
-            ;
+
         }
 
         // Provides Entry
         final ProvidesEntry[] provides = new ProvidesEntry[in.readUnsignedShort()];
         for (int i = 0; i < provides.length; provides[i++] = ProvidesEntry.read(in)) {
-            ;
+
         }
 
         return new ModuleAttribute(ani, moduleNameIndex, moduleFlags, moduleVersionIndex, requires, exports, opens, usesIndex, provides);
@@ -136,7 +150,11 @@ public final class ModuleAttribute implements AttributeDesc {
         }
     }
 
-    public record RequiresEntry(int requiresIndex, int requiresFlags, int requiresVersionIndex) {
+    public record RequiresEntry(
+            @ConstantPoolIndex(ModuleConstant.class) int requiresIndex,
+            int requiresFlags,
+            @ConstantPoolIndex(UTF8Constant.class) int requiresVersionIndex
+    ) {
 
         public static RequiresEntry read(final DataInputStream in) throws IOException {
             return new RequiresEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
@@ -149,7 +167,11 @@ public final class ModuleAttribute implements AttributeDesc {
         }
     }
 
-    public record ExportsEntry(int exportsIndex, int exportsFlags, int[] exportsToIndex) {
+    public record ExportsEntry(
+            @ConstantPoolIndex(PackageConstant.class) int exportsIndex,
+            int exportsFlags,
+            @ConstantPoolIndex(ModuleConstant.class) int[] exportsToIndex
+    ) {
 
         public static ExportsEntry read(final DataInputStream in) throws IOException {
             final int exportsIndex = in.readUnsignedShort();
@@ -174,7 +196,11 @@ public final class ModuleAttribute implements AttributeDesc {
 
     }
 
-    public record OpensEntry(int opensIndex, int opensFlags, int[] opensToIndex) {
+    public record OpensEntry(
+            @ConstantPoolIndex(PackageConstant.class) int opensIndex,
+            int opensFlags,
+            @ConstantPoolIndex(ModuleConstant.class) int[] opensToIndex
+    ) {
 
         public static OpensEntry read(final DataInputStream in) throws IOException {
             final int opensIndex = in.readUnsignedShort();
@@ -199,7 +225,10 @@ public final class ModuleAttribute implements AttributeDesc {
         }
     }
 
-    public record ProvidesEntry(int providesIndex, int[] providesWithIndex) {
+    public record ProvidesEntry(
+            @ConstantPoolIndex(ClassConstant.class) int providesIndex,
+            @ConstantPoolIndex(ClassConstant.class) int[] providesWithIndex
+    ) {
 
         public static ProvidesEntry read(final DataInputStream in) throws IOException {
             final int providesIndex = in.readUnsignedShort();

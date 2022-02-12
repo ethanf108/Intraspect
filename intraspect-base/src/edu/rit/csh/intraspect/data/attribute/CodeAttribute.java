@@ -1,8 +1,11 @@
 package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.data.constant.ClassConstant;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.InstructionCache;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
 import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
@@ -18,7 +21,9 @@ import java.util.List;
 @AttributeName("Code")
 public final class CodeAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
     private final int maxStack;
     private final int maxLocals;
     private final Instruction[] code;
@@ -130,7 +135,11 @@ public final class CodeAttribute implements AttributeDesc {
         }
     }
 
-    public record ExceptionDesc(int startPc, int endPc, int handlerPc, int catchType) {
+    public record ExceptionDesc(
+            int startPc,
+            int endPc,
+            int handlerPc,
+            @ConstantPoolIndex(value = ClassConstant.class, nullable = true) int catchType) {
 
         public static ExceptionDesc read(DataInputStream in) throws IOException {
             return new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());

@@ -34,7 +34,7 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
 
     public abstract int getDataLength();
 
-    public static record ElementValuePair(int elementNameIndex, ElementValue elementValue) {
+    public record ElementValuePair(int elementNameIndex, ElementValue elementValue) {
 
         public static ElementValuePair read(final DataInputStream in) throws IOException {
             return new ElementValuePair(in.readUnsignedShort(), ElementValue.read(in));

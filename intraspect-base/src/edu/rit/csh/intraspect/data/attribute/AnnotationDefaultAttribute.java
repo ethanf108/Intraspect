@@ -1,6 +1,8 @@
 package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.attribute.annotation.ElementValue;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,6 +14,7 @@ import java.io.IOException;
 @AttributeName("AnnotationDefault")
 public final class AnnotationDefaultAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
     private final ElementValue defaultValue;
 

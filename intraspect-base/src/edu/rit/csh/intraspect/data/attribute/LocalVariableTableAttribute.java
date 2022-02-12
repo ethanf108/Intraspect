@@ -1,5 +1,8 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,6 +13,7 @@ import java.io.IOException;
 @AttributeName("LocalVariableTable")
 public final class LocalVariableTableAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
     private final LocalVariableTableEntry[] localVariableTable;
 

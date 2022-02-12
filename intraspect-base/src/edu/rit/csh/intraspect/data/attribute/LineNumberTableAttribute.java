@@ -1,5 +1,8 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +13,9 @@ import java.io.IOException;
 @AttributeName("LineNumberTable")
 public final class LineNumberTableAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
     private final LineNumberTableEntry[] lineNumberTable;
 
     private LineNumberTableAttribute(final int attributeNameIndex, final LineNumberTableEntry[] lineNumberTable) {
@@ -23,7 +28,6 @@ public final class LineNumberTableAttribute implements AttributeDesc {
 
         final LineNumberTableEntry[] arr = new LineNumberTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = new LineNumberTableEntry(in.readUnsignedShort(), in.readUnsignedShort())) {
-            ;
         }
 
         return new LineNumberTableAttribute(ani, arr);
@@ -59,7 +63,7 @@ public final class LineNumberTableAttribute implements AttributeDesc {
         return this.getLineNumberTableLength() * 4 + 2;
     }
 
-    public static record LineNumberTableEntry(int startPc, int lineNumber) {
+    public record LineNumberTableEntry(int startPc, int lineNumber) {
 
     }
 }
