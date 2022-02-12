@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class FloatConstant implements ConstantDesc {
 
     @ConstantValue(float.class)
-    private final float value;
+    private float value;
 
     private FloatConstant(final float val) {
         this.value = val;
@@ -46,5 +46,15 @@ public final class FloatConstant implements ConstantDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeInt(Float.floatToRawIntBits(this.value));
+    }
+
+    @Override
+    public String getName() {
+        return "Float";
+    }
+
+    @Override
+    public String getInfo() {
+        return String.valueOf(this.value) + "f";
     }
 }

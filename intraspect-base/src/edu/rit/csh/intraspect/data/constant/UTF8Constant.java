@@ -13,9 +13,9 @@ import java.io.IOException;
 public final class UTF8Constant implements ConstantDesc {
 
     @ConstantValue(String.class)
-    private final String value;
+    private String value;
 
-    private UTF8Constant(final String val) {
+    public UTF8Constant(final String val) {
         this.value = val;
     }
 
@@ -53,5 +53,15 @@ public final class UTF8Constant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeShort(this.value.getBytes().length);
         out.write(this.value.getBytes());
+    }
+
+    @Override
+    public String getName() {
+        return "UTF8";
+    }
+
+    @Override
+    public String getInfo() {
+        return this.value;
     }
 }

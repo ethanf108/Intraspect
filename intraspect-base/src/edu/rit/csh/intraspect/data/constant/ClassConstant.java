@@ -14,7 +14,7 @@ import java.util.Optional;
 public final class ClassConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private final int utf8Index;
+    private int utf8Index;
 
     public ClassConstant(final int utf8) {
         this.utf8Index = utf8;
@@ -54,5 +54,15 @@ public final class ClassConstant implements ConstantDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeShort(this.utf8Index);
+    }
+
+    @Override
+    public String getName() {
+        return "Class";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.utf8Index;
     }
 }

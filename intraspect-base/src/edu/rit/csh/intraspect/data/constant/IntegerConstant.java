@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class IntegerConstant implements ConstantDesc {
 
     @ConstantValue(int.class)
-    private final int value;
+    private int value;
 
     private IntegerConstant(final int val) {
         this.value = val;
@@ -51,5 +51,15 @@ public final class IntegerConstant implements ConstantDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeInt(this.value);
+    }
+
+    @Override
+    public String getName() {
+        return "Integer";
+    }
+
+    @Override
+    public String getInfo() {
+        return String.valueOf(this.value) + "i";
     }
 }

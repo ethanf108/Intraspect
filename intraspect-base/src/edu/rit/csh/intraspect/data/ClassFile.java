@@ -23,7 +23,7 @@ public class ClassFile {
     private int accessFlags;
     private int minorVersion;
     private MajorVersion majorVersion;
-    private ConstantDesc[] constantPool;
+    private ConstantPool constantPool;
     private int thisClass;
     private int superClass;
     private int[] interfaces;
@@ -57,12 +57,16 @@ public class ClassFile {
         ret.majorVersion = new MajorVersion(in.readUnsignedShort());
 
         final int constantPoolCount = in.readUnsignedShort();
-        ret.constantPool = new ConstantDesc[constantPoolCount];
+        ret.constantPool = new ConstantPool();
         for (int i = 1; i < constantPoolCount; i++) {
-            ret.constantPool[i] = ConstantDesc.readConstant(in);
-            if (ret.constantPool[i].isWide()) {
-                ret.constantPool[++i] = new EmptyWideConstant();
+            final ConstantDesc cd = ConstantDesc.readConstant(in);
+            ret.constantPool.addInternal(cd);
+            if (cd.isWide()) {
+                ret.constantPool.addInternal(new EmptyWideConstant());
             }
+        }
+        if (constantPoolCount - 1 != ret.constantPool.getNumConstants()) {
+            throw new IllegalStateException("Invalid number of Constants read");
         }
 
         ret.accessFlags = in.readUnsignedShort();
@@ -122,14 +126,18 @@ public class ClassFile {
         if (index == 0) {
             throw new IllegalArgumentException("Constant Pool entries are 1-indexed");
         }
-        if (this.constantPool[index] instanceof EmptyWideConstant) {
+        if (this.constantPool.get(index) instanceof EmptyWideConstant) {
             throw new IllegalArgumentException("Cannot index an Empty Wide Constant");
         }
-        return this.constantPool[index];
+        return this.constantPool.get(index);
     }
 
     public <T extends ConstantDesc> T getConstantDesc(final int index, final Class<T> clazz) {
         return clazz.cast(this.getConstantDesc(index));
+    }
+
+    public ConstantPool getConstantPool() {
+        return this.constantPool;
     }
 
     /**
@@ -147,8 +155,10 @@ public class ClassFile {
      * @return the constant pool of the class file
      */
     public ConstantDesc[] getConstants() {
-        ConstantDesc[] ret = new ConstantDesc[this.constantPool.length - 1];
-        System.arraycopy(this.constantPool, 1, ret, 0, this.constantPool.length - 1);
+        ConstantDesc[] ret = new ConstantDesc[this.constantPool.getNumConstants()];
+        for (int i = 1; i < this.constantPool.getNumConstants(); i++) {
+            ret[i - 1] = this.constantPool.get(i);
+        }
         return ret;
     }
 
@@ -206,10 +216,7 @@ public class ClassFile {
         out.writeShort(this.minorVersion);
         out.writeShort(this.majorVersion.getMajorVersion());
 
-        out.writeShort(this.constantPool.length);
-        for (int i = 1; i < this.constantPool.length; i++) {
-            this.constantPool[i].write(out);
-        }
+        this.constantPool.write(out);
 
         out.writeShort(this.accessFlags);
         out.writeShort(this.thisClass);

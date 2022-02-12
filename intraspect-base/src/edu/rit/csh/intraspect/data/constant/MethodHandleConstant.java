@@ -11,10 +11,10 @@ import java.io.IOException;
  */
 public final class MethodHandleConstant implements ConstantDesc {
 
-    private final int kind;
+    private int kind;
 
     @ConstantPoolIndex({FieldRefConstant.class, MethodRefConstant.class, InterfaceMethodRefConstant.class})
-    private final int referenceIndex;
+    private int referenceIndex;
 
     public MethodHandleConstant(final int kind, final int ref) {
         this.kind = kind;
@@ -87,5 +87,15 @@ public final class MethodHandleConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeByte(this.kind);
         out.writeShort(this.referenceIndex);
+    }
+
+    @Override
+    public String getName() {
+        return "MethodHandle";
+    }
+
+    @Override
+    public String getInfo() {
+        return "(" + this.kind + "), #" + this.referenceIndex;
     }
 }

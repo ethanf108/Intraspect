@@ -12,10 +12,10 @@ import java.io.IOException;
 public final class NameAndTypeConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private final int nameIndex;
+    private final int descriptorIndex;
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private final int descriptorIndex;
+    private int nameIndex;
 
     public NameAndTypeConstant(final int name, final int descriptor) {
         this.nameIndex = name;
@@ -52,4 +52,13 @@ public final class NameAndTypeConstant implements ConstantDesc {
         out.writeShort(this.descriptorIndex);
     }
 
+    @Override
+    public String getName() {
+        return "NameAndType";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.descriptorIndex + ", #" + this.nameIndex;
+    }
 }
