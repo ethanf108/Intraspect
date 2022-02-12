@@ -128,6 +128,10 @@ public class ClassFile {
         return this.constantPool[index];
     }
 
+    public <T extends ConstantDesc> T getConstantDesc(final int index, final Class<T> clazz) {
+        return clazz.cast(this.getConstantDesc(index));
+    }
+
     /**
      * Returns the major version of the class file.
      *
