@@ -4,4 +4,6 @@ manifest.mf
 nbproject/*
 build/*
 *.iml
+.idea/*
 */.idea/*
+/intraspect-gui/target/*
