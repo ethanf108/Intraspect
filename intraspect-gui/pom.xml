@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                edu.rit.csh.intraspect.gui.intraspectgui/edu.rit.csh.intraspect.gui.intraspectgui.IntraspectApplication
+                                edu.rit.csh.intraspect.gui/edu.rit.csh.intraspect.gui.IntraspectApplication
                             </mainClass>
                         </configuration>
                     </execution>

@@ -1,4 +1,4 @@
-package edu.rit.csh.intraspect.gui.intraspectgui;
+package edu.rit.csh.intraspect.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

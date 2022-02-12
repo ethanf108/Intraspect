@@ -1,4 +1,4 @@
-package edu.rit.csh.intraspect.gui.intraspectgui;
+package edu.rit.csh.intraspect.gui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
