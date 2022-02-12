@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,7 +12,10 @@ import java.util.Optional;
  */
 public class InterfaceMethodRefConstant implements ConstantDesc {
 
+    @ConstantPoolIndex(ClassConstant.class)
     private final int classIndex;
+
+    @ConstantPoolIndex(NameAndTypeConstant.class)
     private final int nameAndTypeIndex;
 
     public InterfaceMethodRefConstant(final int classIndex, final int nameAndTypeIndex) {
