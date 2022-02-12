@@ -1,14 +1,19 @@
 package edu.rit.csh.intraspect.gui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.data.FieldDesc;
+import edu.rit.csh.intraspect.data.MethodDesc;
+import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.constant.ClassConstant;
+import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * Contains static methods for building JavaFX nodes for the class file view.
@@ -56,14 +61,20 @@ public class ViewBuilders {
 
         // Minor version info
         {
-            Spinner<Integer> minorVersionSpinner = new Spinner<>(0, Integer.MAX_VALUE, classFile.getMinorVersion());
+            final Spinner<Integer> minorVersionSpinner = new Spinner<>(0, Integer.MAX_VALUE, classFile.getMinorVersion());
+            minorVersionSpinner.valueProperty().addListener((observableValue, oldVal, newVal) -> {
+                System.out.println("Updating minor version to: " + newVal);
+            });
             content.add(new Label("Minor version:"), 0, 2);
             content.add(minorVersionSpinner, 1, 2);
         }
 
         // Major version info
         {
-            Spinner<Integer> majorVersionSpinner = new Spinner<>(0, Integer.MAX_VALUE, classFile.getMajorVersion().getMajorVersion());
+            final Spinner<Integer> majorVersionSpinner = new Spinner<>(0, Integer.MAX_VALUE, classFile.getMajorVersion().getMajorVersion());
+            majorVersionSpinner.valueProperty().addListener((observableValue, oldVal, newVal) -> {
+                System.out.println("Updating major version to: " + newVal);
+            });
             content.add(new Label("Major version:"), 0, 3);
             content.add(majorVersionSpinner, 1, 3);
         }
@@ -133,7 +144,13 @@ public class ViewBuilders {
      * @return The constant pool tab for the class file.
      */
     public static Pane buildConstantPoolTab(final ClassFile classFile) {
-        return new AnchorPane();
+        final VBox content = new VBox();
+
+        for (ConstantDesc constant : classFile.getConstants()) {
+            content.getChildren().add(new TextField(constant.toString()));
+        }
+
+        return content;
     }
 
     /**
@@ -143,7 +160,13 @@ public class ViewBuilders {
      * @return The fields tab for the class file.
      */
     public static Pane buildFieldsTab(final ClassFile classFile) {
-        return new AnchorPane();
+        final VBox content = new VBox();
+
+        for (FieldDesc field : classFile.getFields()) {
+            content.getChildren().add(new TextField(field.toString()));
+        }
+
+        return content;
     }
 
     /**
@@ -153,7 +176,13 @@ public class ViewBuilders {
      * @return The methods tab for the class file.
      */
     public static Pane buildMethodsTab(final ClassFile classFile) {
-        return new AnchorPane();
+        final VBox content = new VBox();
+
+        for (MethodDesc method : classFile.getMethods()) {
+            content.getChildren().add(new TextField(method.toString()));
+        }
+
+        return content;
     }
 
     /**
@@ -163,7 +192,13 @@ public class ViewBuilders {
      * @return The attributes tab for the class file.
      */
     public static Pane buildAttributesTab(final ClassFile classFile) {
-        return new AnchorPane();
+        final VBox content = new VBox();
+
+        for (AttributeDesc attribute : classFile.getAttributes()) {
+            content.getChildren().add(new TextField(attribute.toString()));
+        }
+
+        return content;
     }
 
     /**
@@ -173,6 +208,14 @@ public class ViewBuilders {
      * @return The inheritance tab for the class file.
      */
     public static Pane buildInheritanceTab(final ClassFile classFile) {
-        return new AnchorPane();
+        final VBox content = new VBox();
+
+        content.getChildren().add(new Label(classFile.getConstantDesc(classFile.getConstantDesc(classFile.getSuperClassIndex(), ClassConstant.class).getUTF8Index(), UTF8Constant.class).getValue()));
+
+        for (int interfaceIndex : classFile.getInterfaces()) {
+            content.getChildren().add(new TextField(classFile.getConstantDesc(classFile.getConstantDesc(interfaceIndex, ClassConstant.class).getUTF8Index(), UTF8Constant.class).getValue()));
+        }
+
+        return content;
     }
 }

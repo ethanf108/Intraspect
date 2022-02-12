@@ -8,33 +8,18 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-import java.io.*;
-import java.nio.channels.Channel;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 public class IntraspectController {
-
-    private static record OpenedFile(ClassFile classFile, File file) {
-        public static OpenedFile open(final File file) throws IOException {
-            final FileInputStream inputStream = new FileInputStream(file);
-            final ClassFile classFile = ClassFile.readClassFile(inputStream);
-
-            return new OpenedFile(classFile, file);
-        }
-
-        public void save() throws IOException {
-            this.classFile.write(new FileOutputStream(file));
-        }
-    }
 
     /**
      * The link to the GitHub repository for this project.
      */
     private static final String GITHUB_LINK = "https://github.com/ethanf108/Intraspect";
-
     private static final FileChooser chooser = new FileChooser();
     private static final Alert exitConfirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
     private static final Alert aboutAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -71,9 +56,7 @@ public class IntraspectController {
      * The stage that this controller is associated with.
      */
     private final Stage window;
-    // ---------------------------------
-    // ----- Application Tab Panes -----
-    // ---------------------------------
+
     @FXML
     TabPane tabPane;
     /**
@@ -81,9 +64,6 @@ public class IntraspectController {
      */
     private OpenedFile openedClassFile;
 
-    // -----------------------------
-    // ----- File Menu Options -----
-    // -----------------------------
     @FXML
     private MenuItem saveFileMenuOption;
     @FXML
@@ -114,9 +94,6 @@ public class IntraspectController {
         });
     }
 
-    // ---------------------------------
-    // ----- Action event handlers -----
-    // ---------------------------------
     @FXML
     private void showAboutAlert() {
         // Show the about alert and stall the thread
@@ -137,9 +114,8 @@ public class IntraspectController {
         final File file = chooser.showOpenDialog(this.window);
         {
             // If the user cancelled, don't do anything
-            if (Objects.isNull(file)) {
+            if (Objects.isNull(file))
                 return;
-            }
 
             // Attempt to open the file and update the window upon success
             try {
@@ -172,9 +148,8 @@ public class IntraspectController {
     @FXML
     private void closeApplication() {
         exitConfirmationAlert.showAndWait().ifPresent(buttonType -> {
-            if (buttonType == ButtonType.OK) {
+            if (buttonType == ButtonType.OK)
                 Platform.exit();
-            }
         });
     }
 
@@ -208,5 +183,18 @@ public class IntraspectController {
     private void initialize() {
         // When the window is loaded, initialize it
         this.update();
+    }
+
+    private static record OpenedFile(ClassFile classFile, File file) {
+        public static OpenedFile open(final File file) throws IOException {
+            final FileInputStream inputStream = new FileInputStream(file);
+            final ClassFile classFile = ClassFile.readClassFile(inputStream);
+
+            return new OpenedFile(classFile, file);
+        }
+
+        public void save() throws IOException {
+            this.classFile.write(new FileOutputStream(file));
+        }
     }
 }
