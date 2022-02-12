@@ -8,7 +8,7 @@ import java.io.IOException;
  * The LocalVariableTable attribute.
  */
 @AttributeName("LocalVariableTable")
-public class LocalVariableTableAttribute implements AttributeDesc {
+public final class LocalVariableTableAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final LocalVariableTableEntry[] localVariableTable;
@@ -22,7 +22,9 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         in.readInt();    // Discard attribute length
 
         final LocalVariableTableEntry[] arr = new LocalVariableTableEntry[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = LocalVariableTableEntry.read(in)) ;
+        for (int i = 0; i < arr.length; arr[i++] = LocalVariableTableEntry.read(in)) {
+            ;
+        }
 
         return new LocalVariableTableAttribute(ani, arr);
     }
@@ -39,7 +41,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
     @Override
 
     public int getDataLength() {
-        return getLineNumberTableLength() * 10 + 2;
+        return this.getLineNumberTableLength() * 10 + 2;
     }
 
     public LocalVariableTableEntry[] getLocalVariableTable() {
@@ -52,7 +54,7 @@ public class LocalVariableTableAttribute implements AttributeDesc {
         out.writeInt(this.getDataLength());
         out.writeShort(this.getLineNumberTableLength());
 
-        for (final LocalVariableTableEntry entry : localVariableTable) {
+        for (final LocalVariableTableEntry entry : this.localVariableTable) {
             entry.write(out);
         }
     }

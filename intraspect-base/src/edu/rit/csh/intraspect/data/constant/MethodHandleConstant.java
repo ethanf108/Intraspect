@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for MethodHandle constants.
  */
-public class MethodHandleConstant implements ConstantDesc {
+public final class MethodHandleConstant implements ConstantDesc {
 
     private final int kind;
 

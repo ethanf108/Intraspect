@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for FieldRef constants.
  */
-public class FieldRefConstant implements ConstantDesc {
+public final class FieldRefConstant implements ConstantDesc {
 
     private final int classIndex;
     private final int nameAndTypeIndex;

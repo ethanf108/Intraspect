@@ -8,7 +8,7 @@ import java.io.IOException;
  * The NestHost attribute.
  */
 @AttributeName("NestHost")
-public class NestHostAttribute implements AttributeDesc {
+public final class NestHostAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final int hostClassIndex;

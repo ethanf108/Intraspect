@@ -8,7 +8,7 @@ import java.io.IOException;
  * The ConstantValue attribute.
  */
 @AttributeName("ConstantValue")
-public class ConstantValueAttribute implements AttributeDesc {
+public final class ConstantValueAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final int constantValueIndex;

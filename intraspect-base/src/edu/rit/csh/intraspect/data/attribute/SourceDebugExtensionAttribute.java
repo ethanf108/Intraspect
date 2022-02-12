@@ -8,7 +8,7 @@ import java.io.IOException;
  * The SourceDebugExtension attribute.
  */
 @AttributeName("SourceDebugExtension")
-public class SourceDebugExtensionAttribute implements AttributeDesc {
+public final class SourceDebugExtensionAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final byte[] debugExtension;

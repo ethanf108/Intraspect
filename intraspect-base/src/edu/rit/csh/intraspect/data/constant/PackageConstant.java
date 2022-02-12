@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for Package Constants.
  */
-public class PackageConstant implements ConstantDesc {
+public final class PackageConstant implements ConstantDesc {
 
     private final int utf8Index;
 

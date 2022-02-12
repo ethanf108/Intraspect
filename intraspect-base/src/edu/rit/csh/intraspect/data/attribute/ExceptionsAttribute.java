@@ -8,7 +8,7 @@ import java.io.IOException;
  * The Exceptions attribute.
  */
 @AttributeName("Exceptions")
-public class ExceptionsAttribute implements AttributeDesc {
+public final class ExceptionsAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final int[] exceptionIndexTable;

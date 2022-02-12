@@ -8,7 +8,7 @@ import java.io.IOException;
  * The ModuleMainClass attribute.
  */
 @AttributeName("ModuleMainClass")
-public class ModuleMainClassAttribute implements AttributeDesc {
+public final class ModuleMainClassAttribute implements AttributeDesc {
 
     private static final int ATTRIBUTE_LENGTH = 2;
 

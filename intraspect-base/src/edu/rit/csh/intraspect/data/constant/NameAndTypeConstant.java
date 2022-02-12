@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for NameAndType constants.
  */
-public class NameAndTypeConstant implements ConstantDesc {
+public final class NameAndTypeConstant implements ConstantDesc {
 
     private final int nameIndex;
     private final int descriptorIndex;

@@ -8,7 +8,7 @@ import java.io.IOException;
  * The InnerClasses attribute.
  */
 @AttributeName("InnerClasses")
-public class InnerClassesAttribute implements AttributeDesc {
+public final class InnerClassesAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final InnerClassesTableEntry[] innerClassesTable;
@@ -22,7 +22,9 @@ public class InnerClassesAttribute implements AttributeDesc {
         in.readInt();    // Discard attribute length
 
         final InnerClassesTableEntry[] arr = new InnerClassesTableEntry[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = InnerClassesTableEntry.read(in)) ;
+        for (int i = 0; i < arr.length; arr[i++] = InnerClassesTableEntry.read(in)) {
+            ;
+        }
 
         return new InnerClassesAttribute(ani, arr);
     }
@@ -34,7 +36,7 @@ public class InnerClassesAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return 2 + getInnerClassesTableLength() * 8;
+        return 2 + this.getInnerClassesTableLength() * 8;
     }
 
     public int getInnerClassesTableLength() {
@@ -49,7 +51,7 @@ public class InnerClassesAttribute implements AttributeDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
-        out.writeShort(getInnerClassesTableLength());
+        out.writeShort(this.getInnerClassesTableLength());
 
         for (final InnerClassesTableEntry entry : this.innerClassesTable) {
             entry.write(out);

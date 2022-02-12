@@ -2,7 +2,6 @@ package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
-import edu.rit.csh.intraspect.util.Util;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -21,13 +20,7 @@ public class AttributeReader {
 
     static {
         attributeClasses = new HashMap<>();
-        for (Class<?> clazz : Util.findClassesInPackage(AttributeReader.class.getPackageName())) {
-            if (!AttributeDesc.class.isAssignableFrom(clazz) || !clazz.isAnnotationPresent(AttributeName.class)) {
-                continue;
-            }
-            final AttributeName name = clazz.getAnnotation(AttributeName.class);
-            attributeClasses.put(name.value(), clazz.asSubclass(AttributeDesc.class));
-        }
+        recurseSealed(AttributeDesc.class);
     }
 
     /**
@@ -37,7 +30,22 @@ public class AttributeReader {
 
     }
 
-    public static void submitAttribute(final Class<? extends AttributeDesc> clazz) {
+    private static void recurseSealed(Class<? extends AttributeDesc> clazz) {
+        if (!AttributeDesc.class.isAssignableFrom(clazz) || clazz == CustomAttribute.class) {
+            return;
+        }
+        if (clazz.isSealed()) {
+            for (Class<?> sub : clazz.getPermittedSubclasses()) {
+                recurseSealed(sub.asSubclass(AttributeDesc.class));
+            }
+        }
+        if (clazz.isAnnotationPresent(AttributeName.class)) {
+            final AttributeName name = clazz.getAnnotation(AttributeName.class);
+            attributeClasses.put(name.value(), clazz);
+        }
+    }
+
+    public static void submitAttribute(final Class<? extends CustomAttribute> clazz) {
         Objects.requireNonNull(clazz);
         if (!AttributeDesc.class.isAssignableFrom(clazz) || !clazz.isAnnotationPresent(AttributeName.class)) {
             throw new IllegalArgumentException("Class does not meet requirements to be submitted");

@@ -8,7 +8,7 @@ import java.io.IOException;
  * The ModulePackages attribute.
  */
 @AttributeName("ModulePackages")
-public class ModulePackagesAttribute implements AttributeDesc {
+public final class ModulePackagesAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final int[] packageIndex;

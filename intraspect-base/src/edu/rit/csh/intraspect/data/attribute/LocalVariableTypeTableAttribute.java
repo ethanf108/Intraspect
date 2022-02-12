@@ -8,7 +8,7 @@ import java.io.IOException;
  * The LocalVariableTypeTable attribute.
  */
 @AttributeName("LocalVariableTypeTable")
-public class LocalVariableTypeTableAttribute implements AttributeDesc {
+public final class LocalVariableTypeTableAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final LocalVariableTypeTableEntry[] localVariableTypeTable;
@@ -22,8 +22,9 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
         in.readInt();   // Discard attribute length
 
         final LocalVariableTypeTableEntry[] arr = new LocalVariableTypeTableEntry[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTypeTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort()))
+        for (int i = 0; i < arr.length; arr[i++] = new LocalVariableTypeTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort())) {
             ;
+        }
 
         return new LocalVariableTypeTableAttribute(ani, arr);
     }
@@ -52,7 +53,7 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
         out.writeInt(this.getDataLength());
         out.writeShort(this.getLocalVariableTypeTableLength());
 
-        for (final LocalVariableTypeTableEntry entry : localVariableTypeTable) {
+        for (final LocalVariableTypeTableEntry entry : this.localVariableTypeTable) {
             out.writeShort(entry.startPc);
             out.writeShort(entry.length);
             out.writeShort(entry.nameIndex);
@@ -63,5 +64,6 @@ public class LocalVariableTypeTableAttribute implements AttributeDesc {
 
     public static record LocalVariableTypeTableEntry(int startPc, int length, int nameIndex,
                                                      int signatureIndex, int index) {
+
     }
 }
