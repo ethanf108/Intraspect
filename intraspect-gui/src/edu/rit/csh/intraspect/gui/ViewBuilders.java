@@ -34,8 +34,6 @@ public class ViewBuilders {
         final String className = classFile.getConstantDesc(classFile.getConstantDesc(classFile.getThisClassIndex(), ClassConstant.class).getUTF8Index(), UTF8Constant.class).getValue();
         final String superClass = classFile.getConstantDesc(classFile.getConstantDesc(classFile.getSuperClassIndex(), ClassConstant.class).getUTF8Index(), UTF8Constant.class).getValue();
 
-        final String majorVersion = classFile.getMajorVersion().getMajorVersion() + "";
-
         final String constantPoolSize = classFile.getConstants().length + "";
         final String interfaceCount = classFile.getInterfaces().length + "";
         final String fieldCount = classFile.getFields().length + "";
@@ -165,6 +163,16 @@ public class ViewBuilders {
      * @return The attributes tab for the class file.
      */
     public static Pane buildAttributesTab(final ClassFile classFile) {
+        return new AnchorPane();
+    }
+
+    /**
+     * Builds the inheritance tab for the class file.
+     *
+     * @param classFile The class file to build the inheritance tab for.
+     * @return The inheritance tab for the class file.
+     */
+    public static Pane buildInheritanceTab(final ClassFile classFile) {
         return new AnchorPane();
     }
 }
