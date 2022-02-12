@@ -27,14 +27,19 @@ public class IntraspectController {
 
     static {
         aboutAlert.setTitle("About Intraspect");
+        aboutAlert.setHeaderText(null);
+
         final Hyperlink hyperlink = new Hyperlink("View on GitHub");
-        hyperlink.setOnAction(event -> {
-            try {
-                java.awt.Desktop.getDesktop().browse(new java.net.URI(GITHUB_LINK));
-            } catch (final IOException | java.net.URISyntaxException ignored) {
-            }
-        });
-        aboutAlert.getDialogPane().setContent(new VBox(new Label("Intraspect is a tool for analyzing Java class files."), hyperlink));
+        {
+            hyperlink.setOnAction(event -> {
+                try {
+                    java.awt.Desktop.getDesktop().browse(new java.net.URI(GITHUB_LINK));
+                } catch (final IOException | java.net.URISyntaxException ignored) {
+                }
+            });
+        }
+
+        aboutAlert.getDialogPane().setContent(new VBox(new Label("Intraspect is a tool for reading, analyzing, and editing Java class files."), hyperlink));
     }
 
     static {
@@ -58,11 +63,20 @@ public class IntraspectController {
      */
     private ClassFile classFile;
 
+    // -----------------------------
+    // ----- File Menu Options -----
+    // -----------------------------
+
+    @FXML
+    private MenuItem saveFileMenuOption;
+
+    @FXML
+    private MenuItem closeFileMenuOption;
+
+
     // ---------------------------------
     // ----- Application Tab Panes -----
     // ---------------------------------
-    @FXML
-    private MenuItem closeFileMenuOption;
 
     @FXML
     private ScrollPane overviewTab;
@@ -91,7 +105,7 @@ public class IntraspectController {
     public IntraspectController(final Stage window) {
         this.window = window;
         window.setOnCloseRequest(e -> {
-            e.consume();
+            e.consume();    // Consume the event so that the window doesn't close
             this.closeApplication();
         });
     }
@@ -101,6 +115,8 @@ public class IntraspectController {
     // ---------------------------------
     @FXML
     private void showAboutAlert() {
+        // Show the about alert and stall the thread
+        // We don't really care about the result
         aboutAlert.showAndWait();
     }
 
@@ -129,6 +145,11 @@ public class IntraspectController {
     }
 
     @FXML
+    private void saveFile() {
+        System.out.println("Saving file... (not really this hasn't actually been implemented yet!)");
+    }
+
+    @FXML
     private void closeFile() {
         // Set the class file to null
         this.classFile = null;
@@ -137,6 +158,18 @@ public class IntraspectController {
         this.update();
     }
 
+    @FXML
+    private void closeApplication() {
+        exitConfirmationAlert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == ButtonType.OK) {
+                Platform.exit();
+            }
+        });
+    }
+
+    /**
+     * Updates the window to reflect any changes to the class file
+     */
     private void update() {
         // Check if the class file is null
         final boolean isFileOpen = Objects.nonNull(this.classFile);
@@ -151,17 +184,12 @@ public class IntraspectController {
         // Enable/disable menu options
         this.tabPane.setDisable(!isFileOpen);
         this.closeFileMenuOption.setDisable(!isFileOpen);
+        this.saveFileMenuOption.setDisable(!isFileOpen);
     }
 
-    @FXML
-    private void closeApplication() {
-        exitConfirmationAlert.showAndWait().ifPresent(buttonType -> {
-            if (buttonType == ButtonType.OK) {
-                Platform.exit();
-            }
-        });
-    }
-
+    /**
+     * Initializes the controller class. This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     private void initialize() {
         // When the window is loaded, initialize it

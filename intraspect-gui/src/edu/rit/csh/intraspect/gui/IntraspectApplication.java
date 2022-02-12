@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The main application for the Intraspect GUI.
+ */
 public class IntraspectApplication extends Application {
 
     /**
@@ -15,7 +18,7 @@ public class IntraspectApplication extends Application {
      * @param args The arguments passed to the application
      */
     public static void main(final String[] args) {
-        launch(args);
+        Application.launch(args);
     }
 
     /**
@@ -28,21 +31,21 @@ public class IntraspectApplication extends Application {
     public void start(final Stage window) throws IOException {
 
         // Load the fxml file
-        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("intraspect-view.fxml"));
+        final FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("intraspect-view.fxml"));
 
-        // Specify the controller
+        // Specify the controller, passing a reference to the stage
         fxmlLoader.setController(new IntraspectController(window));
 
         // Prevent the window from being resized
-        //window.setResizable(false);
+        window.setResizable(false);
 
         // Set the title
         window.setTitle("Intraspect GUI");
 
-        // Make and add the scene
+        // Make and add a scene to the stage
         window.setScene(new Scene(fxmlLoader.load(), 600, 425));
 
-        // Show the window
+        // Show the stage
         window.show();
     }
 }
