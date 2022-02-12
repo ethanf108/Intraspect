@@ -42,4 +42,14 @@ public final class StringConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeShort(this.utf8Index);
     }
+
+    @Override
+    public String getName() {
+        return "String";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.utf8Index;
+    }
 }

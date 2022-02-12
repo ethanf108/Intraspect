@@ -52,4 +52,13 @@ public final class DynamicConstant implements ConstantDesc {
         out.writeShort(this.nameAndTypeIndex);
     }
 
+    @Override
+    public String getName() {
+        return "Dynamic";
+    }
+
+    @Override
+    public String getInfo() {
+        return "b#" + this.bootstrapMethodAttributeIndex + ", #" + this.nameAndTypeIndex;
+    }
 }

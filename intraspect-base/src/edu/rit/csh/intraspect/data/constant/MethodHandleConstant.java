@@ -88,4 +88,14 @@ public final class MethodHandleConstant implements ConstantDesc {
         out.writeByte(this.kind);
         out.writeShort(this.referenceIndex);
     }
+
+    @Override
+    public String getName() {
+        return "MethodHandle";
+    }
+
+    @Override
+    public String getInfo() {
+        return "(" + this.kind + "), #" + this.referenceIndex;
+    }
 }

@@ -49,4 +49,14 @@ public final class InvokeDynamicConstant implements ConstantDesc {
         out.writeShort(this.bootstrapMethodAttributeIndex);
         out.writeShort(this.nameAndTypeIndex);
     }
+
+    @Override
+    public String getName() {
+        return "InvokeDynamic";
+    }
+
+    @Override
+    public String getInfo() {
+        return "b#" + this.bootstrapMethodAttributeIndex + ", #" + this.nameAndTypeIndex;
+    }
 }

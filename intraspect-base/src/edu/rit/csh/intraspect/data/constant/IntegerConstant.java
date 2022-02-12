@@ -52,4 +52,14 @@ public final class IntegerConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeInt(this.value);
     }
+
+    @Override
+    public String getName() {
+        return "Integer";
+    }
+
+    @Override
+    public String getInfo() {
+        return String.valueOf(this.value) + "i";
+    }
 }

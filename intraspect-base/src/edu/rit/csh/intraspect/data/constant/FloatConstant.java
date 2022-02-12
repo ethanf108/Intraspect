@@ -47,4 +47,14 @@ public final class FloatConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeInt(Float.floatToRawIntBits(this.value));
     }
+
+    @Override
+    public String getName() {
+        return "Float";
+    }
+
+    @Override
+    public String getInfo() {
+        return String.valueOf(this.value) + "f";
+    }
 }

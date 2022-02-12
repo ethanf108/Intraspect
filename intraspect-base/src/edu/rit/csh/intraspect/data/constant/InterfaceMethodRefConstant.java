@@ -59,4 +59,14 @@ public final class InterfaceMethodRefConstant implements ConstantDesc {
         out.writeShort(this.classIndex);
         out.writeShort(this.nameAndTypeIndex);
     }
+
+    @Override
+    public String getName() {
+        return "InterfaceMethodRef";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.classIndex + ", #" + this.nameAndTypeIndex;
+    }
 }

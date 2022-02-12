@@ -42,4 +42,14 @@ public final class PackageConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeShort(this.utf8Index);
     }
+
+    @Override
+    public String getName() {
+        return "Package";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.utf8Index;
+    }
 }

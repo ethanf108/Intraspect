@@ -52,4 +52,14 @@ public final class FieldRefConstant implements ConstantDesc {
         out.writeShort(this.classIndex);
         out.writeShort(this.nameAndTypeIndex);
     }
+
+    @Override
+    public String getName() {
+        return "FieldRef";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.classIndex + ", #" + this.nameAndTypeIndex;
+    }
 }

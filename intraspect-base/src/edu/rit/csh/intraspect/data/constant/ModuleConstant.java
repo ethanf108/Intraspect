@@ -42,4 +42,14 @@ public final class ModuleConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeShort(this.moduleNameIndex);
     }
+
+    @Override
+    public String getName() {
+        return "Module";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.moduleNameIndex;
+    }
 }

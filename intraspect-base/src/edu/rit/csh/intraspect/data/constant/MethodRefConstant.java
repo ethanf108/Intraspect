@@ -69,4 +69,14 @@ public final class MethodRefConstant implements ConstantDesc {
         out.writeShort(this.classIndex);
         out.writeShort(this.nameAndTypeIndex);
     }
+
+    @Override
+    public String getName() {
+        return "MethodRef";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.classIndex + ", #" + this.nameAndTypeIndex;
+    }
 }

@@ -13,6 +13,7 @@ public final class NameAndTypeConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
     private final int descriptorIndex;
+
     @ConstantPoolIndex(UTF8Constant.class)
     private int nameIndex;
 
@@ -51,4 +52,13 @@ public final class NameAndTypeConstant implements ConstantDesc {
         out.writeShort(this.descriptorIndex);
     }
 
+    @Override
+    public String getName() {
+        return "NameAndType";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.descriptorIndex + ", #" + this.nameIndex;
+    }
 }

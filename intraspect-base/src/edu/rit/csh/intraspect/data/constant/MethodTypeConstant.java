@@ -43,4 +43,14 @@ public final class MethodTypeConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeShort(this.descriptorIndex);
     }
+
+    @Override
+    public String getName() {
+        return "MethodType";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.descriptorIndex;
+    }
 }

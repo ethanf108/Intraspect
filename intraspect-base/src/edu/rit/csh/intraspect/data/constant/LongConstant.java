@@ -52,4 +52,14 @@ public final class LongConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeLong(this.value);
     }
+
+    @Override
+    public String getName() {
+        return "Long";
+    }
+
+    @Override
+    public String getInfo() {
+        return String.valueOf(this.value) + "L";
+    }
 }

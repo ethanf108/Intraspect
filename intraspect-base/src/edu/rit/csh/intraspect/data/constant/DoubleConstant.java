@@ -47,4 +47,14 @@ public final class DoubleConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeLong(Double.doubleToRawLongBits(this.value));
     }
+
+    @Override
+    public String getName() {
+        return "Double";
+    }
+
+    @Override
+    public String getInfo() {
+        return String.valueOf(this.value) + "d";
+    }
 }
