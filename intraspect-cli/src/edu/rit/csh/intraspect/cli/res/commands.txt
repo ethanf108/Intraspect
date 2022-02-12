@@ -1,0 +1,4 @@
+show-attributes 0 a show-attributes
+show-constants 0 c show-constants
+decompile 0 d decompile
+verify 0 verify
