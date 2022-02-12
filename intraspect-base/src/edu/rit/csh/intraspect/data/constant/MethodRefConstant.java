@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * A ConstantDescriptor for MethodRefConstant constants.
  */
-public class MethodRefConstant implements ConstantDesc {
+public final class MethodRefConstant implements ConstantDesc {
 
     private final int classIndex;
     private final int nameAndTypeIndex;

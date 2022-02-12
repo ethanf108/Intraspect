@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for Double constants.
  */
-public class DoubleConstant implements ConstantDesc {
+public final class DoubleConstant implements ConstantDesc {
 
     private final double value;
 

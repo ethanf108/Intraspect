@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for UTF8 constants.
  */
-public class UTF8Constant implements ConstantDesc {
+public final class UTF8Constant implements ConstantDesc {
 
     private final String value;
 

@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for String constants.
  */
-public class StringConstant implements ConstantDesc {
+public final class StringConstant implements ConstantDesc {
 
     private final int utf8Index;
 

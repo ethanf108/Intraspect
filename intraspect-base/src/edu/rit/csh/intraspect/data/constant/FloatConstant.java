@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for Float constants.
  */
-public class FloatConstant implements ConstantDesc {
+public final class FloatConstant implements ConstantDesc {
 
     private final float value;
 

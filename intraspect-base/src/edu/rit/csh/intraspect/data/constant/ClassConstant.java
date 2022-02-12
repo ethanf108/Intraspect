@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * A ConstantDescriptor for Class constants.
  */
-public class ClassConstant implements ConstantDesc {
+public final class ClassConstant implements ConstantDesc {
 
     private final int utf8Index;
 

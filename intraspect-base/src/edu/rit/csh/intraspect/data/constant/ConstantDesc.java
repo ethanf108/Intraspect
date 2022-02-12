@@ -9,7 +9,12 @@ import java.io.IOException;
 /**
  * An interface representing a constant descriptor.
  */
-public interface ConstantDesc {
+public sealed interface ConstantDesc permits
+        ClassConstant, DoubleConstant, DynamicConstant, EmptyWideConstant,
+        FieldRefConstant, FloatConstant, IntegerConstant, InterfaceMethodRefConstant,
+        InvokeDynamicConstant, LongConstant, MethodHandleConstant, MethodRefConstant,
+        MethodTypeConstant, ModuleConstant, NameAndTypeConstant, PackageConstant,
+        StringConstant, UTF8Constant {
 
     /**
      * Reads a constant from the given data input stream.
