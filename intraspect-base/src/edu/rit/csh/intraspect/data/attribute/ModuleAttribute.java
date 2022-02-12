@@ -8,7 +8,7 @@ import java.io.IOException;
  * The Module attribute.
  */
 @AttributeName("Module")
-public class ModuleAttribute implements AttributeDesc {
+public final class ModuleAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
 
@@ -52,22 +52,32 @@ public class ModuleAttribute implements AttributeDesc {
 
         // Requires Entry
         final RequiresEntry[] requires = new RequiresEntry[in.readUnsignedShort()];
-        for (int i = 0; i < requires.length; requires[i++] = RequiresEntry.read(in)) ;
+        for (int i = 0; i < requires.length; requires[i++] = RequiresEntry.read(in)) {
+            ;
+        }
 
         // Exports Entry
         final ExportsEntry[] exports = new ExportsEntry[in.readUnsignedShort()];
-        for (int i = 0; i < exports.length; exports[i++] = ExportsEntry.read(in)) ;
+        for (int i = 0; i < exports.length; exports[i++] = ExportsEntry.read(in)) {
+            ;
+        }
 
         // Opens Entry
         final OpensEntry[] opens = new OpensEntry[in.readUnsignedShort()];
-        for (int i = 0; i < opens.length; opens[i++] = OpensEntry.read(in)) ;
+        for (int i = 0; i < opens.length; opens[i++] = OpensEntry.read(in)) {
+            ;
+        }
 
         final int[] usesIndex = new int[in.readUnsignedShort()];
-        for (int i = 0; i < usesIndex.length; usesIndex[i++] = in.readUnsignedShort()) ;
+        for (int i = 0; i < usesIndex.length; usesIndex[i++] = in.readUnsignedShort()) {
+            ;
+        }
 
         // Provides Entry
         final ProvidesEntry[] provides = new ProvidesEntry[in.readUnsignedShort()];
-        for (int i = 0; i < provides.length; provides[i++] = ProvidesEntry.read(in)) ;
+        for (int i = 0; i < provides.length; provides[i++] = ProvidesEntry.read(in)) {
+            ;
+        }
 
         return new ModuleAttribute(ani, moduleNameIndex, moduleFlags, moduleVersionIndex, requires, exports, opens, usesIndex, provides);
     }

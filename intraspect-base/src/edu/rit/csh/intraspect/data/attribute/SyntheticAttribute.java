@@ -8,7 +8,7 @@ import java.io.IOException;
  * The Synthetic attribute.
  */
 @AttributeName("Synthetic")
-public class SyntheticAttribute implements AttributeDesc {
+public final class SyntheticAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
 

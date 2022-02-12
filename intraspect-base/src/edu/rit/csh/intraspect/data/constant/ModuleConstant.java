@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for a Module constants.
  */
-public class ModuleConstant implements ConstantDesc {
+public final class ModuleConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
     private final int moduleNameIndex;

@@ -325,12 +325,12 @@ public class ClassFiles {
             final ClassConstant superClass = cf.getConstantDesc(cf.getSuperClassIndex()) instanceof ClassConstant cc ? cc : null;
             final String superClassName = cf.getConstantDesc(superClass.getUTF8Index()) instanceof UTF8Constant u ? u.getValue() : "???";
 
-            sb.append("extends ").append(superClassName).append(" ");
+            sb.append("extends ").append(superClassName);
         }
 
         boolean first = true;
         if (cf.getInterfaces().length > 0) {
-            sb.append("implements");
+            sb.append(" implements");
             for (int interfaceIndex : cf.getInterfaces()) {
 
                 final ClassConstant interfaceClass = cf.getConstantDesc(interfaceIndex) instanceof ClassConstant cc ? cc : null;

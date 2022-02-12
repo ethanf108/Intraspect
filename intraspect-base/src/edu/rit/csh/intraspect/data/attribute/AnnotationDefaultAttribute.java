@@ -10,7 +10,7 @@ import java.io.IOException;
  * The annotation default attribute.
  */
 @AttributeName("AnnotationDefault")
-public class AnnotationDefaultAttribute implements AttributeDesc {
+public final class AnnotationDefaultAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final ElementValue defaultValue;

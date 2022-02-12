@@ -16,7 +16,7 @@ import java.util.List;
  * The Code attribute.
  */
 @AttributeName("Code")
-public class CodeAttribute implements AttributeDesc {
+public final class CodeAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final int maxStack;

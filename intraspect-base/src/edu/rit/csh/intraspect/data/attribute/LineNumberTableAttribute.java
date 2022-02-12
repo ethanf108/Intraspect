@@ -8,7 +8,7 @@ import java.io.IOException;
  * The LineNumberTable attribute.
  */
 @AttributeName("LineNumberTable")
-public class LineNumberTableAttribute implements AttributeDesc {
+public final class LineNumberTableAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final LineNumberTableEntry[] lineNumberTable;
@@ -22,8 +22,9 @@ public class LineNumberTableAttribute implements AttributeDesc {
         in.readInt();    // Discard attribute length
 
         final LineNumberTableEntry[] arr = new LineNumberTableEntry[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = new LineNumberTableEntry(in.readUnsignedShort(), in.readUnsignedShort()))
+        for (int i = 0; i < arr.length; arr[i++] = new LineNumberTableEntry(in.readUnsignedShort(), in.readUnsignedShort())) {
             ;
+        }
 
         return new LineNumberTableAttribute(ani, arr);
     }
@@ -47,7 +48,7 @@ public class LineNumberTableAttribute implements AttributeDesc {
         out.writeInt(this.getDataLength());
         out.writeShort(this.getLineNumberTableLength());
 
-        for (final LineNumberTableEntry entry : lineNumberTable) {
+        for (final LineNumberTableEntry entry : this.lineNumberTable) {
             out.writeShort(entry.startPc);
             out.writeShort(entry.lineNumber);
         }

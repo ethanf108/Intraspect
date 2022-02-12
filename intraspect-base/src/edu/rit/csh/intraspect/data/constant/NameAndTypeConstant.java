@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * A ConstantDescriptor for NameAndType constants.
  */
-public class NameAndTypeConstant implements ConstantDesc {
+public final class NameAndTypeConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
     private final int nameIndex;

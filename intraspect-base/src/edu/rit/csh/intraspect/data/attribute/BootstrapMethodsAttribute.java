@@ -8,7 +8,7 @@ import java.io.IOException;
  * The BootstrapMethods attribute.
  */
 @AttributeName("BootstrapMethods")
-public class BootstrapMethodsAttribute implements AttributeDesc {
+public final class BootstrapMethodsAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final BootstrapMethodsTableEntry[] bootstrapMethodsTable;
@@ -27,7 +27,9 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
             final int numBoostrapArguments = in.readUnsignedShort();
 
             final int[] bootstrapArguments = new int[numBoostrapArguments];
-            for (int j = 0; j < bootstrapArguments.length; bootstrapArguments[j++] = in.readUnsignedShort()) ;
+            for (int j = 0; j < bootstrapArguments.length; bootstrapArguments[j++] = in.readUnsignedShort()) {
+                ;
+            }
 
             arr[i] = new BootstrapMethodsTableEntry(bootstrapMethodRef, numBoostrapArguments, bootstrapArguments);
         }
@@ -39,7 +41,7 @@ public class BootstrapMethodsAttribute implements AttributeDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
-        out.writeShort(getBootstrapMethodsTableLength());
+        out.writeShort(this.getBootstrapMethodsTableLength());
 
         for (final BootstrapMethodsTableEntry entry : this.bootstrapMethodsTable) {
             out.writeShort(entry.bootstrapMethodRef);

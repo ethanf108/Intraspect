@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * The Unknown attribute, used to represent all unknown attributes.
  */
-public class UnknownAttribute implements AttributeDesc {
+public final class UnknownAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final byte[] data;

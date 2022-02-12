@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * A ConstantDescriptor for Class constants.
  */
-public class ClassConstant implements ConstantDesc {
+public final class ClassConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
     private final int utf8Index;

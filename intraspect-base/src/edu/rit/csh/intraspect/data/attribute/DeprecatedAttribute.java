@@ -8,7 +8,7 @@ import java.io.IOException;
  * The Deprecated attribute.
  */
 @AttributeName("Deprecated")
-public class DeprecatedAttribute implements AttributeDesc {
+public final class DeprecatedAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
 
