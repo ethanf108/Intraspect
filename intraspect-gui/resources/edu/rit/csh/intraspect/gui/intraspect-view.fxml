@@ -7,7 +7,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
@@ -15,9 +14,13 @@
         <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="Overview">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+               <content>
+                  <ScrollPane fx:id="overviewTab" fitToHeight="true" fitToWidth="true">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                  </ScrollPane>
+               </content>
                 </Tab>
                 <Tab text="Constant Pool">
                     <content>
@@ -28,19 +31,31 @@
                     </content>
                 </Tab>
                 <Tab text="Fields">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+               <content>
+                  <ScrollPane fx:id="fieldsTab" fitToHeight="true" fitToWidth="true">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                  </ScrollPane>
+               </content>
                 </Tab>
                 <Tab text="Methods">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+               <content>
+                  <ScrollPane fx:id="methodsTab" fitToHeight="true" fitToWidth="true">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                  </ScrollPane>
+               </content>
                 </Tab>
                 <Tab text="Class Attributes">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+               <content>
+                  <ScrollPane fx:id="attributesTab" fitToHeight="true" fitToWidth="true">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                  </ScrollPane>
+               </content>
                 </Tab>
             </tabs>
         </TabPane>
@@ -51,7 +66,8 @@
                 <Menu mnemonicParsing="false" text="File">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open" />
-                        <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Close" />
+                  <MenuItem fx:id="closeFileMenuOption" mnemonicParsing="false" onAction="#closeFile" text="Close File" />
+                        <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Exit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
@@ -61,7 +77,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#showAboutAlert" text="About" />
                     </items>
                 </Menu>
             </menus>
