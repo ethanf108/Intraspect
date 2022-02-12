@@ -2,18 +2,20 @@ package edu.rit.csh.intraspect.gui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.ClassConstant;
-import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
+/**
+ * Contains static methods for building JavaFX nodes for the class file view.
+ */
 public class ViewBuilders {
 
-    private ViewBuilders() {}
+    private ViewBuilders() {
+    }
 
     /**
      * Builds the overview tab for the class file.
@@ -48,15 +50,7 @@ public class ViewBuilders {
      * @return The constant pool tab for the class file.
      */
     public static Pane buildConstantPoolTab(final ClassFile classFile) {
-
-        final VBox content = new VBox();
-
-        for (ConstantDesc constant : classFile.getConstants()) {
-
-        }
-
-        return content;
-
+        return new AnchorPane();
     }
 
     /**
