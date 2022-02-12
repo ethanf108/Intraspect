@@ -29,6 +29,7 @@ public class ClassFile {
     private MethodDesc[] methods;
     private AttributeDesc[] attributes;
 
+
     /**
      * Private constructor to prevent instantiation.
      */
@@ -98,6 +99,19 @@ public class ClassFile {
         return ret;
     }
 
+    
+    public int getMinorVersion() {
+        return this.minorVersion;
+    }
+
+    public int getThisClass() {
+        return this.thisClass;
+    }
+
+    public int getSuperClass() {
+        return this.superClass;
+    }
+
     /**
      * Returns the constant descriptor at the given index.
      *
@@ -112,6 +126,10 @@ public class ClassFile {
             throw new IllegalArgumentException("Cannot index an Empty Wide Constant");
         }
         return this.constantPool[index];
+    }
+
+    public <T extends ConstantDesc> T getConstantDesc(final int index, final Class<T> clazz) {
+        return clazz.cast(this.getConstantDesc(index));
     }
 
     /**
