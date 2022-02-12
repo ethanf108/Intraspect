@@ -16,6 +16,9 @@ import java.util.Objects;
 
 public class IntraspectController {
 
+    /**
+     * The link to the GitHub repository for this project.
+     */
     private static final String GITHUB_LINK = "https://github.com/ethanf108/Intraspect";
 
     private static final FileChooser chooser = new FileChooser();
@@ -34,7 +37,6 @@ public class IntraspectController {
         aboutAlert.getDialogPane().setContent(new VBox(new Label("Intraspect is a tool for analyzing Java class files."), hyperlink));
     }
 
-
     static {
         chooser.getExtensionFilters().add(new ExtensionFilter("Class files (*.class)", "*.class"));
         chooser.getExtensionFilters().add(new ExtensionFilter("All Files", "*"));
@@ -46,8 +48,14 @@ public class IntraspectController {
         exitConfirmationAlert.setContentText(null);
     }
 
+    /**
+     * The stage that this controller is associated with.
+     */
     private final Stage window;
 
+    /**
+     * The class file that is currently being analyzed.
+     */
     private ClassFile classFile;
 
     // ---------------------------------
@@ -84,7 +92,7 @@ public class IntraspectController {
         this.window = window;
         window.setOnCloseRequest(e -> {
             e.consume();
-            closeApplication();
+            this.closeApplication();
         });
     }
 
@@ -106,13 +114,14 @@ public class IntraspectController {
         final File file = chooser.showOpenDialog(this.window);
         {
             // If the user cancelled, don't do anything
-            if (Objects.isNull(file))
+            if (Objects.isNull(file)) {
                 return;
+            }
 
             // Attempt to open the file and update the window upon success
             try {
                 this.classFile = ClassFile.readClassFile(new FileInputStream(file));
-                update();
+                this.update();
             } catch (final IOException e) {
                 e.printStackTrace();
             }
@@ -125,42 +134,23 @@ public class IntraspectController {
         this.classFile = null;
 
         // Update the window
-        update();
+        this.update();
     }
 
     private void update() {
-        if (Objects.isNull(this.classFile)) {
+        // Check if the class file is null
+        final boolean isFileOpen = Objects.nonNull(this.classFile);
 
-            // Disable the tabs
-            tabPane.setDisable(true);
+        // Update tabs
+        this.overviewTab.setContent(isFileOpen ? ViewBuilders.buildOverviewTab(this.classFile) : null);
+        this.constantPoolTab.setContent(isFileOpen ? ViewBuilders.buildConstantPoolTab(this.classFile) : null);
+        this.fieldsTab.setContent(isFileOpen ? ViewBuilders.buildFieldsTab(this.classFile) : null);
+        this.methodsTab.setContent(isFileOpen ? ViewBuilders.buildMethodsTab(this.classFile) : null);
+        this.attributesTab.setContent(isFileOpen ? ViewBuilders.buildAttributesTab(this.classFile) : null);
 
-            // Disable the option to close the file
-            closeFileMenuOption.setDisable(true);
-
-            // Return
-            return;
-        }
-
-        // Enable the tabs
-        tabPane.setDisable(false);
-
-        // Enable the option to close the file
-        closeFileMenuOption.setDisable(false);
-
-        // Build overview tab
-        overviewTab.setContent(ViewBuilders.buildOverviewTab(this.classFile));
-
-        // Build constant pool tab
-        constantPoolTab.setContent(ViewBuilders.buildConstantPoolTab(this.classFile));
-
-        // Build fields tab
-        fieldsTab.setContent(ViewBuilders.buildFieldsTab(this.classFile));
-
-        // Build methods tab
-        methodsTab.setContent(ViewBuilders.buildMethodsTab(this.classFile));
-
-        // Build attributes tab
-        attributesTab.setContent(ViewBuilders.buildAttributesTab(this.classFile));
+        // Enable/disable menu options
+        this.tabPane.setDisable(!isFileOpen);
+        this.closeFileMenuOption.setDisable(!isFileOpen);
     }
 
     @FXML
@@ -175,6 +165,6 @@ public class IntraspectController {
     @FXML
     private void initialize() {
         // When the window is loaded, initialize it
-        update();
+        this.update();
     }
 }
