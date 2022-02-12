@@ -29,7 +29,6 @@ public class ClassFile {
     private MethodDesc[] methods;
     private AttributeDesc[] attributes;
 
-
     /**
      * Private constructor to prevent instantiation.
      */
@@ -99,7 +98,6 @@ public class ClassFile {
         return ret;
     }
 
-    
     public int getMinorVersion() {
         return this.minorVersion;
     }
@@ -235,5 +233,27 @@ public class ClassFile {
 
     public int getThisClassIndex() {
         return this.thisClass;
+    }
+
+    public boolean hasFlag(AccessFlag flag) {
+        return this.accessFlags & flag.mask > 0;
+    }
+
+    public enum AccessFlag {
+        PUBLIC(0x0001),
+        FINAL(0x0010),
+        SUPER(0x0020),
+        INTERFACE(0x0200),
+        ABSTRACT(0x0400),
+        SYNTHETIC(0x1000),
+        ANNOTATION(0x2000),
+        ENUM(0x4000),
+        MODULE(0x8000);
+
+        public final int mask;
+
+        AccessFlag(int mask) {
+            this.mask = mask;
+        }
     }
 }
