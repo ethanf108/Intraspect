@@ -6,6 +6,8 @@ import edu.rit.csh.intraspect.data.attribute.AttributeReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * This class represents a method descriptor.*
@@ -97,6 +99,41 @@ public class MethodDesc {
 
         for (final AttributeDesc a : this.attributes) {
             a.write(out);
+        }
+    }
+
+    public boolean hasFlag(AccessFlag flag) {
+        return (this.accessFlags & flag.mask) > 0;
+    }
+
+    public Set<AccessFlag> getFlags() {
+        EnumSet<AccessFlag> ret = EnumSet.noneOf(AccessFlag.class);
+        for (AccessFlag flag : AccessFlag.values()) {
+            if (this.hasFlag(flag)) {
+                ret.add(flag);
+            }
+        }
+        return ret;
+    }
+
+    public enum AccessFlag {
+        PUBLIC(0x0001),
+        PRIVATE(0x0002),
+        PROTECTED(0x0004),
+        STATIC(0x0008),
+        FINAL(0x0010),
+        SYNCHRONIZED(0x0020),
+        BRIDGE(0x0040),
+        VARARGS(0x0080),
+        NATIVE(0x0100),
+        ABSTRACT(0x0400),
+        STRICT(0x0800),
+        SYNTHETIC(0x1000);
+
+        public final int mask;
+
+        AccessFlag(int mask) {
+            this.mask = mask;
         }
     }
 }

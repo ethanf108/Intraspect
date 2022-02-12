@@ -6,6 +6,8 @@ import edu.rit.csh.intraspect.data.attribute.AttributeReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Describes a field in a class.
@@ -101,6 +103,38 @@ public class FieldDesc {
         out.writeShort(this.attributes.length);
         for (final AttributeDesc a : this.attributes) {
             a.write(out);
+        }
+    }
+
+    public boolean hasFlag(AccessFlag flag) {
+        return (this.accessFlags & flag.mask) > 0;
+    }
+
+    public Set<AccessFlag> getFlags() {
+        EnumSet<AccessFlag> ret = EnumSet.noneOf(AccessFlag.class);
+        for (AccessFlag flag : AccessFlag.values()) {
+            if (this.hasFlag(flag)) {
+                ret.add(flag);
+            }
+        }
+        return ret;
+    }
+
+    public enum AccessFlag {
+        PUBLIC(0x0001),
+        PRIVATE(0x0002),
+        PROTECTED(0x0004),
+        STATIC(0x0008),
+        FINAL(0x0010),
+        VOLATILE(0x0040),
+        TRANSIENT(0x0080),
+        SYNTHETIC(0x1000),
+        ENUM(0x4000);
+
+        public final int mask;
+
+        AccessFlag(int mask) {
+            this.mask = mask;
         }
     }
 }

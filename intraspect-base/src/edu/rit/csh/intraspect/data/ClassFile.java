@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Set;
 
 public class ClassFile {
 
@@ -28,7 +30,6 @@ public class ClassFile {
     private FieldDesc[] fields;
     private MethodDesc[] methods;
     private AttributeDesc[] attributes;
-
 
     /**
      * Private constructor to prevent instantiation.
@@ -99,7 +100,6 @@ public class ClassFile {
         return ret;
     }
 
-    
     public int getMinorVersion() {
         return this.minorVersion;
     }
@@ -126,6 +126,10 @@ public class ClassFile {
             throw new IllegalArgumentException("Cannot index an Empty Wide Constant");
         }
         return this.constantPool[index];
+    }
+
+    public <T extends ConstantDesc> T getConstantDesc(final int index, final Class<T> clazz) {
+        return clazz.cast(this.getConstantDesc(index));
     }
 
     /**
@@ -235,5 +239,37 @@ public class ClassFile {
 
     public int getThisClassIndex() {
         return this.thisClass;
+    }
+
+    public boolean hasFlag(AccessFlag flag) {
+        return (this.accessFlags & flag.mask) > 0;
+    }
+
+    public Set<AccessFlag> getFlags() {
+        EnumSet<AccessFlag> ret = EnumSet.noneOf(AccessFlag.class);
+        for (AccessFlag flag : AccessFlag.values()) {
+            if (this.hasFlag(flag)) {
+                ret.add(flag);
+            }
+        }
+        return ret;
+    }
+
+    public enum AccessFlag {
+        PUBLIC(0x0001),
+        FINAL(0x0010),
+        SUPER(0x0020),
+        INTERFACE(0x0200),
+        ABSTRACT(0x0400),
+        SYNTHETIC(0x1000),
+        ANNOTATION(0x2000),
+        ENUM(0x4000),
+        MODULE(0x8000);
+
+        public final int mask;
+
+        AccessFlag(int mask) {
+            this.mask = mask;
+        }
     }
 }
