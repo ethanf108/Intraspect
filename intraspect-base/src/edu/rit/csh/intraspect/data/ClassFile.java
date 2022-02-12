@@ -29,6 +29,7 @@ public class ClassFile {
     private MethodDesc[] methods;
     private AttributeDesc[] attributes;
 
+
     /**
      * Private constructor to prevent instantiation.
      */
@@ -96,6 +97,19 @@ public class ClassFile {
         }
 
         return ret;
+    }
+
+    
+    public int getMinorVersion() {
+        return this.minorVersion;
+    }
+
+    public int getThisClass() {
+        return this.thisClass;
+    }
+
+    public int getSuperClass() {
+        return this.superClass;
     }
 
     /**
