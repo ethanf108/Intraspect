@@ -8,7 +8,7 @@ import java.io.IOException;
  * The SourceFile attribute.
  */
 @AttributeName("SourceFile")
-public class SourceFileAttribute implements AttributeDesc {
+public final class SourceFileAttribute implements AttributeDesc {
 
     private static final int ATTRIBUTE_LENGTH = 2;
     private final int attributeNameIndex;

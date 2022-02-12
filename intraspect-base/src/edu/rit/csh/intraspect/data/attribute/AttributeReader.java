@@ -37,7 +37,7 @@ public class AttributeReader {
 
     }
 
-    public static void submitAttribute(final Class<? extends AttributeDesc> clazz) {
+    public static void submitAttribute(final Class<? extends CustomAttribute> clazz) {
         Objects.requireNonNull(clazz);
         if (!AttributeDesc.class.isAssignableFrom(clazz) || !clazz.isAnnotationPresent(AttributeName.class)) {
             throw new IllegalArgumentException("Class does not meet requirements to be submitted");

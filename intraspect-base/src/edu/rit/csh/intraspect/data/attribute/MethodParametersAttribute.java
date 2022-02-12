@@ -8,7 +8,7 @@ import java.io.IOException;
  * The MethodParameters attribute.
  */
 @AttributeName("MethodParameters")
-public class MethodParametersAttribute implements AttributeDesc {
+public final class MethodParametersAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final Parameter[] parameters;

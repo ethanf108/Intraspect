@@ -8,7 +8,7 @@ import java.io.IOException;
  * The Signature attribute.
  */
 @AttributeName("Signature")
-public class SignatureAttribute implements AttributeDesc {
+public final class SignatureAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final int signatureIndex;

@@ -8,7 +8,7 @@ import java.io.IOException;
  * The EnclosingMethod attribute.
  */
 @AttributeName("EnclosingMethod")
-public class EnclosingMethodAttribute implements AttributeDesc {
+public final class EnclosingMethodAttribute implements AttributeDesc {
 
     private static final int ATTRIBUTE_LENGTH = 4;
 

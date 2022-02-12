@@ -8,7 +8,7 @@ import java.io.IOException;
  * The PermittedSubclasses attribute.
  */
 @AttributeName("PermittedSubclasses")
-public class PermittedSubclassesAttribute implements AttributeDesc {
+public final class PermittedSubclassesAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final int[] classes;
@@ -22,7 +22,9 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
         in.readInt();    // Discard attribute length
 
         final int[] arr = new int[in.readUnsignedShort()];
-        for (int i = 0; i < arr.length; arr[i++] = in.readUnsignedShort()) ;
+        for (int i = 0; i < arr.length; arr[i++] = in.readUnsignedShort()) {
+            ;
+        }
 
         return new PermittedSubclassesAttribute(ani, arr);
     }
@@ -34,7 +36,7 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
 
     @Override
     public int getDataLength() {
-        return getNumberOfClasses() * 2 + 2;
+        return this.getNumberOfClasses() * 2 + 2;
     }
 
     public int getNumberOfClasses() {
@@ -48,8 +50,8 @@ public class PermittedSubclassesAttribute implements AttributeDesc {
     @Override
     public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.attributeNameIndex);
-        out.writeInt(getDataLength());
-        out.writeShort(getNumberOfClasses());
+        out.writeInt(this.getDataLength());
+        out.writeShort(this.getNumberOfClasses());
 
         for (final int aClass : this.classes) {
             out.writeShort(aClass);

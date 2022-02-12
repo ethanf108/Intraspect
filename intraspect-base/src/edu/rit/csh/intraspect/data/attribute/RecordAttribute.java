@@ -10,7 +10,7 @@ import java.io.IOException;
  * The RecordAttribute attribute.
  */
 @AttributeName("Record")
-public class RecordAttribute implements AttributeDesc {
+public final class RecordAttribute implements AttributeDesc {
 
     private final int attributeNameIndex;
     private final RecordComponentInfo[] components;
