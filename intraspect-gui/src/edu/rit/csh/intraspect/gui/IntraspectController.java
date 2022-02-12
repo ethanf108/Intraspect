@@ -8,12 +8,27 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.channels.Channel;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.util.Objects;
 
 public class IntraspectController {
+
+    private static record OpenedFile(ClassFile classFile, File file) {
+        public static OpenedFile open(final File file) throws IOException {
+            final FileInputStream inputStream = new FileInputStream(file);
+            final ClassFile classFile = ClassFile.readClassFile(inputStream);
+
+            return new OpenedFile(classFile, file);
+        }
+
+        public void save() throws IOException {
+            this.classFile.write(new FileOutputStream(file));
+        }
+    }
 
     /**
      * The link to the GitHub repository for this project.
@@ -64,7 +79,8 @@ public class IntraspectController {
     /**
      * The class file that is currently being analyzed.
      */
-    private ClassFile classFile;
+    private OpenedFile openedClassFile;
+
     // -----------------------------
     // ----- File Menu Options -----
     // -----------------------------
@@ -112,7 +128,10 @@ public class IntraspectController {
     private void openFile() {
 
         // Set the initial directory to the user's home dir
-        chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        if (Objects.isNull(this.openedClassFile))
+            chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        else
+            chooser.setInitialDirectory(this.openedClassFile.file.getParentFile());
 
         // Show the dialog
         final File file = chooser.showOpenDialog(this.window);
@@ -124,7 +143,7 @@ public class IntraspectController {
 
             // Attempt to open the file and update the window upon success
             try {
-                this.classFile = ClassFile.readClassFile(new FileInputStream(file));
+                this.openedClassFile = OpenedFile.open(file);
                 this.update();
             } catch (final IOException e) {
                 e.printStackTrace();
@@ -134,13 +153,17 @@ public class IntraspectController {
 
     @FXML
     private void saveFile() {
-        System.out.println("Saving file... (not really this hasn't actually been implemented yet!)");
+        try {
+            this.openedClassFile.save();
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void closeFile() {
         // Set the class file to null
-        this.classFile = null;
+        this.openedClassFile = null;
 
         // Update the window
         this.update();
@@ -160,14 +183,17 @@ public class IntraspectController {
      */
     private void update() {
         // Check if the class file is null
-        final boolean isFileOpen = Objects.nonNull(this.classFile);
+        final boolean isFileOpen = Objects.nonNull(this.openedClassFile);
+
+        final ClassFile classFile = isFileOpen ? openedClassFile.classFile : null;
 
         // Update tabs
-        this.overviewTab.setContent(isFileOpen ? ViewBuilders.buildOverviewTab(this.classFile, this) : null);
-        this.constantPoolTab.setContent(isFileOpen ? ViewBuilders.buildConstantPoolTab(this.classFile) : null);
-        this.fieldsTab.setContent(isFileOpen ? ViewBuilders.buildFieldsTab(this.classFile) : null);
-        this.methodsTab.setContent(isFileOpen ? ViewBuilders.buildMethodsTab(this.classFile) : null);
-        this.attributesTab.setContent(isFileOpen ? ViewBuilders.buildAttributesTab(this.classFile) : null);
+        this.overviewTab.setContent(isFileOpen ? ViewBuilders.buildOverviewTab(classFile, this) : null);
+        this.constantPoolTab.setContent(isFileOpen ? ViewBuilders.buildConstantPoolTab(classFile) : null);
+        this.fieldsTab.setContent(isFileOpen ? ViewBuilders.buildFieldsTab(classFile) : null);
+        this.methodsTab.setContent(isFileOpen ? ViewBuilders.buildMethodsTab(classFile) : null);
+        this.attributesTab.setContent(isFileOpen ? ViewBuilders.buildAttributesTab(classFile) : null);
+        this.inheritanceTab.setContent(isFileOpen ? ViewBuilders.buildInheritanceTab(classFile) : null);
 
         // Enable/disable menu options
         this.tabPane.setDisable(!isFileOpen);
