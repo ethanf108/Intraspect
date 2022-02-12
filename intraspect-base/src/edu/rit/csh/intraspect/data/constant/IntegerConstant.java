@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class IntegerConstant implements ConstantDesc {
 
     @ConstantValue(int.class)
-    private final int value;
+    private int value;
 
     private IntegerConstant(final int val) {
         this.value = val;

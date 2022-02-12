@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class LongConstant implements ConstantDesc {
 
     @ConstantValue(long.class)
-    private final long value;
+    private long value;
 
     private LongConstant(final long val) {
         this.value = val;

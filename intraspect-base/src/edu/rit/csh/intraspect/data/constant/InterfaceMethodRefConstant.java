@@ -13,10 +13,10 @@ import java.util.Optional;
 public final class InterfaceMethodRefConstant implements ConstantDesc {
 
     @ConstantPoolIndex(ClassConstant.class)
-    private final int classIndex;
+    private int classIndex;
 
     @ConstantPoolIndex(NameAndTypeConstant.class)
-    private final int nameAndTypeIndex;
+    private int nameAndTypeIndex;
 
     public InterfaceMethodRefConstant(final int classIndex, final int nameAndTypeIndex) {
         this.classIndex = classIndex;

@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public final class InvokeDynamicConstant implements ConstantDesc {
 
-    private final int bootstrapMethodAttributeIndex;
+    private int bootstrapMethodAttributeIndex;
 
     @ConstantPoolIndex(NameAndTypeConstant.class)
-    private final int nameAndTypeIndex;
+    private int nameAndTypeIndex;
 
     public InvokeDynamicConstant(final int bootstrapMethodAttributeIndex, final int nameAndTypeIndex) {
         this.bootstrapMethodAttributeIndex = bootstrapMethodAttributeIndex;

@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class UTF8Constant implements ConstantDesc {
 
     @ConstantValue(String.class)
-    private final String value;
+    private String value;
 
     private UTF8Constant(final String val) {
         this.value = val;

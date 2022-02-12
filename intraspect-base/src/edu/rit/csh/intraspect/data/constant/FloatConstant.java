@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class FloatConstant implements ConstantDesc {
 
     @ConstantValue(float.class)
-    private final float value;
+    private float value;
 
     private FloatConstant(final float val) {
         this.value = val;

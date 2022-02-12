@@ -12,7 +12,7 @@ import java.io.IOException;
 public final class StringConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private final int utf8Index;
+    private int utf8Index;
 
     public StringConstant(final int ref) {
         this.utf8Index = ref;

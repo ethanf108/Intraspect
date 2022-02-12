@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class DoubleConstant implements ConstantDesc {
 
     @ConstantValue(double.class)
-    private final double value;
+    private double value;
 
     private DoubleConstant(final double val) {
         this.value = val;
