@@ -3,15 +3,19 @@ package edu.rit.csh.intraspect.gui;
 import edu.rit.csh.intraspect.data.ClassFile;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class IntraspectController {
@@ -26,14 +30,15 @@ public class IntraspectController {
 
     static {
         aboutAlert.setTitle("About Intraspect");
-        aboutAlert.setHeaderText(null);
+        aboutAlert.setHeaderText("A tool for reading, analyzing, and editing Java class files.");
 
         final Hyperlink hyperlink = new Hyperlink("View on GitHub");
         {
             hyperlink.setOnAction(event -> {
                 try {
-                    java.awt.Desktop.getDesktop().browse(new java.net.URI(GITHUB_LINK));
-                } catch (final IOException | java.net.URISyntaxException ignored) {
+                    hyperlink.setVisited(false);
+                    Desktop.getDesktop().browse(new java.net.URI(GITHUB_LINK));
+                } catch (final IOException | URISyntaxException ignored) {
                 }
             });
         }
@@ -105,17 +110,19 @@ public class IntraspectController {
     private void openFile() {
 
         // Set the initial directory to the user's home dir
-        if (Objects.isNull(this.openedClassFile))
+        if (Objects.isNull(this.openedClassFile)) {
             chooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        else
+        } else {
             chooser.setInitialDirectory(this.openedClassFile.file.getParentFile());
+        }
 
         // Show the dialog
         final File file = chooser.showOpenDialog(this.window);
         {
             // If the user cancelled, don't do anything
-            if (Objects.isNull(file))
+            if (Objects.isNull(file)) {
                 return;
+            }
 
             // Attempt to open the file and update the window upon success
             try {
@@ -148,8 +155,9 @@ public class IntraspectController {
     @FXML
     private void closeApplication() {
         exitConfirmationAlert.showAndWait().ifPresent(buttonType -> {
-            if (buttonType == ButtonType.OK)
+            if (buttonType == ButtonType.OK) {
                 Platform.exit();
+            }
         });
     }
 
@@ -160,7 +168,7 @@ public class IntraspectController {
         // Check if the class file is null
         final boolean isFileOpen = Objects.nonNull(this.openedClassFile);
 
-        final ClassFile classFile = isFileOpen ? openedClassFile.classFile : null;
+        final ClassFile classFile = isFileOpen ? this.openedClassFile.classFile : null;
 
         // Update tabs
         this.overviewTab.setContent(isFileOpen ? ViewBuilders.buildOverviewTab(classFile, this) : null);
@@ -194,7 +202,7 @@ public class IntraspectController {
         }
 
         public void save() throws IOException {
-            this.classFile.write(new FileOutputStream(file));
+            this.classFile.write(new FileOutputStream(this.file));
         }
     }
 }
