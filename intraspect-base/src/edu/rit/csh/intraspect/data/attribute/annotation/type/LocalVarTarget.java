@@ -23,7 +23,7 @@ public final class LocalVarTarget extends TargetInfo {
 
         out.writeShort(this.table.length);
 
-        for (final TableEntry tableEntry : table) {
+        for (final TableEntry tableEntry : this.table) {
             tableEntry.write(out);
         }
 
@@ -31,7 +31,7 @@ public final class LocalVarTarget extends TargetInfo {
 
     @Override
     public int getDataLength() {
-        return table.length * 6 + 3;
+        return this.table.length * 6 + 3;
     }
 
     @Override
@@ -48,7 +48,7 @@ public final class LocalVarTarget extends TargetInfo {
         return this;
     }
 
-    public static record TableEntry(int startPc, int length, int index) {
+    public record TableEntry(int startPc, int length, int index) {
 
         public static TableEntry read(final DataInputStream in) throws IOException {
             return new TableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());

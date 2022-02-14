@@ -1,5 +1,9 @@
 package edu.rit.csh.intraspect.data.attribute.annotation;
 
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -34,7 +38,10 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
 
     public abstract int getDataLength();
 
-    public record ElementValuePair(int elementNameIndex, ElementValue elementValue) {
+    public record ElementValuePair(
+            @ConstantPoolIndex(UTF8Constant.class) int elementNameIndex,
+            ElementValue elementValue
+    ) implements ConstantPoolIndexedRecord<ElementValuePair> {
 
         public static ElementValuePair read(final DataInputStream in) throws IOException {
             return new ElementValuePair(in.readUnsignedShort(), ElementValue.read(in));
@@ -47,6 +54,14 @@ public abstract sealed class ElementValue permits AnnotationConstantValue, Annot
         public void write(final DataOutputStream out) throws IOException {
             out.writeShort(this.elementNameIndex);
             this.elementValue.write(out);
+        }
+
+        @Override
+        public ElementValuePair shift(int index, int delta) {
+            return new ElementValuePair(
+                    this.elementNameIndex >= index ? this.elementNameIndex + delta : this.elementNameIndex,
+                    this.elementValue
+            );
         }
     }
 

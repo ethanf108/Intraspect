@@ -6,6 +6,7 @@ import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.InstructionCache;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
 import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
@@ -139,7 +140,8 @@ public final class CodeAttribute implements AttributeDesc {
             int startPc,
             int endPc,
             int handlerPc,
-            @ConstantPoolIndex(value = ClassConstant.class, nullable = true) int catchType) {
+            @ConstantPoolIndex(value = ClassConstant.class, nullable = true) int catchType
+    ) implements ConstantPoolIndexedRecord<ExceptionDesc> {
 
         public static ExceptionDesc read(DataInputStream in) throws IOException {
             return new ExceptionDesc(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
@@ -150,6 +152,16 @@ public final class CodeAttribute implements AttributeDesc {
             out.writeShort(this.endPc);
             out.writeShort(this.handlerPc);
             out.writeShort(this.catchType);
+        }
+
+        @Override
+        public ExceptionDesc shift(int index, int delta) {
+            return new ExceptionDesc(
+                    this.startPc,
+                    this.endPc,
+                    this.handlerPc,
+                    this.catchType >= index ? this.catchType + delta : this.catchType
+            );
         }
     }
 }

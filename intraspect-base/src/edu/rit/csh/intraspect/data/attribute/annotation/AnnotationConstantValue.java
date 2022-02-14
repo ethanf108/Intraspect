@@ -12,7 +12,8 @@ public final class AnnotationConstantValue extends ElementValue {
     @ConstantPoolIndex({
             IntegerConstant.class,
             FloatConstant.class,
-            DoubleConstant.class, LongConstant.class,
+            DoubleConstant.class,
+            LongConstant.class,
             UTF8Constant.class
     })
     private int constValueIndex;

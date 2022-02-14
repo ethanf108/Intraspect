@@ -2,6 +2,7 @@ package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -63,8 +64,13 @@ public final class LocalVariableTableAttribute implements AttributeDesc {
         }
     }
 
-    public static record LocalVariableTableEntry(int startPc, int length, int nameIndex, int descriptorIndex,
-                                                 int index) {
+    public record LocalVariableTableEntry(
+            int startPc,
+            int length,
+            @ConstantPoolIndex(UTF8Constant.class) int nameIndex,
+            @ConstantPoolIndex(UTF8Constant.class) int descriptorIndex,
+            int index
+    ) implements ConstantPoolIndexedRecord<LocalVariableTableEntry> {
 
         public static LocalVariableTableEntry read(final DataInputStream in) throws IOException {
             return new LocalVariableTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
@@ -78,5 +84,15 @@ public final class LocalVariableTableAttribute implements AttributeDesc {
             out.writeShort(this.index);
         }
 
+        @Override
+        public LocalVariableTableEntry shift(int index, int delta) {
+            return new LocalVariableTableEntry(
+                    this.startPc,
+                    this.length,
+                    this.nameIndex >= index ? this.nameIndex + delta : this.nameIndex,
+                    this.descriptorIndex >= index ? this.descriptorIndex + delta : this.descriptorIndex,
+                    index
+            );
+        }
     }
 }

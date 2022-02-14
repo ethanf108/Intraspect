@@ -2,6 +2,7 @@ package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -59,10 +60,14 @@ public final class MethodParametersAttribute implements AttributeDesc {
         }
     }
 
-    public static record Parameter(
+    public record Parameter(
             @ConstantPoolIndex(value = UTF8Constant.class, nullable = true) int nameIndex,
             int accessFlags
-    ) {
+    ) implements ConstantPoolIndexedRecord<Parameter> {
 
+        @Override
+        public Parameter shift(int index, int delta) {
+            return new Parameter(this.nameIndex >= index ? this.nameIndex + delta : this.nameIndex, this.accessFlags);
+        }
     }
 }

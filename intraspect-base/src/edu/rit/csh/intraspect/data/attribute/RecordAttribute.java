@@ -3,10 +3,12 @@ package edu.rit.csh.intraspect.data.attribute;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * The RecordAttribute attribute.
@@ -69,7 +71,8 @@ public final class RecordAttribute implements AttributeDesc {
     public record RecordComponentInfo(
             @ConstantPoolIndex(UTF8Constant.class) int nameIndex,
             @ConstantPoolIndex(UTF8Constant.class) int descriptorIndex,
-            AttributeDesc[] attributes) {
+            AttributeDesc[] attributes
+    ) implements ConstantPoolIndexedRecord<RecordComponentInfo> {
 
         public static RecordComponentInfo read(final DataInputStream in, final ClassFile ref) throws IOException {
             final int nameIndex = in.readUnsignedShort();
@@ -92,6 +95,15 @@ public final class RecordAttribute implements AttributeDesc {
             for (final AttributeDesc attribute : this.attributes) {
                 attribute.write(out);
             }
+        }
+
+        @Override
+        public RecordComponentInfo shift(int index, int delta) {
+            return new RecordComponentInfo(
+                    this.nameIndex >= index ? this.nameIndex + delta : this.nameIndex,
+                    this.descriptorIndex >= index ? this.descriptorIndex + delta : this.descriptorIndex,
+                    Arrays.copyOf(this.attributes, this.attributes.length)
+            );
         }
     }
 }

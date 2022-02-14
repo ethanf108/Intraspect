@@ -2,6 +2,7 @@ package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.constant.*;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -93,7 +94,19 @@ public final class BootstrapMethodsAttribute implements AttributeDesc {
                     MethodTypeConstant.class,
                     DynamicConstant.class
             }) int[] bootstrapArguments
-    ) {
+    ) implements ConstantPoolIndexedRecord<BootstrapMethodsTableEntry> {
 
+        @Override
+        public BootstrapMethodsTableEntry shift(int index, int delta) {
+            int[] na = new int[this.bootstrapArguments.length];
+            for (int i = 0; i < na.length; i++) {
+                na[i] = this.bootstrapArguments[i] >= index ? this.bootstrapArguments[i] + delta : this.bootstrapArguments[i];
+            }
+            return new BootstrapMethodsTableEntry(
+                    this.bootstrapMethodRef >= index ? this.bootstrapMethodRef + delta : this.bootstrapMethodRef,
+                    this.numBootstrapArguments,
+                    na
+            );
+        }
     }
 }

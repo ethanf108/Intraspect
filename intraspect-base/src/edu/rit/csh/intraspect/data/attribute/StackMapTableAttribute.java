@@ -16,6 +16,7 @@ public final class StackMapTableAttribute implements AttributeDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
     private final StackMapFrame[] entries;
 
     private StackMapTableAttribute(final int attributeNameIndex, final StackMapFrame[] entries) {

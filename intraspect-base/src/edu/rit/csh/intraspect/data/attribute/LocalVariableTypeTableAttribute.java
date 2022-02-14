@@ -2,6 +2,7 @@ package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -73,7 +74,17 @@ public final class LocalVariableTypeTableAttribute implements AttributeDesc {
             @ConstantPoolIndex(UTF8Constant.class) int nameIndex,
             @ConstantPoolIndex(UTF8Constant.class) int signatureIndex,
             int index
-    ) {
+    ) implements ConstantPoolIndexedRecord<LocalVariableTypeTableEntry> {
 
+        @Override
+        public LocalVariableTypeTableEntry shift(int index, int delta) {
+            return new LocalVariableTypeTableEntry(
+                    this.startPc,
+                    this.length,
+                    this.nameIndex >= index ? this.nameIndex + delta : this.nameIndex,
+                    this.signatureIndex >= index ? this.signatureIndex + delta : this.signatureIndex,
+                    index
+            );
+        }
     }
 }

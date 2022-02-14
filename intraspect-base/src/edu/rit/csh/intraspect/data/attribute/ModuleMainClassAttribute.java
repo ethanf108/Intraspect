@@ -1,5 +1,6 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
@@ -17,6 +18,8 @@ public final class ModuleMainClassAttribute implements AttributeDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private final int mainClassIndex;
 
     private ModuleMainClassAttribute(final int attributeNameIndex, final int mainClassIndex) {
