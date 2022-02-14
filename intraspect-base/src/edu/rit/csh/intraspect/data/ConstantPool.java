@@ -36,6 +36,31 @@ public final class ConstantPool {
         return this.get0Indexed(index - 1);
     }
 
+    void addResize(int index, ConstantDesc ncd) {
+        Objects.requireNonNull(ncd);
+        if (index < 1) {
+            throw new IllegalArgumentException("Invalid insert index");
+        }
+        if (this.getNumConstants() >= 65535) {
+            throw new IllegalStateException("Max number of constants reached");
+        }
+        for (int i = 1; i <= this.pool.size(); i++) {
+            final ConstantDesc cd = this.get(i);
+            for (Field f : cd.getClass().getDeclaredFields()) {
+                f.setAccessible(true);
+                try {
+                    if (f.isAnnotationPresent(ConstantPoolIndex.class) && f.getInt(cd) >= index) {
+                        f.setInt(cd, f.getInt(cd) + 1);
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        }
+        this.pool.add(index - 1, ncd);
+    }
+
     public int getNumConstants() {
         return this.pool.size();
     }

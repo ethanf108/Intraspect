@@ -8,10 +8,12 @@ import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
 import edu.rit.csh.intraspect.util.OffsetOutputStream;
+import edu.rit.csh.intraspect.util.Util;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
@@ -113,6 +115,40 @@ public class ClassFile {
         return ret;
     }
 
+    private static void recurseAddConstantResize(int index, Object obj) {
+        final Class<?> clazz = obj.getClass();
+        if (!clazz.getModule().equals(ClassFile.class.getModule())) {
+            return;
+        }
+        for (Field field : Util.getAllFields(obj.getClass())) {
+            try {
+                field.setAccessible(true);
+                if (field.isAnnotationPresent(ConstantPoolIndex.class)) {
+                    if (field.getType() == int[].class) {
+                        int[] val = (int[]) field.get(obj);
+                        for (int i = 0; i < val.length; i++) {
+                            if (val[i] >= index) {
+                                val[i]++;
+                            }
+                        }
+                    } else if (field.getInt(obj) >= index) {
+                        field.setInt(obj, field.getInt(obj) + 1);
+                    }
+                } else if ((field.getType().isArray() ? field.getType().componentType() : field.getType()).getModule().equals(ClassFile.class.getModule())) {
+                    if (field.getType().isArray()) {
+                        for (Object o : (Object[]) field.get(obj)) {
+                            recurseAddConstantResize(index, o);
+                        }
+                    } else {
+                        recurseAddConstantResize(index, field.get(obj));
+                    }
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public int getMinorVersion() {
         return this.minorVersion;
     }
@@ -210,6 +246,14 @@ public class ClassFile {
         int[] ret = new int[this.interfaces.length];
         System.arraycopy(this.interfaces, 0, ret, 0, this.interfaces.length);
         return ret;
+    }
+
+    public void addConstant(int index, ConstantDesc cd) {
+        if (index == 0) {
+            throw new IllegalArgumentException("Constant Pool Entries are 1-indexed");
+        }
+        this.constantPool.addResize(index, cd);
+        recurseAddConstantResize(index, this);
     }
 
     /**
