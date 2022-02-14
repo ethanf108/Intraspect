@@ -115,7 +115,7 @@ public class ClassFile {
         return ret;
     }
 
-    private static void recurseAddConstantResize(int index, Object obj) {
+    private static void recurseAddConstantResize(int index, int dif, Object obj) {
         final Class<?> clazz = obj.getClass();
         if (!clazz.getModule().equals(ClassFile.class.getModule())) {
             return;
@@ -128,19 +128,19 @@ public class ClassFile {
                         int[] val = (int[]) field.get(obj);
                         for (int i = 0; i < val.length; i++) {
                             if (val[i] >= index) {
-                                val[i]++;
+                                val[i] += dif;
                             }
                         }
                     } else if (field.getInt(obj) >= index) {
-                        field.setInt(obj, field.getInt(obj) + 1);
+                        field.setInt(obj, field.getInt(obj) + dif);
                     }
                 } else if ((field.getType().isArray() ? field.getType().componentType() : field.getType()).getModule().equals(ClassFile.class.getModule())) {
                     if (field.getType().isArray()) {
                         for (Object o : (Object[]) field.get(obj)) {
-                            recurseAddConstantResize(index, o);
+                            recurseAddConstantResize(index, dif, o);
                         }
                     } else {
-                        recurseAddConstantResize(index, field.get(obj));
+                        recurseAddConstantResize(index, dif, field.get(obj));
                     }
                 }
             } catch (IllegalAccessException e) {
@@ -253,7 +253,15 @@ public class ClassFile {
             throw new IllegalArgumentException("Constant Pool Entries are 1-indexed");
         }
         this.constantPool.addResize(index, cd);
-        recurseAddConstantResize(index, this);
+        recurseAddConstantResize(index, 1, this);
+    }
+
+    public void removeConstant(int index) {
+        if (index == 0) {
+            throw new IllegalArgumentException("Constant Pool Entries are 1-indexed");
+        }
+        this.constantPool.removeResize(index);
+        recurseAddConstantResize(index, -1, this);
     }
 
     /**
