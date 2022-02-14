@@ -3,9 +3,11 @@ package edu.rit.csh.intraspect.data.instruction.field;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.FieldRefConstant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 public sealed abstract class FieldInstruction extends Instruction permits GetStaticInstruction, PutStaticInstruction, GetFieldInstruction, PutFieldInstruction {
 
+    @ConstantPoolIndex(FieldRefConstant.class)
     protected final int refIndex;
 
     public FieldInstruction(final int refIndex) {

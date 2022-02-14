@@ -2,8 +2,10 @@ package edu.rit.csh.intraspect.data;
 
 import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.attribute.AttributeReader;
+import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
 import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
@@ -24,9 +26,16 @@ public class ClassFile {
     private int minorVersion;
     private MajorVersion majorVersion;
     private ConstantPool constantPool;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private int thisClass;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private int superClass;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private int[] interfaces;
+
     private FieldDesc[] fields;
     private MethodDesc[] methods;
     private AttributeDesc[] attributes;
