@@ -18,12 +18,7 @@ public final class IntegerConstant implements ConstantDesc {
     }
 
     public static IntegerConstant read(final DataInputStream in) throws IOException {
-        int val = 0;
-        for (byte b : in.readNBytes(4)) {
-            val <<= 8;
-            val |= b;
-        }
-        return new IntegerConstant(val);
+        return new IntegerConstant(in.readInt());
     }
 
     @Override
