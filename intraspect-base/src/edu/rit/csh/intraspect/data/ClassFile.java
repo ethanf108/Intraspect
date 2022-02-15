@@ -216,7 +216,7 @@ public class ClassFile {
      */
     public ConstantDesc[] getConstants() {
         ConstantDesc[] ret = new ConstantDesc[this.constantPool.getNumConstants()];
-        for (int i = 1; i < this.constantPool.getNumConstants(); i++) {
+        for (int i = 1; i <= this.constantPool.getNumConstants(); i++) {
             ret[i - 1] = this.constantPool.get(i);
         }
         return ret;
