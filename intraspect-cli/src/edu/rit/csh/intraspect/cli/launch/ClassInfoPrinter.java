@@ -8,7 +8,6 @@ import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.attribute.CodeAttribute;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
-import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 
 import java.io.PrintStream;
@@ -41,7 +40,7 @@ public class ClassInfoPrinter {
                 String className = cd.getClass().getSimpleName();
                 className = className.substring(0, className.indexOf("Constant"));
                 if (this.verify) {
-                    out.printf("%3s%-3s %-20s %s\n", cd.isValid(cf) ? "" : "(!)", index, className, cd instanceof UTF8Constant u ? u.getValue() : "");
+                    out.printf("%3s%-3s %-20s %s\n", cd.isValid(cf) ? "" : "(!)", index, className, cd.getInfo());
                 } else {
                     out.printf("%-3s %-20s %s\n", index, className, cd.getInfo());
                 }
