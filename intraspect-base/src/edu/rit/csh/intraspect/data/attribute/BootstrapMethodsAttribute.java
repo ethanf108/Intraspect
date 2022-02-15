@@ -1,5 +1,9 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.*;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +14,9 @@ import java.io.IOException;
 @AttributeName("BootstrapMethods")
 public final class BootstrapMethodsAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
     private final BootstrapMethodsTableEntry[] bootstrapMethodsTable;
 
     private BootstrapMethodsAttribute(final int attributeNameIndex, final BootstrapMethodsTableEntry[] bootstrapMethodsTable) {
@@ -74,8 +80,33 @@ public final class BootstrapMethodsAttribute implements AttributeDesc {
         return this.bootstrapMethodsTable;
     }
 
-    public static record BootstrapMethodsTableEntry(int bootstrapMethodRef, int numBootstrapArguments,
-                                                    int[] bootstrapArguments) {
+    public record BootstrapMethodsTableEntry(
+            @ConstantPoolIndex(MethodHandleConstant.class) int bootstrapMethodRef,
+            int numBootstrapArguments,
+            @ConstantPoolIndex({
+                    IntegerConstant.class,
+                    FloatConstant.class,
+                    LongConstant.class,
+                    DoubleConstant.class,
+                    ClassConstant.class,
+                    StringConstant.class,
+                    MethodHandleConstant.class,
+                    MethodTypeConstant.class,
+                    DynamicConstant.class
+            }) int[] bootstrapArguments
+    ) implements ConstantPoolIndexedRecord<BootstrapMethodsTableEntry> {
 
+        @Override
+        public BootstrapMethodsTableEntry shift(int index, int delta) {
+            int[] na = new int[this.bootstrapArguments.length];
+            for (int i = 0; i < na.length; i++) {
+                na[i] = this.bootstrapArguments[i] >= index ? this.bootstrapArguments[i] + delta : this.bootstrapArguments[i];
+            }
+            return new BootstrapMethodsTableEntry(
+                    this.bootstrapMethodRef >= index ? this.bootstrapMethodRef + delta : this.bootstrapMethodRef,
+                    this.numBootstrapArguments,
+                    na
+            );
+        }
     }
 }

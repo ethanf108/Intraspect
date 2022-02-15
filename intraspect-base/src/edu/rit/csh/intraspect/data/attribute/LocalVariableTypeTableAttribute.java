@@ -1,5 +1,9 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +14,9 @@ import java.io.IOException;
 @AttributeName("LocalVariableTypeTable")
 public final class LocalVariableTypeTableAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
     private final LocalVariableTypeTableEntry[] localVariableTypeTable;
 
     private LocalVariableTypeTableAttribute(final int attributeNameIndex, final LocalVariableTypeTableEntry[] localVariableTypeTable) {
@@ -62,8 +68,23 @@ public final class LocalVariableTypeTableAttribute implements AttributeDesc {
         }
     }
 
-    public static record LocalVariableTypeTableEntry(int startPc, int length, int nameIndex,
-                                                     int signatureIndex, int index) {
+    public record LocalVariableTypeTableEntry(
+            int startPc,
+            int length,
+            @ConstantPoolIndex(UTF8Constant.class) int nameIndex,
+            @ConstantPoolIndex(UTF8Constant.class) int signatureIndex,
+            int index
+    ) implements ConstantPoolIndexedRecord<LocalVariableTypeTableEntry> {
 
+        @Override
+        public LocalVariableTypeTableEntry shift(int index, int delta) {
+            return new LocalVariableTypeTableEntry(
+                    this.startPc,
+                    this.length,
+                    this.nameIndex >= index ? this.nameIndex + delta : this.nameIndex,
+                    this.signatureIndex >= index ? this.signatureIndex + delta : this.signatureIndex,
+                    index
+            );
+        }
     }
 }

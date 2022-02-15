@@ -1,5 +1,10 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.ClassConstant;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +15,9 @@ import java.io.IOException;
 @AttributeName("InnerClasses")
 public final class InnerClassesAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
     private final InnerClassesTableEntry[] innerClassesTable;
 
     private InnerClassesAttribute(final int attributeNameIndex, final InnerClassesTableEntry[] innerClassesTable) {
@@ -23,7 +30,6 @@ public final class InnerClassesAttribute implements AttributeDesc {
 
         final InnerClassesTableEntry[] arr = new InnerClassesTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = InnerClassesTableEntry.read(in)) {
-            ;
         }
 
         return new InnerClassesAttribute(ani, arr);
@@ -58,8 +64,12 @@ public final class InnerClassesAttribute implements AttributeDesc {
         }
     }
 
-    public record InnerClassesTableEntry(int innerClassInfoIndex, int outerClassInfoIndex, int innerNameIndex,
-                                         int innerClassAccessFlags) {
+    public record InnerClassesTableEntry(
+            @ConstantPoolIndex(ClassConstant.class) int innerClassInfoIndex,
+            @ConstantPoolIndex(value = ClassConstant.class, nullable = true) int outerClassInfoIndex,
+            @ConstantPoolIndex(UTF8Constant.class) int innerNameIndex,
+            int innerClassAccessFlags
+    ) implements ConstantPoolIndexedRecord<InnerClassesTableEntry> {
 
         public static InnerClassesTableEntry read(final DataInputStream in) throws IOException {
             return new InnerClassesTableEntry(in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort(), in.readUnsignedShort());
@@ -70,6 +80,16 @@ public final class InnerClassesAttribute implements AttributeDesc {
             out.writeShort(this.outerClassInfoIndex);
             out.writeShort(this.innerNameIndex);
             out.writeShort(this.innerClassAccessFlags);
+        }
+
+        @Override
+        public InnerClassesTableEntry shift(int index, int delta) {
+            return new InnerClassesTableEntry(
+                    this.innerClassInfoIndex >= index ? this.innerClassInfoIndex + delta : this.innerClassInfoIndex,
+                    this.outerClassInfoIndex >= index ? this.outerClassInfoIndex + delta : this.outerClassInfoIndex,
+                    this.innerNameIndex >= index ? this.innerNameIndex + delta : this.innerNameIndex,
+                    this.innerClassAccessFlags
+            );
         }
     }
 }

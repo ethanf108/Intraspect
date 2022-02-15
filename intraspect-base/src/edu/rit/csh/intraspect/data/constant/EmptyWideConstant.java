@@ -41,4 +41,14 @@ public final class EmptyWideConstant implements ConstantDesc {
     @Override
     public void write(final DataOutputStream out) throws IOException {
     }
+
+    @Override
+    public String getName() {
+        return "EMPTY";
+    }
+
+    @Override
+    public String getInfo() {
+        return "";
+    }
 }

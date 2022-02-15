@@ -1,6 +1,8 @@
 package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.attribute.annotation.AnnotationDesc;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,7 +13,9 @@ import java.io.IOException;
  */
 public abstract sealed class RuntimeParameterAnnotations implements AttributeDesc permits RuntimeVisibleParameterAnnotationsAttribute, RuntimeInvisibleParameterAnnotationsAttribute {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
     private final ParameterAnnotations[] parameterAnnotations;
 
     protected RuntimeParameterAnnotations(final int attributeNameIndex, final ParameterAnnotations[] parameterAnnotations) {
@@ -51,7 +55,7 @@ public abstract sealed class RuntimeParameterAnnotations implements AttributeDes
         }
     }
 
-    public static record ParameterAnnotations(AnnotationDesc[] annotations) {
+    public record ParameterAnnotations(AnnotationDesc[] annotations) {
 
         public static ParameterAnnotations read(final DataInputStream in) throws IOException {
 

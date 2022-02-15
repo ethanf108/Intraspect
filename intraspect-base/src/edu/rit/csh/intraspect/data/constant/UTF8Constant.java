@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantValue;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,9 +12,10 @@ import java.io.IOException;
  */
 public final class UTF8Constant implements ConstantDesc {
 
-    private final String value;
+    @ConstantValue(String.class)
+    private String value;
 
-    private UTF8Constant(final String val) {
+    public UTF8Constant(final String val) {
         this.value = val;
     }
 
@@ -51,5 +53,15 @@ public final class UTF8Constant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeShort(this.value.getBytes().length);
         out.write(this.value.getBytes());
+    }
+
+    @Override
+    public String getName() {
+        return "UTF8";
+    }
+
+    @Override
+    public String getInfo() {
+        return this.value;
     }
 }

@@ -1,11 +1,21 @@
 package edu.rit.csh.intraspect.data.attribute.annotation;
 
+import edu.rit.csh.intraspect.data.constant.*;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 public final class AnnotationConstantValue extends ElementValue {
 
+    @ConstantPoolIndex({
+            IntegerConstant.class,
+            FloatConstant.class,
+            DoubleConstant.class,
+            LongConstant.class,
+            UTF8Constant.class
+    })
     private int constValueIndex;
 
     public AnnotationConstantValue(final int tag) {
