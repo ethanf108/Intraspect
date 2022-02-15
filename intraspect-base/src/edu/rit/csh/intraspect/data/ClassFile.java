@@ -76,6 +76,7 @@ public class ClassFile {
             ret.constantPool.addInternal(cd);
             if (cd.isWide()) {
                 ret.constantPool.addInternal(new EmptyWideConstant());
+                i++;
             }
         }
         if (constantPoolCount - 1 != ret.constantPool.getNumConstants()) {
