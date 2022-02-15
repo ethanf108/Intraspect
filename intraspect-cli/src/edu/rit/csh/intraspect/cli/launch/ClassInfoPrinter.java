@@ -43,7 +43,7 @@ public class ClassInfoPrinter {
                 if (this.verify) {
                     out.printf("%3s%-3s %-20s %s\n", cd.isValid(cf) ? "" : "(!)", index, className, cd instanceof UTF8Constant u ? u.getValue() : "");
                 } else {
-                    out.printf("%-3s %-20s %s\n", index, className, cd instanceof UTF8Constant u ? u.getValue() : "");
+                    out.printf("%-3s %-20s %s\n", index, className, cd.getInfo());
                 }
             }
             out.println();
