@@ -118,7 +118,6 @@ public class ClassFile {
         return ret;
     }
 
-    @SuppressWarnings("rawtypes")
     private static void recurseAddConstantResize(int index, int dif, Object obj) {
         final Class<?> clazz = obj.getClass();
         if (!clazz.getModule().equals(ClassFile.class.getModule())) {
@@ -144,7 +143,7 @@ public class ClassFile {
                         if (field.getType().getComponentType().isRecord() && ConstantPoolIndexedRecord.class.isAssignableFrom(field.getType().getComponentType())) {
                             Object[] na = (Object[]) Array.newInstance(field.getType().getComponentType(), ((Object[]) field.get(obj)).length);
                             for (int i = 0; i < na.length; i++) {
-                                na[i] = ((ConstantPoolIndexedRecord) ((Object[]) field.get(obj))[i]).shift(index, dif);
+                                na[i] = ((ConstantPoolIndexedRecord<?>) ((Object[]) field.get(obj))[i]).shift(index, dif);
                             }
                             field.set(obj, field.getType().cast(na));
                         }
@@ -153,7 +152,7 @@ public class ClassFile {
                         }
                     } else {
                         if (field.getType().isRecord() && ConstantPoolIndexedRecord.class.isAssignableFrom(field.getType())) {
-                            field.set(obj, ((ConstantPoolIndexedRecord) field.get(obj)).shift(index, dif));
+                            field.set(obj, ((ConstantPoolIndexedRecord<?>) field.get(obj)).shift(index, dif));
                         }
                         recurseAddConstantResize(index, dif, field.get(obj));
                     }
@@ -269,6 +268,10 @@ public class ClassFile {
         }
         this.constantPool.addResize(index, cd);
         recurseAddConstantResize(index, 1, this);
+    }
+
+    public void addConstant(ConstantDesc cd) {
+        this.constantPool.addInternal(cd);
     }
 
     public void removeConstant(int index) {
