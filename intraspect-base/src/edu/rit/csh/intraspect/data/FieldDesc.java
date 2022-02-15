@@ -2,6 +2,8 @@ package edu.rit.csh.intraspect.data;
 
 import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.attribute.AttributeReader;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,8 +17,13 @@ import java.util.Set;
 public class FieldDesc {
 
     private final int accessFlags;
+
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int nameIndex;
+
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int descriptorIndex;
+
     private final AttributeDesc[] attributes;
 
     /**

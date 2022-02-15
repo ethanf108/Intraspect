@@ -3,11 +3,13 @@ package edu.rit.csh.intraspect.data.instruction.object;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.util.Optional;
 
 public sealed abstract class ObjectInstruction extends Instruction permits InstanceofInstruction, CheckCastInstruction, NewInstruction, ANewArrayInstruction {
 
+    @ConstantPoolIndex(ClassConstant.class)
     protected final int classIndex;
 
     protected ObjectInstruction(final int classIndex) {

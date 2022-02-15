@@ -2,14 +2,20 @@ package edu.rit.csh.intraspect.data;
 
 import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.attribute.AttributeReader;
+import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
 import edu.rit.csh.intraspect.util.OffsetOutputStream;
+import edu.rit.csh.intraspect.util.Util;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
@@ -24,9 +30,16 @@ public class ClassFile {
     private int minorVersion;
     private MajorVersion majorVersion;
     private ConstantPool constantPool;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private int thisClass;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private int superClass;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private int[] interfaces;
+
     private FieldDesc[] fields;
     private MethodDesc[] methods;
     private AttributeDesc[] attributes;
@@ -63,6 +76,7 @@ public class ClassFile {
             ret.constantPool.addInternal(cd);
             if (cd.isWide()) {
                 ret.constantPool.addInternal(new EmptyWideConstant());
+                i++;
             }
         }
         if (constantPoolCount - 1 != ret.constantPool.getNumConstants()) {
@@ -102,6 +116,52 @@ public class ClassFile {
         }
 
         return ret;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static void recurseAddConstantResize(int index, int dif, Object obj) {
+        final Class<?> clazz = obj.getClass();
+        if (!clazz.getModule().equals(ClassFile.class.getModule())) {
+            return;
+        }
+        for (Field field : Util.getAllFields(obj.getClass())) {
+            final Class<?> baseType = field.getType().isArray() ? field.getType().componentType() : field.getType();
+            try {
+                field.setAccessible(true);
+                if (field.isAnnotationPresent(ConstantPoolIndex.class) && !obj.getClass().isRecord()) {
+                    if (field.getType() == int[].class) {
+                        int[] val = (int[]) field.get(obj);
+                        for (int i = 0; i < val.length; i++) {
+                            if (val[i] >= index) {
+                                val[i] += dif;
+                            }
+                        }
+                    } else if (field.getInt(obj) >= index) {
+                        field.setInt(obj, field.getInt(obj) + dif);
+                    }
+                } else if (baseType.getModule().equals(ClassFile.class.getModule())) {
+                    if (field.getType().isArray()) {
+                        if (field.getType().getComponentType().isRecord() && ConstantPoolIndexedRecord.class.isAssignableFrom(field.getType().getComponentType())) {
+                            Object[] na = (Object[]) Array.newInstance(field.getType().getComponentType(), ((Object[]) field.get(obj)).length);
+                            for (int i = 0; i < na.length; i++) {
+                                na[i] = ((ConstantPoolIndexedRecord) ((Object[]) field.get(obj))[i]).shift(index, dif);
+                            }
+                            field.set(obj, field.getType().cast(na));
+                        }
+                        for (Object o : (Object[]) field.get(obj)) {
+                            recurseAddConstantResize(index, dif, o);
+                        }
+                    } else {
+                        if (field.getType().isRecord() && ConstantPoolIndexedRecord.class.isAssignableFrom(field.getType())) {
+                            field.set(obj, ((ConstantPoolIndexedRecord) field.get(obj)).shift(index, dif));
+                        }
+                        recurseAddConstantResize(index, dif, field.get(obj));
+                    }
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public int getMinorVersion() {
@@ -201,6 +261,22 @@ public class ClassFile {
         int[] ret = new int[this.interfaces.length];
         System.arraycopy(this.interfaces, 0, ret, 0, this.interfaces.length);
         return ret;
+    }
+
+    public void addConstant(int index, ConstantDesc cd) {
+        if (index == 0) {
+            throw new IllegalArgumentException("Constant Pool Entries are 1-indexed");
+        }
+        this.constantPool.addResize(index, cd);
+        recurseAddConstantResize(index, 1, this);
+    }
+
+    public void removeConstant(int index) {
+        if (index == 0) {
+            throw new IllegalArgumentException("Constant Pool Entries are 1-indexed");
+        }
+        this.constantPool.removeResize(index);
+        recurseAddConstantResize(index, -1, this);
     }
 
     /**

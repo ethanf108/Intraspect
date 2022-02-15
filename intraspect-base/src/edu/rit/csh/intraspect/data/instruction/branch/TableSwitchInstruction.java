@@ -115,7 +115,7 @@ public final class TableSwitchInstruction extends Instruction {
     public void write(DataOutputStream stream) throws IOException {
         final OffsetOutputStream out = (OffsetOutputStream) stream;
         out.writeByte(this.getOpcode());
-        this.padBytes = (int) (3 - (out.getCounter() % 4));
+        this.padBytes = out.getCounter() % 4 == 0 ? 0 : (int) (4 - (out.getCounter() % 4));
         int[] ops = this.getOperands();
         for (int i : ops) {
             out.writeByte(i);
