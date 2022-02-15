@@ -45,4 +45,48 @@ module intraspect.base {
     exports edu.rit.csh.intraspect.edit;
 
     exports edu.rit.csh.intraspect.util;
+
+
+    opens edu.rit.csh.intraspect.data to intraspect.cli, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.attribute to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.attribute.annotation to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.attribute.annotation.type to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.attribute.stackmaptable to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.attribute.stackmaptable.verificationtypeinfo to intraspect.base, intraspect.gui;
+
+    opens edu.rit.csh.intraspect.data.constant to intraspect.base, intraspect.gui;
+
+    opens edu.rit.csh.intraspect.data.instruction to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.branch to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.compare to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.constant to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.control to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.conversion to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.field to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.invoke to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.load to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.add to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.and to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.div to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.mul to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.neg to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.or to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.rem to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.shl to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.shr to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.sub to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.ushr to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.math.xor to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.misc to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.monitor to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.object to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.reserved to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.stack to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.store to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.wide to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.wide.load to intraspect.base, intraspect.gui;
+    opens edu.rit.csh.intraspect.data.instruction.wide.store to intraspect.base, intraspect.gui;
+
+    opens edu.rit.csh.intraspect.edit to intraspect.base, intraspect.gui;
 }
