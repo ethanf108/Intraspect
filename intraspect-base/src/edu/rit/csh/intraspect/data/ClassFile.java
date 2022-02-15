@@ -163,6 +163,14 @@ public class ClassFile {
         }
     }
 
+    public static int combineFlags(AccessFlag... flags) {
+        int mask = 0;
+        for (AccessFlag flag : flags) {
+            mask |= flag.mask;
+        }
+        return mask;
+    }
+
     public int getMinorVersion() {
         return this.minorVersion;
     }
@@ -339,6 +347,24 @@ public class ClassFile {
             }
         }
         return ret;
+    }
+
+    public boolean setFlag(AccessFlag flag) {
+        int old = this.accessFlags;
+        this.accessFlags |= flag.mask;
+        return this.accessFlags != old;
+    }
+
+    public boolean removeFlag(AccessFlag flag) {
+        int old = this.accessFlags;
+        this.accessFlags &= ~flag.mask;
+        return this.accessFlags != old;
+    }
+
+    public boolean toggleFlag(AccessFlag flag) {
+        int old = this.accessFlags;
+        this.accessFlags ^= flag.mask;
+        return this.accessFlags != old;
     }
 
     public enum AccessFlag {
