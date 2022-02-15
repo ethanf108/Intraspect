@@ -18,12 +18,7 @@ public final class LongConstant implements ConstantDesc {
     }
 
     public static LongConstant read(final DataInputStream in) throws IOException {
-        long val = 0;
-        for (final byte b : in.readNBytes(8)) {
-            val <<= 8;
-            val |= b;
-        }
-        return new LongConstant(val);
+        return new LongConstant(in.readLong());
     }
 
     @Override
