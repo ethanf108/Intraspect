@@ -187,6 +187,20 @@ public class ClassFiles {
         return args.toArray(new String[0]);
     }
 
+    public static String getInternalForm(Class<?> clazz) {
+        if (clazz.isArray()) {
+            final String className = clazz.getComponentType().getCanonicalName().replaceAll("\\.", "/");
+            int numDimensions = 0;
+            while (clazz.isArray()) {
+                clazz = clazz.getComponentType();
+                numDimensions++;
+            }
+            return "[".repeat(numDimensions) + "L" + className + ";";
+        } else {
+            return clazz.getCanonicalName().replaceAll("\\.", "/");
+        }
+    }
+
     public static String fieldSimpleString(final FieldDesc fd, final ClassFile cf) {
         final String name = cf.getConstantDesc(fd.getNameIndex()) instanceof UTF8Constant u ? u.getValue() : null;
         if (name == null) {

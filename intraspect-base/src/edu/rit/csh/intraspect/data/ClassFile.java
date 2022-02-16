@@ -5,6 +5,7 @@ import edu.rit.csh.intraspect.data.attribute.AttributeReader;
 import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
@@ -18,6 +19,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class ClassFile {
@@ -278,8 +280,9 @@ public class ClassFile {
         recurseAddConstantResize(index, 1, this);
     }
 
-    public void addConstant(ConstantDesc cd) {
+    public int addConstant(ConstantDesc cd) {
         this.constantPool.addInternal(cd);
+        return this.constantPool.getNumConstants();
     }
 
     public void removeConstant(int index) {
@@ -365,6 +368,29 @@ public class ClassFile {
         int old = this.accessFlags;
         this.accessFlags ^= flag.mask;
         return this.accessFlags != old;
+    }
+
+    public boolean addInterface(int cpi) {
+        for (int i : this.interfaces) {
+            if (i == cpi) {
+                return false;
+            }
+        }
+        this.interfaces = Util.addElement(this.interfaces, cpi);
+        return true;
+    }
+
+    public boolean removeInterface(int cpi) {
+        for (int i = 0; i < this.interfaces.length; i++) {
+            if (this.interfaces[i] == cpi) {
+                this.interfaces = Util.removeElement(this.interfaces, i);
+            }
+        }
+        throw new NoSuchElementException(String.valueOf(cpi));
+    }
+
+    public void addInterface(Class<?> clazz) {
+        this.addInterface(this.addConstant(new ClassConstant(this.addConstant(new UTF8Constant(ClassFiles.getInternalForm(clazz))))));
     }
 
     public enum AccessFlag {
