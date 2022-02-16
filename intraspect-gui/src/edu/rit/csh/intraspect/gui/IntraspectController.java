@@ -164,7 +164,7 @@ public class IntraspectController {
     /**
      * Updates the window to reflect any changes to the class file
      */
-    private void update() {
+    void update() {
         // Check if the class file is null
         final boolean isFileOpen = Objects.nonNull(this.openedClassFile);
 

@@ -1,12 +1,14 @@
 package edu.rit.csh.intraspect.gui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.data.ClassFiles;
 import edu.rit.csh.intraspect.data.FieldDesc;
 import edu.rit.csh.intraspect.data.MethodDesc;
 import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.gui.entries.ConstantEntry;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -77,6 +79,7 @@ public class ViewBuilders {
             });
             content.add(new Label("Major version:"), 0, 3);
             content.add(majorVersionSpinner, 1, 3);
+            content.add(new Label(classFile.getMajorVersion().getJavaVersionString().orElse("-")), 2, 3);
         }
 
         // Constant pool info
@@ -146,8 +149,8 @@ public class ViewBuilders {
     public static Pane buildConstantPoolTab(final ClassFile classFile) {
         final VBox content = new VBox();
 
-        for (ConstantDesc constant : classFile.getConstants()) {
-            content.getChildren().add(new TextField(constant.toString()));
+        for (final ConstantDesc constant : classFile.getConstants()) {
+            content.getChildren().add(new ConstantEntry(constant, classFile).buildPane());
         }
 
         return content;
@@ -163,7 +166,7 @@ public class ViewBuilders {
         final VBox content = new VBox();
 
         for (FieldDesc field : classFile.getFields()) {
-            content.getChildren().add(new TextField(field.toString()));
+            content.getChildren().add(new TextField(ClassFiles.fieldSimpleString(field, classFile)));
         }
 
         return content;
@@ -179,7 +182,7 @@ public class ViewBuilders {
         final VBox content = new VBox();
 
         for (MethodDesc method : classFile.getMethods()) {
-            content.getChildren().add(new TextField(method.toString()));
+            content.getChildren().add(new TextField(ClassFiles.methodSimpleString(method, classFile)));
         }
 
         return content;
