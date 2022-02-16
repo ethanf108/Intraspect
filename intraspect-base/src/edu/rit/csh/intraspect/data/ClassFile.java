@@ -390,7 +390,21 @@ public class ClassFile {
     }
 
     public void addInterface(Class<?> clazz) {
+        if (!clazz.isInterface()) {
+            throw new IllegalArgumentException("Class is not interface");
+        }
         this.addInterface(this.addConstant(new ClassConstant(this.addConstant(new UTF8Constant(ClassFiles.getInternalForm(clazz))))));
+    }
+
+    public void addInterface(String clazz) {
+        if (!ClassFiles.isValidClassNameInternalForm(clazz)) {
+            throw new IllegalArgumentException("Invalid class name in internal form");
+        }
+        this.addInterface(this.addConstant(new ClassConstant(this.addConstant(new UTF8Constant(clazz)))));
+    }
+
+    public void addMethod(MethodDesc md) {
+        this.methods = Util.addElement(this.methods, md);
     }
 
     public enum AccessFlag {
