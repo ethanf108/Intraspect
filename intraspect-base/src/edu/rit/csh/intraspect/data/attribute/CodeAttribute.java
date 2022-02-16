@@ -8,8 +8,8 @@ import edu.rit.csh.intraspect.data.instruction.InstructionCache;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
-import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -110,9 +110,21 @@ public final class CodeAttribute implements AttributeDesc {
         return 12 + this.instructionByteLengthCache + 8 * this.exceptionTable.length + attributeLength;
     }
 
+    public byte[] cacheInstructionLength() throws IOException {
+        final ByteArrayOutputStream instOut = new ByteArrayOutputStream();
+        final DataOutputStream dOut = new DataOutputStream(instOut);
+
+        for (Instruction instruction : this.code) {
+            instruction.write(dOut);
+        }
+
+        this.instructionByteLengthCache = instOut.size();
+        return instOut.toByteArray();
+    }
+
     @Override
-    public void write(final DataOutputStream out_) throws IOException {
-        final OffsetOutputStream out = (OffsetOutputStream) out_;
+    public void write(final DataOutputStream out) throws IOException {
+        final byte[] instructionBytes = this.cacheInstructionLength();
 
         out.writeShort(this.attributeNameIndex);
         out.writeInt(this.getDataLength());
@@ -120,10 +132,7 @@ public final class CodeAttribute implements AttributeDesc {
         out.writeShort(this.maxLocals);
 
         out.writeInt(this.instructionByteLengthCache);
-        out.resetCount();
-        for (Instruction instruction : this.code) {
-            instruction.write(out);
-        }
+        out.write(instructionBytes);
 
         out.writeShort(this.exceptionTable.length);
         for (final ExceptionDesc ed : this.exceptionTable) {
