@@ -6,17 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public final class ConstantEntry implements Entry {
+public record ConstantEntry(ConstantDesc constantDesc,
+                            ClassFile classFile) implements Entry {
 
-    private final ConstantDesc constantDesc;
-    private final ClassFile classFile;
-
-    public ConstantEntry(final ConstantDesc constantDesc, final ClassFile classFile) {
-        this.constantDesc = constantDesc;
-        this.classFile = classFile;
-    }
-
+    @Override
     public Pane buildPane() {
-        return new HBox(new Label(constantDesc.getName() + " " + constantDesc.getInfo()));
+        return new HBox(new Label(this.constantDesc.getName() + " " + this.constantDesc.getInfo()));
     }
 }

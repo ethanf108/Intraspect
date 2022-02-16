@@ -1,18 +1,19 @@
 package edu.rit.csh.intraspect.gui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
-import edu.rit.csh.intraspect.data.ClassFiles;
 import edu.rit.csh.intraspect.data.FieldDesc;
 import edu.rit.csh.intraspect.data.MethodDesc;
 import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.gui.entries.AttributeEntry;
 import edu.rit.csh.intraspect.gui.entries.ConstantEntry;
+import edu.rit.csh.intraspect.gui.entries.FieldEntry;
+import edu.rit.csh.intraspect.gui.entries.MethodEntry;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,6 +23,9 @@ import javafx.scene.layout.VBox;
  */
 public class ViewBuilders {
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private ViewBuilders() {
     }
 
@@ -150,7 +154,8 @@ public class ViewBuilders {
         final VBox content = new VBox();
 
         for (final ConstantDesc constant : classFile.getConstants()) {
-            content.getChildren().add(new ConstantEntry(constant, classFile).buildPane());
+            final Pane pane = new ConstantEntry(constant, classFile).buildPane();
+            content.getChildren().add(pane);
         }
 
         return content;
@@ -165,8 +170,9 @@ public class ViewBuilders {
     public static Pane buildFieldsTab(final ClassFile classFile) {
         final VBox content = new VBox();
 
-        for (FieldDesc field : classFile.getFields()) {
-            content.getChildren().add(new TextField(ClassFiles.fieldSimpleString(field, classFile)));
+        for (final FieldDesc field : classFile.getFields()) {
+            final Pane pane = new FieldEntry(field, classFile).buildPane();
+            content.getChildren().add(pane);
         }
 
         return content;
@@ -181,8 +187,9 @@ public class ViewBuilders {
     public static Pane buildMethodsTab(final ClassFile classFile) {
         final VBox content = new VBox();
 
-        for (MethodDesc method : classFile.getMethods()) {
-            content.getChildren().add(new TextField(ClassFiles.methodSimpleString(method, classFile)));
+        for (final MethodDesc method : classFile.getMethods()) {
+            final Pane pane = new MethodEntry(method, classFile).buildPane();
+            content.getChildren().add(pane);
         }
 
         return content;
@@ -197,8 +204,9 @@ public class ViewBuilders {
     public static Pane buildAttributesTab(final ClassFile classFile) {
         final VBox content = new VBox();
 
-        for (AttributeDesc attribute : classFile.getAttributes()) {
-            content.getChildren().add(new TextField(attribute.toString()));
+        for (final AttributeDesc attribute : classFile.getAttributes()) {
+            final Pane pane = new AttributeEntry(attribute, classFile).buildPane();
+            content.getChildren().add(pane);
         }
 
         return content;
@@ -213,10 +221,8 @@ public class ViewBuilders {
     public static Pane buildInheritanceTab(final ClassFile classFile) {
         final VBox content = new VBox();
 
-        content.getChildren().add(new Label(classFile.getConstantDesc(classFile.getConstantDesc(classFile.getSuperClassIndex(), ClassConstant.class).getUTF8Index(), UTF8Constant.class).getValue()));
-
-        for (int interfaceIndex : classFile.getInterfaces()) {
-            content.getChildren().add(new TextField(classFile.getConstantDesc(classFile.getConstantDesc(interfaceIndex, ClassConstant.class).getUTF8Index(), UTF8Constant.class).getValue()));
+        for (final int interfaceIndex : classFile.getInterfaces()) {
+            content.getChildren().add(new Label("Interface at index: " + interfaceIndex));
         }
 
         return content;
