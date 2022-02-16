@@ -1,19 +1,28 @@
 package edu.rit.csh.intraspect.data.instruction.load;
 
 import edu.rit.csh.intraspect.data.ClassFile;
-import edu.rit.csh.intraspect.data.constant.ConstantDesc;
-import edu.rit.csh.intraspect.data.constant.DoubleConstant;
-import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
-import edu.rit.csh.intraspect.data.constant.LongConstant;
+import edu.rit.csh.intraspect.data.constant.*;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.constant.Ldc2_wInstruction;
 import edu.rit.csh.intraspect.data.instruction.constant.LdcInstruction;
 import edu.rit.csh.intraspect.data.instruction.constant.Ldc_wInstruction;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.util.Optional;
 
 public sealed abstract class LoadConstantInstruction extends Instruction permits LdcInstruction, Ldc_wInstruction, Ldc2_wInstruction {
 
+    @ConstantPoolIndex({
+            IntegerConstant.class,
+            FloatConstant.class,
+            LongConstant.class,
+            DoubleConstant.class,
+            ClassConstant.class,
+            StringConstant.class,
+            MethodHandleConstant.class,
+            MethodTypeConstant.class,
+            DynamicConstant.class
+    })
     protected final int constantPoolIndex;
 
     public LoadConstantInstruction(final int constantPoolIndex) {

@@ -1,5 +1,9 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.ClassConstant;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +14,10 @@ import java.io.IOException;
 @AttributeName("NestHost")
 public final class NestHostAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
+    @ConstantPoolIndex(ClassConstant.class)
     private final int hostClassIndex;
 
     public NestHostAttribute(final int attributeNameIndex, final int hostClassIndex) {

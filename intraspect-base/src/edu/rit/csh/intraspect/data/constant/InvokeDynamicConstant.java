@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -8,8 +9,10 @@ import java.io.IOException;
 
 public final class InvokeDynamicConstant implements ConstantDesc {
 
-    private final int bootstrapMethodAttributeIndex;
-    private final int nameAndTypeIndex;
+    private int bootstrapMethodAttributeIndex;
+
+    @ConstantPoolIndex(NameAndTypeConstant.class)
+    private int nameAndTypeIndex;
 
     public InvokeDynamicConstant(final int bootstrapMethodAttributeIndex, final int nameAndTypeIndex) {
         this.bootstrapMethodAttributeIndex = bootstrapMethodAttributeIndex;
@@ -45,5 +48,15 @@ public final class InvokeDynamicConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeShort(this.bootstrapMethodAttributeIndex);
         out.writeShort(this.nameAndTypeIndex);
+    }
+
+    @Override
+    public String getName() {
+        return "InvokeDynamic";
+    }
+
+    @Override
+    public String getInfo() {
+        return "b#" + this.bootstrapMethodAttributeIndex + ", #" + this.nameAndTypeIndex;
     }
 }

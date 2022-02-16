@@ -1,5 +1,8 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.*;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +13,16 @@ import java.io.IOException;
 @AttributeName("ConstantValue")
 public final class ConstantValueAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
+    @ConstantPoolIndex({
+            IntegerConstant.class,
+            LongConstant.class,
+            FloatConstant.class,
+            DoubleConstant.class,
+            StringConstant.class
+    })
     private final int constantValueIndex;
 
     private ConstantValueAttribute(final int attributeNameIndex, final int constantValueIndex) {

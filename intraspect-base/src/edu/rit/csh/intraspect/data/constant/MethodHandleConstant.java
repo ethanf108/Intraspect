@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,9 +11,10 @@ import java.io.IOException;
  */
 public final class MethodHandleConstant implements ConstantDesc {
 
-    private final int kind;
+    private int kind;
 
-    private final int referenceIndex;
+    @ConstantPoolIndex({FieldRefConstant.class, MethodRefConstant.class, InterfaceMethodRefConstant.class})
+    private int referenceIndex;
 
     public MethodHandleConstant(final int kind, final int ref) {
         this.kind = kind;
@@ -85,5 +87,15 @@ public final class MethodHandleConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeByte(this.kind);
         out.writeShort(this.referenceIndex);
+    }
+
+    @Override
+    public String getName() {
+        return "MethodHandle";
+    }
+
+    @Override
+    public String getInfo() {
+        return "(" + this.kind + "), #" + this.referenceIndex;
     }
 }

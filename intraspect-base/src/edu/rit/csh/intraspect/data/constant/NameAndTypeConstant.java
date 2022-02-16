@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,8 +11,11 @@ import java.io.IOException;
  */
 public final class NameAndTypeConstant implements ConstantDesc {
 
-    private final int nameIndex;
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int descriptorIndex;
+
+    @ConstantPoolIndex(UTF8Constant.class)
+    private int nameIndex;
 
     public NameAndTypeConstant(final int name, final int descriptor) {
         this.nameIndex = name;
@@ -48,4 +52,13 @@ public final class NameAndTypeConstant implements ConstantDesc {
         out.writeShort(this.descriptorIndex);
     }
 
+    @Override
+    public String getName() {
+        return "NameAndType";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.descriptorIndex + ", #" + this.nameIndex;
+    }
 }

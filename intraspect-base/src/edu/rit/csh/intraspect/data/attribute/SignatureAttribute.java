@@ -1,5 +1,8 @@
 package edu.rit.csh.intraspect.data.attribute;
 
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +13,10 @@ import java.io.IOException;
 @AttributeName("Signature")
 public final class SignatureAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int signatureIndex;
 
     private SignatureAttribute(final int attributeNameIndex, final int signatureIndex) {

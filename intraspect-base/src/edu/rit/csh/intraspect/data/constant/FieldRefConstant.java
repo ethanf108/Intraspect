@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,8 +11,11 @@ import java.io.IOException;
  */
 public final class FieldRefConstant implements ConstantDesc {
 
-    private final int classIndex;
-    private final int nameAndTypeIndex;
+    @ConstantPoolIndex(ClassConstant.class)
+    private int classIndex;
+
+    @ConstantPoolIndex(NameAndTypeConstant.class)
+    private int nameAndTypeIndex;
 
     public FieldRefConstant(final int classIndex, final int nameAndTypeIndex) {
         this.classIndex = classIndex;
@@ -47,5 +51,15 @@ public final class FieldRefConstant implements ConstantDesc {
         out.writeByte(this.getTag());
         out.writeShort(this.classIndex);
         out.writeShort(this.nameAndTypeIndex);
+    }
+
+    @Override
+    public String getName() {
+        return "FieldRef";
+    }
+
+    @Override
+    public String getInfo() {
+        return "#" + this.classIndex + ", #" + this.nameAndTypeIndex;
     }
 }

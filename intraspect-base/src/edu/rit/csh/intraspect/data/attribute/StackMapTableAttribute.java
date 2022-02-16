@@ -1,6 +1,8 @@
 package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.attribute.stackmaptable.StackMapFrame;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,7 +14,9 @@ import java.io.IOException;
 @AttributeName("StackMapTable")
 public final class StackMapTableAttribute implements AttributeDesc {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     private final int attributeNameIndex;
+
     private final StackMapFrame[] entries;
 
     private StackMapTableAttribute(final int attributeNameIndex, final StackMapFrame[] entries) {

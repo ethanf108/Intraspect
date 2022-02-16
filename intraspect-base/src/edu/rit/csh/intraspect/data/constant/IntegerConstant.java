@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.constant;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.ConstantValue;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,7 +12,8 @@ import java.io.IOException;
  */
 public final class IntegerConstant implements ConstantDesc {
 
-    private final int value;
+    @ConstantValue(int.class)
+    private int value;
 
     private IntegerConstant(final int val) {
         this.value = val;
@@ -44,5 +46,15 @@ public final class IntegerConstant implements ConstantDesc {
     public void write(final DataOutputStream out) throws IOException {
         out.writeByte(this.getTag());
         out.writeInt(this.value);
+    }
+
+    @Override
+    public String getName() {
+        return "Integer";
+    }
+
+    @Override
+    public String getInfo() {
+        return String.valueOf(this.value) + "i";
     }
 }

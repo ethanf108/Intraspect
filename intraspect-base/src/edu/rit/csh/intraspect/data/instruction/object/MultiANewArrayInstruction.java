@@ -4,6 +4,7 @@ import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -12,7 +13,9 @@ import java.util.Optional;
 @Opcode(opcode = 0xC5, mnemonic = "multianewarray")
 public final class MultiANewArrayInstruction extends Instruction {
 
+    @ConstantPoolIndex(ClassConstant.class)
     private final int classIndex;
+
     private final int numDimensions;
 
     public MultiANewArrayInstruction(final int classIndex, final int numDimensions) {

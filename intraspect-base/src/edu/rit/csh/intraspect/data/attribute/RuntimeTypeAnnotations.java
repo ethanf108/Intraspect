@@ -1,6 +1,8 @@
 package edu.rit.csh.intraspect.data.attribute;
 
 import edu.rit.csh.intraspect.data.attribute.annotation.type.TypeAnnotation;
+import edu.rit.csh.intraspect.data.constant.UTF8Constant;
+import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +12,9 @@ import java.io.IOException;
  */
 public sealed abstract class RuntimeTypeAnnotations implements AttributeDesc permits RuntimeVisibleTypeAnnotationsAttribute, RuntimeInvisibleTypeAnnotationsAttribute {
 
+    @ConstantPoolIndex(UTF8Constant.class)
     protected final int attributeNameIndex;
+
     protected final TypeAnnotation[] annotations;
 
     protected RuntimeTypeAnnotations(final int attributeNameIndex, final TypeAnnotation[] annotations) {
