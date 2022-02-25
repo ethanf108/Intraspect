@@ -2,15 +2,13 @@ package edu.rit.csh.intraspect.edit.assemble;
 
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.InstructionCache;
+import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Assembler {
 
@@ -70,18 +68,48 @@ public class Assembler {
     public Instruction[] read() throws IOException {
         List<Instruction> instructions = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(this.in));
+        OffsetOutputStream outCounter = new OffsetOutputStream(OutputStream.nullOutputStream());
+        Map<String, String> labels = new HashMap<>();
+        List<String[]> labelRefs = new ArrayList<>();
         while (br.ready()) {
             final String line = br.readLine();
             final String[] toks = line.split(",? +");
-            instructions.add(create(toks));
+            if (toks.length == 1 && toks[0].startsWith(":")) {
+                if (!toks[0].matches(":[a-zA-Z][a-zA-Z0-9_-]*")) {
+                    throw new IllegalArgumentException("Invalid label name");
+                }
+                labels.put(toks[0], String.valueOf(outCounter.getTotal()));
+                continue;
+            }
+            boolean skipLabel = false;
+            for (int i = 1; i < toks.length; i++) {
+                if (toks[i].startsWith(":")) {
+                    labelRefs.add(Arrays.copyOf(toks, toks.length));
+                    toks[i] = "0";
+                    skipLabel = true;
+                }
+            }
+            final Instruction inst = create(toks);
+            inst.write(outCounter);
+            if (skipLabel) {
+                instructions.add(null);
+            } else {
+                instructions.add(inst);
+            }
+        }
+        int lastIndex = 0;
+        for (String[] toks : labelRefs) {
+            for (int i = 1; i < toks.length; i++) {
+                if (toks[i].startsWith(":")) {
+                    toks[i] = labels.get(toks[i]);
+                }
+            }
+            while (instructions.get(lastIndex) != null) {
+                lastIndex++;
+            }
+            instructions.set(lastIndex, create(toks));
         }
         return instructions.toArray(Instruction[]::new);
     }
 
-    public static void main(String[] args) throws Throwable {
-        Assembler a = new Assembler(new FileInputStream(new File("C:\\Users\\ethan\\Desktop\\inst.jsm")));
-        for (Instruction i : a.read()) {
-            System.out.println(i);
-        }
-    }
 }
