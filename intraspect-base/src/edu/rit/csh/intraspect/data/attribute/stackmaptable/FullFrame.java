@@ -19,6 +19,13 @@ public final class FullFrame extends StackMapFrame {
         super(tag);
     }
 
+    public FullFrame(int offsetDelta, VerificationTypeInfo[] locals, VerificationTypeInfo[] stack) {
+        super(255);
+        this.offsetDelta = offsetDelta;
+        this.locals = locals;
+        this.stack = stack;
+    }
+
     public int getOffsetDelta() {
         return this.offsetDelta;
     }
@@ -38,12 +45,12 @@ public final class FullFrame extends StackMapFrame {
 
         this.locals = new VerificationTypeInfo[in.readUnsignedShort()];
         for (int i = 0; i < this.locals.length; i++) {
-            locals[i] = VerificationTypeInfo.read(in);
+            this.locals[i] = VerificationTypeInfo.read(in);
         }
 
         this.stack = new VerificationTypeInfo[in.readUnsignedShort()];
-        for (int i = 0; i < stack.length; i++) {
-            stack[i] = VerificationTypeInfo.read(in);
+        for (int i = 0; i < this.stack.length; i++) {
+            this.stack[i] = VerificationTypeInfo.read(in);
         }
 
         return this;
@@ -72,7 +79,7 @@ public final class FullFrame extends StackMapFrame {
     public int getDataLength() {
         int dataLength = 7;
 
-        for (final VerificationTypeInfo local : locals) {
+        for (final VerificationTypeInfo local : this.locals) {
             dataLength += local.getDataLength();
         }
 

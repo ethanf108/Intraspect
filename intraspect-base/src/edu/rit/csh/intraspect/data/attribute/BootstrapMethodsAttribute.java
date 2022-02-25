@@ -19,7 +19,7 @@ public final class BootstrapMethodsAttribute implements AttributeDesc {
 
     private final BootstrapMethodsTableEntry[] bootstrapMethodsTable;
 
-    private BootstrapMethodsAttribute(final int attributeNameIndex, final BootstrapMethodsTableEntry[] bootstrapMethodsTable) {
+    public BootstrapMethodsAttribute(final int attributeNameIndex, final BootstrapMethodsTableEntry[] bootstrapMethodsTable) {
         this.attributeNameIndex = attributeNameIndex;
         this.bootstrapMethodsTable = bootstrapMethodsTable;
     }

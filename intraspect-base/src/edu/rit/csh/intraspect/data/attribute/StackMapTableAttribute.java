@@ -19,7 +19,7 @@ public final class StackMapTableAttribute implements AttributeDesc {
 
     private final StackMapFrame[] entries;
 
-    private StackMapTableAttribute(final int attributeNameIndex, final StackMapFrame[] entries) {
+    public StackMapTableAttribute(final int attributeNameIndex, final StackMapFrame[] entries) {
         this.attributeNameIndex = attributeNameIndex;
         this.entries = entries;
     }

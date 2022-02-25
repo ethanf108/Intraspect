@@ -46,11 +46,13 @@ public class ClassFile {
     private MethodDesc[] methods;
     private AttributeDesc[] attributes;
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
-    private ClassFile() {
-
+    public ClassFile() {
+        this.majorVersion = new MajorVersion(61);
+        this.interfaces = new int[0];
+        this.fields = new FieldDesc[0];
+        this.methods = new MethodDesc[0];
+        this.attributes = new AttributeDesc[0];
+        this.constantPool = new ConstantPool();
     }
 
     /**
@@ -181,8 +183,16 @@ public class ClassFile {
         return this.thisClass;
     }
 
+    public void setThisClass(int index) {
+        this.thisClass = index;
+    }
+
     public int getSuperClass() {
         return this.superClass;
+    }
+
+    public void setSuperClass(int index) {
+        this.superClass = index;
     }
 
     /**
@@ -370,6 +380,17 @@ public class ClassFile {
         return this.accessFlags != old;
     }
 
+    public int putUTFIfAbsent(String s) {
+        int i = 1;
+        for (ConstantDesc cd : this.constantPool) {
+            if (cd instanceof UTF8Constant u && u.getValue().equals(s)) {
+                return i;
+            }
+            i++;
+        }
+        return this.addConstant(new UTF8Constant(s));
+    }
+
     public boolean addInterface(int cpi) {
         for (int i : this.interfaces) {
             if (i == cpi) {
@@ -405,6 +426,10 @@ public class ClassFile {
 
     public void addMethod(MethodDesc md) {
         this.methods = Util.addElement(this.methods, md);
+    }
+
+    public void addAttribute(AttributeDesc ad) {
+        this.attributes = Util.addElement(this.attributes, ad);
     }
 
     public enum AccessFlag {

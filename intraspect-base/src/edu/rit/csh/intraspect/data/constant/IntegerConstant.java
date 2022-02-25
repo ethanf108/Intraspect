@@ -15,7 +15,7 @@ public final class IntegerConstant implements ConstantDesc {
     @ConstantValue(int.class)
     private int value;
 
-    private IntegerConstant(final int val) {
+    public IntegerConstant(final int val) {
         this.value = val;
     }
 

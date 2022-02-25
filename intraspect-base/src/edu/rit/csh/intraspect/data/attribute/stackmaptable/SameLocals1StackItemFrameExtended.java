@@ -18,6 +18,12 @@ public final class SameLocals1StackItemFrameExtended extends StackMapFrame {
         super(tag);
     }
 
+    public SameLocals1StackItemFrameExtended(int offsetDelta, VerificationTypeInfo stack) {
+        super(247);
+        this.offsetDelta = offsetDelta;
+        this.stack = stack;
+    }
+
     public int getOffsetDelta() {
         return this.offsetDelta;
     }

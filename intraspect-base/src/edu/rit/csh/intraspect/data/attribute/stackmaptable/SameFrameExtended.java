@@ -15,6 +15,11 @@ public final class SameFrameExtended extends StackMapFrame {
         super(tag);
     }
 
+    public SameFrameExtended(int tag, int offsetDelta) {
+        super(tag);
+        this.offsetDelta = offsetDelta;
+    }
+
     public int getOffsetDelta() {
         return this.offsetDelta;
     }

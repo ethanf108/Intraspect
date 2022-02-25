@@ -13,6 +13,10 @@ public final class IntegerVariableInfo extends VerificationTypeInfo {
         super(tag);
     }
 
+    public IntegerVariableInfo() {
+        this(1);
+    }
+
     @Override
     VerificationTypeInfo readInternal(final DataInputStream in) throws IOException {
         return this;

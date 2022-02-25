@@ -19,6 +19,11 @@ public final class ObjectVariableInfo extends VerificationTypeInfo {
         super(tag);
     }
 
+    public ObjectVariableInfo(int tag, int cpoolIndex) {
+        super(tag);
+        this.cpoolIndex = cpoolIndex;
+    }
+
     public int getCpoolIndex() {
         return this.cpoolIndex;
     }

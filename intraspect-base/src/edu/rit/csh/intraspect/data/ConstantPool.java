@@ -7,10 +7,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public final class ConstantPool {
+public final class ConstantPool implements Iterable<ConstantDesc> {
 
     /**
      * 0-indexed list
@@ -94,5 +95,10 @@ public final class ConstantPool {
         for (ConstantDesc cd : this.pool) {
             cd.write(out);
         }
+    }
+
+    @Override
+    public Iterator<ConstantDesc> iterator() {
+        return this.pool.iterator();
     }
 }

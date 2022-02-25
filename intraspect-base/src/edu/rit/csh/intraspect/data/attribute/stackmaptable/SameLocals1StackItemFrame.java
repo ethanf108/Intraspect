@@ -17,6 +17,11 @@ public final class SameLocals1StackItemFrame extends StackMapFrame {
         super(tag);
     }
 
+    public SameLocals1StackItemFrame(int tag, VerificationTypeInfo stack) {
+        super(tag);
+        this.stack = stack;
+    }
+
     public VerificationTypeInfo getStack() {
         return this.stack;
     }
@@ -35,6 +40,6 @@ public final class SameLocals1StackItemFrame extends StackMapFrame {
 
     @Override
     public int getDataLength() {
-        return 1 + stack.getDataLength();
+        return 1 + this.stack.getDataLength();
     }
 }
