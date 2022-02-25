@@ -5,6 +5,7 @@ import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -18,6 +19,7 @@ public final class MultiANewArrayInstruction extends Instruction {
 
     private final int numDimensions;
 
+    @AssembleInject
     public MultiANewArrayInstruction(final int classIndex, final int numDimensions) {
         this.classIndex = classIndex;
         this.numDimensions = numDimensions;

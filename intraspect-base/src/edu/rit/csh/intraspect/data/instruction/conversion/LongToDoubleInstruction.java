@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.conversion;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0x8A, mnemonic = "l2d")
 public final class LongToDoubleInstruction extends ConversionInstruction {
 
+    @AssembleInject
     public LongToDoubleInstruction() {
     }
 

@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.constant;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -10,6 +11,7 @@ public final class BipushInstruction extends ConstantInstruction {
 
     private final byte byteValue;
 
+    @AssembleInject
     public BipushInstruction(final byte byteValue) {
         this.byteValue = byteValue;
     }

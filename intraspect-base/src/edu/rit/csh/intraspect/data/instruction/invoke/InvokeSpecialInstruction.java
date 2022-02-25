@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.instruction.invoke;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.MethodRefConstant;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.Optional;
 @Opcode(opcode = 0xB7, mnemonic = "invokespecial")
 public final class InvokeSpecialInstruction extends InvokeInstruction {
 
+    @AssembleInject
     public InvokeSpecialInstruction(final int methodIndex) {
         super(methodIndex);
     }

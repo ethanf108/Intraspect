@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.conversion;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0x8C, mnemonic = "f2l")
 public final class FloatToLongInstruction extends ConversionInstruction {
 
+    @AssembleInject
     public FloatToLongInstruction() {
     }
 

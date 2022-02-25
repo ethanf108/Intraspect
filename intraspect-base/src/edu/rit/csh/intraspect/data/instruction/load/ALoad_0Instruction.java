@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.load;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0x2A, mnemonic = "aload_0")
 public final class ALoad_0Instruction extends ALoadInstruction {
 
+    @AssembleInject
     public ALoad_0Instruction() {
         super(0);
     }

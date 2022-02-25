@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.branch;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0x9A, mnemonic = "ifne")
 public final class IfneInstruction extends IfInstruction {
 
+    @AssembleInject
     public IfneInstruction(int branchTarget) {
         super(branchTarget);
     }

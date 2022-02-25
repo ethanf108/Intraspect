@@ -4,6 +4,7 @@ package edu.rit.csh.intraspect.data.instruction.control;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.io.IOException;
 @Opcode(opcode = 0xB1, mnemonic = "return")
 public sealed class ReturnInstruction extends Instruction permits IReturnInstruction, LReturnInstruction, FReturnInstruction, DReturnInstruction, AReturnInstruction {
 
+    @AssembleInject
     public ReturnInstruction() {
 
     }

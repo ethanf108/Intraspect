@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.instruction.misc;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.io.IOException;
 @Opcode(opcode = 0xBF, mnemonic = "athrow")
 public final class AThrowInstruction extends Instruction {
 
+    @AssembleInject
     public AThrowInstruction() {
 
     }

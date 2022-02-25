@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.stack;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.util.Stack;
 @Opcode(opcode = 0x5F, mnemonic = "swap")
 public final class SwapInstruction extends StackInstruction {
 
+    @AssembleInject
     public SwapInstruction() {
 
     }

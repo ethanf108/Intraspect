@@ -2,6 +2,7 @@ package edu.rit.csh.intraspect.data.instruction.store;
 
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.io.IOException;
 @Opcode(opcode = 0x39, mnemonic = "dstore")
 public sealed class DStoreInstruction extends StoreInstruction permits DStore_0Instruction, DStore_1Instruction, DStore_2Instruction, DStore_3Instruction {
 
+    @AssembleInject
     public DStoreInstruction(final int lvi) {
         super(lvi);
     }

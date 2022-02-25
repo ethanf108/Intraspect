@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.compare;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0x95, mnemonic = "fcmpl")
 public final class FcmplInstruction extends CompareInstruction<Float> {
 
+    @AssembleInject
     public FcmplInstruction() {
 
     }

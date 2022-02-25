@@ -6,6 +6,7 @@ import edu.rit.csh.intraspect.data.constant.InterfaceMethodRefConstant;
 import edu.rit.csh.intraspect.data.constant.MethodRefConstant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.util.Optional;
 
@@ -14,7 +15,8 @@ public sealed abstract class InvokeInstruction extends Instruction permits Invok
     @ConstantPoolIndex({MethodRefConstant.class, InterfaceMethodRefConstant.class})
     protected final int methodIndex;
 
-    protected InvokeInstruction(final int methodIndex) {
+    @AssembleInject
+    public InvokeInstruction(final int methodIndex) {
         this.methodIndex = methodIndex;
     }
 

@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.instruction.misc;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -13,6 +14,7 @@ public final class IincInstruction extends Instruction {
     private final int localVariableIndex;
     private final int constant;
 
+    @AssembleInject
     public IincInstruction(final int localVariableIndex, final int constant) {
         this.localVariableIndex = localVariableIndex;
         this.constant = constant;

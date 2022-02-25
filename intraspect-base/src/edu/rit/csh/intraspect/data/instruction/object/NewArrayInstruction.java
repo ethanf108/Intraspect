@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.instruction.object;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -13,6 +14,7 @@ public final class NewArrayInstruction extends Instruction {
 
     private final int aType;
 
+    @AssembleInject
     public NewArrayInstruction(final int aType) {
         this.aType = aType;
     }

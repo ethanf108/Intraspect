@@ -2,6 +2,7 @@ package edu.rit.csh.intraspect.data.instruction.constant;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
 import edu.rit.csh.intraspect.data.instruction.load.LoadConstantInstruction;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.io.IOException;
 @Opcode(opcode = 0x12, mnemonic = "ldc")
 public final class LdcInstruction extends LoadConstantInstruction {
 
+    @AssembleInject
     public LdcInstruction(final int constantPoolIndex) {
         super(constantPoolIndex);
     }

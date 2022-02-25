@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.branch;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 @Opcode(opcode = 0xA3, mnemonic = "if_icmpgt")
 public final class If_icmpgtInstruction extends IfCompareInstruction<Integer> {
 
+    @AssembleInject
     public If_icmpgtInstruction(final int branchTarget) {
         super(branchTarget);
     }

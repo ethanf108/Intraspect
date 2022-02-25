@@ -20,6 +20,7 @@ public class Assembler {
         this.in = in;
     }
 
+    @SuppressWarnings("unchecked")
     private static boolean loadConstructor(String name) {
         Class<? extends Instruction> clazz = InstructionCache.getByMnemonic(name);
         for (Constructor<?> con : clazz.getDeclaredConstructors()) {

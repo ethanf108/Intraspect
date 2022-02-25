@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.stack;
 
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.util.Stack;
 @Opcode(opcode = 0x5D, mnemonic = "dup2_x1")
 public final class Dup2_x1Instruction extends StackInstruction {
 
+    @AssembleInject
     public Dup2_x1Instruction() {
 
     }
