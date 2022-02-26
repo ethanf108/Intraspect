@@ -23,6 +23,9 @@ public class Assembler {
     @SuppressWarnings("unchecked")
     private static boolean loadConstructor(String name) {
         Class<? extends Instruction> clazz = InstructionCache.getByMnemonic(name);
+        if (clazz == null) {
+            throw new IllegalArgumentException("Illegal instruction: '" + name + "'");
+        }
         for (Constructor<?> con : clazz.getDeclaredConstructors()) {
             if (con.isAnnotationPresent(AssembleInject.class)) {
                 constructorCache.put(name, (Constructor<Instruction>) con);
@@ -81,6 +84,9 @@ public class Assembler {
 
         while (br.ready()) {
             final String line = br.readLine();
+            if (line.isBlank()) {
+                continue;
+            }
             String[] toks = line.split("(,? +)|(?=;)");
             for (int i = 0; i < toks.length; i++) {
                 if (toks[i].strip().startsWith(";")) {
@@ -115,15 +121,17 @@ public class Assembler {
                 instructions.add(inst);
             }
         }
+        outCounter = new OffsetOutputStream(OutputStream.nullOutputStream());
         int lastIndex = 0;
         for (String[] toks : labelRefs) {
+            while (instructions.get(lastIndex) != null) {
+                instructions.get(lastIndex).write(outCounter);
+                lastIndex++;
+            }
             for (int i = 1; i < toks.length; i++) {
                 if (toks[i].startsWith(":")) {
-                    toks[i] = labels.get(toks[i]);
+                    toks[i] = String.valueOf(Integer.parseInt(labels.get(toks[i])) - outCounter.getTotal());
                 }
-            }
-            while (instructions.get(lastIndex) != null) {
-                lastIndex++;
             }
             instructions.set(lastIndex, create(toks));
         }
