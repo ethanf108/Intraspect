@@ -48,6 +48,12 @@ public class Assembler {
             index++;
             if (param.getType() == int.class) {
                 params.add(Integer.parseInt(args[index]));
+            } else if (param.getType() == short.class) {
+                params.add(Short.parseShort(args[index]));
+            } else if (param.getType() == long.class) {
+                params.add(Long.parseLong(args[index]));
+            } else if (param.getType() == byte.class) {
+                params.add(Byte.parseByte(args[index]));
             } else if (param.getType() == String.class) {
                 params.add(args[index]);
             } else {
@@ -72,11 +78,22 @@ public class Assembler {
         OffsetOutputStream outCounter = new OffsetOutputStream(OutputStream.nullOutputStream());
         Map<String, String> labels = new HashMap<>();
         List<String[]> labelRefs = new ArrayList<>();
+
         while (br.ready()) {
             final String line = br.readLine();
-            final String[] toks = line.split(",? +");
+            String[] toks = line.split("(,? +)|(?=;)");
+            for (int i = 0; i < toks.length; i++) {
+                if (toks[i].strip().startsWith(";")) {
+                    String[] ntoks = new String[i];
+                    System.arraycopy(toks, 0, ntoks, 0, i);
+                    toks = ntoks;
+                }
+            }
+            if (toks.length == 0) {
+                continue;
+            }
             if (toks.length == 1 && toks[0].startsWith(":")) {
-                if (!toks[0].matches(":[a-zA-Z][a-zA-Z0-9_-]*")) {
+                if (!toks[0].matches(" *:[a-zA-Z][a-zA-Z0-9_-]*")) {
                     throw new IllegalArgumentException("Invalid label name");
                 }
                 labels.put(toks[0], String.valueOf(outCounter.getTotal()));
