@@ -3,6 +3,7 @@ package edu.rit.csh.intraspect.data.instruction.invoke;
 import edu.rit.csh.intraspect.data.ClassFile;
 import edu.rit.csh.intraspect.data.constant.InterfaceMethodRefConstant;
 import edu.rit.csh.intraspect.data.instruction.Opcode;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -13,6 +14,7 @@ public final class InvokeInterfaceInstruction extends InvokeInstruction {
 
     private final int count;
 
+    @AssembleInject
     public InvokeInterfaceInstruction(final int methodIndex, final int count) {
         super(methodIndex);
         this.count = count;
