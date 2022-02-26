@@ -75,7 +75,7 @@ public class Assembler {
         }
     }
 
-    public Instruction[] read() throws IOException {
+    public Instruction[] read(int... args) throws IOException {
         List<Instruction> instructions = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(this.in));
         OffsetOutputStream outCounter = new OffsetOutputStream(OutputStream.nullOutputStream());
@@ -111,6 +111,13 @@ public class Assembler {
                     labelRefs.add(Arrays.copyOf(toks, toks.length));
                     toks[i] = "0";
                     skipLabel = true;
+                } else if (toks[i].startsWith("#")) {
+                    final int argNum = Integer.parseInt(toks[i].substring(1));
+                    try {
+                        toks[i] = String.valueOf(args[argNum - 1]);
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        throw new IllegalArgumentException("Invalid arguments index #" + argNum);
+                    }
                 }
             }
             final Instruction inst = create(toks);
