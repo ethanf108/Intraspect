@@ -7,4 +7,5 @@ module intraspect.gui {
 
     opens edu.rit.csh.intraspect.gui to javafx.fxml;
     exports edu.rit.csh.intraspect.gui;
+    exports edu.rit.csh.intraspect.gui.entries;
 }

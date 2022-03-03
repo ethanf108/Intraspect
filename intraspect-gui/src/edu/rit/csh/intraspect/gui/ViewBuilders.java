@@ -1,22 +1,19 @@
 package edu.rit.csh.intraspect.gui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
-import edu.rit.csh.intraspect.data.FieldDesc;
-import edu.rit.csh.intraspect.data.MethodDesc;
-import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
+import edu.rit.csh.intraspect.data.MajorVersion;
 import edu.rit.csh.intraspect.data.constant.ClassConstant;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.UTF8Constant;
-import edu.rit.csh.intraspect.gui.entries.AttributeEntry;
 import edu.rit.csh.intraspect.gui.entries.ConstantEntry;
-import edu.rit.csh.intraspect.gui.entries.FieldEntry;
-import edu.rit.csh.intraspect.gui.entries.MethodEntry;
+import edu.rit.csh.intraspect.gui.entries.Entry;
+import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 /**
  * Contains static methods for building JavaFX nodes for the class file view.
@@ -31,6 +28,7 @@ public class ViewBuilders {
 
     /**
      * Builds the overview tab for the class file.
+     * `
      *
      * @param classFile The class file to build the overview tab for.
      * @return The overview tab for the class file.
@@ -42,8 +40,21 @@ public class ViewBuilders {
         content.setHgap(5);
         content.setVgap(5);
 
-        final String className = classFile.getConstantDesc(classFile.getConstantDesc(classFile.getThisClassIndex(), ClassConstant.class).getUTF8Index(), UTF8Constant.class).getValue();
-        final String superClass = classFile.getConstantDesc(classFile.getConstantDesc(classFile.getSuperClassIndex(), ClassConstant.class).getUTF8Index(), UTF8Constant.class).getValue();
+        final String className = classFile.getConstantDesc(
+                classFile.getConstantDesc(
+                        classFile.getThisClassIndex(),
+                        ClassConstant.class
+                ).getUTF8Index(),
+                UTF8Constant.class
+        ).getValue();
+
+        final String superClass = classFile.getConstantDesc(
+                classFile.getConstantDesc(
+                        classFile.getSuperClassIndex(),
+                        ClassConstant.class
+                ).getUTF8Index(),
+                UTF8Constant.class
+        ).getValue();
 
         final String constantPoolSize = classFile.getConstants().length + "";
         final String interfaceCount = classFile.getInterfaces().length + "";
@@ -77,13 +88,15 @@ public class ViewBuilders {
 
         // Major version info
         {
+            final Label label = new Label(classFile.getMajorVersion().getJavaVersionString().orElse("Invalid Classfile Version"));
+
             final Spinner<Integer> majorVersionSpinner = new Spinner<>(0, Integer.MAX_VALUE, classFile.getMajorVersion().getMajorVersion());
             majorVersionSpinner.valueProperty().addListener((observableValue, oldVal, newVal) -> {
-                System.out.println("Updating major version to: " + newVal);
+                label.setText(new MajorVersion(newVal).getJavaVersionString().orElse("Invalid Classfile Version"));
             });
             content.add(new Label("Major version:"), 0, 3);
             content.add(majorVersionSpinner, 1, 3);
-            content.add(new Label(classFile.getMajorVersion().getJavaVersionString().orElse("-")), 2, 3);
+            content.add(label, 2, 3);
         }
 
         // Constant pool info
@@ -150,12 +163,12 @@ public class ViewBuilders {
      * @param classFile The class file to build the constant pool tab for.
      * @return The constant pool tab for the class file.
      */
-    public static Pane buildConstantPoolTab(final ClassFile classFile) {
-        final VBox content = new VBox();
+    public static ListView<Entry> buildConstantPoolTab(final ClassFile classFile, final IntraspectController intraspectController) {
+        final ListView<Entry> content = new ListView<>();
 
-        for (final ConstantDesc constant : classFile.getConstants()) {
-            final Pane pane = new ConstantEntry(constant, classFile).buildPane();
-            content.getChildren().add(pane);
+        ConstantDesc[] constants = classFile.getConstants();
+        for (int i = 0; i < constants.length; ++i) {
+            content.getItems().add(new ConstantEntry(constants[i], i + 1, classFile));
         }
 
         return content;
@@ -167,13 +180,8 @@ public class ViewBuilders {
      * @param classFile The class file to build the fields tab for.
      * @return The fields tab for the class file.
      */
-    public static Pane buildFieldsTab(final ClassFile classFile) {
-        final VBox content = new VBox();
-
-        for (final FieldDesc field : classFile.getFields()) {
-            final Pane pane = new FieldEntry(field, classFile).buildPane();
-            content.getChildren().add(pane);
-        }
+    public static ListView<Entry> buildFieldsTab(final ClassFile classFile, final IntraspectController intraspectController) {
+        final ListView<Entry> content = new ListView<>();
 
         return content;
     }
@@ -184,13 +192,8 @@ public class ViewBuilders {
      * @param classFile The class file to build the methods tab for.
      * @return The methods tab for the class file.
      */
-    public static Pane buildMethodsTab(final ClassFile classFile) {
-        final VBox content = new VBox();
-
-        for (final MethodDesc method : classFile.getMethods()) {
-            final Pane pane = new MethodEntry(method, classFile).buildPane();
-            content.getChildren().add(pane);
-        }
+    public static ListView<Entry> buildMethodsTab(final ClassFile classFile, final IntraspectController intraspectController) {
+        final ListView<Entry> content = new ListView<>();
 
         return content;
     }
@@ -201,13 +204,8 @@ public class ViewBuilders {
      * @param classFile The class file to build the attributes tab for.
      * @return The attributes tab for the class file.
      */
-    public static Pane buildAttributesTab(final ClassFile classFile) {
-        final VBox content = new VBox();
-
-        for (final AttributeDesc attribute : classFile.getAttributes()) {
-            final Pane pane = new AttributeEntry(attribute, classFile).buildPane();
-            content.getChildren().add(pane);
-        }
+    public static ListView<Entry> buildAttributesTab(final ClassFile classFile, final IntraspectController intraspectController) {
+        final ListView<Entry> content = new ListView<>();
 
         return content;
     }
@@ -218,12 +216,8 @@ public class ViewBuilders {
      * @param classFile The class file to build the inheritance tab for.
      * @return The inheritance tab for the class file.
      */
-    public static Pane buildInheritanceTab(final ClassFile classFile) {
-        final VBox content = new VBox();
-
-        for (final int interfaceIndex : classFile.getInterfaces()) {
-            content.getChildren().add(new Label("Interface at index: " + interfaceIndex));
-        }
+    public static ListView<Entry> buildInheritanceTab(final ClassFile classFile, final IntraspectController intraspectController) {
+        final ListView<Entry> content = new ListView<>();
 
         return content;
     }

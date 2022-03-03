@@ -39,9 +39,6 @@ public class IntraspectApplication extends Application {
         // Prevent the window from being resized
         window.setResizable(false);
 
-        // Set the title
-        window.setTitle("Intraspect GUI");
-
         // Make and add a scene to the stage
         window.setScene(new Scene(fxmlLoader.load(), 600, 425));
 

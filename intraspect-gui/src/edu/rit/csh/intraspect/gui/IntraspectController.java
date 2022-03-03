@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.gui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.gui.entries.Entry;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -38,8 +39,7 @@ public class IntraspectController {
                 try {
                     hyperlink.setVisited(false);
                     Desktop.getDesktop().browse(new java.net.URI(GITHUB_LINK));
-                } catch (final IOException | URISyntaxException ignored) {
-                }
+                } catch (final IOException | URISyntaxException ignored) {}
             });
         }
 
@@ -74,6 +74,8 @@ public class IntraspectController {
     @FXML
     private MenuItem closeFileMenuOption;
     @FXML
+    private MenuItem deleteItemMenuOption;
+    @FXML
     private ScrollPane overviewTab;
     @FXML
     private ScrollPane constantPoolTab;
@@ -100,6 +102,11 @@ public class IntraspectController {
     }
 
     @FXML
+    private void deleteItem() {
+        list.getItems().remove(list.getSelectionModel().getSelectedIndex()).remove();
+    }
+
+    @FXML
     private void showAboutAlert() {
         // Show the about alert and stall the thread
         // We don't really care about the result
@@ -108,13 +115,6 @@ public class IntraspectController {
 
     @FXML
     private void openFile() {
-
-        // Set the initial directory to the user's home dir
-        if (Objects.isNull(this.openedClassFile)) {
-            chooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        } else {
-            chooser.setInitialDirectory(this.openedClassFile.file.getParentFile());
-        }
 
         // Show the dialog
         final File file = chooser.showOpenDialog(this.window);
@@ -128,6 +128,7 @@ public class IntraspectController {
             try {
                 this.openedClassFile = OpenedFile.open(file);
                 this.update();
+                chooser.setInitialDirectory(this.openedClassFile.file.getParentFile());
             } catch (final IOException e) {
                 e.printStackTrace();
             }
@@ -161,6 +162,8 @@ public class IntraspectController {
         });
     }
 
+    private ListView<Entry> list;
+
     /**
      * Updates the window to reflect any changes to the class file
      */
@@ -168,15 +171,24 @@ public class IntraspectController {
         // Check if the class file is null
         final boolean isFileOpen = Objects.nonNull(this.openedClassFile);
 
-        final ClassFile classFile = isFileOpen ? this.openedClassFile.classFile : null;
+        // Update title
+        window.setTitle("Intraspect" + (isFileOpen ? " - " + this.openedClassFile.file.getName() : ""));
 
-        // Update tabs
-        this.overviewTab.setContent(isFileOpen ? ViewBuilders.buildOverviewTab(classFile, this) : null);
-        this.constantPoolTab.setContent(isFileOpen ? ViewBuilders.buildConstantPoolTab(classFile) : null);
-        this.fieldsTab.setContent(isFileOpen ? ViewBuilders.buildFieldsTab(classFile) : null);
-        this.methodsTab.setContent(isFileOpen ? ViewBuilders.buildMethodsTab(classFile) : null);
-        this.attributesTab.setContent(isFileOpen ? ViewBuilders.buildAttributesTab(classFile) : null);
-        this.inheritanceTab.setContent(isFileOpen ? ViewBuilders.buildInheritanceTab(classFile) : null);
+        if (isFileOpen) {
+            this.overviewTab.setContent(ViewBuilders.buildOverviewTab(this.openedClassFile.classFile, this));
+
+            {
+                ListView<Entry> constantView = ViewBuilders.buildConstantPoolTab(this.openedClassFile.classFile, this);
+
+                list = constantView;
+
+                this.constantPoolTab.setContent(constantView);
+            }
+        }
+        else {
+            this.overviewTab.setContent(null);
+            this.constantPoolTab.setContent(null);
+        }
 
         // Enable/disable menu options
         this.tabPane.setDisable(!isFileOpen);
