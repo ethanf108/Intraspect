@@ -25,7 +25,7 @@ public final class LookupSwitchInstruction extends Instruction {
 
     public static LookupSwitchInstruction read(final DataInputStream in_) throws IOException {
         final OffsetInputStream in = (OffsetInputStream) in_;
-        final int padBytes = (int) (4 - (in.getCounter() % 4));
+        final int padBytes = (int) ((4 - (in.getCounter() % 4))) % 4;
         for (int i = 0; i < padBytes; i++) {
             in.readByte();
         }
