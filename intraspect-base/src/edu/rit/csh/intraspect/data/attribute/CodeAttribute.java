@@ -8,6 +8,7 @@ import edu.rit.csh.intraspect.data.instruction.InstructionCache;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndex;
 import edu.rit.csh.intraspect.edit.ConstantPoolIndexedRecord;
 import edu.rit.csh.intraspect.util.OffsetInputStream;
+import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -112,7 +113,7 @@ public final class CodeAttribute implements AttributeDesc {
 
     public byte[] cacheInstructionLength() throws IOException {
         final ByteArrayOutputStream instOut = new ByteArrayOutputStream();
-        final DataOutputStream dOut = new DataOutputStream(instOut);
+        final OffsetOutputStream dOut = new OffsetOutputStream(instOut);
 
         for (Instruction instruction : this.code) {
             instruction.write(dOut);
