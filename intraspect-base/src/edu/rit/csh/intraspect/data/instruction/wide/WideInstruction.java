@@ -56,4 +56,14 @@ public sealed abstract class WideInstruction extends Instruction permits WideIin
         //TODO check local variable index
         return true;
     }
+
+    @Override
+    public String getMnemonic() {
+        return "wide";
+    }
+
+    @Override
+    public int getOpcode() {
+        return 0xC4;
+    }
 }
