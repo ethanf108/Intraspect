@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.wide;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 public final class WideIincInstruction extends WideInstruction {
 
@@ -9,6 +10,11 @@ public final class WideIincInstruction extends WideInstruction {
     public WideIincInstruction(final int subOpcode, final int localVariableIndex, final int constValue) {
         super(subOpcode, localVariableIndex);
         this.constValue = constValue;
+    }
+
+    @AssembleInject
+    public WideIincInstruction(final int localVariableIndex, final int constValue) {
+        this(0x84, localVariableIndex, constValue);
     }
 
     public int getConstValue() {

@@ -7,7 +7,6 @@ import java.io.IOException;
 
 public sealed abstract class WideLoadInstruction extends WideInstruction permits WideILoadInstruction, WideFLoadInstruction, WideALoadInstruction, WideLLoadInstruction, WideDLoadInstruction {
 
-
     protected WideLoadInstruction(final int subOpcode, final int localVariableIndex) {
         super(subOpcode, localVariableIndex);
     }

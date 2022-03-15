@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.wide.load;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 public final class WideFLoadInstruction extends WideLoadInstruction {
 
@@ -8,6 +9,7 @@ public final class WideFLoadInstruction extends WideLoadInstruction {
         super(subOpcode, localVariableIndex);
     }
 
+    @AssembleInject
     public WideFLoadInstruction(final int localVariableIndex) {
         this(0x17, localVariableIndex);
     }

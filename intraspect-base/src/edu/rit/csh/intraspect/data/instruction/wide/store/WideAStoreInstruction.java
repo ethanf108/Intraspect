@@ -1,6 +1,7 @@
 package edu.rit.csh.intraspect.data.instruction.wide.store;
 
 import edu.rit.csh.intraspect.data.ClassFile;
+import edu.rit.csh.intraspect.edit.assemble.AssembleInject;
 
 public final class WideAStoreInstruction extends WideStoreInstruction {
 
@@ -8,6 +9,7 @@ public final class WideAStoreInstruction extends WideStoreInstruction {
         super(subOpcode, localVariableIndex);
     }
 
+    @AssembleInject
     public WideAStoreInstruction(final int localVariableIndex) {
         this(0x3A, localVariableIndex);
     }

@@ -2,6 +2,10 @@ package edu.rit.csh.intraspect.edit.assemble;
 
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 import edu.rit.csh.intraspect.data.instruction.InstructionCache;
+import edu.rit.csh.intraspect.data.instruction.wide.WideIincInstruction;
+import edu.rit.csh.intraspect.data.instruction.wide.WideRetInstruction;
+import edu.rit.csh.intraspect.data.instruction.wide.load.*;
+import edu.rit.csh.intraspect.data.instruction.wide.store.*;
 import edu.rit.csh.intraspect.util.OffsetOutputStream;
 
 import java.io.*;
@@ -35,7 +39,31 @@ public class Assembler {
         return false;
     }
 
+    private static Instruction createWide(String[] args) {
+        return switch (args[0]) {
+            case "iinc_w" -> new WideIincInstruction(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            case "ret_w" -> new WideRetInstruction(Integer.parseInt(args[1]));
+
+            case "aload_w" -> new WideALoadInstruction(Integer.parseInt(args[1]));
+            case "dload_w" -> new WideDLoadInstruction(Integer.parseInt(args[1]));
+            case "fload_w" -> new WideFLoadInstruction(Integer.parseInt(args[1]));
+            case "iload_w" -> new WideILoadInstruction(Integer.parseInt(args[1]));
+            case "lload_w" -> new WideLLoadInstruction(Integer.parseInt(args[1]));
+
+            case "astore_w" -> new WideAStoreInstruction(Integer.parseInt(args[1]));
+            case "dstore_w" -> new WideDStoreInstruction(Integer.parseInt(args[1]));
+            case "fstore_w" -> new WideFStoreInstruction(Integer.parseInt(args[1]));
+            case "istore_w" -> new WideIStoreInstruction(Integer.parseInt(args[1]));
+            case "lstore_w" -> new WideLStoreInstruction(Integer.parseInt(args[1]));
+
+            default -> throw new IllegalArgumentException("Illegal wide instructions");
+        };
+    }
+
     private static Instruction create(String... args) {
+        if (args[0].endsWith("_w")) {
+            return createWide(args);
+        }
         if (!constructorCache.containsKey(args[0])) {
             if (!loadConstructor(args[0])) {
                 throw new IllegalStateException("Instruction '" + args[0] + "' missing assembly constructor");
@@ -122,11 +150,7 @@ public class Assembler {
             }
             final Instruction inst = create(toks);
             inst.write(outCounter);
-            if (skipLabel) {
-                instructions.add(null);
-            } else {
-                instructions.add(inst);
-            }
+            instructions.add(skipLabel ? null : inst);
         }
         outCounter = new OffsetOutputStream(OutputStream.nullOutputStream());
         int lastIndex = 0;
