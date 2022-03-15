@@ -56,13 +56,17 @@ public class Assembler {
             case "istore_w" -> new WideIStoreInstruction(Integer.parseInt(args[1]));
             case "lstore_w" -> new WideLStoreInstruction(Integer.parseInt(args[1]));
 
+            case "goto_w", "jsr_w", "ldc_w", "ldc2_w" -> null;
             default -> throw new IllegalArgumentException("Illegal wide instructions");
         };
     }
 
     private static Instruction create(String... args) {
         if (args[0].endsWith("_w")) {
-            return createWide(args);
+            Instruction wide = createWide(args);
+            if (wide != null) {
+                return wide;
+            }
         }
         if (!constructorCache.containsKey(args[0])) {
             if (!loadConstructor(args[0])) {
