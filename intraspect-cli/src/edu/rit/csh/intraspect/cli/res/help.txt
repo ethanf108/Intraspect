@@ -1,1 +1,5 @@
-help message tbh
+Intraspect CLI alpha
+ -a --show-attributes      list attributes
+ -c --show-constants       list constant pool entries
+ -d --decompile            decompile bytecode
+ --verify                  verify elements
