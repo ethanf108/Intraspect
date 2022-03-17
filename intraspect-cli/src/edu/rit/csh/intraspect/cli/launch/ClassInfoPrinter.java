@@ -37,12 +37,13 @@ public class ClassInfoPrinter {
                 if (cd instanceof EmptyWideConstant) {
                     continue;
                 }
+                final int numCols = (int) Math.log10(cf.getConstants().length) + 1;
                 String className = cd.getClass().getSimpleName();
                 className = className.substring(0, className.indexOf("Constant"));
                 if (this.verify) {
-                    out.printf("%3s%-3s %-20s %s\n", cd.isValid(cf) ? "" : "(!)", index, className, cd.getInfo());
+                    out.printf("%3s%-" + numCols + "s %-20s %s\n", cd.isValid(cf) ? "" : "(!)", index, className, cd.getInfo());
                 } else {
-                    out.printf("%-3s %-20s %s\n", index, className, cd.getInfo());
+                    out.printf("%-" + numCols + "s %-20s %s\n", index, className, cd.getInfo());
                 }
             }
             out.println();
