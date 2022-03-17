@@ -8,7 +8,6 @@ import edu.rit.csh.intraspect.data.attribute.AttributeDesc;
 import edu.rit.csh.intraspect.data.attribute.CodeAttribute;
 import edu.rit.csh.intraspect.data.constant.ConstantDesc;
 import edu.rit.csh.intraspect.data.constant.EmptyWideConstant;
-import edu.rit.csh.intraspect.data.constant.UTF8Constant;
 import edu.rit.csh.intraspect.data.instruction.Instruction;
 
 import java.io.PrintStream;
@@ -38,12 +37,13 @@ public class ClassInfoPrinter {
                 if (cd instanceof EmptyWideConstant) {
                     continue;
                 }
+                final int numCols = (int) Math.log10(cf.getConstants().length) + 1;
                 String className = cd.getClass().getSimpleName();
                 className = className.substring(0, className.indexOf("Constant"));
                 if (this.verify) {
-                    out.printf("%3s%-3s %-20s %s\n", cd.isValid(cf) ? "" : "(!)", index, className, cd instanceof UTF8Constant u ? u.getValue() : "");
+                    out.printf("%3s%-" + numCols + "s %-20s %s\n", cd.isValid(cf) ? "" : "(!)", index, className, cd.getInfo());
                 } else {
-                    out.printf("%-3s %-20s %s\n", index, className, cd instanceof UTF8Constant u ? u.getValue() : "");
+                    out.printf("%-" + numCols + "s %-20s %s\n", index, className, cd.getInfo());
                 }
             }
             out.println();
@@ -66,7 +66,9 @@ public class ClassInfoPrinter {
             out.println(ClassFiles.methodSimpleString(md, cf));
             for (AttributeDesc ad : md.getAttributes()) {
                 if (ad instanceof CodeAttribute cd) {
-                    out.println("\tCode");
+                    if (this.decompile || this.showAttributes) {
+                        out.println("\tCode");
+                    }
                     if (this.decompile) {
                         for (Instruction in : cd.getCode()) {
                             if (this.verify && !in.isValid(cf)) {
@@ -91,12 +93,13 @@ public class ClassInfoPrinter {
             out.println();
         }
 
-
-        out.println("\nClass Attributes:");
-        for (AttributeDesc ad : cf.getAttributes()) {
-            out.println("\t" + ad.getAttributeName(cf).orElse(ad.getClass().getSimpleName()));
+        if (this.showAttributes) {
+            out.println();
+            out.println("Class Attributes:");
+            for (AttributeDesc ad : cf.getAttributes()) {
+                out.println("\t" + ad.getAttributeName(cf).orElse(ad.getClass().getSimpleName()));
+            }
         }
-
         out.println();
     }
 }
