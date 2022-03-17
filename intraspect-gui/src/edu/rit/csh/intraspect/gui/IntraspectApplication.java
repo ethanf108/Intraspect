@@ -37,10 +37,10 @@ public class IntraspectApplication extends Application {
         fxmlLoader.setController(new IntraspectController(window));
 
         // Prevent the window from being resized
-        window.setResizable(false);
+        // window.setResizable(false);
 
         // Make and add a scene to the stage
-        window.setScene(new Scene(fxmlLoader.load(), 600, 425));
+        window.setScene(new Scene(fxmlLoader.load(), 800, 600));
 
         // Show the stage
         window.show();
