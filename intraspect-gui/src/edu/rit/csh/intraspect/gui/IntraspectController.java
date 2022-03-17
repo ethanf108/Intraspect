@@ -1,7 +1,6 @@
 package edu.rit.csh.intraspect.gui;
 
 import edu.rit.csh.intraspect.data.ClassFile;
-import edu.rit.csh.intraspect.gui.entries.Entry;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -39,7 +38,8 @@ public class IntraspectController {
                 try {
                     hyperlink.setVisited(false);
                     Desktop.getDesktop().browse(new java.net.URI(GITHUB_LINK));
-                } catch (final IOException | URISyntaxException ignored) {}
+                } catch (final IOException | URISyntaxException ignored) {
+                }
             });
         }
 
@@ -67,7 +67,7 @@ public class IntraspectController {
     /**
      * The class file that is currently being analyzed.
      */
-    private OpenedFile openedClassFile;
+    private ClassFileWrapper openedClassFile;
 
     @FXML
     private MenuItem saveFileMenuOption;
@@ -75,6 +75,7 @@ public class IntraspectController {
     private MenuItem closeFileMenuOption;
     @FXML
     private MenuItem deleteItemMenuOption;
+
     @FXML
     private ScrollPane overviewTab;
     @FXML
@@ -87,6 +88,8 @@ public class IntraspectController {
     private ScrollPane attributesTab;
     @FXML
     private ScrollPane inheritanceTab;
+
+    private ScrollPane[] tabs;
 
     /**
      * Sole constructor which takes the application window as an argument
@@ -103,7 +106,7 @@ public class IntraspectController {
 
     @FXML
     private void deleteItem() {
-        list.getItems().remove(list.getSelectionModel().getSelectedIndex()).remove();
+       // list.getItems().remove(list.getSelectionModel().getSelectedIndex()).remove();
     }
 
     @FXML
@@ -125,23 +128,18 @@ public class IntraspectController {
             }
 
             // Attempt to open the file and update the window upon success
-            try {
-                this.openedClassFile = OpenedFile.open(file);
-                this.update();
-                chooser.setInitialDirectory(this.openedClassFile.file.getParentFile());
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
+            this.openedClassFile.load(file);
+
+            chooser.setInitialDirectory(this.openedClassFile.file.getParentFile());
+
+            this.update();
+
         }
     }
 
     @FXML
     private void saveFile() {
-        try {
-            this.openedClassFile.save();
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
+        this.openedClassFile.save();
     }
 
     @FXML
@@ -162,38 +160,48 @@ public class IntraspectController {
         });
     }
 
-    private ListView<Entry> list;
+    //private ListView<Entry> list;
 
     /**
      * Updates the window to reflect any changes to the class file
      */
     void update() {
         // Check if the class file is null
-        final boolean isFileOpen = Objects.nonNull(this.openedClassFile);
+        final boolean fileOpen = Objects.nonNull(this.openedClassFile);
 
-        // Update title
-        window.setTitle("Intraspect" + (isFileOpen ? " - " + this.openedClassFile.file.getName() : ""));
+        if (fileOpen) {
+            this.window.setTitle("Intraspect - " + this.openedClassFile.file.getName());
 
-        if (isFileOpen) {
-            this.overviewTab.setContent(ViewBuilders.buildOverviewTab(this.openedClassFile.classFile, this));
+            this.buildTabs();
 
-            {
-                ListView<Entry> constantView = ViewBuilders.buildConstantPoolTab(this.openedClassFile.classFile, this);
+            this.tabPane.setDisable(false);
+            this.closeFileMenuOption.setDisable(false);
+            this.saveFileMenuOption.setDisable(false);
+        } else {
+            this.window.setTitle("Intraspect");
 
-                list = constantView;
+            this.clearTabs();
 
-                this.constantPoolTab.setContent(constantView);
-            }
+            this.tabPane.setDisable(true);
+            this.closeFileMenuOption.setDisable(true);
+            this.saveFileMenuOption.setDisable(true);
         }
-        else {
-            this.overviewTab.setContent(null);
-            this.constantPoolTab.setContent(null);
-        }
+    }
 
-        // Enable/disable menu options
-        this.tabPane.setDisable(!isFileOpen);
-        this.closeFileMenuOption.setDisable(!isFileOpen);
-        this.saveFileMenuOption.setDisable(!isFileOpen);
+
+    private void clearTabs() {
+        for (final ScrollPane tab : this.tabs) {
+            tab.setContent(null);
+        }
+    }
+
+    private void buildTabs() {
+        this.overviewTab.setContent(ViewBuilders.buildOverviewTab(this.openedClassFile.classFile, this));
+        this.constantPoolTab.setContent(ViewBuilders.buildConstantPoolTab(this.openedClassFile.classFile, this));
+        this.fieldsTab.setContent(ViewBuilders.buildFieldsTab(this.openedClassFile.classFile, this));
+        this.methodsTab.setContent(ViewBuilders.buildMethodsTab(this.openedClassFile.classFile, this));
+        this.attributesTab.setContent(ViewBuilders.buildAttributesTab(this.openedClassFile.classFile, this));
+        this.inheritanceTab.setContent(ViewBuilders.buildInheritanceTab(this.openedClassFile.classFile, this));
     }
 
     /**
@@ -201,10 +209,48 @@ public class IntraspectController {
      */
     @FXML
     private void initialize() {
+
+        this.tabs = new ScrollPane[]{this.overviewTab, this.constantPoolTab, this.fieldsTab, this.methodsTab, this.attributesTab, this.inheritanceTab};
+
         // When the window is loaded, initialize it
         this.update();
     }
 
+    private static class ClassFileWrapper {
+
+        private ClassFile classFile;
+        private File file;
+
+        public ClassFileWrapper() {
+        }
+
+        public boolean load(final File file) {
+            this.file = file;
+
+            try {
+                this.classFile = ClassFile.readClassFile(new FileInputStream(file));
+            } catch (final IOException e) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public boolean save(final File file) {
+            try {
+                this.classFile.write(new FileOutputStream(file));
+            } catch (final IOException e) {
+                return false;
+            }
+            return false;
+        }
+
+        public boolean save() {
+            return this.save(this.file);
+        }
+    }
+
+/*
     private static record OpenedFile(ClassFile classFile, File file) {
         public static OpenedFile open(final File file) throws IOException {
             final FileInputStream inputStream = new FileInputStream(file);
@@ -216,5 +262,5 @@ public class IntraspectController {
         public void save() throws IOException {
             this.classFile.write(new FileOutputStream(this.file));
         }
-    }
+    }*/
 }
