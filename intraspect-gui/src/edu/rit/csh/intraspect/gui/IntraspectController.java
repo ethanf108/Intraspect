@@ -67,7 +67,7 @@ public class IntraspectController {
     /**
      * The class file that is currently being analyzed.
      */
-    private ClassFileWrapper openedClassFile;
+    private ClassFileWrapper openedClassFile = new ClassFileWrapper();
 
     @FXML
     private MenuItem saveFileMenuOption;
@@ -145,7 +145,7 @@ public class IntraspectController {
     @FXML
     private void closeFile() {
         // Set the class file to null
-        this.openedClassFile = null;
+        this.openedClassFile.close();
 
         // Update the window
         this.update();
@@ -167,7 +167,7 @@ public class IntraspectController {
      */
     void update() {
         // Check if the class file is null
-        final boolean fileOpen = Objects.nonNull(this.openedClassFile);
+        final boolean fileOpen = this.openedClassFile.isOpen();
 
         if (fileOpen) {
             this.window.setTitle("Intraspect - " + this.openedClassFile.file.getName());
@@ -218,10 +218,21 @@ public class IntraspectController {
 
     private static class ClassFileWrapper {
 
+        private boolean open;
+
         private ClassFile classFile;
         private File file;
 
         public ClassFileWrapper() {
+        }
+
+        public boolean isOpen() {
+            return this.open;
+        }
+
+        public void close() {
+            this.classFile = null;
+            this.open = false;
         }
 
         public boolean load(final File file) {
@@ -232,6 +243,8 @@ public class IntraspectController {
             } catch (final IOException e) {
                 return false;
             }
+
+            this.open = true;
 
             return true;
         }
