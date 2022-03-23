@@ -11,7 +11,11 @@ Intraspect was built and is currently being maintained by [Ethan Ferguson](https
 
 ## Overview
 
-The Intraspect framework can be used to generate Java class files from scratch, without a compiler. It can also be used to restructure or otherwise manipulate existing class files without the need to recompile their sources. This can be particularly useful when it is necessary to change the functionality of an already compiled tool or library who's source code is not accessible. With Intraspect, such a task would be possible.
+The Intraspect framework can be used to generate Java class files from scratch, without a compiler. It can also be used to restructure or otherwise manipulate existing class files without the need to recompile their sources. This can be particularly useful when it is necessary to change an aspect of an already compiled tool or library who's source code is not accessible. Such a change could range from the simple adjustment of an access modifier (private->public) to a complete overhaul of the functionality of an entire class or method.
+
+## Scope
+
+Composed of over 300 source files, Intraspect is composed of a complex hierarchy of classes representing constant pool entry types, attributes, and individual JVM instructions. Careful organization of these classes has been a focus from the very begining, and has allowed the project to remain manageable throughout development.
 
 ## Limitations
 
@@ -19,4 +23,4 @@ As of its current state, the Intraspect framework is capable of reading any clas
 
 ## Future Development
 
-This project has a couple branches actively in development, including a fully functional Command Line Interface [cli branch](https://github.com/ethanf108/Intraspect/tree/cli) and partly functional Graphical User Iterface [(gui branch)](https://github.com/ethanf108/Intraspect/tree/gui), both of which were built upon the core Intraspect framework. The goal of these branches is to provide a user-friendly way to manipulate class files as they need, without writing any code of their own.
+This project has a couple branches actively in development, including a fully functional Command Line Interface [cli branch](https://github.com/ethanf108/Intraspect/tree/cli) and partly functional Graphical User Iterface [(gui branch)](https://github.com/ethanf108/Intraspect/tree/gui), both of which were built upon the core Intraspect framework. These branches will be merged into master once reasonably stable. The goal of these additions is to provide a user-friendly way to manipulate class files without needing to directly deal with the underlying framework, thus avoiding the complexity associated with it.
