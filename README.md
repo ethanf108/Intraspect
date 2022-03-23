@@ -19,4 +19,4 @@ As of its current state, the Intraspect framework is capable of reading any clas
 
 ## Future Development
 
-This project has a couple branches actively in development, including a fully functional Command Line Interface and partly functional Graphical User Iterface, both of which were built upon the core Intraspect framework.
+This project has a couple branches actively in development, including a fully functional Command Line Interface [cli branch](https://github.com/ethanf108/Intraspect/tree/cli) and partly functional Graphical User Iterface [(gui branch)](https://github.com/ethanf108/Intraspect/tree/gui), both of which were built upon the core Intraspect framework. The goal of these branches is to provide a user-friendly way to manipulate class files as they need, without writing any code of their own.
