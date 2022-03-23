@@ -15,11 +15,11 @@ The Intraspect framework can be used to generate Java class files from scratch, 
 
 ## Scope
 
-Composed of over 300 source files, Intraspect is composed of a complex hierarchy of classes representing constant pool entry types, attributes, and individual JVM instructions. Careful organization of these classes has been a focus from the very begining, and has allowed the project to remain manageable throughout development. Furthermore, a consistant use of the git version control system, along with branches here on GitHub, has greatly added to the overall organization of the project, while also leaving behind a comprehensive track record of its development.
+Composed of over 300 source files, Intraspect is composed of a complex hierarchy of classes representing constant pool entry types, attributes, and individual JVM instructions. Careful organization of these classes has been a focus from the very begining, and has allowed the project to remain manageable throughout development. Furthermore, a consistant use of the git version control system, along with branches here on GitHub, has greatly added to the overall organization of the project, while also leaving behind a comprehensive track record of its development over time.
 
 ## Limitations
 
-As of its current state, the Intraspect framework is capable of reading any class file is existance. With that said, though, the process required to manipulate these class files is often quite lengthy and complex. Generating class files from scratch is a particularly headache-inducing task at the moment, and would likely benefit from some simplification at some point in the future. Luckily, plans are underway to help ease some complexity and remedy this issue.
+As of its current state, the Intraspect framework is capable of reading any class file is existance. With that said, though, the process required to manipulate these class files is often quite lengthy and complex. Generating class files from scratch is a particularly headache-inducing task, and would likely benefit from some simplification at some point in the future. Luckily, plans are underway to help ease some complexity and remedy this issue.
 
 ## Future Development
 
