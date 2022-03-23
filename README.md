@@ -15,7 +15,7 @@ The Intraspect framework can be used to generate Java class files from scratch, 
 
 ## Scope
 
-Composed of over 300 source files, Intraspect is composed of a complex hierarchy of classes representing constant pool entry types, attributes, and individual JVM instructions. Careful organization of these classes has been a focus from the very begining, and has allowed the project to remain manageable throughout development.
+Composed of over 300 source files, Intraspect is composed of a complex hierarchy of classes representing constant pool entry types, attributes, and individual JVM instructions. Careful organization of these classes has been a focus from the very begining, and has allowed the project to remain manageable throughout development. Furthermore, a consistant use of the git version control system, along with branches here on GitHub, has greatly added to the overall organization of the project, while also leaving behind a comprehensive track record of its development.
 
 ## Limitations
 
