@@ -55,6 +55,6 @@ public final class LongConstant implements ConstantDesc {
 
     @Override
     public String getInfo() {
-        return String.valueOf(this.value) + "L";
+        return this.value + "L";
     }
 }

@@ -55,6 +55,6 @@ public final class FloatConstant implements ConstantDesc {
 
     @Override
     public String getInfo() {
-        return String.valueOf(this.value) + "f";
+        return this.value + "f";
     }
 }

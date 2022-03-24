@@ -55,6 +55,6 @@ public final class IntegerConstant implements ConstantDesc {
 
     @Override
     public String getInfo() {
-        return String.valueOf(this.value) + "i";
+        return this.value + "i";
     }
 }

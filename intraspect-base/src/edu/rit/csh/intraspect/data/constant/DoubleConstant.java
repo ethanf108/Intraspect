@@ -55,6 +55,6 @@ public final class DoubleConstant implements ConstantDesc {
 
     @Override
     public String getInfo() {
-        return String.valueOf(this.value) + "d";
+        return this.value + "d";
     }
 }
