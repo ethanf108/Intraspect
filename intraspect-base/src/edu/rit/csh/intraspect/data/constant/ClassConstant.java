@@ -14,7 +14,7 @@ import java.util.Optional;
 public final class ClassConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private int utf8Index;
+    private final int utf8Index;
 
     public ClassConstant(final int utf8) {
         this.utf8Index = utf8;

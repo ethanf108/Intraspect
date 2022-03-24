@@ -34,7 +34,6 @@ public final class BootstrapMethodsAttribute implements AttributeDesc {
 
             final int[] bootstrapArguments = new int[numBoostrapArguments];
             for (int j = 0; j < bootstrapArguments.length; bootstrapArguments[j++] = in.readUnsignedShort()) {
-                ;
             }
 
             arr[i] = new BootstrapMethodsTableEntry(bootstrapMethodRef, numBoostrapArguments, bootstrapArguments);

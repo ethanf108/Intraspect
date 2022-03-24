@@ -12,10 +12,10 @@ import java.io.IOException;
 public final class FieldRefConstant implements ConstantDesc {
 
     @ConstantPoolIndex(ClassConstant.class)
-    private int classIndex;
+    private final int classIndex;
 
     @ConstantPoolIndex(NameAndTypeConstant.class)
-    private int nameAndTypeIndex;
+    private final int nameAndTypeIndex;
 
     public FieldRefConstant(final int classIndex, final int nameAndTypeIndex) {
         this.classIndex = classIndex;
