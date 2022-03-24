@@ -11,10 +11,10 @@ import java.io.IOException;
  */
 public final class DynamicConstant implements ConstantDesc {
 
-    private int bootstrapMethodAttributeIndex;
+    private final int bootstrapMethodAttributeIndex;
 
     @ConstantPoolIndex(NameAndTypeConstant.class)
-    private int nameAndTypeIndex;
+    private final int nameAndTypeIndex;
 
     public DynamicConstant(final int bootstrapMethodAttributeIndex, final int nameAndTypeIndex) {
         this.bootstrapMethodAttributeIndex = bootstrapMethodAttributeIndex;

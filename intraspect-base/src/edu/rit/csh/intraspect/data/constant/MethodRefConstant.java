@@ -14,10 +14,10 @@ import java.util.Optional;
 public final class MethodRefConstant implements ConstantDesc {
 
     @ConstantPoolIndex(ClassConstant.class)
-    private int classIndex;
+    private final int classIndex;
 
     @ConstantPoolIndex(NameAndTypeConstant.class)
-    private int nameAndTypeIndex;
+    private final int nameAndTypeIndex;
 
     public MethodRefConstant(final int classIndex, final int nameAndTypeIndex) {
         this.classIndex = classIndex;

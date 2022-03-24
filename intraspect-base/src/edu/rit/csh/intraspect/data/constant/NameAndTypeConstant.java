@@ -15,7 +15,7 @@ public final class NameAndTypeConstant implements ConstantDesc {
     private final int descriptorIndex;
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private int nameIndex;
+    private final int nameIndex;
 
     public NameAndTypeConstant(final int name, final int descriptor) {
         this.nameIndex = name;
