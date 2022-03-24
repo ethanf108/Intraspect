@@ -38,7 +38,7 @@ public final class InstructionCache {
                     opcodeCache.put(info.opcode(), base);
                     mnemonicCache.put(info.mnemonic(), base);
                 }
-            } catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException ignored) {
             }
         }
         if (base.isSealed()) {
@@ -57,7 +57,7 @@ public final class InstructionCache {
     }
 
     private static byte[] intArrayToByteArray(final int[] arr) {
-        ByteBuffer buf = ByteBuffer.allocate(arr.length);
+        final ByteBuffer buf = ByteBuffer.allocate(arr.length);
         for (int i : arr) {
             buf.put((byte) (i & 0xFF));
         }

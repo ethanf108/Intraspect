@@ -119,7 +119,7 @@ public class ClassFile {
     }
 
     @SuppressWarnings("rawtypes")
-    private static void recurseAddConstantResize(int index, int dif, Object obj) {
+    private static void recurseAddConstantResize(final int index, final int dif, final Object obj) {
         final Class<?> clazz = obj.getClass();
         if (!clazz.getModule().equals(ClassFile.class.getModule())) {
             return;
@@ -215,7 +215,7 @@ public class ClassFile {
      * @return the constant pool of the class file
      */
     public ConstantDesc[] getConstants() {
-        ConstantDesc[] ret = new ConstantDesc[this.constantPool.getNumConstants()];
+        final ConstantDesc[] ret = new ConstantDesc[this.constantPool.getNumConstants()];
         for (int i = 1; i <= this.constantPool.getNumConstants(); i++) {
             ret[i - 1] = this.constantPool.get(i);
         }
