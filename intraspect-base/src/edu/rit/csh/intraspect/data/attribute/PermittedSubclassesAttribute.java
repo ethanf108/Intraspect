@@ -30,7 +30,6 @@ public final class PermittedSubclassesAttribute implements AttributeDesc {
 
         final int[] arr = new int[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = in.readUnsignedShort()) {
-            ;
         }
 
         return new PermittedSubclassesAttribute(ani, arr);

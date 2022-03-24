@@ -14,7 +14,7 @@ import java.util.Optional;
 public final class ClassConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private int utf8Index;
+    private final int utf8Index;
 
     public ClassConstant(final int utf8) {
         this.utf8Index = utf8;
@@ -30,7 +30,7 @@ public final class ClassConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant u && ClassFiles.isValidClassNameInternalForm(u.getValue());
     }
 
@@ -45,7 +45,7 @@ public final class ClassConstant implements ConstantDesc {
         }
         try {
             return Optional.of(Class.forName(u.getValue().replaceAll("/", ".")));
-        } catch (ClassNotFoundException ex) {
+        } catch (final ClassNotFoundException ex) {
             return Optional.empty();
         }
     }

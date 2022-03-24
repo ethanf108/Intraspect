@@ -15,9 +15,9 @@ public class Util {
     private Util() {
     }
 
-    public static List<Field> getAllFields(Class<?> clazz) {
-        List<Field> ret = new ArrayList<>();
-        for (Field f : clazz.getDeclaredFields()) {
+    public static List<Field> getAllFields(final Class<?> clazz) {
+        final List<Field> ret = new ArrayList<>();
+        for (final Field f : clazz.getDeclaredFields()) {
             f.setAccessible(true);
             ret.add(f);
         }

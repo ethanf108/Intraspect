@@ -11,10 +11,10 @@ import java.io.IOException;
  */
 public final class MethodHandleConstant implements ConstantDesc {
 
-    private int kind;
+    private final int kind;
 
     @ConstantPoolIndex({FieldRefConstant.class, MethodRefConstant.class, InterfaceMethodRefConstant.class})
-    private int referenceIndex;
+    private final int referenceIndex;
 
     public MethodHandleConstant(final int kind, final int ref) {
         this.kind = kind;

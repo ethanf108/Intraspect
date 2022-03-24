@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class UTF8Constant implements ConstantDesc {
 
     @ConstantValue(String.class)
-    private String value;
+    private final String value;
 
     public UTF8Constant(final String val) {
         this.value = val;
@@ -33,7 +33,7 @@ public final class UTF8Constant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         for (final byte b : this.value.getBytes()) {
             final int val = b & 0xFF;
             if (val == 0 || val > 0xF0) {

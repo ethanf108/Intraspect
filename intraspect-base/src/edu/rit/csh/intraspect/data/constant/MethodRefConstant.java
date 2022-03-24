@@ -14,10 +14,10 @@ import java.util.Optional;
 public final class MethodRefConstant implements ConstantDesc {
 
     @ConstantPoolIndex(ClassConstant.class)
-    private int classIndex;
+    private final int classIndex;
 
     @ConstantPoolIndex(NameAndTypeConstant.class)
-    private int nameAndTypeIndex;
+    private final int nameAndTypeIndex;
 
     public MethodRefConstant(final int classIndex, final int nameAndTypeIndex) {
         this.classIndex = classIndex;
@@ -42,7 +42,7 @@ public final class MethodRefConstant implements ConstantDesc {
         if (!(ref.getConstantDesc(this.classIndex) instanceof ClassConstant cc)) {
             return false;
         }
-        Optional<Class<?>> refClass = cc.getReferencedClass(ref);
+        final Optional<Class<?>> refClass = cc.getReferencedClass(ref);
         if (refClass.isPresent() && refClass.get().isInterface()) {
             return false;
         }

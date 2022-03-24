@@ -109,13 +109,13 @@ public class MethodDesc {
         }
     }
 
-    public boolean hasFlag(AccessFlag flag) {
+    public boolean hasFlag(final AccessFlag flag) {
         return (this.accessFlags & flag.mask) > 0;
     }
 
     public Set<AccessFlag> getFlags() {
-        EnumSet<AccessFlag> ret = EnumSet.noneOf(AccessFlag.class);
-        for (AccessFlag flag : AccessFlag.values()) {
+        final EnumSet<AccessFlag> ret = EnumSet.noneOf(AccessFlag.class);
+        for (final AccessFlag flag : AccessFlag.values()) {
             if (this.hasFlag(flag)) {
                 ret.add(flag);
             }
@@ -139,7 +139,7 @@ public class MethodDesc {
 
         public final int mask;
 
-        AccessFlag(int mask) {
+        AccessFlag(final int mask) {
             this.mask = mask;
         }
     }

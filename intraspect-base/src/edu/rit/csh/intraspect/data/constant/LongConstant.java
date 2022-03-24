@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class LongConstant implements ConstantDesc {
 
     @ConstantValue(long.class)
-    private long value;
+    private final long value;
 
     private LongConstant(final long val) {
         this.value = val;
@@ -55,6 +55,6 @@ public final class LongConstant implements ConstantDesc {
 
     @Override
     public String getInfo() {
-        return String.valueOf(this.value) + "L";
+        return this.value + "L";
     }
 }

@@ -13,13 +13,13 @@ import java.io.IOException;
 public final class FloatConstant implements ConstantDesc {
 
     @ConstantValue(float.class)
-    private float value;
+    private final float value;
 
     private FloatConstant(final float val) {
         this.value = val;
     }
 
-    public static FloatConstant read(DataInputStream in) throws IOException {
+    public static FloatConstant read(final DataInputStream in) throws IOException {
         return new FloatConstant(Float.intBitsToFloat(IntegerConstant.read(in).getValue()));
     }
 
@@ -55,6 +55,6 @@ public final class FloatConstant implements ConstantDesc {
 
     @Override
     public String getInfo() {
-        return String.valueOf(this.value) + "f";
+        return this.value + "f";
     }
 }

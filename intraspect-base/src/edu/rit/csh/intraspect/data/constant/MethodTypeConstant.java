@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class MethodTypeConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private int descriptorIndex;
+    private final int descriptorIndex;
 
     public MethodTypeConstant(final int ref) {
         this.descriptorIndex = ref;

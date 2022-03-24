@@ -12,7 +12,7 @@ import java.io.IOException;
 public final class ModuleConstant implements ConstantDesc {
 
     @ConstantPoolIndex(UTF8Constant.class)
-    private int moduleNameIndex;
+    private final int moduleNameIndex;
 
     public ModuleConstant(final int ref) {
         this.moduleNameIndex = ref;

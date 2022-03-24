@@ -6,11 +6,10 @@ import java.io.InputStream;
 
 public class OffsetInputStream extends DataInputStream {
 
-
     private long counter = 0;
     private long total = 0;
 
-    public OffsetInputStream(InputStream upstream) {
+    public OffsetInputStream(final InputStream upstream) {
         super(null);
         this.in = this.new Sub(upstream);
     }
@@ -31,7 +30,7 @@ public class OffsetInputStream extends DataInputStream {
 
         private final InputStream upstream;
 
-        public Sub(InputStream in) {
+        public Sub(final InputStream in) {
             this.upstream = in;
         }
 

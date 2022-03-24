@@ -28,7 +28,6 @@ public final class LocalVariableTableAttribute implements AttributeDesc {
 
         final LocalVariableTableEntry[] arr = new LocalVariableTableEntry[in.readUnsignedShort()];
         for (int i = 0; i < arr.length; arr[i++] = LocalVariableTableEntry.read(in)) {
-            ;
         }
 
         return new LocalVariableTableAttribute(ani, arr);

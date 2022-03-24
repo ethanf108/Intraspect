@@ -38,11 +38,11 @@ public final class InstructionCache {
                     opcodeCache.put(info.opcode(), base);
                     mnemonicCache.put(info.mnemonic(), base);
                 }
-            } catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException ignored) {
             }
         }
         if (base.isSealed()) {
-            for (Class<?> clazz : base.getPermittedSubclasses()) {
+            for (final Class<?> clazz : base.getPermittedSubclasses()) {
                 recurseInstructions(clazz.asSubclass(Instruction.class));
             }
         }
@@ -57,26 +57,26 @@ public final class InstructionCache {
     }
 
     private static byte[] intArrayToByteArray(final int[] arr) {
-        ByteBuffer buf = ByteBuffer.allocate(arr.length);
+        final ByteBuffer buf = ByteBuffer.allocate(arr.length);
         for (int i : arr) {
             buf.put((byte) (i & 0xFF));
         }
         return buf.array();
     }
 
-    private static <T extends Instruction> T instructionRead(final Class<T> clazz, OffsetInputStream in) throws IOException {
+    private static <T extends Instruction> T instructionRead(final Class<T> clazz, final OffsetInputStream in) throws IOException {
         try {
             final Method read = clazz.getDeclaredMethod("read", DataInputStream.class);
             read.setAccessible(true);
             return clazz.cast(read.invoke(null, in));
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             throw new IllegalStateException("Read method not present", e);
-        } catch (InvocationTargetException e) {
+        } catch (final InvocationTargetException e) {
             if (e.getTargetException() instanceof IOException ioe) {
                 throw ioe;
             }
             throw new RuntimeException(e.getTargetException());
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             throw new IllegalStateException("read method is not able to be accessed");
         }
     }

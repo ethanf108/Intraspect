@@ -13,7 +13,7 @@ import java.io.IOException;
 public final class IntegerConstant implements ConstantDesc {
 
     @ConstantValue(int.class)
-    private int value;
+    private final int value;
 
     private IntegerConstant(final int val) {
         this.value = val;
@@ -33,7 +33,7 @@ public final class IntegerConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 
@@ -55,6 +55,6 @@ public final class IntegerConstant implements ConstantDesc {
 
     @Override
     public String getInfo() {
-        return String.valueOf(this.value) + "i";
+        return this.value + "i";
     }
 }

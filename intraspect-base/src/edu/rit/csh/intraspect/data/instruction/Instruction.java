@@ -100,7 +100,7 @@ public sealed abstract class Instruction permits
     @Override
     public String toString() {
         if (this.toStringCache == null) {
-            StringBuilder sb = new StringBuilder();
+            final StringBuilder sb = new StringBuilder();
             sb.append(this.getMnemonic());
             for (int i : this.getOperands()) {
                 sb

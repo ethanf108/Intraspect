@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConstantPoolIndex {
 
-    public static final Class[] LOADABLE_TYPES = {
+    Class<?>[] LOADABLE_TYPES = {
             IntegerConstant.class,
             LongConstant.class,
             FloatConstant.class,
