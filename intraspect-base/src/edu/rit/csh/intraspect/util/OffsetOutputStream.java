@@ -6,11 +6,10 @@ import java.io.OutputStream;
 
 public class OffsetOutputStream extends DataOutputStream {
 
-
     private long total;
     private long counter;
 
-    public OffsetOutputStream(OutputStream out) {
+    public OffsetOutputStream(final OutputStream out) {
         super(null);
         this.out = this.new Sub(out);
     }
@@ -31,12 +30,12 @@ public class OffsetOutputStream extends DataOutputStream {
 
         private final OutputStream downstream;
 
-        public Sub(OutputStream downstream) {
+        public Sub(final OutputStream downstream) {
             this.downstream = downstream;
         }
 
         @Override
-        public void write(int b) throws IOException {
+        public void write(final int b) throws IOException {
             this.downstream.write(b);
             OffsetOutputStream.this.total++;
             OffsetOutputStream.this.counter++;
