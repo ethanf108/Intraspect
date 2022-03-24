@@ -60,7 +60,7 @@ public sealed interface ConstantDesc permits
      * @param out the output stream to write to
      * @throws IOException if an I/O error occurs
      */
-    void write(DataOutputStream out) throws IOException;
+    void write(final DataOutputStream out) throws IOException;
 
     String getName();
 

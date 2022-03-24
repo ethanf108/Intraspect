@@ -37,7 +37,7 @@ public class ClassFiles {
         return true;
     }
 
-    public static boolean isValidClassNameInternalForm(String name) {
+    public static boolean isValidClassNameInternalForm(final String name) {
         return name.startsWith("[") ? isValidClassDescriptor(name) : isValidQualifiedName(name);
     }
 
@@ -61,7 +61,7 @@ public class ClassFiles {
         };
     }
 
-    public static boolean isValidMethodDescriptor(String descriptor) {
+    public static boolean isValidMethodDescriptor(final String descriptor) {
         if (!Objects.requireNonNull(descriptor).startsWith("(")) {
             return false;
         }
@@ -116,7 +116,7 @@ public class ClassFiles {
                 final String className = baseType.substring(1, baseType.length() - 1).replaceAll("/", ".");
                 try {
                     yield Class.forName(className).getCanonicalName();
-                } catch (ClassNotFoundException ex) {
+                } catch (final ClassNotFoundException ex) {
                     yield className;
                 }
             }
@@ -288,8 +288,8 @@ public class ClassFiles {
         return ret.toString();
     }
 
-    public static String classSimpleString(ClassFile cf) {
-        StringBuilder sb = new StringBuilder();
+    public static String classSimpleString(final ClassFile cf) {
+        final StringBuilder sb = new StringBuilder();
         if ((cf.getAccessFlags() & 0x0001) > 0) {
             sb.append("public ");
         }

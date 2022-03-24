@@ -21,22 +21,22 @@ public final class ConstantPool {
         this.pool = new ArrayList<>();
     }
 
-    void addInternal(ConstantDesc cd) {
+    void addInternal(final ConstantDesc cd) {
         this.pool.add(cd);
     }
 
-    ConstantDesc get0Indexed(int index) {
+    ConstantDesc get0Indexed(final int index) {
         return this.pool.get(index);
     }
 
-    public ConstantDesc get(int index) {
+    public ConstantDesc get(final int index) {
         if (index == 0) {
             throw new IllegalArgumentException("Invalid index");
         }
         return this.get0Indexed(index - 1);
     }
 
-    void addResize(int index, ConstantDesc ncd) {
+    void addResize(final int index, final ConstantDesc ncd) {
         Objects.requireNonNull(ncd);
         if (index < 1) {
             throw new IllegalArgumentException("Invalid insert index");
@@ -46,13 +46,13 @@ public final class ConstantPool {
         }
         for (int i = 1; i <= this.pool.size(); i++) {
             final ConstantDesc cd = this.get(i);
-            for (Field f : cd.getClass().getDeclaredFields()) {
+            for (final Field f : cd.getClass().getDeclaredFields()) {
                 f.setAccessible(true);
                 try {
                     if (f.isAnnotationPresent(ConstantPoolIndex.class) && f.getInt(cd) >= index) {
                         f.setInt(cd, f.getInt(cd) + 1);
                     }
-                } catch (IllegalAccessException e) {
+                } catch (final IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -70,13 +70,13 @@ public final class ConstantPool {
         }
         for (int i = 1; i <= this.pool.size(); i++) {
             final ConstantDesc cd = this.get(i);
-            for (Field f : cd.getClass().getDeclaredFields()) {
+            for (final Field f : cd.getClass().getDeclaredFields()) {
                 f.setAccessible(true);
                 try {
                     if (f.isAnnotationPresent(ConstantPoolIndex.class) && f.getInt(cd) >= index) {
                         f.setInt(cd, f.getInt(cd) - 1);
                     }
-                } catch (IllegalAccessException e) {
+                } catch (final IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -89,9 +89,9 @@ public final class ConstantPool {
         return this.pool.size();
     }
 
-    public void write(DataOutputStream out) throws IOException {
+    public void write(final DataOutputStream out) throws IOException {
         out.writeShort(this.getNumConstants() + 1);
-        for (ConstantDesc cd : this.pool) {
+        for (final ConstantDesc cd : this.pool) {
             cd.write(out);
         }
     }

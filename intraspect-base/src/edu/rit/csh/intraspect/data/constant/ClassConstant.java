@@ -30,7 +30,7 @@ public final class ClassConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return ref.getConstantDesc(this.utf8Index) instanceof UTF8Constant u && ClassFiles.isValidClassNameInternalForm(u.getValue());
     }
 
@@ -45,7 +45,7 @@ public final class ClassConstant implements ConstantDesc {
         }
         try {
             return Optional.of(Class.forName(u.getValue().replaceAll("/", ".")));
-        } catch (ClassNotFoundException ex) {
+        } catch (final ClassNotFoundException ex) {
             return Optional.empty();
         }
     }

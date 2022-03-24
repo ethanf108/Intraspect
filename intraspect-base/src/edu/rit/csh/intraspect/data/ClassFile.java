@@ -124,7 +124,7 @@ public class ClassFile {
         if (!clazz.getModule().equals(ClassFile.class.getModule())) {
             return;
         }
-        for (Field field : Util.getAllFields(obj.getClass())) {
+        for (final Field field : Util.getAllFields(obj.getClass())) {
             final Class<?> baseType = field.getType().isArray() ? field.getType().componentType() : field.getType();
             try {
                 field.setAccessible(true);
@@ -158,7 +158,7 @@ public class ClassFile {
                         recurseAddConstantResize(index, dif, field.get(obj));
                     }
                 }
-            } catch (IllegalAccessException e) {
+            } catch (final IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
@@ -182,7 +182,7 @@ public class ClassFile {
      * @param index the index of the constant descriptor
      * @return the constant descriptor at the given index
      */
-    public ConstantDesc getConstantDesc(int index) {
+    public ConstantDesc getConstantDesc(final int index) {
         if (index == 0) {
             throw new IllegalArgumentException("Constant Pool entries are 1-indexed");
         }
@@ -258,12 +258,12 @@ public class ClassFile {
     }
 
     public int[] getInterfaces() {
-        int[] ret = new int[this.interfaces.length];
+        final int[] ret = new int[this.interfaces.length];
         System.arraycopy(this.interfaces, 0, ret, 0, this.interfaces.length);
         return ret;
     }
 
-    public void addConstant(int index, ConstantDesc cd) {
+    public void addConstant(final int index, final ConstantDesc cd) {
         if (index == 0) {
             throw new IllegalArgumentException("Constant Pool Entries are 1-indexed");
         }
@@ -271,7 +271,7 @@ public class ClassFile {
         recurseAddConstantResize(index, 1, this);
     }
 
-    public void removeConstant(int index) {
+    public void removeConstant(final int index) {
         if (index == 0) {
             throw new IllegalArgumentException("Constant Pool Entries are 1-indexed");
         }
@@ -324,13 +324,13 @@ public class ClassFile {
         return this.thisClass;
     }
 
-    public boolean hasFlag(AccessFlag flag) {
+    public boolean hasFlag(final AccessFlag flag) {
         return (this.accessFlags & flag.mask) > 0;
     }
 
     public Set<AccessFlag> getFlags() {
-        EnumSet<AccessFlag> ret = EnumSet.noneOf(AccessFlag.class);
-        for (AccessFlag flag : AccessFlag.values()) {
+        final EnumSet<AccessFlag> ret = EnumSet.noneOf(AccessFlag.class);
+        for (final AccessFlag flag : AccessFlag.values()) {
             if (this.hasFlag(flag)) {
                 ret.add(flag);
             }
@@ -351,7 +351,7 @@ public class ClassFile {
 
         public final int mask;
 
-        AccessFlag(int mask) {
+        AccessFlag(final int mask) {
             this.mask = mask;
         }
     }

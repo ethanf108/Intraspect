@@ -33,7 +33,7 @@ public final class IntegerConstant implements ConstantDesc {
     }
 
     @Override
-    public boolean isValid(ClassFile ref) {
+    public boolean isValid(final ClassFile ref) {
         return true;
     }
 

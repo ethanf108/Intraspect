@@ -42,7 +42,7 @@ public final class InstructionCache {
             }
         }
         if (base.isSealed()) {
-            for (Class<?> clazz : base.getPermittedSubclasses()) {
+            for (final Class<?> clazz : base.getPermittedSubclasses()) {
                 recurseInstructions(clazz.asSubclass(Instruction.class));
             }
         }
@@ -64,19 +64,19 @@ public final class InstructionCache {
         return buf.array();
     }
 
-    private static <T extends Instruction> T instructionRead(final Class<T> clazz, OffsetInputStream in) throws IOException {
+    private static <T extends Instruction> T instructionRead(final Class<T> clazz, final OffsetInputStream in) throws IOException {
         try {
             final Method read = clazz.getDeclaredMethod("read", DataInputStream.class);
             read.setAccessible(true);
             return clazz.cast(read.invoke(null, in));
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             throw new IllegalStateException("Read method not present", e);
-        } catch (InvocationTargetException e) {
+        } catch (final InvocationTargetException e) {
             if (e.getTargetException() instanceof IOException ioe) {
                 throw ioe;
             }
             throw new RuntimeException(e.getTargetException());
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             throw new IllegalStateException("read method is not able to be accessed");
         }
     }

@@ -19,7 +19,7 @@ public final class FloatConstant implements ConstantDesc {
         this.value = val;
     }
 
-    public static FloatConstant read(DataInputStream in) throws IOException {
+    public static FloatConstant read(final DataInputStream in) throws IOException {
         return new FloatConstant(Float.intBitsToFloat(IntegerConstant.read(in).getValue()));
     }
 
