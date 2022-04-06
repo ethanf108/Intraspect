@@ -61,6 +61,14 @@ public class FieldDesc {
         return new FieldDesc(accessFlags, nameIndex, descIndex, attributes);
     }
 
+    public static int combineFlags(AccessFlag... flags) {
+        int mask = 0;
+        for (AccessFlag flag : flags) {
+            mask |= flag.mask;
+        }
+        return mask;
+    }
+
     /**
      * Returns the access flags for this field.
      *
