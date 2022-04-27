@@ -19,7 +19,7 @@ Composed of over 300 source files, Intraspect is composed of a complex hierarchy
 
 ## Limitations
 
-As of its current state, the Intraspect framework is capable of reading any class file is existance. With that said, though, the process required to manipulate these class files is often quite lengthy and complex. Generating class files from scratch is a particularly headache-inducing task, and would likely benefit from some simplification at some point in the future. Luckily, plans are underway to help ease some complexity and remedy this issue.
+As of its current state, the Intraspect framework is capable of reading any class file in existance. With that said, though, the process required to manipulate these class files is often quite lengthy and complex. Generating class files from scratch is a particularly headache-inducing task, and would likely benefit from some simplification at some point in the future. Luckily, plans are underway to help ease some complexity and remedy this issue.
 
 ## Future Development
 
